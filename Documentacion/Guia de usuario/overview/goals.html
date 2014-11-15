@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Objetivos de Dise&ntilde;o y Arquitectura : Gu&iacute;a del Usuario CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='CodeIgniter User Guide' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter Home</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
+Metas Arquitect&oacute;nicas
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+<!-- START CONTENT -->
+<div id="content">
+<h1>Objetivos de Dise&ntilde;o y Arquitectura</h1>
+
+<p>Nuestra meta para CodeIgniter es <dfn>m&aacute;xima performance, capacidad, y flexibilidad en el m&aacute;s peque&ntilde;o, liviano paquete posible</dfn>.</p>
+<p>Para llegar a este objetivo estamos comprometidos a utilizar tiempos de referencia, re-factorizar, y simplificar en cada paso del proceso de desarrollo, rechazando cualquier cosa que no avance en el objetivo establecido.</p>
+<p>Desde un punto de vista t&eacute;cnico y arquitectonico, CodeIgniter fue creado con los siguientes objetivos:</p>
+<ul>
+<li><strong>Instanciaci&oacute;n Din&aacute;mica.</strong>  En CodeIgniter, los componentes son cargados y las rutinas ejecutadas s&oacute;lo cuando se pide, en vez de globalmente. No se hacen suposiciones por el sistema acerca de que puede necesitar adem&aacute;s de los recursos m&iacute;nimos del n&uacute;cleo, as&iacute; que el sistema es muy liviano por defecto. Los eventos, que se desencadenan por la petici&oacute;n HTTP, y los controladores y vistas que dise&ntilde;e determinar&aacute;n que es invocado..</li>
+<li><strong>Poco Acomplamiento.</strong>  Acomplamiento es el grado que los componentes de un sistema dependen entre ellos. Mientras menos componentes dependan de otro, m&aacute;s reusable y flexible el sistema se vuelva. nuestra meta era un sistema con muy poco acoplamiento.</li>
+<li><strong>Singularidad del Componente.</strong> Singularidad es el grado que m&aacute;s componentes tienen un proposito en el que enfocarse m&aacute;s estrecho. En CodeIgniter, cada clase y sus funciones son altamente aut&oacute;nomas para permitir m&aacute;xima utilidad.</li>
+</ul>
+<p>CodeIgniter es un sistema instanciado din&aacute;micamente, poco acoplado con gran singularidad de componente. Se esfuerza para la simplicidad, flexibilidad y alta performance en un paquete de peque&ntilde;a pisada.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="mvc.html">Modelo-Vista-Controlador</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="../tutorial/index.html">Introducci&oacute;n</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

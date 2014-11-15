@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper Security : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper Security
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Helper Security</h1>
+<p>El archivo del Helper Security contiene funciones relacionadas con la seguridad.</p>
+
+<h2>Cargar este Helper</h2>
+<p>Este helper se carga usando el siguiente c&oacute;digo:</p>
+<code>$this->load->helper('security');</code>
+
+<p>Est&aacute;n disponibles las siguientes funciones:</p>
+
+<h2>xss_clean()</h2>
+<p>Provee filtrado contra pirater&iacute;a de scripts de sitio cruzado. Esta funci&oacute;n es un alias a otra en la <a href="../libraries/input.html">Clase Input</a>. Se puede encontrar m&aacute;s informaci&oacute;n ah&iacute;.</p>
+
+<h2>sanitize_filename()</h2>
+<p>Provee protecci&oacute;n contra el recorrido de directorios. Esta funci&oacute;n es un alias a otra en la <a href="../libraries/security.html">Clase Security</a>. Se puede encontrar m&aacute;s informaci&oacute;n ah&iacute;.</p>
+
+<h2>do_hash()</h2>
+<p>Le permite crear hashes SHA1 o MD5 adecuados apra encriptar contrase&ntilde;as. Crear&aacute; SHA1 por defecto. Ejemplos:</p>
+
+<code>
+$str = do_hash($str); // SHA1<br />
+<br />
+$str = do_hash($str, 'md5'); // MD5
+</code>
+
+<p class="important"><strong>Nota:</strong> Esta funci&oacute;n se llamaba anteriormente <kbd>dohash()</kbd>, la cual se marc&oacute; como obsoleta en favor de <kbd>do_hash()</kbd>.</p>
+
+<h2>strip_image_tags()</h2>
+<p>Esta es una funci&oacute;n de seguridad que quitar&aacute; las etiquetas de imagen de una cadena. Deja la URL de la imagen como texto plano.</p>
+
+<code>$string = strip_image_tags($string);</code>
+
+<h2>encode_php_tags()</h2>
+
+<p>Esta es una funci&oacute;n de seguridad que convierte etiquetas PHP a entidades. Nota: La funci&oacute;n de filtrado XSS hace esto autom&aacute;ticamente.</p>
+
+<code>$string = encode_php_tags($string);</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="path_helper.html">Helper Path</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="smiley_helper.html">Helper Smiley</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Manejo de Errores : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Manejo de Errores
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Manejo de Errores</h1>
+
+<p>CodeIgniter le permite crear un reporte de errores en sus aplicaciones usando las funciones descritas abajo. Adem&aacute;s, tiene una clase de historial de errores que le permite que los mensajes de error y depuraci&oacute;n sean guardados en archivos de texto.</p>
+
+<p class="important"><strong>Nota:</strong> Por defecto, CodeIgniter muestra todos los errores PHP. Puede querer cambiar este comportamiento una vez que su desarrollo est&eacute; completo. Encontrar&aacute; la funci&oacute;n <dfn>error_reporting()</dfn> ubicada al principio de su archivo index.php principal. Deshabilitar el reporte de errores NO prevendr&aacute; que el archivo de historial sea escrito si hay errores.</p>
+
+<p>A diferencia de la mayor&iacute;a de los sistemas en CodeIgniter, las funciones de error son interfaces de simple procedimiento que est&aacute;n disponibles globalmente a lo largo de la aplicaci&oacute;n. Este aproximamiento le permite que los mensajes de error sean activados sin tener que preocuparse de el &aacute;mbito de la clase/funci&oacute;n.</p>
+
+<p>La siguientes funciones le permiten generar errores:</p>
+
+<h2>show_error('<var>mensaje</var>')</h2>
+
+<p>Esta funci&oacute;n mostrar&aacute; el mensaje de error suministrado usando la siguiente plantilla de error:</p>
+
+<p><dfn>application/errors/</dfn><kbd>error_general.php</kbd></p>
+
+<h2>show_404('<var>pagina</var>')</h2>
+
+<p>Esta funci&oacute;n mostrar&aacute; el mensaje de error 404 suministrado usando la siguiente plantilla de error:</p>
+
+<p><dfn>application/errors/</dfn><kbd>error_404.php</kbd></p>
+
+<p>La funci&oacute;n espera que la cadena pasada sea la ruta del archivo a la p&aacute;gina que no se encontr&oacute;. Note que CodeIgniter autom&aacute;ticamente mostrar&aacute; mensajes 404 si los controladores no ser&aacute;n encontrados.</p>
+
+<p>CodeIgniter registra autom&aacute;ticamente cualquier llamada a <dfn>show_404()</dfn>. El registro se detiene cuando se establece el segundo par&aacute;metro opcional a <kbd>FALSE</kbd>.</p>
+
+<h2>log_message('<var>nivel</var>', '<samp>mensaje</samp>')</h2>
+
+<p>Esta funci&oacute;n le permitir&aacute; escribir mensajes de error en sus archivos de historial. Debe suministrar uno de tres "niveles" en el primer par&aacute;metro, indicando que tipo de mensaje es (depuraci&oacute;n, error, info), con el mensaje mismo en el segundo par&aacute;metro. Ejemplo:</p>
+
+<code>
+if ($alguna_variable == "")<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;log_message('error', 'Alguna variable no conten&iacute;a un valor.');<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;log_message('debug', 'Alguna variable era correctamente establecida');<br />
+}<br />
+<br />
+log_message('info', 'El proposito de alguna variabl es proveer alg&uacute;n valor.');<br />
+</code>
+
+<p>Hay tres tipos de mensajes:</p>
+
+<ol>
+<li>Mensajes de Error. Estos son mensajes de error, tal como errores de PHP o del usuario.</li>
+<li>Mensajes de Depuraci&oacute;n. Estos son mensajes que le asisten al depurar. Por ejemplo, si una clase ha sido inicializadam podr&iacute;a guardar en el historial esta informaci&oacute;n de depuraci&oacute;n.</li>
+<li>Mensajes Informacionales. Estos son los mensajes de menor prioridad, simplemente dan informaci&oacute;n acerca de alg&uacute;n proceso. CodeIgniter no genera nativamente ning&uacute;n mensaje de informaci&oacute;jn pero puede quererlo en su aplicaci&oacute;n.</li>
+</ol>
+
+<p class="important"><strong>Nota:</strong> Para que el archivo de historial sea realmente escriturable, la carpeta "logs" debe ser escriturable. Adem&aacute;s debe establecer el "threshold" del historial. Puede, por ejemplo, s&oacute;lo querer que los mensajes de errore sean guardados, y no los otros dos tipos. Si lo establece a cero el historial ser&aacute; deshabilitado.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="routing.html">Ruteo URI</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="caching.html">Uso de la Cach&eacute;</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

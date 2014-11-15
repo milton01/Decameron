@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Lang : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Lang
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Lang</h1>
+<p>La Clase Lang proporciona funciones para recuperar los archivos de idioma y las l&iacute;neas de texto a los efectos de la internacionalizaci&oacute;n.</p>
+
+<p> En su carpeta "system" de CodeIgniter encontrar&aacute; una llamada <dfn>language</dfn> que contendr&aacute; conjuntos de archivos de idiomas. Usted puede crear su propio archivo de idiomas cuando sea necesario, a fin de mostrar mensajes de error y otros mensajes en otros idiomas.</p>
+
+<p>Los archivos de idioma estan com&uacute;nmente almacenados en su directorio <dfn>system/language</dfn>. Alternativamente puede crear una carpeta llamada <kbd>language</kbd> dentro de su carpeta <kbd>application</kbd> y almacenarlos en ella. CodeIgniter ver&aacute; primero en su directorio <dfn>system/application/language</dfn>. Si el directorio no existe o el idioma especificado no est&aacute; ubicado all&iacute;, CI mirar&aacute; en su carpeta global <dfn>system/language</dfn>.</p>
+
+<p class="important"><strong>Nota:</strong>&nbsp; Cada idioma debe ser almacenado en su propia carpeta. Por ejemplo, los archivos en Ingl&eacute;s estan localizados en: <dfn>system/language/english</dfn></p>
+
+<h2>Crear Archivos de Idioma</h2>
+<p>Los archivos de Idioma deben ser nombrados con <kbd>_lang.php</kbd> como extensi&oacute;n del archivo. Por ejemplo, supongamos que quiere crear un archivo que contiene los mensajes de error. Ud. puede nombrarlo asi:  <kbd>error_lang.php</kbd></p>
+
+<p>En el archivo asignar&aacute; cada linea de texto a un arreglo llamado <var>$lang</var> con este prototipo:</p>
+
+<code>$lang['language_key'] = "Mensaje a mostrarse";</code>
+
+<p><strong>Nota:</strong> Es una buena pr&aacute;ctica utilizar un prefijo com&uacute;n para todos los mensajes de un determinado archivo para evitar colisiones con elementos llamados en forma similar en otros archivos. Por ejemplo, si est&aacute; creando mensajes de error puede poner un prefijo en ellos con <var>error_</var></p>
+
+<code>
+$lang['<var>error</var>_email_missing'] = "Tiene que enviar un correo electr&oacute;nico";<br />
+$lang['<var>error</var>_url_missing'] = ""Tiene que enviar una URL";<br />
+$lang['<var>error</var>_username_missing'] = "Tiene que enviar un nombre de usuario";
+</code>
+
+<h2>Cargando un Archivo de Idioma</h2>
+<p>Con el fin de obtener una l&iacute;nea de un archivo particular Ud. debe cargar el archivo primero. La Carga de un archivo de idioma se hace con el siguiente c&oacute;digo:</p>
+
+<code>$this->lang->load('<samp>filename</samp>', '<dfn>language</dfn>');</code>
+
+<p>Donde <samp>filename</samp> es el nombre del archivo que desea cargar (sin la extensi&oacute;n del archivo), y <dfn>language</dfn> es el idioma establecido que la contenga (por ejemplo, english). Si el segundo par&aacute;metro falta, el idioma por defecto establecido en su archivo <kbd>application/config/config.php</kbd> ser&aacute; usado.</p>
+
+<h2>Obtenci&oacute;n de una l&iacute;nea de texto</h2>
+<p>Una vez que su archivo de idioma deseado carga, usted puede acceder a cualquier l&iacute;nea de texto utilizando esta funci&oacute;n:</p>
+
+<code>$this->lang->line('<samp>language_key</samp>');</code>
+
+<p>Donde <samp>language_key</samp> Es el arreglo clave correspondiente a la l&iacute;nea que desea mostrar.</p>
+
+<p>Nota: Esta funci&oacute;n simplemente retorna la linea. No la imprime por usted.</p>
+
+<h2>Auto-cargando Idiomas</h2>
+<p>Si Ud. encuentra que necesita un idioma particular globalmente en toda su aplicaci&oacute;n, puede decirle a CodeIgniter que lo auto-cargue durante la inicializaci&oacute;n del sistema <a href="../general/autoloader.html">auto-load</a>. Esto se hace abriendo el archivo application/config/autoload.php y agregando el/los lenguaje/s al arreglo de autocarga.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="javascript.html">Clase Javascript</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="loader.html">Clase Load</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

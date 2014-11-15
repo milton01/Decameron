@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Funciones Comunes : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Funciones Comunes
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Funciones Comunes</h1>
+
+<p>CodeIgniter usa unas pocas funciones para su operaci&oacute;n que se definen globalmente y est&aacute;n disponibles en cualquier lugar. Estas funciones no requieren cargar ninguna biblioteca o helper.</p>
+
+<h2>is_php('<var>numero_de_version</var>')</h2>
+
+<p><dfn>is_php()</dfn> determina si la versi&oacute;n de PHP usada es mayor o igual que el <var>numero_de_version</var> suministrado.</p>
+
+<code>if (is_php('5.3.0'))<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$str = quoted_printable_encode($str);<br />
+}</code>
+
+<p>Devuelve el booleano <kbd>TRUE</kbd> si la versi&oacute;n instalada de PHP es mayor o igual que el n&uacute;mero de versi&oacute;n suministrado. Devuelve <kbd>FALSE</kbd> si la versi&oacute;n instalada de PHP es menor que el n&uacute;mero de versi&oacute;n suministrado.</p>
+
+<h2>is_really_writable('<var>ruta/al/archivo</var>')</h2>
+
+<p><dfn>is_writable()</dfn> devuelve <kbd>TRUE</kbd> en servidores Windows cuando realmente no se puede escribir en el archivo, ya que el sistema operativo le informa <kbd>FALSE</kbd> a PHP solamente si el atributo de solo lectura est&aacute; marcado. Esta funci&oacute;n determina si un archivo es escribible realmente al intentar escribir primero en &eacute;l. Por lo general s&oacute;lo se recomienda en las plataformas donde esta informaci&oacute;n puede no ser fiable.</p>
+
+<code>if (is_really_writable('file.txt'))
+{<br />
+echo "Podr&iacute;a escribir lo que quiera";<br />
+}<br />
+else<br />
+{<br />
+echo "No se puede escribir en el archivo";<br />
+}</code>
+
+<h2>config_item('<var>clave_de_item</var>')</h2>
+
+<p>La forma preferida para acceder a la informaci&oacute;n de configuraci&oacute;n es la <a href="../libraries/config.html">Librer&iacute;a Config</a>. Sin embargo, <dfn>config_item()</dfn> se puede usar para recuperar claves simples. Para m&aacute;s informaci&oacute;n, lea la documentaci&oacute;n de la Librer&iacute;a Config.</p>
+
+<h2>show_error('<var>mensaje</var>'), show_404('<var>pagina</var>'), log_message('<var>nivel</var>', '<samp>mensaje</samp>')</h2>
+
+<p>Cada uno de estos se describe en la p&aacute;gina <a href="errors.html">Manejo de Errores</a>.</p>
+
+<h2>set_status_header(<var>codigo</var>, '<var>texto</var>')</h2>
+
+<p>Le permite establecer manualmente el encabezado de estado del servidor. Ejemplo:</p>
+
+<code>set_status_header(401);<br />
+// Establece el encabezado como: No autorizado</code>
+
+<p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">Vea aqu&iacute;</a> la lista completa de encabezados.</p>
+
+<h2>remove_invisible_characters(<var>$str</var>)</h2>
+<p>Esta funci&oacute;n evita la inserci&oacute;n de caracteres nulos entre caracteres ASCII como Java\0script.</p>
+
+<h2>html_escape(<var>$mixed</var>)</h2>
+<p>Esta funci&oacute;n proporciona un acces directo a la funci&oacute;n <dfn>htmlspecialchars()</dfn>. Acepta cadenas y arrays. Es muy &uacute;til para evitar Cross Site Scripting (XSS).</p>
+
+
+
+</div>
+
+
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="autoloader.html">Auto-carga de Recursos</a><a href="hooks.html"></a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="routing.html">Ruteo URI</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ejecutar Mediante la CLI : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Ejecutar Mediante la CLI
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Ejecutar Mediante la CLI</h1>
+
+<p>Adem&aacute;s de llamar a los <a href="./controllers.html">controladores</a> de aplicaciones a trav&eacute;s de la URL en el navegador tambi&eacute;n se puede cargar a trav&eacute;s de la interfaz de l&iacute;nea de comandos (CLI).</p>
+
+<ul>
+<li><a href="#what">&iquest;Qu&eacute; es la l&iacute;nea de comandos?</a></li>
+<li><a href="#why">&iquest;Por qu&eacute; utilizar este m&eacute;todo?</a></li>
+<li><a href="#how">&iquest;C&oacute;mo funciona?</a></li>
+</ul>
+
+<a name="what"></a>
+<h2>&iquest;Qu&eacute; es la CLI?</h2>
+
+<p><dfn>La interfaz de l&iacute;nea de comandos es un m&eacute;todo basado en texto para interactuar con los ordenadores que se parece a lo que la mayor&iacute;a de la gente recuerda como DOS.</dfn></p>
+
+<a name="why"></a>
+<h2>&iquest;Por qu&eacute; correr a trav&eacute;s de la l&iacute;nea de comandos?</h2>
+
+<p>Hay muchas razones para correr CodeIgniter desde la l&iacute;nea de comandos, pero no siempre son obvios.</p>
+
+<ul>
+	<li>Ejecutar sus trabajos-cron sin necesidad de utilizar wget o curl</li>
+	<li>Hacer que sus trabajos-cron sean inaccesibles de ser cargado en la direcci&oacute;n URL mediante la comprobaci&oacute;n de <kbd>IS_CLI</kbd></li>
+	<li>Haga "Tareas" interactivas que pueden hacer cosas como establecer permisos, limpiar las carpetas de cach&eacute;, ejecutar copias de seguridad, etc.</li>
+	<li>Integraci&oacute;n con otras aplicaciones en otros idiomas. Por ejemplo, un Script aleatorio de C++ podr&iacute;a llamar a un comando y ejecutar c&oacute;digo en sus modelos!</li>
+</ul>
+
+<a name="how"></a>
+<h2>Vamos a intentarlo: &iexcl;Hola Mundo!</h2>
+
+<p>Vamos a crear un controlador simple para que pueda verlo en acci&oacute;n. Utilizando su editor de texto, cree un archivo llamado <dfn>tools.php</dfn>, y ponga el siguiente c&oacute;digo en &eacute;l:</p>
+
+<textarea class="textarea" style="width:100%" cols="50" rows="10">
+&lt;?php
+class Tools extends CI_Controller {
+
+	public function message($to = 'Mundo')
+	{
+		echo "&iexcl;Hola {$to}!".PHP_EOL;
+	}
+}
+?&gt;
+</textarea>
+
+<p>A continuaci&oacute;n, guarde el archivo en su carpeta <dfn>application/controllers/</dfn>.</p>
+
+<p>Ahora, normalmente visitar&iacute;a el sitio usando una URL similar a esta:</p>
+
+<code>example.com/index.php/<var>tools</var>/<var>message</var>/<var>to</var></code>
+
+<p>En su lugar, vamos a abrir la Terminal en Mac/Lunix o vaya a Ejecutar > "cmd" en Windows y vaya a nuestro proyecto de CodeIgniter.</p>
+
+<blockquote>
+	$ cd /path/to/project;<br/>
+	$ php index.php tools message
+</blockquote>
+
+<p>Si lo has hecho bien, deber&iacute;as ver <samp>&iexcl;Hola Mundo!</samp>.</p>
+
+<blockquote>
+	$ php index.php tools message "John Smith"
+</blockquote>
+
+<p>Aqu&iacute; estamos pasando un argumento de la misma manera que los par&aacute;metros de URL de trabajo. "John Smith" se pasa como un argumento y la salida es: <samp>&iexcl;Hola John Smith!</samp>.</p>
+
+<h2>&iexcl;Eso es todo!</h2>
+
+<p>Eso, en pocas palabras, es todo lo que hay que saber acerca de los controladores de comandos en l&iacute;nea. Recuerda que esto es s&oacute;lo un controlador normal, por lo que el enrutamiento y _remap funciona bien.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="profiling.html">Perfilando tu Aplicaci&oacute;n</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="managing_apps.html">Administrar Aplicaciones</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

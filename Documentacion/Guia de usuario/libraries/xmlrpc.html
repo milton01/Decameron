@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase XML-RPC : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase XML-RPC
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clases XML-RPC y Servidor de XML-RPC</h1>
+
+<p>La clase de XML-RPC de CodeIgniter le permiten env&iacute;ar peticiones a otro sevidor, o establecer su propio servidor XML-RPC para recibir peticiones.</p>
+
+<h2>&iquest;Qu&eacute; es XML-RPC?</h2>
+<p>De manera simple, es una forma de dos computadores para comunicarse a trav&eacute;s de internet usando XML. Una computadora, a la que llamaremos <dfn>client</dfn>, env&iacute;a un <strong>pedido</strong> XML-RPC a otra computadora, la cual llamaremos el <dfn>servidor</dfn>.  Una vez que el servidor recibe y procesa la petici&oacute;n env&iacute;ara una <strong>respusta</strong> al cliente.</p>
+
+<p>Por ejemplo, usando la API MetaWeblog, un Cliente XML-RPC (usualmente un a herramienta de publicaci&oacute;n de escritorio) enviar&aacute; una petici&oacute;n a un Servidor XML-RPC corriendo en su sitio. Esta petici&oacute;n puede ser una nueva entrada de weblog siendo env&iacute;ada para publicar, o puede ser un pedidod para una editar una entrada existente. Cuando el Servidor XML-RPC recibe esta petici&oacute;n la examinar&aacute; para determinar que clase/m&eacute;todo debe llamar para procesar el pedido. Una vez procesado, el servidor entonces enviara un mensaje de respuesta.</p>
+
+<p>Para especificaciones detalladas, puede visitar el sitio de <a href="http://www.xmlrpc.com/">XML-RPC</a>.</p>
+
+<h2>Inicializando la clase</h2>
+<p>Como la mayor&iacute;a de las otras clases en CodeIgniter, las clases XML-RPC y XML-RPCS son inicializadas en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<p>Para cargar la clase XML-RPC usar&aacute;:</p>
+
+<code>$this->load->library('xmlrpc');</code>
+
+<p>Una vez cargada, el objeto de la librer&iacute;a xml-rpc estar&aacute; disponible usando: <dfn>$this->xmlrpc</dfn></p>
+
+<p>Para cargar la clase de Servidor XML-RPC usar&aacute;:</p>
+
+<code>
+$this->load->library('xmlrpc');<br />
+$this->load->library('xmlrpcs');
+</code>
+
+<p>Una vez cargado, el objeto de la librer&iacute;a xml-rpcs estar&aacute; disponible usando: <dfn>$this->xmlrpcs</dfn></p>
+
+<p class="important"><strong>Nota:</strong>&nbsp; Cuando use la clase XML-RPC Server debe cargar AMBAS clases de XML-RPC y XML-RPC Server.</p>
+
+<h2>Mandando un Pedido XML-RPC</h2>
+<p>Para env&iacute;ar un pedido a un servidor XML-RPC debe especificar la siguiente informaci&oacute;n:</p>
+
+<ul>
+<li>La URL del servidor</li>
+<li>El m&eacute;todo del servidor que desea llamar</li>
+<li>Los datos de la <em>petici&oacute;n</em> (explicados debajo).</li>
+</ul>
+
+<p>Aqu&iacute; hay un ejemplo b&aacute;sico que env&iacute;a un simple Weblogs.com ping al <a href="http://pingomatic.com/">Ping-o-Matic</a></p>
+
+<code>$this->load->library('xmlrpc');<br />
+<br />
+$this->xmlrpc->server('http://rpc.pingomatic.com/', 80);<br />
+$this->xmlrpc->method('weblogUpdates.ping');<br />
+<br />
+$pedido = array('Mi Fotoblog', 'http://www.mi-site.com/photoblog/');<br />
+$this->xmlrpc->request($pedido);<br />
+<br />
+if ( ! $this->xmlrpc->send_request())<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $this-&gt;xmlrpc->display_error();<br />
+}</code>
+
+<h3>Explicaci&oacute;n</h3>
+
+<p>El c&oacute;digo anterior usa la clase XML-RPC, establece la URL del servidor y el m&eacute;todo a ser llamado (weblogUpdates.ping).  El  pedido (en este caso, el t&iacute;tulo y la URL del sitio) es ubicado en el arreglo para transportaci&oacute;n y compilado usando la funci&oacute;n request(). Por &uacute;ltimo, el pedido completo es enviado. Si el m&eacute;todo <dfn>send_request()</dfn> devuelve falso, mostraremos el mensaje de error env&iacute;ado desde el Servidor XML-RPC.</p>
+
+<h2>Anatom&iacute;a de una Petici&oacute;n</h2>
+<p>Una <dfn>petici&oacute;n</dfn> XML-RPC es simplemente los datos que son enviados al servidor XML-RPC.  Cada pieza de datos en un pedido es referido como un <dfn>par&aacute;metro de petici&oacute;n</dfn>.  El ejemplo anterior tiene dos par&aacute;metros: La URL y t&iacute;tulo de su sitio. Cuando el servidor XML-RPC recibe su petici&oacute;n, buscar&aacute; los par&aacute;metros que requiera.</p>
+
+<p>Los par&aacute;metros de petici&oacute;n deben ser ubicados en un arreglo para transportar, y cada par&aacute;metro puede ser uno de siete tipos de datos (cadenas, n&uacute;meros, fechas, etc.). Si sus par&aacute;metros son algo distinto de cadenas debe incluir el tipo de dato en el arreglo de la petici&oacute;n.</p>
+
+<p>Aqu&iacute; hay un ejemplo de un simple arreglo con tres par&aacute;metros:</p>
+
+<code>$peticion = array('John', 'Doe', 'www.algun-sitio.com');<br />
+$this->xmlrpc->request($peticion);</code>
+
+<p>Si usa tipos de datos que no son cadenas, o si tiene diferentes tipos de datos, debe ubicar cada par&aacute;metro en su propio arreglo, con el tipo de dato en la segunda posici&oacute;n:</p>
+
+<code>
+$peticion = array (<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('John', 'string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('Doe', 'string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(FALSE, 'boolean'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(12345, 'int')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
+<br />
+$this->xmlrpc->request($peticion);</code>
+
+<p>La secci&oacute;n <a href="#datatypes">Tipos de Datos</a> de abajo tiene una lista completa de tipos de datos.</p>
+
+<h2>Creando un Servidor XML-RPC</h2>
+<p>Un Servidor XML-RPC act&uacute;a como un polic&iacute;a de tr&aacute;fico de cosas, esperando por peticiones entrantes y redirigiendolas a la funci&oacute;n apropiada para procesamiento.</p>
+
+<p>Crear su propio servidor XML-RPC implica inicializar la clase Servidor XML-RPC en su controlador, donde espera las peticiones entrantes que aparezcan, y luego estableciendo un arreglo con instrucciones de mapeo para que las peticiones entrantes puedan ser enviadas a la clase/m&eacute;todo apropiada por procesamiento.</p>
+
+<p>Aqu&iacute; hay un ejemplo para ilustrar:</p>
+
+<code>
+$this->load->library('xmlrpc');<br />
+$this->load->library('xmlrpcs');<br />
+<br />
+$config['functions']['<var>nuevo_post</var>']&nbsp;&nbsp;= array('function' => '<dfn>Mi_blog.nueva_entrada</dfn>');<br />
+$config['functions']['<var>actualizar_post</var>'] = array('function' => '<dfn>Mi_blog.actualizar_entrada</dfn>');<br />
+<br />
+$this->xmlrpcs->initialize($config);<br />
+$this->xmlrpcs->serve();</code>
+
+<p>El ejemplo anterior contiene un array que especifica dos solicitudes de m&eacute;todo que el Servidor permite. Los m&eacute;todos permitidos est&aacute;n en el lado izquierdo del array. Cuando cualquiera de ellos se recibe, ser&aacute; mapeado a la clase y m&eacute;todo en la derecha.</p>
+
+<p>La clave '<var>object</var>' es una clave especial a la que se le pasa un objeto de clase instanciado, que es necesario cuando el m&eacute;todo que se est&aacute; mapeando no es parte del super objeto CodeIgniter.</p>
+
+<p>En otras palabras si un Clente XML-RPC env&iacute;a una solicitud para el m&eacute;todo <var>nuevo_mensaje</var>, su servidor cargar&aacute; la clase <dfn>Mi_blog</dfn> y llamar&aacute; a la funci&oacute;n <dfn>nueva_entrada</dfn>. Si la solicitud es para el m&eacute;todo <var>actualiza_mensaje</var>, su servidor cargar&aacute; la clase <dfn>Mi_blog</dfn> y llamar&aacute; a la funci&oacute;n <dfn>actualiza_entrada</dfn>.</p>
+
+<p>Los nombres de funci&oacute;n en el ejemplo anterior son arbitrarios. Ud decidir&aacute; c&oacute;mo se deber&iacute;an llamar en su servidor o si est&aacute; usando APIs estandarizadas, como Blogger o MetaWeblog, usar&aacute; sus nombres de funci&oacute;n.</p>
+
+<p>Hay dos claves de configuraci&oacute;n adicionales que puede usar al inicializar la clase del servidor: <var>debug</var> se puede establecer a TRUE a fin de habilitar la depuraci&oacute;n y <var>xss_clean</var> que se puede establecer a FALSE para evitar el env&iacute;o de datos data a trav&eacute;s de la funci&oacute;n xss_clean() de la biblioteca Security.</p>
+
+<h2>Procesando Peticiones al Servidor</h2>
+<p>Cuando el Servidor XML-RPC recibe una petici&oacute;n y carga la clase/m&eacute;todo para procesar, pasar&aacute; un objeto al m&eacute;todo que contiene los datos enviados por el cliente.</p>
+
+<p>Usando el ejemplo anterior, si el m&eacute;todo <var>nuevo_post</var> es pedido, el servidor esperar&aacute; que exista una clase con este prototipo:</p>
+
+<code>class <kbd>Mi_blog</kbd> extends CI_Controller {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>nuevo_post</kbd>(<var>$peticion</var>)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+	<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}
+</code>
+
+<p>La variable <var>$peticion</var> es un objeto compilado por el Servidor, que contiene los datos enviados por el Cliente XML-RPC. Usando este objeto tendr&aacute; acceso a los <em>par&aacute;metros de la petici&oacute;n</em> permiti&eacute;ndole procesar el pedido.  Cuando termine enviar&aacute; una <dfn>Respuesta</dfn> de vuelta al Cliente.</p>
+
+<p>Debajo hay un ejemplo del mundo real, usando la API de Blogger. Uno de los m&eacute;todos en la API de Blogger es <dfn>getUserInfo()</dfn>. Usando este m&eacute;todo, un Cliente XML-RPC puede enviar un usuario y contrase&ntilde;a, y en respuesta el Servidor env&iacute;a informaci&oacute;n acerca del usuario en particular (nickname, user ID, direcci&oacute;n de email, etc.). Aqu&iacute; es como la funci&oacute;n de procesamiento podr&iacute;a ser:</p>
+
+<code>class <kbd>Mi_blog</kbd> extends CI_Controller {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function <kbd>getUserInfo</kbd>(<var>$peticion</var>)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$usuario = 'smitty';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$contrasena = 'secretsmittypass';<br /><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->load->library('xmlrpc');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$parametros&nbsp;=&nbsp;$peticion->output_parameters();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;($parametros['1'] != $usuario AND $parametros['2'] != $contrasena)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$this->xmlrpc->send_error_message('100',&nbsp;'Acceso&nbsp;Invalido');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$respuesta&nbsp;=&nbsp;array(array('nickname'&nbsp;&nbsp;=>&nbsp;array('Smitty','string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'userid'&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;array('99','string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'url'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;array('http://susitio.com','string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=>&nbsp;array('jsmith@susitio.com','string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'apellido'&nbsp;&nbsp;=>&nbsp;array('Smith','string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre'&nbsp;=>&nbsp;array('John','string')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'struct');<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $this->xmlrpc->send_response($respuesta);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}
+</code>
+
+<h3>Notas:</h3>
+<p>La funci&oacute;n <dfn>output_parameters()</dfn> devuelve e un arreglo indexado correspondiente a los par&aacute;metros de petici&oacute;n enviados por el cliente. En el ejemplo anterior, los par&aacute;metros de salida ser&iacute;an el usuario y la contrase&ntilde;a.</p>
+
+<p>Si el usuario y la contrase&ntilde;a env&iacute;ados por el cleinte no son v&aacute;lidos, un mensaje de error es devuelto usando <dfn>send_error_message()</dfn>.</p>
+
+<p>Si la operaci&oacute;n es exitosa, el cliente recibir&aacute; una respuesta con un arreglo conteniendo la informaci&oacute;n del usuario.</p>
+
+<h2>D&aacute;ndole formato a una respuesta</h2>
+<p>Similar a una <em>Petici&oacute;n</em>, las <em>Respuestas</em> deben ser formateadas como un arreglo. Sin embargo, a diferenc&iacute;a de las peticiones, una respuesta es un arreglo <strong>que contiene un s&oacute;lo item</strong>.  El item puede ser un arreglo con varios arreglos adicionales, pero s&oacute;lo puede ser un &iacute;ndice de arreglo principal. En otras palabras, el prototipo b&aacute;sico es este:</p>
+
+<code>$respuesta = array('Datos respuesta',  'array');</code>
+<p>Las respuestas, sin embargo, usualmente contienen m&uacute;ltiples piezas de informaci&oacute;n. Para cumplir con esto, debemos poner la respuesta en su propio arreglo, as&iacute; el arreglo primario contin&uacute;a conteniendo una sola pieza de datos. Aqu&iacute; hay un ejemplo mostrando como puede ser logrado:</p>
+
+<code>
+$respuesta = array (<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre' => array('John', 'string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'apellido' => array('Doe', 'string'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'miembro_id' => array(123435, 'int'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'lista_para_hacer' => array(array('limpiar la casa', 'llamar a mam&aacute;', 'regar las plantas'), 'array'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'struct'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
+</code>
+
+<p class="important">Note que el arreglo anterior es formateado como un <dfn>struct</dfn>.  Este es el m&aacute;s com&uacute;n tipo de datos para respuestas.</p>
+
+<p>Como con Peticiones, una respuesta puede ser uno de los siete tipos de datos listados en la secci&oacute;n <a href="#datatypes">Tipos de Datos</a>.</p>
+
+<h2>Enviando una Respuesta de Error</h2>
+<p>Si necesita enviar al cliente una respuesta de error usar&aacute; lo siguiente:</p>
+
+<code>return $this->xmlrpc->send_error_message('123', 'Los datos pedidos no est&aacute;n disponibles');</code>
+
+<p>El primer par&aacute;metro es el n&uacute;mero de error, mientras qeu el segundo par&aacute;metro es el mensaje de error.</p>
+
+<h2>Creando su Propio Cliente y Servidor</h2>
+<p>Para ayudar a entender todo lo que hemos cubierto hasta aqu&iacute;, creemos un par de controladores que act&uacute;en como Servidores y Clientes XML-RPC. Usar&aacute; el Cliente para enviar una petici&oacute;n al Servidor y recibir una respuesta.</p>
+
+<h3>El cliente</h3>
+<p>Usando un editor de texto, cree un controlador llamado <dfn>xmlrpc_client.php</dfn>. En &eacute;l, ubique este c&oacute;digo y gu&aacute;rdelo en su carpeta <samp>applications/controllers/</samp>:</p>
+
+<pre>
+&lt;?php
+class Xmlrpc_client extends CI_Controller {
+	
+	function index()
+	{	
+		$this->load->helper('url');
+		$url_servidor = site_url('xmlrpc_server');
+	
+		$this->load->library('xmlrpc');
+		
+		$this->xmlrpc->server($url_servidor, 80);
+		$this->xmlrpc->method('Saludos');
+		
+		$peticion = array('C&oacute;mo est&aacute;s?');
+		$this->xmlrpc->request($peticion);	
+		
+		if ( ! $this->xmlrpc->send_request())
+		{
+			echo $this->xmlrpc->display_error();
+		}
+		else
+		{
+			echo '&lt;?pre>';
+			print_r($this->xmlrpc->display_response());
+			echo '&lt;?/pre>';
+		}
+	}
+}
+?>
+</pre>
+
+<p>Nota: En el c&oacute;digo anterior estamos usando un "asistente de url". Puede encontrar m&aacute;s informaci&oacute;n en la p&aacute;gina de <a href="../general/helpers.html">Funciones Asistentes</a>.</p>
+
+<h3>El Servidor</h3>
+<p>Usando un editor de texto, cree un controlador llamado <dfn>xmlrpc_server.php</dfn>. En &eacute;l, ubique este c&oacute;digo y gu&aacute;rdelo en su carpeta <samp>applications/controllers/</samp>:</p>
+
+<pre>
+&lt;??php
+class Xmlrpc_server extends CI_Controller {
+	function index()
+	{
+		$this->load->library('xmlrpc');
+		$this->load->library('xmlrpcs');
+		
+		$config['functions']['Saludos'] = array('function' => 'Xmlrpc_server.process');
+		
+		$this->xmlrpcs->initialize($config);
+		$this->xmlrpcs->serve();
+	}
+	
+	
+	function process($peticion)
+	{
+		$parametros = $peticion->output_parameters();
+		
+		$respuesta = array(
+							array(
+									'usted_dijo'  => $parametros['0'],
+									'yo_respondo' => 'Nada mal.'),
+							'struct');
+						
+		return $this->xmlrpc->send_response($respuesta);
+	}
+}
+?>
+</pre>
+
+<h3>Pruebelo!</h3>
+<p>Ahora visite su sitio usando una URL similar a esta:</p>
+
+<code>www.su-sitio.com/index.php/<var>xmlrpc_client</var>/</code>
+
+<p>Ahora ver&aacute; el mensaje que envi&oacute; al servidor, y la respuesta de vuelta a &eacute;l.</p>
+
+<p>El cliente que creo env&iacute;a un mensaje ("C&oacute;mo est&aacute;s?") al servidor, junto con la petici&oacute;n para el m&eacute;todo "Saludos". El Servidor recibe la petici&oacute;n y lo asigna a la funci&oacute;n "process", d&oacute;nde una respuesta es devuelta.</p>
+
+<br/>
+
+<h1>Referencia de Funciones XML-RPC</h1>
+
+<h2>$this->xmlrpc->server()</h2>
+<p>Establece la URL y el n&uacute;mero de puerta del servidor al que se le enviara el pedido:</p>
+
+<code>$this->xmlrpc->server('http://www.aveces.com/pings.php', 80);</code>
+
+<h2>$this->xmlrpc->timeout()</h2>
+<p>Establece el per&iacute;odo de espera (en segundos) despu&eacute;s de cuando la petici&oacute;n ser&aacute; cancelada:</p>
+
+<code>$this->xmlrpc->timeout(6);</code>
+
+<h2>$this->xmlrpc->method()</h2>
+<p>Establece el m&eacute;todo que ser&aacute; pedido al servidor XML-RPC:</p>
+
+<code>$this->xmlrpc->method('<var>metodo</var>');</code>
+
+<p>Donde <var>m&eacute;todo</var> es el nombre del m&eacute;todo.</p>
+
+<h2>$this->xmlrpc->request()</h2>
+<p>Toma un arreglo de datos y construye la petici&oacute;n que se enviar&aacute; al servidor XML-RPC:</p>
+
+<code>$peticion = array(array('Mi Fotoblog', 'string'), 'http://www.susitio.com/fotoblog/');<br />
+$this->xmlrpc->request($peticion);</code>
+
+<h2>$this->xmlrpc->send_request()</h2>
+<p>La funci&oacute;n que env&iacute;a la petici&oacute;n. Devuelve el booleano TRUE o FALSE basado en el &eacute;xito o fallo, permitiendo el uso condicionalmente.</p>
+
+<h2>$this->xmlrpc->set_debug(TRUE);</h2>
+<p>Habilita la depuraci&oacute;n, que mostrar&aacute; una variedad de informaci&oacute;n y datos de errores &uacute;tiles durante el desarrollo.</p>
+
+<h2>$this->xmlrpc->display_error()</h2>
+<p>Devuelve un mensaje de error como cadena si su petici&oacute;n fall&oacute; por alguna raz&oacute;n.</p>
+
+<code>echo $this->xmlrpc->display_error();</code>
+
+<h2>$this->xmlrpc->display_response()</h2>
+<p>Devuelve la respuesta desde el servidor remoto una vez que el pedido es recibido. La respuesta ser&aacute; t&iacute;picamente un arreglo asociativo.</p>
+
+<code>$this->xmlrpc->display_response();</code>
+
+<h2>$this->xmlrpc->send_error_message()</h2>
+<p>Esta funci&oacute;n le permite enviar un mensaje de error desde un servidor al cliente. El primer par&aacute;metro es el n&uacute;mero de error, mientras que el segundo par&aacute;metro es el mensaje de error.</p>
+
+<code>return $this->xmlrpc->send_error_message('123', 'Los datos pedidos no est&aacute;n disponibles');</code>
+
+<h2>$this->xmlrpc->send_response()</h2>
+<p>Le permite enviar la respuesta desde su servidor al cliente. Le permite enviar la respuesta desde su servidor al cliente. Un arreglo de datos v&aacute;lidos debe ser enviado a este m&eacute;todo.</p>
+
+<code>
+$respuesta = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'flerror' => array(FALSE, 'boolean'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mensaje' => "Gracias por el ping!")<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'struct');<br />
+return $this->xmlrpc->send_response($respuesta);
+</code>
+
+<a name="datatypes"></a><h2>Tipos de Datos</h2>
+<p>De acuerdo a las <a href="http://www.xmlrpc.com/spec">especificaciones de XML-RPC</a> hay siete tipos de valores que pueden ser env&iacute;ados a trav&eacute;s de XML-RPC:</p>
+
+<ul>
+<li><em>int</em> o <em>i4</em></li>
+<li><em>boolean</em></li>
+<li><em>string</em></li>
+<li><em>double</em></li>
+<li><em>dateTime.iso8601</em></li>
+<li><em>base64</em></li>
+<li><em>struct</em> (contiene un arreglo de valores)</li>
+<li><em>array</em> (contiene un arreglo de valores)</li>
+</ul>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="user_agent.html">Clase User_agent</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="zip.html">Clase Zip</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

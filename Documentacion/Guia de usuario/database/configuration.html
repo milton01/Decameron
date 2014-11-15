@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Database Configuration : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Configuration
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Configuraci&oacute;n de Base de Datos</h1>
+
+<p>CodeIgniter tiene un archivo de configuraci&oacute;n que permite almacenar los valores de conexi&oacute;n (usuario, contrase&ntilde;a, nombre de base de datos). El archivo de configuraci&oacute;n se localiza en:</p>
+
+<p><kbd>application/config/database.php</kbd></p>
+
+<p>Los parametros de configuraci&oacute;n son guardados en un arreglo multidimensional con este prototipo:</p>
+
+<code>$db['default']['hostname'] = "localhost";<br />
+$db['default']['username'] = "root";<br />
+$db['default']['password'] = "";<br />
+$db['default']['database'] = "database_name";<br />
+$db['default']['dbdriver'] = "mysql";<br />
+$db['default']['dbprefix'] = "";<br />
+$db['default']['pconnect'] = TRUE;<br />
+$db['default']['db_debug'] = FALSE;<br />
+$db['default']['cache_on'] = FALSE;<br />
+$db['default']['cachedir'] =  &quot;&quot;;<br />
+$db['default']['char_set'] = "utf8";<br />
+$db['default']['dbcollat'] = "utf8_general_ci";<br />
+$db['default']['swap_pre'] = "";<br />
+$db['default']['autoinit'] = TRUE;<br />
+$db['default']['stricton'] = FALSE;</code>
+
+<p>La razon por la que usamos un arreglo multidimensional y no uno m&aacute;s sencillo es permitir el almacenamiento de m&uacute;ltiple par&aacute;metros de conexi&oacute;n. Por ejemplo si queremos trabajar con m&uacute;ltiples entornos (desarrollo, producci&oacute;n, prueba, etc.) bajo la misma instalaci&oacute;n, podemos un grupo de parametro de configuraci&oacute;n para cada uno, luego cambiar entre cada uno seg&uacute;n sea necesario. Por ejemplo, para configurar un entorno de prueba podemos hacer esto:</p>
+
+<code>$db['test']['hostname'] = "localhost";<br />
+$db['test']['username'] = "root";<br />
+$db['test']['password'] = "";<br />
+$db['test']['database'] = "database_name";<br />
+$db['test']['dbdriver'] = "mysql";<br />
+$db['test']['dbprefix'] = "";<br />
+$db['test']['pconnect'] = TRUE;<br />
+$db['test']['db_debug'] = FALSE;<br />
+$db['test']['cache_on'] = FALSE;<br />
+$db['test']['cachedir'] =  &quot;&quot;;<br />
+$db['test']['char_set'] = "utf8";<br />
+$db['test']['dbcollat'] = "utf8_general_ci";<br />
+$db['test']['swap_pre'] = "";<br />
+$db['test']['autoinit'] = TRUE;<br />
+$db['test']['stricton'] = FALSE;</code>
+
+<p>Luego para usar este grupo de par&aacute;metros (del entorno de prueba) cambiamos el valor de  la variable que se encuentra en el archivo de configuraci&oacute;n, as&iacute;:</p>
+
+<code>$active_group = "test";</code>
+
+<p>Nota: El nombre "test" es arbitrario. Puede ser cualquiera que querramos. Por defecto usamos el valor "default" para la primer conexi&oacute;n, pero esto tambi&eacute;n puede ser cambiado por algo m&aacute;s relevante para el proyecto.</p>
+
+<h3>Active Record</h3>
+<p>La <a href="active_record.html">Clase Active Record</a> es globalmente activada o desactivada estableciendo la variable $active_record en el archivo de configuraci&oacute;n para la base de datos, en TRUE/FALSE. Si no vamos a usar la Clase Active Record, establecerla en FALSE har&aacute; que se utilicen menos recursos cuando se inicialicen las clases de base de datos.</p>
+
+<code>$active_record = TRUE;</code>
+
+<p class="important"><strong>Note:</strong> que algunas clases de CodeIgniter como las de sessiones (sessions) requieren que Active Records est&eacute; activado para conseguir cierta funcionalidad.</p>
+
+<h3>Explicacion de los valores:</h3>
+<ul>
+<li><strong>hostname</strong> - El nombre de anfitrion (hopst) de tu servidor de base de datos. A menudo es "localhost".</li>
+<li><strong>username</strong> - El nombre de usuario para acceder a la base de datos.</li>
+<li><strong>password</strong> - El password usado para conectar a la base de datos.</li>
+<li><strong>database</strong> - El nombre de la base de datos a la que se conectar&aacute;.</li>
+<li><strong>dbdriver</strong> - El tipo de Base de Datos. por ejemplo: mysql, postgre, obdc, etc. Debe ser especificado en min&uacute;sculas.</li>
+<li><strong>dbprefix</strong> - Un prefijo opcional que ser&aacute; agregado al nombre de la tabla cuando se ejecuten consultas <a href="active_record.html">Active Record</a>.  Esto permite a multiples instalaciones de CodeIgniter compartir la base de datos.</li>
+<li><strong>pconnect</strong> - TRUE/FALSE (boolean) -Si se debe usar una conexion  permanente.</li>
+<li><strong>db_debug</strong> - TRUE/FALSE (boolean) -Si los errores de la base de datos deben ser desplegados.</li>
+<li><strong>cache_on</strong> - TRUE/FALSE (boolean) -Si el cacheo de consultas debe ser activado, vea tambien <a href="caching.html">Clase Database Caching</a>.</li>
+<li><strong>cachedir</strong> - La ruta absoluta a la carpeta del cache de consultas del servidor.</li>
+<li><strong>char_set</strong> - El juego de caracteres a ser usado para comunicarse con la base de datos.</li>
+<li><strong>dbcollat</strong> - El cotejo de caracteres usado en comunicaciones con la base de datos.</li>
+<li><strong>swap_pre</strong> - Un <var>prefijo de tabla</var> por defecto que se tiene que intercambiar con dbprefix. Esto es &uacute;til para aplicaciones distribuidas donde puede correr consultas escritas manualmente, y se necesita que el prefijo siga siendo personalizable por el usuario.</li>
+<li><strong>autoinit</strong> - Si conectar o no autom&aacute;ticamente a la base de datos cuando se carga la biblioteca. Si est&aacute; establecido a FALSE, la conexi&oacute;n tomar&aacute; lugar antes de ejecutar la primera consulta.</li>
+<li><strong>stricton</strong> - TRUE/FALSE (booleano) - Si forzar conexiones en "Modo Estricto", bueno para asegurar el SQL estricto mientras se desarrolla una aplicaci&oacute;n.</li>
+<li><strong>port</strong> - El numero de puerto de la base de datos. Actualmente usado solamente por el driver de Postgre. Para usar este valor debes agregar una linea al arreglo de configuraciones de la base de datos. <code>$db['default']['port'] =  5432;</code></li>
+</ul>
+
+<p class="important"><strong>Nota:</strong> Dependiendo de qu&eacute; plataforma de base de datos que est&aacute; utilizando (MySQL, postgres, etc) no todos los valores ser&aacute;n necesarios. Por ejemplo, cuadno se usa SQLite no necesitaras proveer un usuario o password, y el nombre de la base de datos sera la ruta  al archivo de la base de datos. La informaci&oacute;n anterior, asume que usas MySQL.</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="examples.html">Inicio R&aacute;pido: C&oacute;digo de Ejemplo</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="connecting.html">Conectar a una Base de Datos</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Zip : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Zip
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Zip</h1>
+<p>La Clase de Codificaci&oacute;n Zip de CodeIgniter le permite crear archivos Zip. Los archivos pueden ser descargados a su computadora o guardados en un directorio.</p>
+
+<h2>Initializando la Clase</h2>
+<p>Como la mayor&iacute;a de las otras clases en CodeIgniter, La clase Zip es inicializada en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('zip');</code>
+
+<p>Una vez cargada, el objeto de la librer&iacute;a Zip estar&aacute; disponible usando: <dfn>$this->zip</dfn></p>
+
+<h2>Ejemplos de Uso</h2>
+<p>Este ejemplo demuestra como comprimir un archivo, guardarlo en una carpeta en su servidor, y descargarlo a su computadora.</p>
+
+<code>
+$nombre = 'mis_datos1.txt';<br />
+$datos = 'Una Cadena de Datos!';<br />
+<br />
+$this->zip->add_data($nombre, $datos);<br />
+<br />
+// Escribe el archivo zip en una carpeta en su servidor. Lo nombra "mi_copia_de_seguridad.zip"<br />
+$this->zip->archive('/ruta/al/directorio/mi_copia_de_seguridad.zip');
+<br /><br />
+ // Descarga el archivo a su escritorio. Lo nombra "mi_copia_de_seguridad.zip"<br />
+$this->zip->download('mi_copia_de_seguridad.zip');
+</code>
+
+<br/>
+
+<h1>Referencia de Funci&oacute;n</h1>
+
+<h2>$this->zip->add_data()</h2>
+<p>Le permite agregar datos al archivo Zip. El primer par&aacute;metro debe contener el nombre que quisiera darle al archivo, el segundo par&aacute;metro debe contener los datos del archivo como una cadena:</p>
+
+<code>
+$nombre = 'mi_bio.txt';<br />
+$datos = 'Yo nac&iacute; en un ascencor...';<br />
+<br />
+$this->zip->add_data($nombre, $datos);
+</code>
+
+<p>Puede realizar m&uacute;ltiples llamadas a esta funci&oacute;n para 
+agregar varios archivos a su archivo. Ejemplo:</p>
+
+<code>
+$nombre = 'mis_datos1.txt';<br />
+$datos = 'Una Cadena de Datos!';<br />
+$this->zip->add_data($nombre, $datos);<br />
+<br />
+$nombre = 'mis_datos2.txt';<br />
+$datos = 'Otra Cadena de Datos!';<br />
+$this->zip->add_data($nombre, $datos);<br />
+</code>
+
+<p>O puede pasar m&uacute;ltiples archivos usando como un arreglo:</p>
+
+<code>
+$datos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mis_datos1.txt' => 'Una Cadena de Datos!',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mis_datos2.txt' => 'Otra Cadena de Datos!'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->zip->add_data($datos);<br />
+<br />
+$this->zip->download('mi_copia_de_seguridad.zip');
+</code>
+
+<p>Si quiere que sus datos comprimidos se organicen en sub-carpetas, incluya la ruta como parte del archivo:</p>
+
+<code>
+$nombre = '<kbd>personal/</kbd>mi_bio.txt';<br />
+$datos = 'Yo nac&iacute; en un ascensor...';<br />
+<br />
+$this->zip->add_data($nombre, $datos);
+</code>
+
+<p>El ejemplo anterior ubicar&aacute; <dfn>mi_bio.txt</dfn> dentro de la carpeta llamada <kbd>personal</kbd>.</p>
+
+<h2>$this->zip->add_dir()</h2>
+<p>Le permite agregar un directorio. Usualmente esta funci&oacute;n no es necesaria ya que puede ubicar sus datos en carpetas cuando use <dfn>$this->zip->add_data()</dfn>, pero si quiere crear una carpeta vac&iacute;a puede hacerlo.Ejemplo:</p>
+
+<code>$this->zip->add_dir('mi_carpeta'); // Crea una carpeta llamada "mi_carpeta"</code>
+
+<h2>$this->zip->read_file()</h2>
+<p>Le permite comprimir un archivo que ya existe en alg&uacute;n lugar en su servidor. Suministra una ruta al archivo y la clase zip lo leer&aacute; y lo agregar&aacute; al archivo:</p>
+
+<code>
+$ruta = '/ruta/a/foto.jpg';<br /><br />
+$this->zip->read_file($ruta);
+<br /><br />
+ // Descarga el archivo a su escritorio. Lo nombra "mi_copia_de_seguridad.zip"<br />
+$this->zip->download('mi_copia_de_seguridad.zip');
+</code>
+
+<p>Si quiere que su archivo Zip mantenga la estructura de directorio donde se encuentra el archivo, pase <kbd>TRUE</kbd> (booleano) en el segundo par&aacute;metro. Ejemplo:</p>
+
+<code>
+$ruta = '/ruta/a/foto.jpg';<br /><br />
+$this->zip->read_file($ruta, <kbd>TRUE</kbd>);
+<br /><br />
+ // Descarga el archivo a su escritorio. Lo nombra "mi_copia_de_seguridad.zip"<br />
+$this->zip->download('mi_copia_de_seguridad.zip');
+</code>
+
+<p>En el ejemplo anterior, <dfn>foto.jpg</dfn> ser&aacute; ubicado dentro de dos carpetas: <kbd>path/to/</kbd></p>
+
+<h2>$this->zip->read_dir()</h2>
+<p>Le permite comprimir una carpeta (y su contenido) que ya existe en alg&uacute;n lugar en su servidor. Suministra la ruta al directorio y la clase zip lo leer&aacute; recursivamente y lo recrear&aacute; como archivo Zip. Todos los archivos contenidos dentro de la ruta suministrada ser&aacute;n codificados, as&iacute; tambi&eacute;n cualquier subcarpeta contenida en &eacute;l. Ejemplo:</p>
+
+<code>
+$ruta = '/ruta/a/su/directorio/';<br /><br />
+$this->zip->read_dir($ruta);
+<br /><br />
+ // Descarga el archivo a su escritorio. Lo nombra "mi_copia_de_seguridad.zip"<br />
+$this->zip->download('mi_copia_de_seguridad.zip');
+</code>
+
+<p>Por defecto, el archivo Zip ubicar&aacute; todos los directorios listados en el primer par&aacute;metro dentro del zip. Si quiere que el &aacute;rbol que precede a la carpeta destino se ignore, puede pasar <kbd>FALSE</kbd> (booleano) en el segundo par&aacute;metro. Ejemplo:</p>
+
+<code>
+$path = '/ruta/a/su/directorio/';<br /><br />
+$this->zip->read_dir($path, FALSE);
+</code>
+
+<p>Esto crear&aacute; un ZIP con la carpeta directorio dentro, luego todas las subcarpetas almacenadas correctamente dentro de ella, pero no incluir&aacute; las carpetas <samp>/ruta/a/su</samp>.</p>
+
+<h2>$this->zip->archive()</h2>
+<p>Escribe el archivo codificado Zip a un directorio en su servidor. Suministra una ruta de servidor v&aacute;lida finalizando en el nombre del archivo. Asegurese que el directorio es escriturable (666 o 777 usualmente est&aacute; OK). Ejemplo:</p>
+
+<code>$this->zip->archive('/ruta/a/carpeta/mi_archivo.zip'); // Crea un archivo llamado miarchivo.zip</code>
+
+<h2>$this->zip->download()</h2>
+<p>Provoca que el archivo Zip sea descargado de su servidor. A la funci&oacute;n deber&iacute;a pas&aacute;rsele el nombre que quisiera que el archivo Zip tuviera. Ejemplo:</p>
+
+<code>$this->zip->download('cosas_nuevas.zip'); // El archivo ser&aacute; llamado "cosas_nuevas.zip"</code>
+
+<p class="important"><strong>Nota:</strong>&nbsp; No muestre ning&uacute;n dato en el controlador en el cual llama a esta funci&oacute;n ya que env&iacute;a varios encabezados que causa que la descarga ocurra y el archivo sea tratado como binario.</p>
+
+<h2>$this->zip->get_zip()</h2>
+<p>Devuelve los datos comprimidos del archivo Zip. Generalmente no necesitar&aacute; esta funci&oacute;n a menos que quiera hacer algo &uacute;nico con los datos. Ejemplo:</p>
+
+<code>
+$nombre = 'mi_bio.txt';<br />
+$datos = 'Nac&iacute; en un ascensor...';<br />
+<br />
+$this->zip->add_data($nombre, $datos);<br /><br />
+$zip_file = $this->zip->get_zip();
+</code>
+
+<h2>$this->zip->clear_data()</h2>
+<p>La clase de Zip guarda todos sus datos as&iacute; no necesita recompilar el archivo Zip por cada llamada que use anteriormente. Si, sin embargo, necesita crear m&uacute;ltiples Zip, cada uno con diferentes datos, puede limpiar el cach&eacute; entre llamadas. Ejemplo:</p>
+
+<code>
+$nombre = 'mi_bio.txt';<br />
+$datos = 'Nac&iacute; en un ascensor...';<br />
+<br />
+$this->zip->add_data($nombre, $datos);<br />
+$zip_file = $this->zip->get_zip();<br />
+<br />
+<kbd>$this->zip->clear_data();</kbd>
+<br /><br />
+$nombre = 'foto.jpg';<br />
+$this->zip->read_file("/ruta/a/photo.jpg"); // Lee el contenido del archivo<br />
+<br /><br />
+$this->zip->download('miphotos.zip');
+</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="xmlrpc.html">Clase XML-RPC</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="caching.html">Clase Caching</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

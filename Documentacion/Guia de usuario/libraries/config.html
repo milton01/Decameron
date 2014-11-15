@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>clase Config : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Config Class
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Config</h1>
+
+<p>La Clase Config provee un medio de recuperar las preferencias de configuracion. Esas preferencias pueden provenir del archivo por defecto  (<samp>application/config/config.php</samp>) o de tus propios archivos de configuraci&oacute;n.</p>
+
+<p class="important"><strong>Nota:</strong> Esta clase es inicializada autom&aacute;ticamente por el sistema, por tanto, no es necesario hacerlo manualmente.</p>
+
+<h2>Anatom&iacute;a de un archivo de Configuracion</h2>
+<p>Por defecto, CodeIgniter tiene un archivo primario de configuracion, ubicado en <samp>application/config/config.php</samp>. Si abres un archivo usando tu editor de texto ver&aacute;s que los items son almacenados en un arreglo llamado <var>$config</var>.</p>
+
+<p>Puedes agregar tus propios items de configuraci&oacute;n a este archivo, o si lo prefieres, puedes mantenerlos en forma separada (asumiendo que necesitas items de configuraci&oacute;n), simplemente debes crear tu archivo de configuraci&oacute;n y guardarlo en la carpeta <dfn>config</dfn>.</p>
+
+<p><strong>Nota:</strong> Si creas tu  propio archivo de configuraci&oacute;n con el mismo formato del archivo primario de configuraci&oacute;n, y guard&aacute;ndolo en un arreglo llamado <var>$config</var>. CodeIgniter lo manejar&aacute; de una forma inteligente esos archivos, as&iacute;, no existir&aacute; un conflicto inclusive si el arreglo tiene el mismo nombre (asumiendo que el &iacute;ndice del arreglo NO es llamado de la misma forma que en el otro)..</p>
+
+<h2>Cargando un archivo de Configuraci&oacute;n</h2>
+<p><strong>Nota:</strong> CodeIgniter autom&aacute;ticamente carga el archivo primario de configuraci&oacute;n (<samp>application/config/config.php</samp>), por lo tanto, solo necesitar&aacute;s cargar un archivo de configuraci&oacute;n, si lo has creado por tu cuenta.</p>
+
+<p>Hay dos formas de cargar un archivo de configuraci&oacute;n:</p>
+
+<ol>
+<li><strong>Carga Manual</strong>
+<p>Para cargar uno de tus archivos de configuraci&oacute;n, usar&aacute;s la siguiente funci&oacute;n con el <a href="../general/controllers.html">controlador</a> que lo necesita:</p>
+
+<code>$this->config->load('<var>nombre_archivo</var>');</code>
+
+<p>Donde <var>nombre_archivo</var> es el nombre de tu archivo de configuraci&oacute;n, sin la extensi&oacute;n .php</p>
+
+<p>Si necesitas cargar multiples archivos de configuraci&oacute;n, normalmente, ellos deberan ser fusionados dentro de un arreglo maestro de configuraci&oacute;n. Las colisiones de nombres pueden ocurrir, sin embargo, si tienes nombres de indices de arreglos identicos en diferentes archivos de configuraci&oacute;n. Para evitar colisiones puedes poner en <kbd>TRUE</kbd> y cada archivo de configuraci&oacute;n ser&aacute; almacenado en un arreglo correspondiente al nombre del archivo de configuraci&oacute;n. Por ejemplo:</p>
+
+<code>
+// Guardado en un arreglo con este prototipo:  $this->config['blog_settings'] = $config<br />
+$this->config->load('<var>blog_settings</var>', <kbd>TRUE</kbd>);</code>
+
+<p>Por favor vea mas abajo la seccion titulada <dfn>Recuperando Items de Configuraci&oacute;n<dfn> para aprender como recuperar elementos de configuraci&oacute;n seteados de esta forma.</p>
+
+<p>El tercer par&aacute;metro te permite suprimir los errores en el caso de que un archivo de configuracion no exista:</p>
+
+<code>$this->config->load('<var>blog_settings</var>', <dfn>FALSE</dfn>, <kbd>TRUE</kbd>);</code>
+</li>
+
+<li><strong>Auto-carga</strong>
+<p>Si encuentras que necesitas un archivo de configuraci&oacute;n en particular globalmente, puedes hacer que este se cargue autom&aacute;ticamente por el sistema. Para hacer esto, abre el archivo <strong>autoload.php</strong>, ubicado en <samp>application/config/autoload.php</samp>, y agrega tu archivo de configuracion como se indica en el archivo .</p>
+</li>
+</ol>
+
+<h2>Recuperando elementos de configuraci&oacute;n</h2>
+<p>Para recuperar un elemento de tu archivo de configuraci&oacute;n, use la siguiente funci&oacute;n:</p>
+
+<code>$this->config->item('<var>nombre del item</var>');</code>
+
+<p>Donde <var>item name</var> es el indice del arreglo $config que quieres recuperar. Por ejemplo, para recuperar la opci&oacute;n de lenguaje debes hacer esto:</p>
+
+<code>$lang = $this->config->item('language');</code>
+
+<p>La funci&oacute;n retorna FALSE (booleano) si  el item que tratas de recuperar no existe.</p>
+
+<p>Si estas usando el segundo par&aacute;metro de la funcion <kbd>$this->config->load</kbd> con el fin de asignar tus elementos de configuraci&oacute;n a un indice espec&iacute;fico puedes hacerlo especificando el nombre del indice en el segundo parametro de la funcion <kbd>$this->config->item()</kbd>.  Ejemplo:</p>
+
+<code>
+//Cargando un archivo de configuraci&oacute;n llamado blog_settings.php y asign&aacute;ndolo a un &iacute;ndice llamado "blog_settings"<br />
+$this->config->load('<var>blog_settings</var>', '<kbd>TRUE</kbd>');<br /><br />
+//Recuperando un elemento de configuraci&oacute;n llamado site_name contenido en el arreglo blog_settings<br />
+$site_name = $this->config->item('<dfn>site_name</dfn>', '<var>blog_settings</var>');<br /><br />
+//Una forma alterna de especificar el mismo elemento:<br />
+$blog_config = $this->config->item('<var>blog_settings</var>');<br />
+$site_name = $blog_config['site_name'];</code>
+
+<h2>Estableciendo un Elemento de  Configuraci&oacute;n</h2>
+<p>Si desea establecer un elemento de configuraci&oacute;n de forma din&aacute;mica, o cambiar una ya existente, puede hacerlo del siguiente modo:</p>
+
+<code>$this->config->set_item('nombre_item', 'valor_item');;</code>
+
+<p>Donde <var>nombre_item</var> es el &iacute;ndice del array $config que quiere cambiar, y <var>valor_item</var> su valor.</p>
+
+<a name="environments"></a>
+<h2>Entornos</h2>
+<p>Puede cargar distintos archivos de configuraci&oacute;n en el entorno actual. La constante <kbd>ENVIRONMENT</kbd> est&aacute; definida en index.php, y se describe en detalle en la secci&oacute;n <a href="../general/environments.html">Manejar Varios Entornos</a>.</p>
+
+<p>Para crear un archivo de configuraci&oacute;n espec&iacute;fico de un entorno, crear una copia de un archivo de configuraci&oacute;n en application/config/{ENVIRONMENT}/{FILENAME}.php</p>
+
+<p>Por ejemplo, para crear config.php de producci&oacute;n &uacute;nicamente, har&iacute;a:</p>
+
+<ol>
+	<li>Crear el directorio application/config/produccion/</li>
+	<li>Copiar su archivo config.php existente en el directorio anterior</li>
+	<li>Editar application/config/produccion/config.php para que contenga los par&aacute;metros de producci&oacute;n</li>
+</ol>
+
+<p>Cuando establezca la constante <kbd>ENVIRONMENT</kbd> 'produccion', se cargar&aacute;n los valores para su nuevo archivo config.php solamente de producci&oacute;n.</p>
+
+<p>Puede colocar los siguientes archivos de configuraci&oacute;n en carpetas espec&iacute;ficas del entorno:</p>
+
+<ul>
+<li>Archivos de configuraci&oacute;n de CodeIgniter por defecto</li>
+<li>Sus propios archivos de configuraci&oacute;n personalizados</li>
+</ul>
+
+<p class="important"><strong>Nota:</strong> CodeIgniter siempre intenta cargar primero los archivos de configuraci&oacute;n para el entorno actual. Si el archivo no existe, el archivo de configuraci&oacute;n global (es decir, se carga el de <samp>application/config/</samp>). Esto significa que no est&aacute; obligado a ubicar <strong>todos</strong> sus archivos de configuraci&oacute;n en una carpeta de entorno &minus; solamente los archivos que cambian por entorno.</p>
+
+<h2>Funciones Helper</h2>
+<p>La clase de configuraci&oacute;n tiene las siguientes funciones de ayuda:</p>
+
+<h2>$this->config->site_url();</h2>
+<p>Esta funci&oacute;n recupera la URL de tu sitio, junto con el valor del &iacute;ndice que has especificado en el archivo de configuraci&oacute;n.</p>
+
+<h2>$this->config->system_url();</h2>
+<p>Esta funci&oacute;n recupera la URL de tu <dfn>system folder (carpeta de sistema)</dfn>.</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="calendar.html">Clase Calendar</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="email.html">Clase Email</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

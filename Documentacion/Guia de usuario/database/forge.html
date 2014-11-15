@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Database Forge : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Database Forge Class
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Database Forge</h1>
+
+<p>La Clase Database Forge Class contiene funciones que ayudan a manejar to base de datos.</p>
+
+<h3>Tabla de Contenidos</h3>
+
+<ul>
+<li><a href="#init">Inicializar la Clase Forge</a></li>
+<li><a href="#create">Crear una Base de Datos</a></li>
+<li><a href="#drop">Borrar una Base de datos</a></li>
+<li><a href="#add_field">Agregar Campos</a></li>
+<li><a href="#add_key">Agregar Claves</a></li>
+<li><a href="#create_table">Crear una Tabla</a></li>
+<li><a href="#drop_table">Borrar una Tabla</a></li>
+<li><a href="#rename_table">Renombrar una Tabla</a></li>
+<li><a href="#modifying_tables">Modificar una Tabla</a></li>
+</ul>
+
+<h2><a name="init"></a>Inicializar la Clase Forge</h2>
+<p class="important"><strong>Importante:</strong>&nbsp; Para inicializar la clase Forge, tu cliente de base de datos debe estar corriendo, ya que la clase forge depende de &eacute;l.</p>
+
+<p>Se carga la Clase Forge de esta manera:</p>
+
+<code>$this->load->dbforge()</code>
+
+<p>Una vez inicializada tendr&aacute; acceso a las funciones usando el objeto <dfn>$this->dbforge</dfn>:</p>
+
+<code>$this->dbforge->alguna_funcion()</code>
+
+<h2><a name="create"></a>$this->dbforge->create_database('nombre_base_de_datos')</h2>
+<p>Permite crear una base de datos especificada en el primer par&aacute;metro. Devuelve TRUE/FALSE basado en el &eacute;xito o fallo:</p>
+
+<code>if ($this->dbforge->create_database('mi_base_de_datos'))<br />
+{<br />
+&nbsp;&nbsp;&nbsp; echo 'Base de datos creada!';<br />
+}</code>
+
+<h2><a name="drop"></a>$this->dbforge->drop_database('nombre_base_de_datos')</h2>
+<p>Permite borrar una base de datos especificada en el primer par&aacute;metro. Devuelve TRUE/FALSE basado en el &eacute;xito o fallo:</p>
+
+<code>if ($this->dbforge->drop_database('mi_base_de_datos'))<br />
+{<br />
+&nbsp;&nbsp;&nbsp; echo 'Base de datos eliminada!';<br />
+}</code>
+<br/>
+<h1>Creando y Eliminando Tablas</h1>
+<p>Existen varias cosas que se pueden querer hacer al crear tablas. Agregar campos, agregar claves, cambiar columnas. CodeIgniter provee un mecanismo para ello.</p>
+
+<h2><a name="add_field" id="add_field"></a>Agregar Campos</h2>
+<p>Los campos son creados a trav&eacute;s de un arreglo asociativo. Dentro del arreglo se debe incluir la clave 'type' que establece el tipo de dato del campo. Por ejemplo, INT, VARCHAR, TEXT, etc. Muchos tipos de datos (por ejemplo VARCHAR) tambi&eacute;n requieren una clave 'constraint'.</p>
+
+<p><code>$campos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'usarios' =&gt; array(<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'type' =&gt; 'varchar',<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'constraint' =&gt; '100',<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+    <br />
+// ser&aacute; traducido como &quot;usarios VARCHAR(100)&quot; cuando el campo sea agregado.</code></p>
+
+<p>Adicionalmente, el siguiente clave/valor puede ser usado:</p>
+
+<ul>
+    <li>unsigned/true : para generar &quot;UNSIGNED&quot; en la definici&oacute;n del campo</li>
+    <li>default/value : para generar un valor por defecto en la definici&oacute;n del campo</li>
+    <li>null/true : para generar &quot;NULL&quot; en la definici&oacute;n del campo. Sin ellos, el campo ser&aacute; &quot;NOT NULL&quot; por defecto</li>
+    <li>auto_increment/true : genera una bandera auto_increment al campo. Note que el tipo de campo debe ser entero</li>
+    </ul>
+
+<p><code>$campos = array(
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_id' =&gt; array(<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'type' =&gt; 'INT',<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'constraint' =&gt; 5, <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'unsigned' =&gt; TRUE,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'auto_increment' =&gt; TRUE<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_titulo' =&gt; array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'type' =&gt; 'VARCHAR',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'constraint' =&gt; '100',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_autor' =&gt; array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'type' =&gt;'VARCHAR',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'constraint' =&gt; '100',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'default' =&gt; 'King of Town',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_descripcion' =&gt; array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'type' =&gt; 'TEXT',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'null' =&gt; TRUE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+    );</code></p>
+
+<p>Luego de que estos campos fueron definidos, pueden ser agregados usando <dfn>$this-&gt;dbforge-&gt;add_field($campos);</dfn> seguido por una llamada a la funci&oacute;n <dfn>create_table()</dfn>.</p>
+
+<h3>$this-&gt;dbforge-&gt;add_field()</h3>
+<p>La funci&oacute;n agregar campos aceptar&aacute; el arreglo anterior.</p>
+
+<h3>Pasar cadenas como campos</h3>
+<p>Si se sabe exactamente como quiere que sea creado un campo, se puede pasar una cadena a las definiciones de campo con add_field()</p>
+
+<p><code>$this-&gt;dbforge-&gt;add_field(&quot;etiqueta varchar(100) NOT NULL DEFAULT 'etiqueta por defecto'&quot;);</code></p>
+
+<p class="important">Nota: M&uacute;ltiples llamadas a <dfn>add_field()</dfn> son acumuladas.</p>
+
+<h3>Crear un campo id</h3>
+<p>Hay una excepci&oacute;n para crear campos id. Un campo de tipo id automaticamente ser&aacute; asignado como INT(9) auto_incrementing Primary Key.</p>
+
+<p><code>$this-&gt;dbforge-&gt;add_field('id');<br />
+    // resulta id INT(9) NOT NULL AUTO_INCREMENT</code></p>
+
+<h2><a name="add_key" id="add_key"></a>Agregar Claves</h2>
+<p>En general, se desea que una tabla tenga Claves. Esto es logrado con <dfn>$this-&gt;dbforge-&gt;add_key('campo')</dfn>. Un opcional segundo par&aacute;metro establecido como TRUE lo har&aacute; clave primaria. Note que <dfn>add_key()</dfn> debe ser seguido por una llamada a <dfn>create_table()</dfn>.</p>
+
+<p>Si hay varias claves no primarias, se tienen que enviar como un array. El ejemplo impreso debajo es para MySQL</p>
+
+<p><code>$this-&gt;dbforge-&gt;add_key('blog_id', TRUE);<br />
+	// gives PRIMARY KEY `blog_id` (`blog_id`)<br />
+	<br />
+	$this-&gt;dbforge-&gt;add_key('blog_id', TRUE);<br />
+	$this-&gt;dbforge-&gt;add_key('sitio_id', TRUE);<br />
+	// Devuelve: PRIMARY KEY `blog_id_sitio_id` (`blog_id`, `sitio_id`)<br />
+	<br />
+	$this-&gt;dbforge-&gt;add_key('blog_nombre');<br />
+	// Devuelve: KEY `blog_name` (`blog_nombre`)<br />
+	<br />
+	$this-&gt;dbforge-&gt;add_key(array('blog_nombre', 'blog_rotulo'));<br />
+	// Devuelve: KEY `blog_name_blog_label` (`blog_nombre`, `blog_rotulo`)</code></p>
+
+<h2><a name="create_table" id="create_table2"></a>Crear una tabla</h2>
+<p>Luego de que los campos y las claves fueron declarados, se puede crear una tabla con </p>
+
+<p><code>$this-&gt;dbforge-&gt;create_table('nombre_tabla');<br />
+// resulta CREATE TABLE table_name</code></p>
+
+<p>Un segundo par&aacute;metro establecido como TRUE agrega la cl&aacute;usula &quot;IF NOT EXISTS&quot; a la definici&oacute;n</p>
+
+<p><code>$this-&gt;dbforge-&gt;create_table('nombre_tabla', TRUE);<br />
+// resulta CREATE TABLE IF NOT EXISTS nombre_tabla</code></p>
+
+<h2><a name="drop_table" id="drop_table"></a>Borrando una tabla</h2>
+<p>Ejecuta un sql DROP TABLE</p>
+
+<p><code>$this-&gt;dbforge-&gt;drop_table('nombre_tabla');<br />
+// resulta DROP TABLE IF EXISTS  table_name</code></p>
+<br/>
+<h1><a name="modifying_tables" id="drop_table2"></a>Modificar Tablas</h1>
+<h2>$this-&gt;dbforge-&gt;add_column()</h2>
+<p>La funci&oacute;n add_column() es usada para modificar una tabla existente. Acepta el mismo arreglo que arriba, y puede ser usada para un ilimitado n&uacute;mero de campos adicionales.</p>
+<p><code>$campos = array(
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'preferencias' =&gt; array('type' =&gt; 'TEXT')<br />
+);<br />
+$this-&gt;dbforge-&gt;add_column('sitios', $campos);<br />
+<br />
+// resulta ALTER TABLE sitios ADD   	preferencias TEXT</code></p>
+
+<h2>$this-&gt;dbforge-&gt;drop_column()</h2>
+<p>Usado para remover una columna de una tabla.</p>
+
+<p><code>$this-&gt;dbforge-&gt;drop_column('nombre_tabla', 'columna_a_borrar');</code></p>
+
+<h2>$this-&gt;dbforge-&gt;modify_column()</h2>
+<p>El uso de esta funci&oacute;n es id&eacute;ntico a add_column(), excepto que altera una columna existente, en vez de agregar una nueva. Para utilizarla se debe agregar la clave &quot;name&quot; al arreglo de definici&oacute;n del campo.</p>
+
+<p><code>$campos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre_viejo' =&gt; array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' =&gt; 'nombre_nuevo',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'type' =&gt; 'TEXT',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+);<br />
+$this-&gt;dbforge-&gt;modify_column('sites', $campos);<br />
+    <br />
+    // gives ALTER TABLE sites CHANGE   	nombre_viejo nombre_nuevo TEXT </code></p>
+<p>&nbsp;</p>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="caching.html">Clase Database Caching</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="utilities.html">Clase Database Utilities</a><a href="../libraries/email.html"></a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Database Caching : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Clase Database Caching
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Database Caching</h1>
+
+<p>La Clase Almacenamiento en Cach&eacute; de Base de Datos le permite cachear sus consulas como archivos de texto para reducir la carga de la base de datos.</p>
+
+<p class="important"><strong>Importante:</strong>&nbsp; Esta clase es inicializada autom&aacute;ticamente por el controlador de la base de datos cuando el cacheo es habilitado.  NO cargar esta clase manualmente.<br /><br />
+<strong>Tenga en cuenta tambi&eacute;n:</strong>&nbsp; No todas las funciones de resultados de consultas est&aacute;n disponibles cuando se utiliza la memoria cach&eacute;. Por favor, lea esta p&aacute;gina cuidadosamente.</p>
+
+<h2>Habilitar el almacenamiento en cach&eacute;</h2>
+<p>El almacenamiento en cach&eacute; se habilita en tres pasos:</p>
+
+<ul>
+<li>Crear un directorio de escritura en su servidor donde los archivos de cach&eacute; puedan ser almacenados.</li>
+<li>Establecer la ruta de su carpeta de cach&eacute; en su archivo <dfn>application/config/database.php</dfn>.</li>
+<li>Habilitar la funci&oacute;n de cach&eacute;, ya sea globalmente mediante el establecimiento de la preferencia en su archivo <dfn>application/config/database.php</dfn>, o manualmente como se describe a continuaci&oacute;n.</li>
+</ul>
+
+<p>Una vez activado, el almacenamiento en cach&eacute; suceder&aacute; de forma autom&aacute;tica cada vez que se carga una p&aacute;gina que contiene consultas a la base de datos.</p>
+
+<h2>C&oacute;mo trabaja el almacenamiento de cach&eacute;?</h2>
+<p>El sistema de almacenamiento en cach&eacute; de consultas de CodeIgniter ocurre din&aacute;micamente cuando sus p&aacute;ginas son visitadas. Cuando la memoria cach&eacute; est&aacute; habilitada, la primera vez que una p&aacute;gina web se carga, el objeto resultante de la consulta ser&aacute; serializado y almacenado en un archivo de texto en su servidor. La pr&oacute;xima vez que la p&aacute;gina se cargue, el archivo de cach&eacute; se utilizar&aacute; en lugar de acceder a su base de datos. El uso de la base de datos puede, efectivamente, ser reducido a cero para cualquiera de las paginas que haya sido cacheada.</p>
+
+<p>S&oacute;lo consultas del <dfn>tipo-Lectura</dfn> (SELECT) pueden ser cacheadas, ya que &eacute;stas son el &uacute;nico tipo de consultas que producen un resultado. Las consulta del <dfn>tipo-Escritura</dfn> (INSERT, UPDATE, etc.), ya que no generan un resultado, no ser&aacute;n cacheadas por el sistema.</p>
+
+<p>La cach&eacute; de archivos NO caduca. Todas las consultas que se han almacenado en cach&eacute; permanecer&aacute;n guardadas hasta que usted las borre. El sistema de almacenamiento en cach&eacute; permite borrar cach&eacute;s asociadas con p&aacute;ginas individuales, o puede eliminar toda la colecci&oacute;n de archivos de cach&eacute;. T&iacute;picamente usted utilizar&aacute; las funciones de limpieza que se describen a continuaci&oacute;n para borrar archivos de la memoria cach&eacute;, despu&eacute;s de que algunos eventos tengan lugar, como cuando se a&ntilde;ade nueva informaci&oacute;n a su base de datos.</p>
+
+<h2>C&oacute;mo mejora el rendimiento de su sitio el almacenamiento en cach&eacute;?</h2>
+
+<p>Obtener una ganancia de rendimiento como resultado de la memoria cach&eacute; depende de muchos factores. Si dispone de una base de datos altamente optimizada con muy poca carga, probablemente no ver&aacute; un incremento del rendimiento. Si su base de datos est&aacute; con bastante uso probablemente ver&aacute; una mejor respuesta, en el supuesto de su sistema de archivos no est&eacute; excesivamente taxed. Recuerde que el almacenamiento en cach&eacute; simplemente cambia como la informaci&oacute;n es recuperada, pasando de ser una operaci&oacute;n de base de datos a una del sistema de archivos.</p>
+
+<p>En algunos entornos de servidores en cluster, por ejemplo, el almacenamiento en cach&eacute; puede ser perjudicial, debido a que las operaciones del sistema de archivo son intensas. En servidores &uacute;nicos en ambientes compartidos, el almacenamiento en memoria cach&eacute; ser&aacute; probablemente beneficioso. Lamentablemente no hay una sola respuesta a la pregunta de si se debe hacer cach&eacute; de la base de datos. Realmente depende de su situaci&oacute;n.</p>
+
+<h2>C&oacute;mo se almacenan los archivos de cach&eacute;?</h2>
+<p>CodeIgniter almacenada el resultado de CADA consulta en su propio archivo de cach&eacute;. Los conjuntos de archivos de cach&eacute; son almacenados en las sub-carpetas correspondientes a sus funciones de controlador. Para ser precisos las sub-carpetas se nombran id&eacute;nticamente a los primeros dos segmentos de su URI (el nombre de la clase controlador y el nombre de la funci&oacute;n).</p>
+
+<p>Por ejemplo, digamos que tiene un controlador llamado <dfn>blog</dfn> con una funci&oacute;n llamada <dfn>comments</dfn> que contiene tres consultas. El sistema de almacenamiento en cach&eacute; una carpeta de cach&eacute; llamada <kbd>blog+comments</kbd>, en la se escribir&aacute; los tres archivos de cach&eacute;.</p>
+
+<p>Si usa consultas din&aacute;micas que cambian basadas en la informaci&oacute;n en su URI (cuando se usa paginaci&oacute;n, por ejemplo), cada instancia de la consulta producir&aacute; su propio archivo de cach&eacute;. Es posible, por lo tanto, terminar muchas veces con mas archivos de cach&eacute; que tengan consultas.</p>
+
+<h2>Gesti&oacute;n de sus Archivos de Cach&eacute;</h2>
+<p>Como los archivos de cach&eacute; no  caduca, tendr&aacute; que crear rutinas de eliminaci&oacute;n en su aplicaci&oacute;n. Por ejemplo, digamos que usted tiene un blog que permite a los usuarios comentar. Siempre que un nuevo comentario se presenta, querr&aacute; borrar los archivos de cach&eacute; asociados con la funci&oacute;n del controlador que sirve sus comentarios. Encontrar&aacute; dos funciones de eliminaci&oacute;n descriptas a continuaci&oacute;n que le ayudar&aacute;n a limpiar los datos.</p>
+
+<h2>No Todas las Funciones de Base de Datos Trabaja con almacenamiento en Cach&eacute;</h2>
+<p>Por &uacute;ltimo, hay que se&ntilde;alar que el objeto resultante que es almacenado en cach&eacute; es una versi&oacute;n simplificada del objeto resultante completo. Por esa raz&oacute;n, algunas de las funciones de resultado de consulta no est&aacute;n disponibles para su uso.</p>
+
+<p>Las siguientes funciones <kbd>NO EST&Aacute;N</kbd> disponibles cuando se utiliza un objeto resultado de la cach&eacute;:</p>
+
+<ul>
+<li>num_fields()</li>
+<li>field_names()</li>
+<li>field_data()</li>
+<li>free_result()</li>
+</ul>
+
+<p>Adem&aacute;s, los dos recursos de base de datos (result_id y conn_id) no est&aacute;n disponibles cuando se usa almacenamiento en memoria cach&eacute;, ya que los resultados de los recursos solo se refieren a operaciones en tiempo de ejecuci&oacute;n.</p>
+<br />
+
+<h1>Referencia de Funciones</h1>
+
+<h2>$this->db->cache_on()&nbsp; / &nbsp; $this->db->cache_off()</h2>
+<p>Habilita/Deshabilita manualmente el almacenamiento en cach&eacute;. Esto puede ser &uacute;til si desea mantener algunas consultas despues de haber sido cacheadas. Por ejemplo:</p>
+
+<code>
+// Habilito cach&eacute;<br />
+$this->db->cache_on();<br />
+$query = $this->db->query("SELECT * FROM mytable");<br />
+<br />
+// Deshabilito cach&eacute; solo para esta onsulta<br />
+$this->db->cache_off();<br />
+$query = $this->db->query("SELECT * FROM members WHERE member_id = '$current_user'");<br />
+<br />
+// Habilito cach&eacute; nuevamente<br />
+$this->db->cache_on();<br />
+$query = $this->db->query("SELECT * FROM another_table");
+</code>
+
+<h2>$this->db->cache_delete()</h2>
+<p>Elimina archivos de cach&eacute; asociados con una p&aacute;gina en particular. Esto es &uacute;til si necesita borrar la memoria cach&eacute; despu&eacute;s de actualizar su base de datos.</p>
+
+<p>El sistema de almacenamiento en cach&eacute; guarda los archivos de la memoria cach&eacute; a las carpetas que corresponden a la URI de la p&aacute;gina que est&aacute; viendo. Por ejemplo, si est&aacute; viendo una p&aacute;gina en <dfn>www.your-site.com/index.php/blog/comments</dfn>, el sistema de almacenamiento en cach&eacute; pondr&aacute; todos los archivos de cach&eacute; asociado a ella en una carpeta llamada <dfn>blog+comments</dfn>. Para eliminar estos archivos de cach&eacute; utilizar&aacute;:</p> 
+
+<code>$this->db->cache_delete('blog', 'comments');</code>
+
+<p>Si no utiliza todos los par&aacute;metros de la actual URI, se utilizar&aacute; a la hora de determinar que es lo que debe ser borrado.</p>
+
+<h2>$this->db->cache_delete_all()</h2>
+<p>Borra todos los archivos de cach&eacute; existentes.  Por ejemplo:</p>
+
+<code>$this->db->cache_delete_all();</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="call_function.html">Llamadas a Funciones Personalizadas</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="forge.html">Clase Database Forge</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

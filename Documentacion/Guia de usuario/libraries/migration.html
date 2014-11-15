@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Migration : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='CodeIgniter Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Migration
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Clase Migration</h1>
+<p>Las migraciones son una forma conveniente de alterar la base de datos de una forma estructurada y organizada. Podr&iacute;a editar fragmentos de SQL a mano, pero ser&iacute;a responsable de decirle a otros desarrolladores que necesitan ir y ejecutarlos. Tambi&eacute;n tendr&iacute;a que seguir la pista de los cambios necesarios para ejecutar nuevamente en las m&aacute;quinas de producci&oacute;n la pr&oacute;xima vez que se implemente.</p>
+
+<p>La <var>migraci&oacute;n</var> de tablas de base de datos sabe cuales migraciones ya se ejecutaron, por lo tanto todo lo que tiene que hacer es actualizar los archivos de la aplicaci&oacute;n y llamar a <dfn>$this->migrate->current()</dfn> para resolver qu&eacute; migraciones se deber&iacute;an ejecutar. La versi&oacute;n actual se encuentra en <var>config/migration.php</var>.</p>
+
+<h2>Crear una Migraci&oacute;n</h2>
+<p>Esta ser&aacute; la primera migraci&oacute;n para un sitio nuevo que tiene un blog. Todas las migraciones van en la carpeta <var>application/migrations/</var> y tienen nombres tales como: <kbd>001_add_blog.php</kbd>.</p>
+
+<pre>
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Migration_Add_blog extends CI_Migration {
+
+	public function up()
+	{
+		$this->dbforge->add_field(array(
+			'blog_id' => array(
+				'type' => 'INT',
+				'constraint' => 5,
+				'unsigned' => TRUE,
+				'auto_increment' => TRUE
+			),
+			'blog_title' => array(
+				'type' => 'VARCHAR',
+				'constraint' => '100',
+			),
+			'blog_description' => array(
+				'type' => 'TEXT',
+				'null' => TRUE,
+			),
+		));
+		
+		$this->dbforge->create_table('blog');
+	}
+
+	public function down()
+	{
+		$this->dbforge->drop_table('blog');
+	}
+</pre>
+
+<p>Entonces establecer <dfn>$config['migration_version'] = 1</dfn> en <var>application/config/migration.php</var>.</p>
+
+<h2>Ejemplo de Uso</h2>
+<p>En este ejemplo, se coloca algo de c&oacute;digo simple en application/controllers/migrate.php para actualizar el esquema.</p>
+
+<pre>
+$this->load->library('migration');
+
+if ( ! $this->migration->current())
+{
+	show_error($this->migration->error_string());
+}
+</pre>
+
+<h1>Referencia de Funciones</h1>
+
+<h2>$this->migration->current()</h2>
+<p>La migraci&oacute;n actual es la indicada por <dfn>$config['migration_version']</dfn> en <var>application/config/migration.php</var>.</p>
+
+<h2>$this->migration->latest()</h2>
+<p>Esto funciona muy parecido a current() pero, en lugar de buscar en <dfn>$config['migration_version']</dfn>, la clase Migration usar&aacute; la migraci&oacute;n m&aacute;s reciente encontrada en el sistema de archivos.</p>
+
+<h2>$this->migration->version()</h2>
+<p>Version() se puede usar para deshacer los cambios o para avanzar hacia adelante programaticamente a versiones espec&iacute;ficas. Funciona igual que current(), pero ignora a <dfn>$config['migration_version']</dfn>.</p>
+
+<pre>
+$this->load->library('migration');
+
+$this->migration->version(5);
+</pre>
+
+<h2>Preferencias de Migraci&oacute;n</h2>
+<p>La siguiente es la lista de todas las opciones de confguraci&oacute;n para las migraciones.</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+<th>Preferencia</th>
+<th>Valor por Defecto</th>
+<th>Opciones</th>
+<th>Descripci&oacute;n</th>
+</tr>
+<tr>
+<td class="td"><strong>migration_enabled</strong></td><td class="td">FALSE</td><td class="td">TRUE / FALSE</td><td class="td">Habilita o deshabilita las migraciones.</td>
+</tr>
+<tr>
+<td class="td"><strong>migration_version</strong></td><td class="td">0</td><td class="td">Ninguna</td><td class="td">Versi&oacute;n actual que su base de datos deber&iacute;a usar.</td>
+</tr>
+<tr>
+<td class="td"><strong>migration_path</strong></td><td class="td">APPPATH.'migrations/'</td><td class="td">Ninguna</td><td class="td">Ruta a su carpeta de migraciones.</td>
+</tr>
+</table>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="loader.html">Clase Load</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="output.html">Clase Output</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

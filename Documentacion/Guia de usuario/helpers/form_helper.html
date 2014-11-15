@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper Form : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper Form
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Helper Form</h1>
+<p>El archivo del Helper Form contiene funciones que lo ayudan a trabajar con formularios.</p>
+
+<h2>Cargar este Helper</h2>
+
+<p>Este helper se carga usando el siguiente c&oacute;digo:</p>
+<code>$this->load->helper('form');</code>
+
+<p>Est&aacute;n disponibles las siguientes funciones:</p>
+
+<h2>form_open()</h2>
+<p>Crea una etiqueta de apertura de formulario con una URL base <strong>construida a partir de sus preferencias de configuraci&oacute;n</strong>. Opcionalmente se le permitir&aacute; agregar atributos de formulario y campos de entrada ocultos, y siempre se agregar&aacute; el atributo <kbd>accept-charset</kbd> basado en el valor del conjunto de caracteres en su archivo de configuraci&oacute;n.</p>
+
+<p>El beneficio principal de usar esta etiqueta en lugar de codificar su propio HTML, es que le permite a su sitio ser m&aacute;s portable si cambian las URLs.</p>
+
+<p>Aqu&iacute; hay un ejemplo simple:</p>
+
+<code>
+echo form_open('email/send');
+</code>
+
+<p>El ejemplo anterior crear&iacute;a un formulario que apunta a su URL base, m&aacute;s el segmento de URI "email/send":</p>
+
+<code>&lt;form method="post" accept-charset="utf-8" action="http:/example.com/index.php/email/send" /></code>
+
+<h4>Agregando atributos</h4>
+<p>Los atributos pueden ser agregados pasando un arreglo asociativo como segundo par&aacute;metro, as&iacute;:</p>
+
+<code>
+$atributos = array('class' => 'email', 'id' => 'miformulario');<br />
+<br />
+echo form_open('email/enviar', $atributos);</code>
+
+<p>El ejemplo previo crea un formulario similar a esto:</p>
+
+<code>
+&lt;form method="post" action="http:/www.tu-sitio.com/index.php/email/enviar" &nbsp;class="email" &nbsp;id="miformulario" /></code>
+
+<h4>Agregando Campos de Entrada Ocultos</h4>
+<p>Campos ocultos pueden ser agregados pasando un arreglo asociativo como tercer par&aacute;metro, as&iacute;:</p>
+
+<code>
+$oculto = array('username' => 'Jose', 'miembro_id' => '234');<br />
+<br />
+echo form_open('email/enviar', '', $oculto);</code>
+
+<p>El ejemplo previo crear&iacute;a un formulario similar a este:</p>
+
+<code>&lt;form method="post" action="http:/www.your-site.com/index.php/email/enviar"><br />
+&lt;input type="hidden" name="username" value="Jose" /><br />
+&lt;input type="hidden" name="miembro_id" value="234" /></code>
+
+<h2>form_open_multipart()</h2>
+<p>Esta funci&oacute;n es absolutamente identica a la etiqueta <dfn>form_open()</dfn> de arriba, excepto que agrega el atributo multipart, el cual es necesario si desea usar el formulario para subir archivos.</p>
+
+<h2>form_hidden()</h2>
+<p>Le permite generar campos de entrada ocultos. Puede enviar un nombre/valor para crear un campo:</p>
+
+<code>form_hidden('username', 'johndoe');<br />
+<br />
+// Producir&iacute;a:<br /><br />
+&lt;input type="hidden" name="username" value="johnodoe" /></code>
+
+<p>O puede env&iacute;ar un arreglo asociativo para crear m&uacute;tiples campos:</p>
+
+<code>$datos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre'&nbsp;&nbsp;=> 'John Doe',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email' => 'john@example.com',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'url'&nbsp;&nbsp;&nbsp;=> 'http://www.example.com'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+echo form_hidden($datos);<br />
+<br />
+// Producir&iacute;a:<br /><br />
+&lt;input type="hidden" name="nombre" value="John Doe" /><br />
+&lt;input type="hidden" name="email" value="john@example.com" /><br />
+&lt;input type="hidden" name="url" value="http://www.example.com" /></code>
+
+<h2>form_input()</h2>
+<p>Le permite generar un campo de texto de entrada est&aacute;ndar. Puede pasar minimamente el nombre del campo y el valor en el primer y segundo par&aacute;metro:</p>
+
+<code>echo form_input('username', 'johndoe');</code>
+
+<p>O puede pasar un arreglo asociativo que contenga cualquier dato que quiera que su formulario contenga:</p>
+
+<code>$datos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'username',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'username',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'value'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'johndoe',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'maxlength'&nbsp;&nbsp;&nbsp;=> '100',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'size'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '50',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'style'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'width:50%',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+echo form_input($datos);<br />
+<br />
+// Producir&iacute;a:<br /><br />
+&lt;input type="text" name="username" id="username" value="johndoe" maxlength="100" size="50" style="width:50%" /></code>
+
+<p>Si desear&iacute;a que su formulario contenga alg&uacute;n dato adicional, como JavaScript, puede pasar una cadena en el tercer par&aacute;metro:</p>
+
+<code>$js = 'onClick="alguna_funcion()"';<br />
+<br />
+echo form_input('username', 'johndoe', $js);</code>
+
+<h2>form_password()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica en todo aspecto a la funci&oacute;n <dfn>form_input()</dfn> de arriba, excepto que establece el tipo "password".</p>
+
+<h2>form_upload()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica en todo aspecto a la funci&oacute;n <dfn>form_input()</dfn> de arriba excepto que establece el tipo "file", permitiendo ser usado para subir archivos.</p>
+
+<h2>form_textarea()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica en todo aspecto a la funci&oacute;n <dfn>form_input()</dfn> de arriba excepto que genera un tipo "textarea". Nota: En vez de los atributos "maxlength" y "size" en el ejemplo anterior, especificar&aacute; "rows" y "cols".</p>
+
+<h2>form_dropdown()</h2>
+<p>Le permite crear un campo de men&uacute; desplegable est&aacute;ndar. El primer par&aacute;metro contendr&aacute; el nombre del campo, el segundo par&aacute;metro contendr&aacute; un arreglo asociativo de opciones, y el tercer par&aacute;metro contendr&aacute; el valor que desea sea preseleccionado. Tambi&eacute;n puede pasar un arreglo a trav&eacute;s del tercer par&aacute;metro, y CodeIgniter crear&aacute; un select m&uacute;tiple para t&iacute;. Ejemplo:</p>
+
+<code>$opciones = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'small'&nbsp;&nbsp;=> 'Remera Peque&ntilde;a',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'med'&nbsp;&nbsp;&nbsp;&nbsp;=> 'Remera Mediana',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'large'&nbsp;&nbsp; => 'Remera Grande',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'xlarge' => 'Remera Extra Grande',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$remeras_a_la_venta = array('small', 'large');<br />
+<br />
+echo form_dropdown('remeras', $opciones, 'large');<br />
+<br />
+// Producir&aacute;:<br />
+<br />
+&lt;select name=&quot;shirts&quot;&gt;<br />
+&lt;option value=&quot;small&quot;&gt;Remera Peque&ntilde;a&lt;/option&gt;<br />
+&lt;option value=&quot;med&quot;&gt;Remera Mediana&lt;/option&gt;<br />
+&lt;option value=&quot;large&quot; selected=&quot;selected&quot;&gt;Remera Grande&lt;/option&gt;<br />
+&lt;option value=&quot;xlarge&quot;&gt;Remera Extra Grande&lt;/option&gt;<br />
+&lt;/select&gt;<br />
+<br />
+echo form_dropdown('remeras', $opciones, $remeras_a_la_venta);<br />
+<br />
+// Producir&aacute;:<br />
+<br />
+&lt;select name=&quot;shirts&quot; multiple=&quot;multiple&quot;&gt;<br />
+&lt;option value=&quot;small&quot; selected=&quot;selected&quot;&gt;Remera Peque&ntilde;a&lt;/option&gt;<br />
+&lt;option value=&quot;med&quot;&gt;Remera Mediana&lt;/option&gt;<br />
+&lt;option value=&quot;large&quot; selected=&quot;selected&quot;&gt;Remera Grande&lt;/option&gt;<br />
+&lt;option value=&quot;xlarge&quot;&gt;Remera Extra Grande&lt;/option&gt;<br />
+&lt;/select&gt;</code>
+
+<p>Si desea que el &lt;select> de apertura contenga datos adicionales, como JavaScript, puede pasar una cadena en el cuarto par&aacute;metro:</p>
+
+<code>$js = 'onChange="alguna_funcion()"';<br />
+<br />
+echo form_dropdown('remeras', $opciones, 'large', $js);</code>
+
+<h2>form_multiselect()</h2>
+<p>Le permite crear un campo de selecci&oacute;n m&uacute;ltiple est&aacute;ndar. El primer par&aacute;metro contendr&aacute; el nombre del campo, el segundo par&aacute;metro contendr&aacute; un array asociativo de opciones, y el tercer par&aacute;metro contendr&aacute; el valor o valores que desea que est&eacute;n seleccionados. El uso de par&aacute;metros es id&eacute;ntico a usar el anterior <kbd>form_dropdown()</kbd>, salvo por supuesto que el nombre del campo tendr&aacute; que usar la sintaxis del array POST, por ejemplo <samp>foo[]</samp>.</p>
+
+<h2>form_fieldset()</h2>
+<p>Le permite generar campos fieldset/legend.</p>
+
+<code>echo form_fieldset('Informaci&oacute;n de Direcci&oacute;n');<br />
+echo &quot;&lt;p&gt;Contenido del Fieldset&lt;/p&gt;\n&quot;;<br />
+echo form_fieldset_close();
+<br />
+<br />
+// Produce<br />
+&lt;fieldset id=&quot;address_info&quot;&gt;  
+<br />
+&lt;legend&gt;Informaci&oacute;n de Direcci&oacute;n&lt;/legend&gt;  
+<br />
+&lt;p&gt;Contenido del Fieldset&lt;/p&gt;  
+<br />
+&lt;/fieldset&gt;</code>
+
+<p>Similarmente a otras funciones, puede enviar un arreglo asociativo en el segundo par&aacute;metro si prefiere establecer atributos adicionales.</p>
+
+<code>$atributos = array('id' =&gt; 'address_info', 'class' =&gt; 'address_info');<br />
+    echo form_fieldset('Informaci&oacute;n de Direcci&oacute;n', $atributos);<br />
+echo &quot;&lt;p&gt;Contenido del Fieldset&lt;/p&gt;\n&quot;;<br />
+echo form_fieldset_close(); <br />
+<br />
+// Produce<br />
+&lt;fieldset id=&quot;address_info&quot; class=&quot;address_info&quot;&gt; <br />
+&lt;legend&gt;Address Information&lt;/legend&gt; <br />
+&lt;p&gt;form content here&lt;/p&gt; <br />
+&lt;/fieldset&gt;</code>
+
+<h2>form_fieldset_close()</h2>
+<p>Produce una etiqueta &lt;/fieldset&gt; de cierre. La &uacute;nica ventaja de usar esta funci&oacute;n es que permite pasar datos que ser&aacute;n agregados debajo de la etiqueta. Por ejemplo:</p>
+
+<code>$cadena = &quot;&lt;/div&gt;&lt;/div&gt;&quot;;<br />
+<br />
+echo fieldset_close($cadena);<br />
+<br />
+// Produce:<br />
+&lt;/fieldset&gt;<br />
+&lt;/div&gt;&lt;/div&gt;</code>
+
+<h2>form_checkbox()</h2>
+<p>Le permite generar campos de casillas de verificaci&oacute;n (checkbox). Ejemplo simple:</p>
+
+<code>echo form_checkbox('newsletter', 'aceptar', TRUE);<br />
+<br />
+// Produce:<br />
+<br />
+&lt;input type=&quot;checkbox&quot; name=&quot;newsletter&quot; value=&quot;aceptar&quot; checked=&quot;checked&quot; /&gt;</code>
+
+<p>El tercer par&aacute;metro contiene un booleano TRUE/FALSE para determinar si la casilla debe estar marcada o no.</p>
+
+<p>Similarmente a las otras funciones en este asistente, tambi&eacute;n puede pasar un arreglo de atributos a la funci&oacute;n:</p>
+
+<code>$datos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'newsletter',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'newsletter',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'value'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'aceptar',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'checked'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> TRUE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'style'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'margin:10px',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+echo form_checkbox($datos);<br />
+<br />
+// Produce:<br /><br />
+&lt;input type="checkbox" name="newsletter" id="newsletter" value="aceptar" checked="checked" style="margin:10px" /></code>
+
+<p>Como con otras funciones, si quiere que la etiqueta contenga datos adicionales, como JavaScript, puede pasar una cadena en el cuarto par&aacute;metro:</p>
+
+<code>$js = 'onClick="alguna_funcion()"';<br />
+<br />
+ echo form_checkbox('newsletter', 'aceptar', TRUE, $js)</code>
+
+<h2>form_radio()</h2>
+
+<p>Esta funci&oacute;n es id&eacute;ntica a la funci&oacute;n <dfn>form_checkbox()</dfn> en todo aspecto excepto que establece el tipo "radio".</p>
+
+<h2>form_submit()</h2>
+<p>Le permite generar un bot&oacute;n de env&iacute;o est&aacute;ndar. Ejemplo simple:</p>
+
+<code>echo form_submit('mienvio', 'Enviar mensaje!');<br />
+<br />
+// Produce:<br />
+<br />
+&lt;input type=&quot;submit&quot; name=&quot;mienvio&quot; value=&quot;Enviar mensaje!&quot; /&gt;</code>
+
+<p>Similar a otras funciones, puede env&iacute;ar un arreglo asociativo en el primer par&aacute;metro si prefiere establecer sus propios atributos. El tercer par&aacute;metro le deja establecer datos adicionales a su formulario, como JavaScript.</p>
+
+<h2>form_label()</h2>
+
+<p>Le permite generar una etiqueta &lt;label&gt;. Ejemplo simple:</p>
+
+<code>echo form_label('Cual es tu nombre', 'username');<br />
+<br />
+// Produce:
+<br />
+&lt;label id=&quot;username&quot;&gt;Cual es tu nombre&lt;/label&gt;</code>
+
+<p>Similar a las otras funciones, puede enviar un arreglo asociativo en el tercer par&aacute;metro si prefiere establecer atributos adicionales.</p>
+
+<code>$atributos = array(<br />
+    	 'class' =&gt; 'miclase',<br />
+    	 'style' =&gt; 'color: #000;',<br />
+);<br />
+    echo form_label('Cual es tu nombre', 'username', $atributos);<br />
+        <br />
+// Produce: <br />
+&lt;label id=&quot;username&quot; class=&quot;miclase&quot; style=&quot;color: #000;&quot;&gt;Cual es tu nombre&lt;/label&gt;</code>
+
+<h2>form_reset()</h2>
+<p>Le permite generar un bot&oacute;n est&aacute;ndar de restablecer. El uso es id&eacute;ntico a <dfn>form_submit()</dfn>.</p>
+
+<h2>form_button()</h2>
+<p>Le permite generar un elemento de bot&oacute;n est&aacute;ndar. M&iacute;nimamente puede pasar el nombre del bot&oacute;n y contenido en el primer y segundo par&aacute;metros:</p>
+<code>
+echo form_button('nombre','contenido');<br />
+<br />
+// Producir&iacute;a<br />
+&lt;button name="name" type="button"&gt;Content&lt;/button&gt;
+</code>
+
+<p>O puede pasarle un array asociativo conteniendo cualquier dato que desee que su formulario contenga:</p>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'name' => 'button',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'id' => 'button',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'value' => 'true',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'type' => 'reset',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'content' => 'Reset'<br />
+);<br />
+<br />
+echo form_button($data);<br />
+<br />
+// Producir&iacute;a<br />
+&lt;button name="button" id="button" value="true" type="reset"&gt;Reset&lt;/button&gt;
+</code>
+
+<p>Si desea que su formulario contenga algunos datos adicionales, como JavaScript, puede pasarlos como una cadena en el tercer par&aacute;metro:</p>
+
+<code>
+$js = 'onClick="alguna_funcion()"';<br /><br />
+echo form_button('mybutton', 'Clic aqu&iacute;', $js);
+</code>
+
+<h2>form_close()</h2>
+<p>Produce una etiqueta de cierre &lt;/form>.  La &uacute;nica ventaja de usar esta funci&oacute;n es que le permite pasar datos que ser&aacute;n agregador debajo de la etiqueta. Por ejemplo:</p>
+
+<code>$cadena = "&lt;/div>&lt;/div>";<br />
+<br />
+echo form_close($cadena);<br />
+<br />
+// Produce:<br />
+<br />
+&lt;/form><br />
+&lt;/div>&lt;/div></code>
+
+<h2>form_prep()</h2>
+<p>Permite usar HTML y caracteres como comillas dentro de elementos de formulario en forma segura, sin romperlo. Considere este ejemplo:</p>
+
+<code>$cadena = 'Aqu&iacute; hay una cadena que contiene texto entre <strong>"comillas"</strong>.';<br />
+<br />
+&lt;input type="text" name="myform" value="<var>$cadena</var>" /></code>
+
+<p>Ya que la cadena anterior contiene un juego de comillas har&aacute; que el formulario se rompa. La funci&oacute;n form_prep conviente HTML para que pueda ser usado con seguridad:</p>
+
+<code>&lt;input type="text" name="myform" value="<var>&lt;?php echo form_prep($cadena); ?></var>" /></code>
+
+<p class="important"><strong>Nota:</strong> Su ysa cualquiera de las funciones del asistente de formularios listados en esta p&aacute;gina, los valores de formularios ser&aacute;n preparados autom&aacute;ticamente, as&iacute; que no hay necesidad de llamara esta funci&oacute;n. &Uacute;sela s&oacute;lo si crea sus propios elementos.</p>
+
+<h2>set_value()</h2>
+<p>Le permite establecer el valor de una entrada de formulario o de un textarea. Tiene que suministrar el nombre del campo mediante el primer par&aacute;metro de la funci&oacute;n. El segundo par&aacute;metro (opcional) le permite establecer un valor por defecto para el formulario. Ejemplo:</p>
+
+<code>
+&lt;input type="text" name="cantidad"
+value="<dfn>&lt;?php echo set_value('cantidad', '0'); ?></dfn>" size="50" />
+</code>
+
+<p>El formulario anterior mostrar&aacute; "0" cuando se cargue por primera vez.</p>
+
+<h2>set_select()</h2>
+
+Si usa un men&uacute; <dfn>&lt;select></dfn>, esta funci&oacute;n le permite mostrar el elemento de men&uacute; que se seleccion&oacute;. El primer par&aacute;metro tiene que contener el nombre del men&uacute; select, el segundo par&aacute;metro tiene que contener el valor de cada elemento y el tercer par&aacute;metro (opcional) le permite establecer un elemento por defecto (usar el booleano TRUE/FALSE). Ejemplo:</p>
+
+<p>Example:</p>
+
+<code>
+&lt;select name="mi_select"><br />
+&lt;option value="uno" <dfn>&lt;?php echo  set_select('mi_select', 'uno', TRUE); ?></dfn> >Uno&lt;/option><br />
+&lt;option value="dos" <dfn>&lt;?php echo  set_select('mi_select', 'dos'); ?></dfn> >Dos&lt;/option><br />
+&lt;option value="tres" <dfn>&lt;?php echo  set_select('mi_select', 'tres'); ?></dfn> >Tres&lt;/option><br />
+&lt;/select>
+</code>
+
+<h2>set_checkbox()</h2>
+<p>Le permite mostrar una casilla de verificaci&oacute;n en el estado en que se envi&oacute;. El primer par&aacute;metro tiene que contener el nombre de la casilla de verificaci&oacute;n, el segundo par&aacute;metro tiene que contener su valor y el tercer par&aacute;metro (opcional) le permite establecer un elemento por defecto (usar el booleano TRUE/FALSE). Ejemplo:</p>
+
+<code>
+&lt;input type="checkbox" name="mi_casilla" value="1" <dfn>&lt;?php echo set_checkbox('mi_casilla', '1'); ?></dfn> /><br />
+&lt;input type="checkbox" name="mi_casilla" value="2" <dfn>&lt;?php echo set_checkbox('mi_casilla', '2'); ?></dfn> />
+</code>
+
+<h2>set_radio()</h2>
+
+<p>Le permite mostrar botones de radio en el estado en que se enviaron. Esta funci&oacute;n es id&eacute;ntica a la funci&oacute;n
+<dfn>set_checkbox()</dfn> anterior.</p>
+
+<code>&lt;input type="radio" name="mi_radio" value="1" <dfn>&lt;?php echo  set_radio('mi_radio', '1', TRUE); ?></dfn> /><br />
+&lt;input type="radio" name="mi_radio" value="2" <dfn>&lt;?php echo  set_radio('mi_radio', '2'); ?></dfn> /></code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="file_helper.html">Helper File</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="html_helper.html">Helper HTML</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Vistas : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Vistas
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content"><h1>Vistas</h1>
+<p>Una <dfn>vista</dfn> es simplmenete una p&aacute;gina web, o un fragmento de ella, como un encabezado, un p&iacute;e de p&aacute;gina, una barra lateral, etc.
+De hecho, las vistas pueden ser flexiblemente embebidas dentro de otras vistas (dentro de otras vistas, etc., etc.) si necesita este tipo de jerarqu&iacute;a.</p>
+<p>Las vistas nunca son llamadas directamente, ellas deben ser cargadas por un <a href="controllers.html">controlador</a>. Recuerda que en un entorno de trabajo MVC, el Controlador actua como el "policia de tr&aacute;nsito", as&iacute; que es responsable de traer una vista en particular.
+Sino ha le&iacute;do la p&aacute;gina del <a href="controllers.html">Controlador</a> deber&iacute;a hacerlo antes de continuar.</p>
+<p>Usando el controlador que cre&oacute; en la p&aacute;gina de <a href="controllers.html">controlador</a>, le permite agregar una vista a &eacute;l.</p>
+<h2>Crear una vista</h2>
+<p>Usando su editor de texto, cree un archivo llamado <dfn>vistablog.php</dfn>, y ponga esto en &eacute;l:</p>
+<pre>
+&lt;html>
+&lt;head>
+&lt;title>Mi Blog&lt;/title>
+&lt;/head>
+&lt;body>
+	&lt;h1>Bienvenido a mi Blog!&lt;/h1>
+&lt;/body>
+&lt;/html>
+</pre>
+<p>Entonces guarde el archivo en su carpeta <dfn>application/views/</dfn>.</p>
+<h2>Cargando una Vista</h2>
+<p>Para cargar un archivo de vista en particular, usar&aacute; la siguiente funci&oacute;n:</p>
+<code>$this->load->view('<var>nombre</var>');</code>
+<p>Donde <var>nombre</var> es el nombre de su archivo de vista. Nota: no es necesario especificar la extensi&oacute;n .php del archivo a menos que use una distinta de <kbd>.php</kbd>.</p>
+<p>Ahora, abra el archivo controlador que hizo previamente llamado <dfn>blog.php</dfn>, y reemplace la sentencia "echo" con la funci&oacute;n de carga de vista:</p>
+<pre>
+<?php
+class Blog extends CI_Controller {
+	function index()
+	{
+		$this->load->view('vistablog');
+	}
+}
+?>
+</pre>
+<p>Si visita su sitio usando la URL que us&oacute; antes, deber&iacute;a ver su nueva vista. La URL era similar a esta:</p>
+<code>www.su-sitio.com/index.php/<var>blog</var>/</code>
+<h2>Cargando m&uacute;ltiples vistas</h2>
+<p>CodeIgniter manejar&aacute; inteligentemente m&uacute;ltiples llamadas a $this-&gt;load-&gt;view desde dentro de un controlador. Si m&aacute;s de una llamada ocurre ser&aacute;n agregados juntos. Por ejemplo, puede querer tener una vista de encabezado, una vista de menu, una vista de contenido, y una vista de p&iacute;e de p&aacute;gina. Eso puede verse m&aacute;s o menos as&iacute;:</p>
+<p><code>&lt;?php<br />
+<br />
+class Pagina extends CI_Controller {<br /><br />
+ &nbsp;&nbsp;&nbsp;function index()<br />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$datos['titulo_pagina'] =  'Su titulo';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('encabezado');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('menu');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('contenido', $datos);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this-&gt;load-&gt;view('pie_de_pagina');<br />
+&nbsp;&nbsp;&nbsp;}<br />
+<br />
+}<br />
+    ?&gt;</code></p>
+<p>En el ejemplo anterior, estamos usando &quot;datos agregados din&aacute;micamente&quot;, el cual ver&aacute; debajo.</p>
+<h2>Guardando Vistas dentro de Sub-carpetas</h2>
+<p>Sus archivos de vista pueden ser guardados dentro de sub-carpetas si prefiere ese tipo de organizaci&oacute;n. Cuando lo haga, necesitar&aacute; incluir el nombre de la carpeta al cargad la vista. Ejemplo:</p>
+<code>$this->load->view('<kbd>nombre_carpeta</kbd>/<var>nombre_archivo</var>');</code>
+<h2>Agregar Datos Din&aacute;micos a la Vista</h2>
+<p>Los datos son pasados desde el controlador a la vista de la forma de un <strong>arreglo</strong> o un <strong>objeto</strong> en el segundo par&aacute;metro de la funci&oacute;n de carga de vistas. Aqu&iacute; hay un ejemplo usando un arreglo:</p>
+<code>$datos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'titulo' => 'Mi Titulo',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'encabezado' => 'Mi Encabezado',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mensaje' => 'Mi Mensaje'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->load->view('vistablog', <var>$datos</var>);</code>
+<p>Y aqu&iacute; hay un ejemplo usando un objeto:</p>
+<code>$datos = new Someclass();<br />
+$this->load->view('vistablog', <var>$datos</var>);</code>
+<p>Nota: si usa un objeto las variables de clase ser&aacute;n convertidas en un arreglo de elementos.</p>
+<p>Prob&eacute;moslo con su archivo controlador.  &Aacute;bralo y agregue este c&oacute;digo:</p>
+
+<pre>
+&lt;?php
+class Blog extends CI_Controller {
+	function index()
+	{
+		$datos['titulo'] = "Mi Titulo Real";
+		$datos['encabezado'] = "Mi Encabezado Real";
+		
+		$this->load->view('vistablog', $datos);
+	}
+}
+?&gt;
+</pre>
+<p>Ahora puede abrir su archivo de vista y cambiar el texto a variables que correspondan a las claves del arreglo de sus datos:</p>
+<pre>
+&lt;html>
+&lt;head>
+&lt;title>&lt;?php echo $titulo;?>&lt;/title>
+&lt;/head>
+&lt;body>
+	&lt;h1>&lt;?php echo $encabezado;?>&lt;/h1>
+&lt;/body>
+&lt;/html>
+</pre>
+<p>Entonces cargue la p&aacute;gina en la URL que viene usando y deber&iacute;a ver las variables reemplazadas.</p>
+<h2>Creando Iteraciones</h2>
+<p>El arreglo de datos que le pasa a su archivo de vista no est&aacute; limitado a variables simples. Puede pasar
+arreglos multidimensionales, los que ser&aacute;n iterados para generar m&uacute;ltiples filas. Por ejemplo, si
+trajo datos de su base de datos tipicalmente ser&aacute; en la forma de un arreglo m&uacute;ltidimensional.</p>
+<p>Aqu&iacute; hay un ejemplo simple. Agregue esto a su controlador:</p>
+<pre>
+&lt;?php
+class Blog extends CI_Controller {
+	function index()
+	{
+		$datos['lista_de_tareas'] = array('Limpiar la Casa', 'Llamar a Mam&aacute;', 'Hacer un Recado');
+		$datos['titulo'] = "Mi T&iacute;tulo Real";
+		$datos['encabezado'] = "My Encabezado Real";
+		
+		$this->load->view('vistablog', $datos);
+	}
+}
+?&gt;
+</pre>
+<p>Ahora abra su archivo de vista y cree la iteraci&oacute;n:</p>
+<pre>
+&lt;html>
+&lt;head>
+&lt;title>&lt;?php echo $titulo;?>&lt;/title>
+&lt;/head>
+&lt;body>
+&lt;h1>&lt;?php echo $encabezado;?>&lt;/h1>
+	
+&lt;h3>Mi Lista de Tareas&lt;/h3>	
+&lt;ul>
+&lt;?php foreach($lista_de_tareas as $item):?>
+&lt;li>&lt;?php echo $item;?>&lt;/li>
+&lt;?php endforeach;?>
+&lt;/ul>
+	
+&lt;/body>
+&lt;/html>
+</pre>
+<p><strong>Nota:</strong> Notar&aacute; que en el ejemplo de arriba estamos usando la sintaxis alternativa de PHP. Si
+no est&aacute; familiarizado con ella, puede leer acerca de ella <a href="alternative_php.html">aqu&iacute;</a>.</p>
+
+<h2>Devolver Vistas como Datos</h2>
+
+<p>Hay un tercer par&aacute;metro <strong>opcional</strong> que le permite cambiar el comportamiento de la funci&oacute;n para que devuelva datos como una cadena en lugar de enviarla al navegador. Esto puede ser &uacute;til si desea procesar los datos en alguna forma. Si establece el par&aacute;metro a <kbd>TRUE</kbd> (booleano), devolver&aacute; datos. El comportamiento por defecto <kbd>FALSE</kbd>, la enviar&aacute; al navegador. Recuerde asignarla a una variable si quiere que devuelva datos:</p>
+<code>$string = $this->load->view('<var>mi_archivo</var>', '', <kbd>TRUE</kbd>);</code>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="reserved_names.html">Nombres Reservados</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="models.html">Modelos</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

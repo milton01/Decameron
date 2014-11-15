@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CodeIgniter URLs : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+URLS
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+<h1>URLs en CodeIgniter</h1>
+
+<p>Por defecto, las URLs en CodeIgniter est&aacute;n dise&ntilde;adas para ser amigable a los motores de b&uacute;squeda y amigables a los humanos. En vez de usar el est&aacute;ndar acercamiento "query string" para URLs que es sin&oacute;nimo con sistemas din&aacute;micos, CodeIgniter usa un aproximamiento <strong>basado-en-segmentos</strong>:</p>
+<code>www.su-sitio.com/<var>noticias</var>/<dfn>articulo</dfn>/<samp>mi_articulo</samp></code>
+<p class="important"><strong>Nota:</strong> Las URLs con "query string" pueden ser habilitadas opcionalmente, como se describe abajo.</p>
+<h2>Segmentos URI</h2>
+<p>Los segmentos en la URL, en consecuencia con la aproximaci&oacute;n Modelo-Vista-Controlador, usualmente representa:</p>
+<code>www.su-sitio.com/<var>clase</var>/<dfn>funcion</dfn>/<samp>ID</samp></code>
+<ol>
+<li>El primer segmento representa la <strong>clase</strong> controlador que debe ser invocado.</li>
+<li>El segundo segmento representa la <strong>funci&oacute;n</strong> de la clase, o m&eacute;todo, que debe ser llamado.</li>
+<li>El tercer, y cualquier segmento adicional, representa el ID y cualquier variable que ser&aacute; pasada al controlador.</p>
+</ol>
+<p>La <a href="../libraries/uri.html">Clase de URI</a> y el <a href="../helpers/url_helper.html">Asistente de URL</a>
+contiene funciones que hacen f&aacute;cil trabajar con datos de URI. En adici&oacute;n, sus URLs pueden ser remapeados usando la caracter&iacute;stica
+<a href="routing.html">de Routeo de URI</a> para m&aacute;s flexibilidad.</p>
+<h2>Remover el archivo index.php</h2>
+<p>Por defecto, el archivo <strong>index.php</strong> ser&aacute; incluido en sus URLs:</p>
+<code>www.su-sitio.com/<var>index.php</var>/noticias/articulo/mi_articulo</code>
+<p>Puede f&aacute;cilmente remover este archivo usando un archivo .htaccess con algunas simples reglas. Aqu&iacute; hay un ejemplo de tal archivo, usando el m&eacute;todo "negativo" en el cual todo es redireccionado excepto los items especificado:</p>
+<code>RewriteEngine on<br />
+RewriteCond $1 !^(index\.php|images|robots\.txt)<br />
+RewriteRule ^(.*)$ /index.php/$1 [L]</code>
+<p>En el ejemplo anterior, cualquier pedido HTTP distinto del que sea para index.php, images, y robots.txt es tratado como un pedido para el archivo index.php.</p>
+<h2>Agregando un sufijo a la URL</h2>
+<p>En su archivo <dfn>config/config.php</dfn> puede especificar un sufijo que ser&aacute; agregado a todas las URLs generada por CodeIgniter.  Por ejemplo, si una URL es esta:</p>
+<code>www.su-sitio.com/index.php/productos/ver/zapatillas</code>
+<p>Puede opcionalmente agregar un sufijo, como <kbd>.html</kbd>, haciendo la p&aacute;gina aparecer ser de un cierto tipo:</p>
+<code>www.su-sitio.com/index.php/productos/ver/zapatillas.html</code>
+<h2>Habilitando "Query Strings"</h2>
+<p>En algunos casos, puede preferir usar URLs con query strings:</p>
+<code>index.php?c=productos&m=ver&id=345</code>
+<p>CodeIgniter opcionalmente soporta esta capacidad, la cual puede ser habilitada en su archivo <dfn>application/config.php</dfn>. Si abre su archivo de configuraci&oacute;n ver&aacute; estos items:</p>
+<code>$config['enable_query_strings'] = FALSE;<br />
+$config['controller_trigger'] = 'c';<br />
+$config['function_trigger'] = 'm';</code>
+<p>Si cambia "enable_query_strings" a TRUE esta caracter&iacute;stica se activar&aacute;. Sus controladores y funciones ser&aacute;n entonces accesibles usando las palabras "trigger" que haya establecido para invocar sus controladores y m&eacute;todos:</p>
+<code>index.php?c=controlador&m=metodo</code>
+<p class="important"><strong>Por favor note:</strong> Si est&aacute; usando query strings tendr&aacute; que construir sus propias URLs, en vez de utilizar los asistentes de URL (y otros asistentes que generan URLs, como alguno de los asistentes de formularios) ya que ellos est&aacute;n dise&ntilde;ados para trabajar con URLs basadas en segmentos</p>
+</div><!-- END CONTENT -->
+
+
+
+<div id="footer">
+<p>
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="controllers.html">Controladores</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

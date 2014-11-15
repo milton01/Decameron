@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Funciones Helper: Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper Functions
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Funciones Helper</h1>
+
+<p>Los helpers, como el nombre sugiere, le ayudan con tareas. Cada archivo helper es simplemente una colecci&oacute;n de funciones de una categor&iacute;a particular. Existe un <dfn>Helper de URL</dfn>, que ayuda en la creaci&oacute;n de hiperv&iacute;nculos, est&aacute; el <dfn>Helper de Formularios</dfn> que ayuda a crear elementos de formularios, , <dfn>Helper de Texto</dfn> que realiza varias rutinas de formato,<dfn>Helper de Cookie</dfn> establece y lee cookies, <dfn>Helper de Archivos</dfn> ayuda a trabajar con archivos, etc.
+</p>
+<p>A diferencia de muchos otros sistemas en CodeIgniter, los Helpers no est&aacute;n escritos en un formato Orientado a Objetos. Son simples funciones de procedimiento.
+Cada funci&oacute;n helper realiza una tarea espec&iacute;fica, sin dependencia en otras funciones.</p>
+<p>CodeIgniter no carga Archivos Helper por defecto, as&iacute; que el primer paso en el uso de Helpers es cargarlos. Una vez cargados, se vuelven disponibles globalmente en su <a href="../general/controllers.html">controlador</a> y <a href="../general/views.html">vistas</a>.</p>
+<p>Los helpers son t&iacute;picamente guardados en su directorio <dfn>system/helpers</dfn>. Alternativamente puede crear una carpeta llamada <kbd>helpers</kbd> dentro de su carpeta <kbd>application</kbd> y guardarlos all&iacute;. CodeIgniter primero buscar&aacute; en su direcotrio <dfn>system/application/helpers</dfn>. Si el directorio no existe o el helper especificado no est&aacute; ubicado all&iacute;, CI buscar&aacute; entonces en su carpeta global <dfn>system/helpers</dfn>.</p>
+<h2>Cargando un Helper</h2>
+<p>Cargar un archivo helper es bastante simple usando la funci&oacute;n siguiente:</p>
+<code>$this->load->helper('<var>nombre</var>');</code>
+<p>D&oacute;nde <var>nombre</var> es el nombre del archivo del helper, sin la extensi&oacute;n .php o la parte "helper".</p>
+<p>Por ejemplo, para cargar el archivo <dfn>Helper de URL</dfn>, que es nombrado <var>url_helper.php</var>, har&iacute;a as&iacute;:</p>
+<code>$this->load->helper('<var>url</var>');</code>
+<p>Un helper puede ser cargado en cualquier lugar dentro de su funci&oacute;n controlador (o incluso dentro de sus archivos Vista, aunque no es una buena pr&aacute;ctica), siempre que lo cargue antes de usarlo. Puede cargar sus helpers en el constructor de su controlador, para que est&eacute; disponible autom&aacute;ticamente en cualquier funci&oacute;n, o puede cargarlo en una funci&oacute;n espec&iacute;fica que lo necesite.</p>
+<p class="important">Nota: La funci&oacute;n de carga de Helper no devuelve un valor, as&iacute; que no intente asignarselo a una variable. Simplemente &uacute;selo como se muestra.</p>
+<h2>Cargando M&uacute;ltiples Helpers</h2>
+<p>Si necesita cargar m&aacute;s de un helper puede especificarlos en un arreglo, as&iacute;:</p>
+<code>$this->load->helper( <samp>array(</samp>'<var>helper1</var>', '<var>helper2</var>', '<var>helper3</var>'<samp>)</samp> );</code>
+<h2>Auto-cargando Helpers</h2>
+<p>Si descubre que necesita un helper particular globalmente a lo largo de su aplicaci&oacute;n, puede decirle a CodeIgniter que lo auto-cargue durante la inicializaci&oacute;n del sistema. Esto se hace abriendo el archivo <var>application/config/autoload.php</var> y agregando el helper al arreglo autoload.</p>
+<h2>Usando un Helper</h2>
+<p>Una vez que haya cargado el Archivo Helper conteniendo la funci&oacute;n que tiene intenci&oacute;n de usar, puede llamarla de la forma est&aacute;ndar de PHP.</p>
+<p>Por ejemplo, para crear un hiperv&iacute;nculo usando la funci&oacute;n <dfn>anchor()</dfn> en uno de sus archivos de vista, har&iacute;a esto:</p>
+<code>&lt;?=anchor('blog/comentarios', 'Cliquee aqu&iacute;');?&gt;</code>
+<p>Donde "Cliquee aqu&iacute;" es el nombre del hiperv&iacute;nculo, y "blog/comentarios" es la URI al controlador/funci&oacute;n al que desee dirigir.</p>
+<h2>"Extendiendo" Helpers</h2>
+<p>Para "extender" Helpers, creer un archivo en su carpeta <dfn>application/helpers/</dfn> con nombre id&eacute;ntico al Helper existente, pero con pr&eacute;fijo con <kbd>MY_</kbd> (este item es configurable. Vea abajo.).</p>
+<p>Si todo lo que necesita hacer es agregar alguna funcionalidad a un helper existente - tal vez agregar una funci&oacute;n o dos, o cambiar como una funci&oacute;n helper en particular opera - entonces es exagerado reemplazar el helper entero con su versi&oacute;n. En este caso, es mejor simlpemente "extender" el Helper. El t&eacute;rmino "extender" es usado como aproximaci&oacute;n ya que las funciones Helpers son procedimientos discretos y no pueden ser extendidos en el sentido tradicional de programaci&oacute;n. Bajo este velo, se da la habilidad para agregar funciones a los Helpers proveidos, o modificar como una funci&oacute;n de Helper operante.</p>
+<p>Por ejemplo, para extender el nativo <kbd>Helper de Arreglo</kbd> crear&aacute; un archivo llamado <dfn>application/helpers/</dfn><kbd>MY_array_helper.php</kbd>, y agrega o sobreescribe funciones:</p>
+<code>
+// cualquiera_en_arreglo() no es en el Helper de Arreglo, as&iacute; que define una nueva funci&oacute;n<br />
+function cualquiera_en_arreglo($aguja, $pajar)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$aguja = (is_array($aguja)) ? $aguja : array($aguja);<br />
+	<br />
+&nbsp;&nbsp;&nbsp;&nbsp;foreach ($aguja as $item)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (in_array($item, $pajar))<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return TRUE;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+	<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return FALSE;<br />
+}<br />
+<br />
+// random_element() est&aacute; incluido en el Helper de Arreglo, as&iacute; que sobreescribe la funci&oacute;n nativa<br />
+function random_element($arreglo)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;shuffle($arreglo);<br />
+&nbsp;&nbsp;&nbsp;&nbsp;return array_pop($arreglo);<br />
+}<br />
+</code>
+<h3>Estableciendo Su Propio Prefijo</h3>
+<p>El prefijo del nombre de archivo "extendiendo" Helpers es el mismo usado para extender librer&iacute;as y clases de n&uacute;cleo. Para establecer su propio prefijo, abra su archivo <dfn>application/config/config.php</dfn> y busque este item:</p>
+<code>$config['subclass_prefix'] = 'MY_';</code>
+<p>Por favor note que todas las librer&iacute;as nativas de CodeIgniter son prefijadas con <kbd>CI_</kbd> as&iacute; que NO use esto como prefijo.</p>
+<h2>&iquest;Ahora qu&eacute;?</h2>
+<p>En la <a href="../toc.html">Tabla de Contenidos</a> encontrar&aacute; una lista de todos los Archivos Helpers disponibles. Navegue cada uno para ver que hacen.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="models.html">Modelos</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="libraries.html">Usar Librer&iacute;as</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

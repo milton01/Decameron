@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Manejo de M&uacute;ltiples Entornos : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Manejo de M&uacute;ltiples Entornos
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Manejo de M&uacute;ltiples Entornos</h1>
+
+<p>Los desarrolladores a menudo desean un comportamiento del sistema diferente dependiendo de si se ejecuta una aplicaci&oacute;n en un entorno de desarrollo o de producci&oacute;n. Por ejemplo, una salida prolija de error es algo que ser&iacute;a &uacute;til en el desarrollo de una aplicaci&oacute;n, pero tambi&eacute;n puede suponer un problema de seguridad cuando se esta en "vivo".</p>
+
+<h2>El AMBIENTE constante</h2>
+
+<p>Por defecto, CodeIgniter viene con un ambiente constante definido como '<kbd>development</kbd>' ("desarrollo"). En la parte superior de index.php, ver&aacute; lo siguiente:</p>
+
+<code>
+define('<var>ENVIRONMENT</var>', '<var>development</var>');
+</code>
+
+<p>Adem&aacute;s de afectar a algunos comportamientos b&aacute;sicos del framework (vea la siguiente secci&oacute;n), puede utilizar esta constante en su propio desarrollo para diferenciar el medio ambiente en que se ejecuta.</p>
+
+<h2>Efectos Sobre el Comportamiento Predeterminado del Framework</h2>
+
+<p>Hay algunos lugares en el sistema de CodeIgniter donde se utiliza la constante <kbd>ENVIRONMENT</kbd>. En esta secci&oacute;n se describe c&oacute;mo el comportamiento por defecto el marco se ve afectada.</p>
+
+<h3>Informe de errores</h3>
+
+<p>Configurar la constante <kbd>ENVIRONMENT</kbd> a un valor de '<kbd>development</kbd>' har&aacute; que todos los errores de PHP que se muestren en el explorador cuando se producen. Por el contrario, el establecimiento de la constante a '<kbd>production</kbd>' desactiva todas las salidas de error. Deshabilitar el informe de errores en producci&oacute;n es una <a href="security.html">buena pr&aacute;ctica de seguridad</a>.</p>
+
+<h3>Archivos de configuraci&oacute;n</h3>
+
+<p>Si lo desea, puede tener CodeIgniter carga espec&iacute;fica del entorno archivos de configuraci&oacute;n. Esto puede ser &uacute;til para la gesti&oacute;n de las cosas como las diferentes claves de la API a trav&eacute;s de m&uacute;ltiples entornos. Esto se describe con m&aacute;s detalle en la secci&oacute;n ambiente de la documentaci&oacute;n de la <a href="../libraries/config.html#environments">clase Config</a>.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="managing_apps.html">Administrar Aplicaciones</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="alternative_php.html">Sintaxis Alternativa de PHP</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

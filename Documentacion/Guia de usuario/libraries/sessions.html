@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Session : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Session
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Clase Session</h1>
+
+<p>La Clase Session le permite mantener el "estado" de un usuario y seguir su actividad mientras navegue su sitio. La clase de Sesi&oacute;n guarda informaci&oacute;n de sesi&oacute;n para cada usuario como datos serializados (y opcionalmente encriptados) en una cookie. Tambi&eacute;n guarda los datos de sesi&oacute;n en una tabla de base de datos para seguridad adicional, ya que permite que el ID de la sesi&oacute;n en la cookie del usuario sea contrastada contra la guardada. Por defecto s&oacute;lo la cookie es guardada. Si elije usar la opci&oacute;n de base de datos, necesitar&aacute; crear la tabla de sesi&oacute;n como se indica debajo.</p>
+
+<p class="important"><strong>Nota:</strong> La Clase Session <strong>NO</strong> utiliza las sesiones nativas de PHP. Genera sus propios datos de sesi&oacute;n, ofreciendo m&aacute;s flexibilidad para los desarrolladores.</p>
+
+<p class="important"><strong>Nota:</strong> A&uacute;n cuando no use sesiones encriptadas, tiene que establecer una clave de encriptaci&oacute;n en su archivo
+de configuraci&oacute;n, que se usa para ayudar a evitar la manipulaci&oacute;n de los datos de sesi&oacute;n.</p>
+
+<h2>Inicializando una Sesi&oacute;n</h2>
+<p>Las sesiones t&iacute;picamente correr&aacute;n globalmente con cada carga de la p&aacute;gina, as&iacute; que la clase de sesi&oacute;n debe ser o <a href="../general/libraries.html">inizializada</a> en el constructor de su <a href="../general/controllers.html">controlador</a>, o puede ser <a href="../general/autoloader.html">auto-cargada</a> por el sistema. Para la mayor parte, la clase de sesi&oacute;n correr&aacute; desatendida en el transfondo, as&iacute; que simplemente inicializar la clase causar&aacute; leer, crear y actualizar sesiones.</p>
+
+<p>Para inicializar la clase de Sesi&oacute;n manualmente en el constructor del controlador, use la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('session');</code>
+
+<p>Una vez cargada, el objeto de la librer&iacute;a de Sesi&oacute;n estar&aacute; disponible usando: <dfn>$this->session</dfn></p>
+
+<h2>&iquest;C&oacute;mo funcionan las sesiones?</h2>
+<p>Cuando una p&aacute;gina es cargada, la clase de sesi&oacute;n verificar&aacute; si datos de sesi&oacute;n v&aacute;lidos existen en la cookie de sesi&oacute;n del cliente. Si los datos de sesi&oacute;n <strong>no</strong> existen (o si ha expirado) una nueva sesi&oacute;n ser&aacute; creada y guardada en la cookie. Si una sesi&oacute;n existe, su informaci&oacute;n ser&aacute; actualizada y la cookie ser&aacute; actualizada. Con cada actualizaci&oacute;n, el session_id (identificador de sesi&oacute;n) ser&aacute; regenerado.</p>
+
+<p>Es importante para usted entender que una vez inicializada, la clase de Sesi&oacute;n corre autom&aacute;ticamente. No hay nada que necesite hacer para que el comportamiento anterior ocurre. Puede, como ver&aacute; luego, trabajar con datos de sesi&oacute;n o incluso agregar sus propios datos a la sesi&oacute;n del usuario, pero el proceso de lectura, escritura y actualizaci&oacute;n de sesi&oacute;n es autom&aacute;tico.</p>
+
+<h2>Que son los Datos de Sesi&oacute;n?</h2>
+<p>Una <em>sesi&oacute;n</em>, hasta donde le concierne a CodeIgniter, es simplemente un arreglo conteniendo la siguiente informaci&oacute;n:</p>
+
+<ul>
+<li>El identificador de sesi&oacute;n &uacute;nico (esto es estad&iacute;sticamente una cadena aleatoria con muy fuerte entropia, una encriptaci&oacute;n con MD5 por portabilidad, y es regenerado (por defecto) cada cinco minutos)</li>
+<li>La direcci&oacute;n IP del usuario</li>
+<li>Los datos del Agente del Usuario (los primeros 50 caracteres de la cadena de datos del explorador)</li>
+<li>La marca de tiempo de la "&uacute;ltima actividad".</li>
+</ul>
+
+<p>Los datos anteriores son guardados en una cookie como un arreglo serializado con este prototipo:</p>
+
+<code>
+[array]<br />
+(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'session_id'&nbsp;&nbsp;&nbsp;&nbsp;=> encriptaci&oacute;n aleatoria,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'ip_address'&nbsp;&nbsp;&nbsp;&nbsp;=> 'cadena - direcci&oacute;n IP del usuario',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'user_agent'&nbsp;&nbsp;&nbsp;&nbsp;=> 'cadena - datos del agente del usuario',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'last_activity' => marca de tiempo<br />
+)</code>
+
+<p>Si tiene la opci&oacute;n de encriptaci&oacute;n habilitada, el arreglo ser&aacute; encriptado antes de ser guardado en la cookie, haciendo los datos altamente seguros e impermeables de ser le&iacute;dos o alterados por alguien. M&aacute;s informaci&oacute;n acerca de la encriptaci&oacute;n puede ser <a href="encryption.html">encontrada aqu&iacute;</a>, aunque la clase de Sesi&oacute;n se ocupar&aacute; de la inicializaci&oacute;n y encriptaci&oacute;n de datos autom&aacute;ticamente.</p>
+
+<p>Nota: Las cookies de sesi&oacute;n son s&oacute;lo actualizadas cada cinco minutos por defecto para reducir la carga de procesamiento. Si recarga repetidamente una p&aacute;gina, notar&aacute; que el tiempo de "last activity" s&oacute;lo se actualizar&aacute; si cinco munitos o m&aacute;s han pasado desde la &uacute;ltima vez que la cookie fue escrita. Este tiempo es configurable cambiando la l&iacute;nea de $config['time_to_update'] en su archivo system/config/config.php .</p>
+
+<h2>Recuperando Datos de Sesi&oacute;n</h2>
+<p>Cualquier pieza de informaci&oacute;n desde el arreglo de sesi&oacute;n est&aacute; disponible usando la siguiente funci&oacute;n:</p>
+
+<code>$this->session->userdata('<samp>item</samp>');</code>
+
+<p>Donde <samp>item</samp> es la clave del arreglo correspondiente al item que desea traer. Por ejemplo, para traer el ID de sesi&oacute;n har&aacute; lo siguiente:</p>
+
+<code>$session_id = $this->session->userdata('<samp>session_id</samp>');</code>
+
+<p><strong>Nota:</strong> La funci&oacute;n devuelve FALSE (booleano) si el item al que intenta acceder no existe.</p>
+
+<h2>Agregando Datos de Sesi&oacute;n Especiales</h2>
+<p>Un aspecto &uacute;til del arreglo de sesi&oacute;n es que puede agregar sus propios datos a &eacute;l y ellos ser&aacute;n guardados en la cookie del usuario. &iquest;Por qu&eacute; querr&iacute;a hacer esto? Aqu&iacute; hay un ejemplo:</p>
+
+<p>Digamos que un usuario en particular ingres&oacute; a su sitio. Una vez autenticado, puede agregar su nombre de usuario y direcci&oacute;n de email a la cookie de sesi&oacute;n, haciendo ese dato globalmente disponible sin tener que correr una consulta de base de datos cuando lo necesite.</p>
+
+<p>Para agregar sus datos al arreglo de sesi&oacute;n debe pasar un arreglo que contenga sus nuevos datos a esta funci&oacute;n:</p>
+
+<code>$this->session->set_userdata(<samp>$arreglo</samp>);</code>
+
+<p>Donde <samp>$arreglo</samp> es un arreglo asociativo conteniendo sus nuevos datos. Aqu&iacute; hay un ejemplo:</p>
+
+<code>
+$nuevosdatos = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre_de_usuario'&nbsp; => 'johndoe',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'email'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'johndoe@algun-sitio.com',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'ingresado' => TRUE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->session->set_userdata(<samp>$nuevosdatos</samp>);
+</code>
+
+<p>Si quiere agregar un dato a la vez, set_userdata() tambi&eacute;n soporta esta sintaxis. </p>
+
+<code>$this-&gt;session-&gt;set_userdata('algun_nombre', 'algun_valor');</code>
+
+<p class="important"><strong>Nota:</strong> Las cookies pueden guardar s&oacute;lo 4KB de datos, as&iacute; que sea cuidadoso de no exceder la capacidad. La El proceso de encriptaci&oacute;n en particular produce una cadena de datos m&aacute;s largo que la original, as&iacute; que sea cuidadoso siguiente cuanto datos est&aacute;n guardando.</p>
+
+<h2>Removiendo Datos de Sesi&oacute;n</h2>
+
+<p>Simplemente como set_userdata() puede ser usado para agregar informaci&oacute;n en la sesi&oacute;n, unset_userdata() puede ser usado para remover, al pasar la clase de sesi&oacute;n. Por ejemplo, si quiere remover 'algun_nombre' de la informaci&oacute;n de sesi&oacute;n:</p>
+
+<code>$this-&gt;session-&gt;unset_userdata('algun_nombre');</code>
+
+<p>Esta funci&oacute;n puede tambi&eacute;n puede recibir un arreglo asociativo de items para borrar.</p>
+
+<code>
+$arreglo_items = array('nombre_de_usuario' => '', 'email' => '');<br />
+<br />
+$this-&gt;session-&gt;unset_userdata(<samp>$arreglo_items</samp>);
+</code>
+
+<h2>Flashdata</h2>
+<p>CodeIgniter soporta &quot;flashdata&quot;, o datos de sesi&oacute;n que s&oacute;lo estar&aacute;n disponibles para el pr&oacute;ximo pedido al servidor. Esto puede ser muy &uacute;til, y son t&iacute;picamente usados para informar o mensajes de estado (por ejemplo: &quot;registro 2 borrado&quot;).</p>
+
+<p>Nota: Las variables flash son prefijadas con &quot;flash_&quot; as&iacute; que evite esos prefijos en sus propios nombres de sesi&oacute;n.</p>
+
+<p>Para agregar flashdata:</p>
+
+<code>$this-&gt;session-&gt;set_flashdata('item', 'valor');</code>
+
+<p>Tambi&eacute;n puede pasar un arreglo a set_flashdata(), de la misma manera que con set_userdata(). </p>
+
+<p>Para leer una variable flashdata:</p>
+
+<code>$this-&gt;session-&gt;flashdata('item');</code>
+
+<p>Si encuentra que necesita preservar una variable flashdata durante un pedido adicional, puede hacerlo usando la funci&oacute;n keep_flashdata().</p>
+
+<code>$this-&gt;session-&gt;keep_flashdata('item');</code>
+
+<h2>Guardando Datos de Sesi&oacute;n en la Base de Datos</h2>
+<p>Mientras el arreglo de datos de sesi&oacute;n guardada en la cookie del usuario contenga un identificador de sesi&oacute;n, a menos que guarde los datos de sesi&oacute;n en una base de datos, no hay forma de validarlo. Para algunas aplicaciones que requieren poco o nada de seguridad, la validaci&oacute;n del ID de sesi&oacute;n puede no ser necesaria, pero si la aplicaci&oacute;n requiere seguridad, la validaci&oacute;n es obligatoria.</p>
+
+<p>Cuando los datos de sesi&oacute;n est&aacute;n disponibles en una base de datos, cada vez que una sesi&oacute;n v&aacute;lida es encontrada en la cookie del usuario, una consulta a la base de datos es hecha para compararla. Si el identificador de sesi&oacute;n no coincide, la sesi&oacute;n es destruida. Los identificadores de sesi&oacute;n nunca pueden ser actualizados, s&oacute;lo pueden ser generados cuando se crea una nueva sesi&oacute;n.</p>
+
+<p>Para guardar sesiones, debe crear una tabla de base de datos primero. Aqu&iacute; est&aacute; el prototipo b&aacute;sico (para MySQL) requerido por la clase de sesi&oacute;n:</p>
+
+<pre>
+CREATE TABLE IF NOT EXISTS  `ci_sessions` (
+	session_id varchar(40) DEFAULT '0' NOT NULL,
+	ip_address varchar(45) DEFAULT '0' NOT NULL,
+	user_agent varchar(120) NOT NULL,
+	last_activity int(10) unsigned DEFAULT 0 NOT NULL,
+	user_data text NOT NULL,
+	PRIMARY KEY (session_id),
+	KEY `last_activity_idx` (`last_activity`)
+);</pre>
+
+<p><strong>Nota:</strong> Por defecto, la tabla es llamada <dfn>ci_sessions</dfn>, pero puede nombrarla como desee siempre y cuando actualice el archivo <kbd>application/config/config.php</kbd> para que contenga el nombre que ha elegido. Una vez que haya creado su tabla de base de datos puede habilitar la opci&oacute;n de base de datos en su archivo config.php como sigue:</p>
+
+<code>$config['sess_use_database'] = TRUE;</code>
+
+<p>Una vez habilitada, la clase de Sesi&oacute;n guardar&aacute; datos de sesi&oacute;n en la base de datos.</p>
+
+<p>Est&eacute; seguro que haya especificado el nombre de la tabla en su archivo de configuraci&oacute;n tambi&eacute;n:</p>
+
+<code>$config['sess_table_name'] = 'ci_sessions";</code>
+
+<p class="important"><strong>Nota:</strong> La clase de Sesi&oacute;n tiene un recolector de basura incluido que limpia las sesiones expiradas para que usted no necesito escribir su propia rutina para hacerlo.</p>
+
+<h2>Destruir una sesi&oacute;n</h2>
+<p>Para limpiar la sesi&oacute;n actual:</p>
+
+<code>$this-&gt;session-&gt;sess_destroy();</code>
+
+<h2>Preferencias de Sesi&oacute;n</h2>
+<p>Encontrar&aacute; las siguientes preferencias relacionadas a la  Sesi&oacute;n en su archivo <kbd>application/config/config.php</kbd>:</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+	<th>Preferencia</th>
+	<th>Por defecto</th>
+	<th>Opciones</th>
+	<th>Descripci&oacute;n</th>
+</tr>
+<tr>
+	<td class="td"><strong>sess_cookie_name</strong></td>
+	<td class="td">ci_session</td>
+	<td class="td">Ninguna</td>
+	<td class="td">Nombre con el que quiere guardar la sesi&oacute;n.</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_expiration</strong></td>
+	<td class="td">7200</td>
+	<td class="td">Ninguna</td>
+	<td class="td">TLa cantidad de segundos que quisiera que la sesi&oacute;n
+dure. El valor por defecto es de 2 horas (7200
+segundos). Si quisiera que la sesi&oacute;n no expire,
+establecer el valor a cero: 0</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_expire_on_close</strong></td>
+	<td class="td">FALSE</td>
+	<td class="td">TRUE/FALSE (booleano)</td>
+	<td class="td">Si provocar que la sesi&oacute;n expire autom&aacute;ticamente
+cuando se cierra la ventana del navegador.</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_encrypt_cookie</strong></td>
+	<td class="td">FALSE</td>
+	<td class="td">TRUE/FALSE (booleano)</td>
+	<td class="td">Si encriptar o no los datos de sesi&oacute;n.</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_use_database</strong></td>
+	<td class="td">FALSE</td>
+	<td class="td">TRUE/FALSE (booleano)</td>
+	<td class="td">Si guardar o no los datos de sesi&oacute;n en una base de
+datos. Tiene que crear la tabla antes de habilitar esta
+opci&oacute;n.</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_table_name</strong></td>
+	<td class="td">ci_sessions</td>
+	<td class="td">Cualquier nombre v&aacute;lido de tabla SQ</td>
+	<td class="td">Nombre de la tabla de base de datos para la sesi&oacute;n.</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_time_to_update</strong></td>
+	<td class="td">300</td>
+	<td class="td">Tiempo en segundos</td>
+	<td class="td">Esta opci&oacute;n controla cuan frecuentemente la Clase Session se regenerar&aacute; a s&iacute; misma y crear&aacute; un nuevo ID de sesi&oacute;n.</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_match_ip</strong></td>
+	<td class="td">FALSE</td>
+	<td class="td">TRUE/FALSE (booleano)</td>
+	<td class="td">Si tiene que coincidir la direcci&oacute;n IP del usuario al leer los datos de sesi&oacute;n. Advierta que algunos ISP cambian la IP din&aacute;micamente, por lo que si quiere una sesi&oacute;n que no expire, probablemente tenga que establecer esto a FALSE.</td>
+</tr>
+<tr>
+	<td class="td"><strong>sess_match_useragent</strong></td>
+	<td class="td">TRUE</td>
+	<td class="td">TRUE/FALSE (booleano)</td>
+	<td class="td">Si tiene que coincidir el Agente de Usuario al leer los datos de sesi&oacute;n.</td>
+</tr>
+</table>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="security.html">Clase Security</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="table.html">Clase Table</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

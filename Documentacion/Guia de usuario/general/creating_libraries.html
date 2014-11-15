@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Crear Librer&iacute;as : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Crear Libraries
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Crear Librer&iacute;as</h1>
+
+<p>Cuando usamos el termino "Librer&iacute;as" normalmente nos referimos a las clases que se localizan en el directorio <kbd>libraries</kbd> y descriptas en la Referencia de Clases de su Guia de Usuario. En este caso, sin embargo, en lugar de ello describiremos como puede crear sus propias librerias dentro del directorio <dfn>application/libraries</dfn> con el fin de mantener la separaci&oacute;n entre sus recursos locales y los recursos del marco de trabajo global.</p>
+
+<p>Como un agregado extra, CodeIgniter permite <kbd>extender</kbd> sus clases nativas a sus librerias si simplemente necesita agregar alguna funcionalidad a una libreria existente. O puede incluso sustituir a las librerias nativas colocando nombres id&eacute;nticos de versiones en su carpeta <dfn>application/libraries</dfn>.</p>
+
+<p>En Resumen:</p>
+
+<ul>
+<li>Puede crear librerias totalmente nuevas.</li>
+<li>Puede extender librerias nativas.</li>
+<li>Puede reemplazar librerias nativas.</li>
+</ul>
+
+<p>La siguiente p&aacute;gina explica estos tres conceptos en detalle.</p>
+
+<p class="important"><strong>Nota:</strong> Las clases de Base de Datos no pueden ser extendidas o reemplazadas con sus propias clases. Todas las otras clases estan habilitadas para ser reemplazadas/extendidas.</p>
+
+<h2>Almacenamiento</h2>
+
+<p>Su libreria de clases debe almacenarce dentro de su carpeta <dfn>application/libraries</dfn>, pues es all&iacute; donde CodeIgniter las buscar&aacute; cuando sean inicializadas.</p>
+
+<h2>Convenciones de Nombre</h2>
+
+<ul>
+<li>Los nombres de archivos deben ser capitalizados. Por ejemplo:&nbsp; <dfn>Myclass.php</dfn></li>
+<li>Las declaraciones de clases deben ser capitalizadas. Por ejemplo:&nbsp;  <kbd>class Myclass</kbd></li>
+<li>Los nombre de las clases y los nombres del archivo deben coincidir.</li>
+</ul>
+
+<h2>El Archivo de Clase</h2>
+
+<p>Las clases deben tener este prototipo b&aacute;sico (Nota: Estamos utilizando el nombre Someclass puramente como un ejemplo):</p>
+
+<code>&lt;?php  if (!defined('BASEPATH')) exit('No permitir el acceso directo al script');
+<br /><br />
+class Someclass {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function some_function()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}<br /><br />
+/* End of file Someclass.php */
+</code>
+
+<h2>Usando Su Clase</h2>
+
+<p>Desde cualquiera de sus funciones de <a href="controllers.html">Controller</a> puede inicializar su clases utilizando el est&aacute;ndar:</p>
+
+<code>$this->load->library('<kbd>someclass</kbd>');</code>
+
+<p>Donde <em>someclass</em> es el nombre del archivo, sin la extensi&oacute;n ".php" del archivo. Puede enviar el nombre del archivo en may&uacute;scula o min&uacute;scula. A CodeIgniter no le importa.</p>
+
+<p>Una vez cargado puede acceder a su clase utilizando la versi&oacute;n en <kbd>min&uacute;sculas</kbd>:</p>
+
+<code>$this-><kbd>someclass</kbd>->some_function();&nbsp; // Las instancias de objetos ser&aacute;n siempre en min&uacute;sculas</code>
+
+<h2>Pasando Par&aacute;metros Cuando Inicializa Su Clase</h2>
+
+<p>En la  funci&oacute;n que carga la libreria puede pasar din&aacute;micamente datos a trav&eacute;z del segundo par&aacute;metro y ellos ser&aacute;n pasados a su constructor de clase:</p>
+
+<code>
+$params = array('type' => 'large', 'color' => 'red');<br />
+<br />
+$this->load->library('Someclass', <kbd>$params</kbd>);</code>
+<p>Si utiliza esta funci&oacute;n debe configurar su constructor de la clase para esperar los datos:</p>
+<code>&lt;?php  if (!defined('BASEPATH')) exit('No permitir el acceso directo al script');<br />
+<br />
+class Someclass {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function Someclass($params)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Hacer algo con $params<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}<br /><br />
+/* End of file Someclass.php */
+</code>
+
+<p class="important">Tambi&eacute;n puede pasar par&aacute;metros almacenados en un archivo de configuraci&oacute;n. Simplemente cree un archivo de configuraci&oacute;n que se llame igual al <kbd>nombre del archivo</kbd> de la clase y almac&eacute;nelo en su carpeta <dfn>application/config/</dfn>. Tenga en cuenta que si pasa el din&aacute;micamente los par&aacute;metros descritos anteriormente, la opci&oacute;n en el archivo de configuraci&oacute;n no estar&aacute; disponible.</p>
+
+<h2>Utilizando los Recursos de CodeIgniter dentro de su Libreria</h2>
+
+<p>Para acceder a los recursos nativos de CodeIgniter dentro de su libreria use la funci&oacute;n <kbd>get_instance()</kbd>. Esta funci&oacute;n retorna el objeto super de CodeIgniter.</p>
+
+<p>Normalmente desde sus funciones del controlador llamar&aacute; a cualquiera de las funciones habilitadas en CodeIgniter usando el constructor <kbd>$this</kbd>:</p>
+
+<code>
+<strong>$this</strong>->load->helper('url');<br />
+<strong>$this</strong>->load->library('session');<br />
+<strong>$this</strong>->config->item('base_url');<br />
+etc.
+</code>
+<p><kbd>$this</kbd>, sin embargo, s&oacute;lo trabaja directamente dentro de sus controladores, sus modelos, o sus vistas.
+Si desea utilizar las clases de CodeIgniter dentro de sus propias clases puede hacerlo de la siguiente manera:</p>
+<p>Primero, asigne el objeto de CodeIgniter a una variable:</p>
+<code>$CI =& get_instance();</code>
+<p>Una vez que se ha asignado el objeto a una variable, va a utilizar esa variable <em>en lugar</em> de <kbd>$this</kbd>:</p>
+<code>
+$CI =& get_instance();<br /><br />
+$CI->load->helper('url');<br />
+$CI->load->library('session');<br />
+$CI->config->item('base_url');<br />
+etc.
+</code>
+
+<p class="important"><strong>Nota:</strong> Se dar&aacute; cuenta de que la anterior funci&oacute;n get_instance() esta siendo pasada por referencia:
+<br /><br />
+<var>$CI =& get_instance();</var>
+<br /><br />
+<kbd>Esto es muy importante.</kbd> La asignaci&oacute;n por referencia le permite utilizar el objeto original de CodeIgniter en lugar de crear una copia del mismo.</p>
+
+<h2>Reemplazando Librerias Nativas con Sus Versiones</h2>
+
+<p>Simplemente por asignar un nombre a sus archivos de clase id&eacute;ntico a una libreria nativa causar&aacute; que CodeIgniter los utilice en lugar de los nativos. Para usar esta caracter&iacute;stica debe nombrar el archivo y la declaraci&oacute;n de la clase exactamente como la libreria nativa.  Por ejemplo, para reemplazar la libreria nativa <kbd>Email</kbd> deber&aacute; crear un archivo llamado <dfn>application/libraries/Email.php</dfn>, y declarar su clase con:</p>
+
+<code>
+class CI_Email {<br /><br />
+}</code>
+
+<p>Tenga en cuenta que la mayor&iacute;a de las clases son con prefijo <kbd>CI_</kbd>.</p>
+
+<p>Para cargar su libreria puede ver la funci&oacute;n de carga est&aacute;ndar:</p>
+
+<code>$this->load->library('<kbd>email</kbd>');</code>
+
+<p class="important"><strong>Nota:</strong> En este momento las clases de base de datos no puede ser reemplazadas con sus propias versiones.</p>
+
+<h2>Extendiendo las Librerias Nativas</h2>
+
+<p>Si todo lo que necesita hacer es a&ntilde;adir alguna funcionalidad a una libreria existente - quiz&aacute;s a&ntilde;adir una funci&oacute;n o dos - entonces es excesivo sustituir toda la libreria con su versi&oacute;n. En este caso es mejor simplemente extender la clase. La extensi&oacute;n de una clase es casi igual que la sustituci&oacute;n de una clase con un par de excepciones:</p>
+
+<ul>
+<li>La declaraci&oacute;n de la clase debe extender la clase padre.</li>
+<li>Su nuevo nombre de la clase y el nombre del archivo se debe prefijar con <kbd>MY_</kbd> (Este tema es configurable. V&eacute;ase a continuaci&oacute;n.).</li>
+</ul>
+
+<p>Por ejemplo, para extender la clase nativa <kbd>Email</kbd> deber&aacute; crear un archivo llamado <dfn>application/libraries/</dfn><kbd>MY_Email.php</kbd>, y declarar su clase con:</p>
+
+<code>
+class MY_Email extends CI_Email {<br /><br />
+}
+</code>
+
+<p>Nota: Si necesita utilizar un constructor en su clase, aseg&uacute;rese de extender el padre constructor:</p>
+
+<code>
+class MY_Email extends CI_Email {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function My_Email()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::CI_Email();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}
+</code>
+
+<h3>Cargando Su Sub-Clase</h3>
+
+<p>Para cargar su sub-clase debe usar la sintaxis est&aacute;ndar que normalmente se utiliza. NO incluya su prefijo.  Por ejemplo, para cargar el ejemplo anterior, que extiende la clase Email, se utiliza:</p>
+
+<code>$this->load->library('<kbd>email</kbd>');</code>
+
+<p>Una vez cargado se utiliza la variable de clase como siempre lo ha hecho para la clase de la que se extiende. En el caso de la clase Email utilizaremos todas las llamadas:</p>
+
+<code>$this-><kbd>email</kbd>->some_function();</code>
+
+<h3>Estableciendo Su Propio Prefijo</h3>
+
+<p>Para establecer su propio prefijo de sub-clase, abra su <dfn>application/config/config.php</dfn> y busque este tema:</p>
+
+<code>$config['subclass_prefix'] = 'MY_';</code>
+
+<p>Tenga en cuenta que todas las librerias nativas de CodeIgniter est&aacute;n prefijadas con <kbd>CI_</kbd> NO USE esto como su prefijo.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="libraries.html">Usar Librer&iacute;as de CodeIgniter</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="drivers.html">Usar Drivers de CodeIgniter</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

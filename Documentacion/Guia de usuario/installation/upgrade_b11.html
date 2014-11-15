@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Gu&iacute;a de Usuario del CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a de Usuario del CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Actualizar de Beta 1.0 to Beta 1.1
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content"><h1>Actualizar de  Beta 1.0 to Beta 1.1</h1>
+<p>Para actualizar a Beta 1.1 por favor realice los siguientes pasos:</p>
+<h2>Paso 1: Reemplace su archivo &iacute;ndice</h2>
+<p>Remplace su archivo principal <kbd>index.php</kbd> con el nuevo archivo index.php. Nota: Si ha renombrado la carpeta "system" necesitar&aacute; editar esta informaci&oacute;n en el nuevo archivo.</p>
+<h2>Paso 2: Reubique la carpeta de configuraci&oacute;n</h2>
+<p>Esta versi&oacute;n de CodeIgniter ahora le permite a m&uacute;ltiples juegos de "applicaciones" compartir el juego de archivos comunes. Para permitir
+a cada aplicaci&oacute;n tener sus valores de configuraci&oacute;n propios, el directorio <kbd>config</kbd> debe residir dentro de la carpeta <dfn>application</dfn>, as&iacute; que por favor mu&eacute;valo aqu&iacute;.</p>
+<h2>Paso 3: Remplace directorios</h2>
+<p>Remplace los siguientes directorios con las nuevas versiones:</p>
+<ul>
+<li>drivers</li>
+<li>helpers</li>
+<li>init</li>
+<li>libraries</li>
+<li>scaffolding</li>
+</ul>
+<h2>Paso 4: Agregue el archivo de lenguaje de calendario</h2>
+<p>Hay un nuevo archivo de lenguaje correspondiente a la nueva clase de calendario la cual debe ser agregado a la carpeta de lenguaje. Agregue el siguiente item a tu versi&oacute;n: <dfn>language/english/calendar_lang.php</dfn></p>
+<h2>Paso 5: Edite su archivo de configuraci&oacute;n</h2>
+<p>El archivo original <kbd>application/config/config.php</kbd> tiene un error tipogr&aacute;fico en &eacute;l. Abra el archivo y mire los items relacionados a las cookies:</p>
+<code>$conf['cookie_prefix']	= "";<br />
+$conf['cookie_domain']	= "";<br />
+$conf['cookie_path']	= "/";</code>
+<p>Cambie el nombre del arreglo de <kbd>$conf</kbd> a <kbd>$config</kbd>, as&iacute;:</p>
+<code>$config['cookie_prefix']	= "";<br />
+$config['cookie_domain']	= "";<br />
+$config['cookie_path']	= "/";</code>
+<p>Por &uacute;ltimo, agregue los siguientes items al archivo de configuraci&oacute;n (y edite la opcion si necesita):</p>
+<code><br />
+/*<br />
+|------------------------------------------------<br />
+| URI PROTOCOL<br />
+|------------------------------------------------<br />
+|<br />
+| This item determines which server global <br />
+| should be used to retrieve the URI string.  The <br />
+| default setting of "auto" works for most servers.<br />
+| If your links do not seem to work, try one of <br />
+| the other delicious flavors:<br />
+| <br />
+| 'auto'			Default - auto detects<br />
+| 'path_info'		Uses the PATH_INFO <br />
+| 'query_string'	Uses the QUERY_STRING<br />
+*/<br />
+<br />
+$config['uri_protocol']	= "auto";</code>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="index.html">Instrucciones de Instalaci&oacute;ns</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="troubleshooting.html">Soluci&oacute;n de Problemas</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

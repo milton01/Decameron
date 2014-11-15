@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Hooks : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Hooks - Extender el N&uacute;cleo del Framework
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Hooks - Extender el N&uacute;cleo del Framework</h1>
+
+<p>La funcionalidad de Hooks de CodeIgniter provee un medio para aprovechar y modificar el funcionamiento interno del framework sin alterar los archivos del n&uacute;cleo. Cuando CodeIgniter corre, sigue un proceso de ejecuci&oacute;n espec&iacute;fico, diagramado en la p&aacute;gina <a href="../overview/appflow.html">Flujo de la Aplicaci&oacute;n</a>. Puede haber casos, sin embargo, en que le gustar&iacute;a hacer alg&uacute;n tipo de acci&oacute;n que tenga lugar en una etapa particular del proceso de ejecuci&oacute;n. Por ejemplo, es posible que desee ejecutar un script antes que se carguen sus controladores, o exactamente despu&eacute;s, o es posible que desee activar uno de sus propios scripts en alg&uacute;n otro lugar.</p>
+
+<h2>Habilitando Hooks</h2>
+
+<p>La caracter&iacute;stica de hooks puede ser habilitada/deshabilitada estableciendo el siguiente item en su archivo <kbd>application/config/config.php</kbd>:</p>
+
+<code>$config['enable_hooks'] = TRUE;</code>
+
+<h2>Definiendo un Hook</h2>
+
+<p>Los hooks son definidos en el archivo <dfn>application/config/hooks.php</dfn>. Cada hook es especficiada como un arreglo con este prototipo:</p>
+
+<code>
+$hook['pre_controller'] = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'class'&nbsp;&nbsp;&nbsp;&nbsp;=> 'MiClase',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'function' => 'MiFuncion',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'filename' => 'Miclase.php',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'filepath' => 'hooks',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'params'&nbsp;&nbsp;&nbsp;=> array('cerveza', 'vino', 'snacks')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);</code>
+
+<p><strong>Notas:</strong><br />El indice del arreglo correlata el nombre del hook en particular que quiere usar. En el ejemplo anterior el hook apuntado es <kbd>pre_controller</kbd>. Una lista de puntos de hooks es encontrada debajo. Los siguientes items pueden ser definidos en su arreglo asociativo de hook:</p>
+
+<ul>
+<li><strong>class</strong>&nbsp; El nombre de la clase que desea invocar. Si prefiere usar una funci&oacute;n de procedimiento en vez de una clase, debe este &iacute;tem en blanco.</li>
+<li><strong>function</strong>&nbsp; El nombre de la funci&oacute;n que desea llamar.</li>
+<li><strong>filename</strong>&nbsp; El nombre del archivo que contiene su clase/funci&oacute;n.</li>
+<li><strong>filepath</strong>&nbsp; El nombre del directorio que contiene su script. Nota: Su script debe estar ubicado en un directorio DENTRO de la carpeta <kbd>application</kbd>, as&iacute; que la ruta al archivo es relativa a esa carpeta. Por ejemplo, si su script est&aacute; ubicado en <dfn>application/hooks</dfn>, simplemente usar&aacute; <samp>hooks</samp> como su ruta al archivo. Si su script es ubicado en <dfn>application/hooks/utilities</dfn> usar&aacute; <samp>hooks/utilities</samp> como su ruta al archivo. Sin barra al final.</li>
+<li><strong>params</strong>&nbsp; Cualquier par&aacute;metro que desee pasarle a su script. Este &iacute;tem es opcional.</li>
+</ul>
+
+<h2>Varias Llamadas al Mismo Hook</h2>
+
+<p>Si quiere usar el mismo hook apuntado con m&aacute;s de un script, simplemente haga la declaraci&oacute;n de su arreglo multi-dimensional, as&iacute;:</p>
+
+<code>
+$hook['pre_controller']<kbd>[]</kbd> = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'class'&nbsp;&nbsp;&nbsp;&nbsp;=> 'MiClase',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'function' => 'Mifuncion',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'filename' => 'Miclase.php',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'filepath' => 'hooks',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'params'&nbsp;&nbsp;&nbsp;=> array('cerveza', 'vino', 'snacks')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$hook['pre_controller']<kbd>[]</kbd> = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'class'&nbsp;&nbsp;&nbsp;&nbsp;=> 'MiOtraClase',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'function' => 'Miotrafuncion',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'filename' => 'Miotraclase.php',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'filepath' => 'hooks',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'params'&nbsp;&nbsp;&nbsp;=> array('rojo', 'amarillo', 'azul')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);</code>
+
+<p>Note los corchetes despu&eacute;s de cada &iacute;ndice del arreglo:</p>
+
+<code>$hook['pre_controller']<kbd>[]</kbd></code>
+
+<p>Esto le permite que el mismo hook apunte a m&uacute;ltiples scripts. El orden que le define a su arreglo ser&aacute; el orden de ejecuci&oacute;n.</p>
+
+<h2>Puntos de Hook</h2>
+
+<p>La siguiente es una lista de los puntos de hook disponibles.</p>
+
+<ul>
+<li><strong>pre_system</strong><br />
+Llamado muy al principio durante la ejecuci&oacute;n de sistema. S&oacute;lo las clases de punto de referencia (benchmark) y hooks han sido cargadas en este punto. Ning&uacute;n proceso de ruteo u otro ha ocurrido.</li>
+<li><strong>pre_controller</strong><br />
+Llamado inmediatamente antes a cualquiera de que los controladores sean llamados. Todas las clases, ruteo y verificaciones de seguridad han sucedido.</li>
+<li><strong>post_controller_constructor</strong><br />
+Llamado inmediatamente despu&eacute;s de que su controlador sea instanciado, pero antes de que ocurra cualquier llamada a un m&eacute;todo.</li>
+<li><strong>post_controller</strong><br />
+Llamado inmediatamente despu&eacute;s de que su controlador est&eacute; completamente ejecutado.</li>
+<li><strong>display_override</strong><br />
+Anula la funci&oacute;n <dfn>_display()</dfn>, usada para enviar la p&aacute;gina finalizada al navegador web al final de la ejecuci&oacute;n del sistema. Esto le permite usar su propia metodolog&iacute;a de impresi&oacute;n. Advierta que necesitar&aacute; referenciar al superobjeto CI con <dfn>$this->CI =& get_instance()</dfn> y luego los datos finalizados estar&aacute;n
+disponibles llamando a <dfn>$this->CI->output->get_output()</dfn></li>
+
+<li><strong>cache_override</strong><br />
+Habilita el llamar a su propia funci&oacute;n en vez de la funci&oacute;n <dfn>_display_cache()</dfn> en la clase de salida. Esto le permite usar su propio mecanismo para mostrar el cache.</li>
+<li><strong>post_system</strong><br />
+Llamado despu&eacute;s de que la presentaci&oacute;n final de la p&aacute;gina es enviada al explorador, al final de la ejecuci&oacute;n del sistema despu&eacute;s de que los datos finalizados son enviados al explorador.</li>
+</ul></div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="core_classes.html">Crear Clases del N&uacute;cleo</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="autoloader.html">Auto-carga de Recursos</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

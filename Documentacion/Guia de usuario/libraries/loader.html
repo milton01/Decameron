@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Load : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Load
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Load</h1>
+<p>La clase Load, como su nombre sugiere, se usa para cargar elementos. Estos elementos pueden ser bibliotecas (clases), <a href="../general/views.html">archivos de Vistas</a>, <a href="../general/helpers.html">Helpers</a>, <a href="../general/models.html">Modelos</a>, o sus propios archivos.</p>
+
+<p class="important"><strong>Nota:</strong> El sistema inicializa autom&aacute;ticamente a esta clase, por lo que no hay necesidad de hacerlo manualmente.</p>
+
+<p>Las siguientes funciones est&aacute;n disponibles en esta clase:</p>
+
+<h2>$this->load->library('<var>nombre_de_clase</var>', <samp>$config</samp>, '<kbd>nombre_de_objeto'</kbd>)</h2>
+<p>Esta funci&oacute;n se usa para cargar clases del n&uacute;cleo. Donde <var>nombre_de_clase</var> es el nombre de la clase que desea cargar. Nota: Nosotros usamos los t&eacute;rminos "clase" y "biblioteca" en forma intercambiable.</p>
+
+<p>Por ejemplo, si quisiera enviar un email con CodeIgniter, el primer paso es cargar la clase Email dentro del controlador:</p>
+
+<code>
+$this->load->library('email');
+</code>
+
+<p>Una vez cargada, la biblioteca est&aacute; lista para usarse, usando <kbd>$this->email-></kbd><samp><em>alguna_funcion()</em></samp>.</p>
+
+<p>Los archivos de biblioteca se pueden almacenar en subdirectorios dentro de la carpeta "libraries" principal, o dentro de su carpeta personal <dfn>application/libraries</dfn>. Para cargar un archivo localizado en un subdirectorio, simplemente incluya la ruta, relativa a la carpeta "libraries". Por ejemplo, si tiene localizado un archivo en: </p>
+
+<code>libraries/flavors/chocolate.php</code>
+
+<p>Lo cargar&aacute; usando:</p>
+
+<code>$this->load->library('flavors/chocolate');</code>
+
+<p>Puede anidar el archivo en tantos subdirectorios como desee.</p>
+
+<p>Adem&aacute;s, se pueden cargar varias bibliotecas al mismo tiempo pasando un array de bibliotecas a la funci&oacute;n de carga.</p>
+
+<code>$this->load->library(array('<var>email</var>', '<var>table</var>'));</code>
+
+<h3>Configurar opciones</h3>
+
+<p>El segundo par&aacute;metro (opcional) le permite pasar opcionalmente valores de configuraci&oacute;n. Normalmente pasar&aacute; esos valores como un array:</p>
+
+<code>
+$config = array (<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'mailtype' => 'html',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'charset'&nbsp; => 'utf-8,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'priority' => '1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->load->library('email', $config);</code>
+
+<p>Las opciones de configuraci&oacute;n normalmente tambi&eacute;n se pueden establecer mediante un archivo de configuraci&oacute;n. Cada biblioteca se explica en detalle en su p&aacute;gina, as&iacute; que lea la informaci&oacute;n acerca de cada una de la que desee
+usar.</p>
+
+<p>Por favor advierta que cuando varias bibliotecas se pasan a un array en el primer par&aacute;metro, cada una recibir&aacute; la misma informaci&oacute;n de par&aacute;metro.</p>
+
+<h3>Asignar una Biblioteca a un Nombre de Objeto Diferente</h3>
+
+<p>Si el tercer par&aacute;metro (opcional) est&aacute; en blanco, la biblioteca se asignar&aacute; normalmente a un objeto con el mismo nombre que la biblioteca. Por ejemplo, si la biblioteca se llama <dfn>Session</dfn>, se asignar&aacute; a una variable llamada <dfn>$this->session</dfn>.</p>
+
+<p>Si prefiere establecer sus propios nombres de clases, puede pasar su valor al tercer par&aacute;metro:</p>
+
+<code>$this->load->library('session', '', 'mi_session');<br />
+<br />
+// Ahora se accede a la clase Session usando:<br />
+<br />
+$this->mi_session
+</code>
+
+<p>Por favor advierta que cuando varias bibliotecas se pasan a un array en el primer par&aacute;metro, este par&aacute;metro se descarta.</p>
+
+<h2>$this->load->view('<var>nombre_del_archivo</var>', <samp>$data</samp>, <kbd>true/false</kbd>)</h2>
+<p>Esta funci&oacute;n se usa para cargar sus archivos de <a href="../general/views.html">Vistas</a>. Si todav&iacute;a no ley&oacute; la secci&oacute;n Vistas de la Gu&iacute;a del Usuario, se le recomienda que lo haga, ya que muestra c&oacute;mo se usa normalmente esta funci&oacute;n.</p>
+
+<p>El primer par&aacute;metro es obligatorio. Es el nombre del archivo de vista que Ud quiere cargar. Nota: No se necesita especificar la extensi&oacute;n <kbd>.php</kbd>, a menos que est&eacute; usando otra distinta.</p>
+
+<p>El segundo par&aacute;metro <strong>opcional</strong> puede tomar como entrada un array asociativo o un objeto, que se ejecuta mediante la funci&oacute;n <a href="http://www.php.net/extract">extract()/a> de PHP para convertir a variables que se pueden usar en sus archivos de vistas. Nuevamente, lea la p&aacute;gina <a href="../general/views.html">Vistas</a> para aprender c&oacute;mo esto puede ser &uacute;til.</p>
+
+<p>El tercer par&aacute;metro <strong>opcional</strong> le permite cambiar el comportamiento de la funci&oacute;n para que devuelva los datos como una cadena en lugar de enviarlos al navegador. Esto puede ser &uacute;til si quiere procesar los datos de alguna forma. Si establece el par&aacute;metro a <kbd>TRUE</kbd> (booleano), devolver&aacute; datos. El comportamiento por defecto es <kbd>FALSE</kbd>, que los env&iacute;a al navegador. Recuerde asignarla a una variable si quiere que los datos sean devueltos:</p>
+
+<code>$string = $this->load->view('<var>mi_archivo</var>', '', <kbd>true</kbd>);</code>
+
+<h2>$this-&gt;load-&gt;model('<var>Model_name</var>');</h2>
+
+<code>$this->load->model('<var>Nombre_modelo</var>');</code>
+
+<p>Si su modelo est&aacute; ubicado en una subcarpeta, incluir la ruta relativa de su carpeta de modelos. Por ejemplo, si tiene un modelo ubicado en application/models/blog/queries.php lo cargar&aacute; usando:</p>
+
+<code>$this-&gt;load-&gt;model('<var>blog/queries</var>');</code>
+
+<p>Si quisiera tener su modelo asignado a un nombre de objeto diferente, puede especificarlo mediante el segundo par&aacute;metro de la funci&oacute;n de carga:</p>
+
+<code>
+$this-&gt;load-&gt;model('<var>Nombre_modelo</var>', '<kbd>fubar</kbd>');<br />
+<br />
+$this-&gt;<kbd>fubar</kbd>-&gt;function();
+</code>
+
+<h2>$this->load->database('<var>options</var>', <kbd>TRUE/FALSE</kbd>)</h2>
+<p>Esta funci&oacute;n le permite cargar la Clase Database. Los dos par&aacute;metros son <strong>opcionales</strong>. Para m&aacute;s informaci&oacute;n lea la secci&oacute;n <a href="../database/index.html">Clase Database</a>.</p>
+
+<h2>$this->load->vars(<samp>$array</samp>)</h2>
+<p>Esta funci&oacute;n toma como entrada un array asociativo y genera variables usando la funci&oacute;n <a href="http://www.php.net/extract">extract()</a> de PHP. Esta funci&oacute;n produce el mismo resultado que usar el segundo par&aacute;metro de la funci&oacute;n <dfn>$this->load->view()</dfn> anterior. La raz&oacute;n por la que puede desear usar esta funci&oacute;n independientemente es si quisiera establecer alguna variable global en el constructor de su controlador y tenerlas disponibles en cualquier archivo de vista cargado desde cualquier funci&oacute;n. Puede tener varias llamadas a esta funci&oacute;n. Los datos se almacenan en cach&eacute; y fusionan en un array para convertirlos en variables.</p>
+
+<h2>$this->load->helper('<var>nombre_de_archivo</var>')</h2>
+<p>Esta funci&oacute;n carga archivos de helper, donde <var>nombre_de_archivo</var> es el nombre del archivo sin la extensi&oacute;n <kbd>_helper.php</kbd>.</p>
+
+<h2>$this->load->file('<var>ruta_de_archivo/nombre_de_archivo</var>', <kbd>TRUE/FALSE</kbd>)</h2>
+<p>Esta es una funci&oacute;n gen&eacute;rica de carga de archivos. Proporcione la ruta y nombre del archivo en el primer par&aacute;metro y la funci&oacute;n abrir&aacute; y leer&aacute; el archivo. Por defecto los datos se env&iacute;an a su navegador, igual que un archivo de vista, pero si estableci&oacute; el segundo par&aacute;metro a <kbd>TRUE</kbd> (booleano), en su lugar devolver&aacute; los datos como una cadena.</p>
+
+<h2>$this->load->language('<var>nombre_de_archivo</var>')</h2>
+<p>Esta funci&oacute;n es un alias de la <a href="language.html">funci&oacute;n que carga los idiomas</a>: $this->lang->load().</p>
+
+<h2>$this->load->config('<var>nombre_de_archivo</var>')</h2>
+<p>Esta funci&oacute;n es un alias de la <a href="config.html">funci&oacute;n que carga los archivos de configuraci&oacute;n</a>: $this->config->load().</p>
+
+<h2>"Paquetes" de Aplicaci&oacute;n</h2>
+<p>Un paquete de aplicaci&oacute;n permite la f&aacute;cil distribuci&oacute;n de conjuntos completos de recursos en un directorio simple, como ser sus propias bibliotecas, modelos, helpers, configuraciones y archivos de idiomas. Se recomienda que estos paquetes se ubiquen en la carpeta <dfn>application/third_party</dfn>. A continuaci&oacute;n se muestra un mapa de un directorio de paquete.</p>
+
+<h2>Ejemplo del Mapa del Directorio del Paquete "Foo Bar"</h2>
+<p>El siguiente es un ejemplo de un directorio para un paquete de aplicaci&oacute;n llamado "Foo Bar".</p>
+
+<code>/application/third_party/foo_bar<br />
+<br />
+config/<br />
+helpers/<br />
+language/<br />
+libraries/<br />
+models/<br />
+</code>
+
+<p>Sea cual sea el prop&oacute;sito del paquete de aplicaci&oacute;n "Foo Bar", tiene sus propios archivos de configuraci&oacute;n, helpers, archivos de idioma, bibliotecas y modelos. Para usar estos recursos en sus controladores, primero necesita decirle a la Clase Load que va a cargar recursos desde un paquete, al agregarle la ruta del paquete.</p>
+
+<h3>$this->load->add_package_path()</h3>
+<p>Esta funci&oacute;n instruye a la Clase Load a anteponer una ruta dada para las solicitudes subsecuentes de recursos. Como ejemplo, el paquete de aplicaci&oacute;n "Foo Bar" anterior tiene una biblioteca llamada <dfn>Foo_bar.php</dfn>. En su controlador, haremos lo siguiente:</p>
+
+<code>
+$this->load->add_package_path(<var>APPPATH</var>.'third_party/<var>foo_bar</var>/');<br />
+$this->load->library('foo_bar');
+</code>
+
+<h3>$this->load->remove_package_path()</h3>
+<p>Cuando su controlador haya terminado de usar recursos de un paquete de aplicaci&oacute;n y particularmente, si tiene otros paquetes de aplicaci&oacute;n con los que quiere trabajar, puede desear quitar la ruta del paquete para que la Clase Load no busque m&aacute;s recursos en esa carpeta. Para quitar la &uacute;ltima ruta agregada, simplemente llame al m&eacute;todo sin par&aacute;metros.</p>
+
+<h3>$this->load->remove_package_path()</h3>
+<p>O para eliminar una ruta de paquete espec&iacute;fica, indique la misma ruta dada previamente a <kbd>add_package_path() para un paquete</kbd>:</p>
+
+<code>$this->load->remove_package_path(<var>APPPATH</var>.'third_party/<var>foo_bar</var>/');</code>
+
+<h3>Archivos de Vista del Paquete</h3>
+<p>@todo - la interfaz de archivo de vista del paquete no est&aacute; completa. Se puede usar experimentalmente guardando primero la ruta de la vista de la Clase Load original, estableciendo la ruta de la vista a la ruta de la vista del paquete, y cuando termine, vovliendo a la ruta de vista original.</p>
+
+<code>
+// ... guardar la ruta de la vista original, y establecerla a nuestra carpeta de vista del paquete Foo Bar<br />
+$orig_view_path = $this->load->_ci_view_path;<br/>
+$this->load->_ci_view_path = <var>APPPATH</var>.'third_party/<var>foo_bar</var>/views/';<br />
+<br />
+// ... c&oacute;digo que usa los archivos de vista del paquete<br />
+<br />
+// ... luego devolver la ruta de vista a la ruta de vista original de la aplicaci&oacute;n<br />
+$this->load->_ci_view_path = $orig_view_path;
+</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="language.html">Clase Lang</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="migration.html">Clase Migration</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

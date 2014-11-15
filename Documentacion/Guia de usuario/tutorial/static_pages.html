@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>P&aacute;ginas Est&aacute;ticas : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Tutorial</a> &nbsp;&#8250;&nbsp;
+P&aacute;ginas Est&aacute;ticas
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Tutorial &minus; P&aacute;ginas Est&aacute;ticas</h1>
+<p class="important"><strong>Nota:</strong> Este tutorial asume que ya descarg&oacute; e <a href="../installation/index.html">instal&oacute; el framework</a> CodeIgniter en su entorno de desarrollo.</p>
+
+<p>La primera cosa que har&aacute; es configurar un <strong>controlador</strong> para manejar p&aacute;ginas est&aacute;ticas. Un controlador es simplemente una clase que ayuda a delegar trabajo. Es el n&uacute;cleo de su aplicaci&oacute;n web.</p>
+
+<p>Por ejemplo, cuando se hace una llamada a: <code>http://ejemplo.com/noticias/ultimas/10</code> Podemos imaginar que hay un controlador llamado noticias. El m&eacute;todo que se llama en noticias ser&iacute;a ultimas. El trabajo del m&eacute;todo de noticias podr&iacute;a ser tomar 10 &iacute;tems de noticias y mostrarlos en la p&aacute;gina. Muy a menudo en MVC, ver&aacute; patrones de URL que con coincidan con: <code>http://ejemplo.com/[clase-controlador]/[m&eacute;todo-controlador]/[argumentos]</code> Cuando el esquema de URL se hace m&aacute;s complejo, esto puede cambiar. Pero por ahora, esto es todo lo que necesitamos saber.</p>
+
+<p>Crear un archivo en application/controllers/pages.php con el siguiente c&oacute;digo:</p>
+
+<pre>
+&lt;?php
+
+class Pages extends CI_Controller {
+
+	public function view($page = 'home')
+	{
+
+	}
+}
+</pre>
+
+<p>Se cre&oacute; una clase llamada &quot;pages&quot;, con un m&eacute;todo view que acepta un solo argumento llamado <var>$page</var>. La clase pages se extiende de la clase CI_Controller. Esto significa que la nueva clase pages puede acceder a los m&eacute;todos y variables definidos en la clase CI_Controller (<dfn>system/core/Controller.php</dfn>).</p>
+
+<p>El <strong>controlador es lo que se converitir&aacute; en el centro de cada solicitud</strong> de su aplicaci&oacute;n web. En discusiones muy t&eacute;cnicas de CodeIgniter, esto puede referirse como el <em>super objeto</em>. Como cualquier otra clase de PHP, se referir&aacute; a ella dentro de sus controladores como <var>$this</var>. Referirse a <var>$this</var> es como cargar&aacute; bibliotecas, vistas y como generalmente utilizar&aacute; el framework.</p>
+
+<p>Ahora que ha creado su primer m&eacute;todo, es momento de hacer alguna plantilla b&aacute;sica de p&aacute;gina. Crearemos dos &#8220;vistas&#8221; (plantillas de p&aacute;ginas) que act&uacute;an como su encabezado y pie de p&aacute;gina.</p>
+
+<p>Cree el encabezado en <dfn>application/views/templates/header.php</dfn> y agregarle este c&oacute;digo:</p>
+
+<pre>
+&lt;html>
+&lt;head>
+	&lt;title>&lt;?php echo $title ?> - CodeIgniter 2 Tutorial&lt;/title>
+&lt;/head>
+&lt;body>
+	&lt;h1>CodeIgniter 2 Tutorial&lt;/h1>
+	
+</pre>
+
+<p>El encabezado contiene c&oacute;digo HTML b&aacute;sico que mostrar&aacute; antes de cargar la vista principal, junto al encabezado. Tambi&eacute;n mostrar&aacute; la variable <var>$title</var>, que definiremos luego en el controlador. Ahora, cree el pie de p&aacute;gina en <dfn>application/views/templates/footer.php</dfn> e incluir este c&oacute;digo:</p>
+
+<pre>
+&lt;strong>&#38;copy; 2011&lt;/strong>	
+&lt;/body>
+&lt;/html>
+</pre>
+
+<h2>Agregar l&oacute;gica al controlador</h2>
+
+<p>Con anterioridad, establecimos un controlador con el m&eacute;todo view(). El m&eacute;todo acepta un par&aacute;metro, que es el nombre de la p&aacute;gina a cargar. Las plantillas de p&aacute;ginas est&aacute;ticas se localizar&aacute;n en el directorio <dfn>application/views/pages/</dfn>.</p>
+
+<p>En ese directorio, cree dos archivos llamados <dfn>home.php</dfn> y <dfn>about.php</dfn>. Dentro de ellos escriba alg&uacute;n texto &ndash; lo que quiera &ndash; y gu&aacute;rdelos. Si no quiere ser particularmente original, escriba "Hola Mundo!".</p>
+
+<p>Para cargar esas p&aacute;ginas, tiene que verificar si la p&aacute;gina solicitada realmente existe:</p>
+
+<pre>
+public function view($page = 'home')
+{
+			
+	if ( ! file_exists('application/views/pages/'.$page.'.php'))
+	{
+		// Whoops, we don't have a page for that!
+		show_404();
+	}
+	
+	$data['title'] = ucfirst($page); // Capitalize the first letter
+	
+	$this->load->view('templates/header', $data);
+	$this->load->view('pages/'.$page, $data);
+	$this->load->view('templates/footer', $data);
+
+}
+</pre>
+
+<p>Ahora, cuando la p&aacute;gina exista, se la cargar&aacute; incluyendo el encabezado y el pie y se la mostrar&aacute; al usuario. Si la p&aacute;gina no existe, se mostrar&aacute; el error "404 Page not found" (p&aacute;gina no encontrada).</p>
+
+<p>La primera l&iacute;nea de este m&eacute;todo verifica si la p&aacute;gina existe realmente. Se usa la funci&oacute;n nativa de PHP <var>file_exists()</var> para verificar si el archivo est&aacute; donde se espera que est&eacute;. <var>show_404()</var> es una funci&oacute;n interna de CodeIgniter que presenta la p&aacute;gina de error por defecto.</p>
+
+<p>En la plantilla del encabezado, la variable <var>$title</var> se usa para personalizar el t&iacute;tulo de la p&aacute;gina. El valor de $title se define en el m&eacute;todo, pero en lugar de asignarle el valor a una variable, se asigna al elemento title en el array <var>$data</var>.</p>
+
+<p>La &uacute;ltima cosa que tiene que hacer es cargar las vistas en el orden en que se mostrar&aacute;n. El segundo par&aacute;metro en el m&eacute;todo <var>view()</var> se usa para pasar valores a la vista. Cada valor en el array <var>$data</var> se asigna a una variable con el nombre de su clave. Por lo tanto, el valor de <var>$data['title']</var> en el controlador es equivalente a <var>$title</var> en la vista.<p>
+
+<h2>Ruteo</h2>
+
+<p>&iexcl;El controlador ahora est&aacute; funcionando! Apunte su navegador a <dfn>[url-de-su-sitio]index.php/pages/view</dfn> para ver la p&aacute;gina. Al visitar <dfn>index.php/pages/view/about</dfn> ver&aacute; la p&aacute;gina acerca, incluyendo el encabezado y el pie de p&aacute;gina.</p>
+
+<p>Al usar reglas de ruteo personalizadas, Ud tiene el poder de mapear cualquier URI a cualquier controlador y m&eacute;todo, liber&aacute;ndose de la convenci&oacute;n normal:
+<code>http://ejemplo.com/[clase-controlador]/[m&eacute;todo-controlador]/[argumentos]
+</code></p>
+
+<p>Hagamos eso. Abra el archivo de ruteo localizado en <dfn>application/config/routes.php</dfn> y agregue las siguientes dos l&iacute;neas. Quite el resto del c&oacute;digo y establezca cualquier elemento en el array <var>$route</var>.</p>
+
+<pre>
+$route['default_controller'] = 'pages/view';
+$route['(:any)'] = 'pages/view/$1';
+</pre>
+
+<p>CodeIgniter lee sus reglas de ruteo de arriba hacia abajo y rutea las solicitudes a la primer regla que coincide. Cada regla es una expresi&oacute;n regular (lado izquierdo) mapeada al nombre de controlador y m&eacute;todo separados por barras (lado derecho). Cuando ingresa una solicitud, CodeIgniter busca la primer coincidencia, y llama al controlador y m&eacute;todos adecuados, posiblemente con argumentos.</p>
+
+<p>Puede encontrar m&aacute;s informaci&oacute;n acerca del ruteo en la <a href="../general/routing.html">documentaci&oacute;n</a> del Ruteo URI.</p>
+
+<p>Aqu&iacute;, la segunda regla en el array <var>$routes</var> coincide con <strong>cualquier</strong> solicitud que use el comod&iacute;n <dfn>(:any)</dfn> y pasa el par&aacute;metro al m&eacute;todo view() de la clase Pages.</p>
+
+<p>Ahora visite <dfn>index.php/about</dfn>. &iquest;Se rute&oacute; correctamente al m&eacute;todo <var>view()</var> en el controlador de p&aacute;ginas? &iexcl;Maravilloso!</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="index.html">Introducci&oacute;n</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="news_section.html">Secci&oacute;n de Noticias</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sintaxis Alternativa de PHP : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Sintaxis Alternativa de PHP
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Sintaxis Alternativa PHP para Archivos de Vista</h1>
+
+<p>En caso de no utilizar el <a href="../libraries/parser.html">motor de plantilla</a> de CodeIgniter, estar&aacute; usando PHP puro en su archivos de Vista. Para minimizar el c&oacute;digo PHP en estos archivos, y para que sea m&aacute;s f&aacute;cil identificar los bloques de c&oacute;digo se recomienda que utilice sint&aacute;xis alternativa PHP para las estructuras de control y etiquetas cortas para las declaraciones "echo". Si no est&aacute; familiarizado con esta sintaxis, &eacute;sta le permite eliminar las llaves de su c&oacute;digo, y eliminar las declaraciones "echo".</p>
+
+<h2>Soporte Autom&aacute;tico para Etiquetas Cortas</h2>
+
+<p><strong>Nota:</strong> Si encuentra que la sint&aacute;xis que se describe en esta p&aacute;gina no funciona en su servidor podr&iacute;a ser que las "etiquetas cortas" esten desactivadas en su archivo ini de PHP. CodeIgniter, opcionalmente, reescribir&aacute; etiquetas cortas sobre la marcha, lo cual le permite utilizar la sint&aacute;xis, incluso si su servidor no lo soporta. Esta caracter&iacute;stica puede ser habilitada en su archivo <dfn>config/config.php</dfn>.</p>
+
+<p class="important">Tenga en cuenta que si hace uso de esta funci&oacute;n, si encuentra errores de PHP en sus <strong>archivos de vista</strong>, el mensaje de error y el n&uacute;mero de l&iacute;nea no se muestran correctamente. En lugar de ello, todos los errores que se mostrar&aacute; como errores <kbd>eval()</kbd>.</p>
+
+<h2>Alternativas Echos</h2>
+
+<p>Normalmente para "echo", o imprimir una variable se har&iacute;a esto:</p>
+
+<code>&lt;?php echo $variable; ?></code>
+
+<p>Con la sint&aacute;xis alternativa lo puede hacer de esta manera:</p>
+
+<code>&lt;?=$variable?></code>
+
+<h2>Estructuras de Control Alternativas</h2>
+
+<p>Las estructuras de control, como <var>if</var>, <var>for</var>, <var>foreach</var>, y <var>while</var> pueden ser escritas en un formato m&aacute;s simple tambi&eacute;n. Aqu&iacute; tiene un ejemplo de uso de foreach:</p>
+
+<code>
+&lt;ul><br />
+<br />
+<var>&lt;?php foreach($todo as $item): ?></var><br />
+<br />
+&lt;li><var>&lt;?=$item?></var>&lt;/li><br />
+<br />
+<var>&lt;?php endforeach; ?></var><br />
+<br />
+&lt;/ul></code>
+
+<p>Note que no hay llaves. En lugar de ello, la llave que cierra es reemplazada con un <var>endforeach</var>. Cada una de las estructuras de control mencionadas anteriormente tiene una sintaxis similar de cierre: <var>endif</var>, <var>endfor</var>, <var>endforeach</var>, y <var>endwhile</var></p>
+
+<p>Observe tambi&eacute;n que en lugar de utilizar un punto y coma despu&eacute;s de cada estructura (excepto la &uacute;ltima), hay dos puntos. Esto es importante!</p>
+
+<p>Aqu&iacute; hay otro ejemplo, usando if/elseif/else. N&oacute;tese los dos puntos:</p>
+
+<code><var>&lt;?php if ($username == 'sally'): ?></var><br />
+<br />
+&nbsp;&nbsp;&nbsp;&lt;h3>Hola Sally&lt;/h3><br />
+<br />
+<var>&lt;?php elseif ($username == 'joe'): ?></var><br />
+<br />
+&nbsp;&nbsp;&nbsp;&lt;h3>Hola Joe&lt;/h3><br />
+<br />
+<var>&lt;?php else: ?></var><br />
+<br />
+&nbsp;&nbsp;&nbsp;&lt;h3>Hola usuario desconocido&lt;/h3><br />
+<br />
+<var>&lt;?php endif; ?></var></code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="environments.html">Manejo de m&uacute;ltiples entornos</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="security.html">Seguridad</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

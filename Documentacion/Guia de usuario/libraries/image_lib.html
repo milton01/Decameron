@@ -1,0 +1,568 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Image_lib : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Image_lib
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase de Manipulaci&oacute;n de Imagen</h1>
+
+<p>La clase de Manipulaci&oacute;n de Imagen de CodeIgniter le permite realizar las siguientes acciones:</p>
+
+<ul>
+<li>Redimenci&oacute;n de Imagen</li>
+<li>Creaci&oacute;n de Thumbnail</li>
+<li>Recorte de Imagen</li>
+<li>Rotaci&oacute;n de Imagen</li>
+<li>Marca de Agua en Imagen</li>
+</ul>
+
+<p>Todas las tres librer&iacute;as de im&aacute;genes principales son soportadas:  GD/GD2, NetPBM, e ImageMagick</p>
+
+<p class="important"><strong>Nota:</strong> Marca de Agua s&oacute;lo est&aacute; disponible usando la librer&iacute;a GD/GD2. Adem&aacute;s, aunque las otras librer&iacute;as son soportadas, GD es requerida para que el programa calcule las propiedades de la imagen. El procesamiento de la imagen, sin embargo, ser&aacute; realizado con la librer&iacute;a que haya especificado.</p>
+
+<h2>Inicializar la Clase</h2>
+<p>Como la mayor&iacute;a de las otras clases en CodeIgniter, la clase de imagen es inicializada en su controlador usando la funci&oacute;n <dfn>$this->load-&gt;library</dfn>:</p>
+
+<code>$this->load->library('image_lib');</code>
+
+<p>Una vez que la librer&iacute;a es cargada estar&aacute; lista para el uso. El objeto de la librer&iacute;a de imagen que usar&aacute; para llamar todas las funciones es: <dfn>$this->image_lib</dfn></p>
+
+<h2>Procesar una Imagen</h2>
+<p>Sin importar el tipo de procesamiento que quiera realizar (redimencionar, recortar, rotar o marca de agua), el proceso general es id&eacute;ntico. Establecer&aacute; algunas preferencias correspondientes a la acci&oacute;n que tenga intenciones de realizar, entonces llamar&aacute; a una de las cuatro funciones de procesamiento disponibles. Por ejemplo, para crear un thumbnail de una imagen har&aacute; esto:</p>
+
+<code>
+$config['image_library'] = 'GD';<br />
+$config['source_image']	= '/ruta/a/imagen/mifoto.jpg';<br />
+$config['create_thumb'] = TRUE;<br />
+$config['maintain_ratio'] = TRUE;<br />
+$config['width']		= 75;<br />
+$config['height']	= 50;<br />
+<br />
+$this->load->library('image_lib', $config);
+<br />
+<br />
+$this->image_lib->resize();
+</code>
+
+<p>El c&oacute;digo anterior le dice a la funci&oacute;n <dfn>image_resize</dfn> que busque por una imagen llamada <em>mifoto.jpg</em> ubicada en la carpeta <dfn>source_image</dfn>, entonces cree un thumbnail que sea de 75 X 50 pixeles usando la <dfn>image_library</dfn> GD2. Ya que la opci&oacute;n <dfn>maintain_ratio</dfn> est&aacute; habilitada, el thumb ser&aacute; tan cercano al <dfn>width</dfn> y <dfn>height</dfn> de destino como sea posible mientras preserve la proporci&oacute;n del aspecto original. El thumbnail ser&aacute; llamado <em>mifoto_thumb.jpg</em></p>
+
+<p class="important"><strong>Nota:</strong> Para que la clase de imagen pueda hacer alg&uacute;n procesamiento, la carpeta contenedora de los archivos de imagen debe tener permisos de 777.</p>
+
+<p class="important"><strong>Nota:</strong> El procesamiento de im&aacute;genes puede requerir una cantidad considerable de memoria del servidor para algunas operaciones. Si experimenta errores por agotamiento de memoria mientras procesa im&aacute;genes, puede necesitar limitar sus tama&ntilde;os m&aacute;ximos y/o ajustar los l&iacute;mites de memoria de PHP.</p>
+
+<h2>Funciones de Procesamiento</h2>
+<p>Hay cuatro funciones de procesamiento:</p>
+
+<ul>
+<li>$this->image_lib->resize()</li>
+<li>$this->image_lib->crop()</li>
+<li>$this->image_lib->rotate()</li>
+<li>$this->image_lib->watermark()</li>
+<li>$this-&gt;image_lib-&gt;clear()</li>
+</ul>
+
+<p>Estas funciones devuelve un buleano TRUE si funcionan y FALSE si fallan. Si fallan puede recuperar el mensaje de error usando esta funci&oacute;n:</p>
+
+<code>echo $this->image_lib->display_errors();</code>
+
+<p>Una buena costumbre es usar la funci&oacute;n de procesamiento condicionalmente, mostrando un error cuando falla, as&iacute;:</p>
+
+<code>if ( ! $this->image_lib->resize())<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $this->image_lib->display_errors();<br />
+}
+</code>
+
+<p>Nota:  Puede opcionalmente especificar el formato HTML a ser aplicado a los errores, enviando las etiquetas de apertura/clausura en la funci&oacute;n, as&iacute;:</p>
+
+<code>
+$this->image_lib->display_errors('<var>&lt;p></var>', '<var>&lt;/p></var>');
+</code>
+
+<h2>Preferencias</h2>
+<p>Las preferencias que se describen debajo, le permiten adaptar el procesamiento de im&aacute;genes para satisfacer sus necesidades.</p>
+
+<p>Note que no todas las preferencias est&aacute;n disponibles para cada funci&oacute;n. Por ejemplo, las preferencias de hachas x/y s&oacute;lo est&aacute;n disponibles para recortar imagen. De la misma manera, Las preferencias de ancho y alto no tienen efecto al recortar. La columna "disponibilidad" indica que funci&oacute;n soporta una preferencia determinada.</p>
+
+<p>Disponibilidad (columna Disp.):</p>
+
+<ul>
+<li><var>R</var> - Redimensionar Imagen</li>
+<li><var>C</var> - Recortar Imagen</li>
+<li><var>X</var> - Rotar Imagen</li>
+<li><var>W</var> - Marca de Agua</li>
+</ul>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+<th>Preferencia</th>
+<th>Valor&nbsp;por&nbsp;Defecto</th>
+<th>Opciones</th>
+<th>Descripci&oacute;n</th>
+<th>Disponibilidad</th>
+</tr>
+<tr>
+<td class="td"><strong>image_library</strong></td>
+<td class="td">GD2</td>
+<td class="td">GD, GD2, ImageMagick, NetPBM</td>
+<td class="td">Establece la librer&iacute;a de imagen a ser usada.</td>
+<td class="td">R, C, X, W</td>
+</tr>
+<tr>
+<td class="td"><strong>library_path</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece la ruta del servidor a su librer&iacute;a ImageMagick o NetPBM. Si usa una de estas librer&iacute;as debe suministrar la ruta.</td>
+<td class="td">R, C, X</td>
+</tr>
+<tr>
+<td class="td"><strong>source_image</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece el nombre/ruta de la imagen de origen. La ruta debe ser una ruta relativa o absoluta del servidor, no una URL.</td>
+<td class="td">R, C, S, W</td>
+</tr>
+<tr>
+<td class="td"><strong>dynamic_output</strong></td>
+<td class="td">FALSE</td>
+<td class="td">TRUE/FALSE (buleano)</td>
+<td class="td">Determina si el nuevo archivo de imagen debe ser escrito a disco o generado din&aacute;micamente. Nota: Si elije la configuraci&oacute;n din&aacute;mica, s&oacute;lo una imagen puede ser mostrada a la vez, y no puede ser posicionada en la p&aacute;gina. Simplemente muestra la imagen din&aacute;micamente a su explorador, junto con los encabezados de imagen.</td>
+<td class="td">R, C, X, W</td>
+</tr>
+<tr>
+<td class="td"><strong>quality</strong></td>
+<td class="td">90%</td>
+<td class="td">1 - 100%</td>
+<td class="td">Establece la calidad de la imagen. Mayor calidad implica mayor tama&ntilde;o del archivo.</td>
+<td class="td">R, C, X, W</td>
+</tr>
+<tr>
+<td class="td"><strong>new_image</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece el nombre/ruta de destino de la imagen. Usar&aacute; esta preferencia cuando cree una copia de una imagen. La ruta debe ser una ruta relativa o absoluta del servidor, no una URL.</td>
+<td class="td">R, C, X, W</td>
+</tr>
+<tr>
+<td class="td"><strong>width</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece el ancho que quiere establecerle a la imagen.</td>
+<td class="td">R, C </td>
+</tr>
+<tr>
+<td class="td"><strong>height</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece el alto que quiere establecerle a la imagen.</td>
+<td class="td">R, C </td>
+</tr>
+<tr>
+<td class="td"><strong>create_thumb</strong></td>
+<td class="td">FALSE</td>
+<td class="td">TRUE/FALSE (boolean)</td>
+<td class="td">Le dice a la funci&oacute;n de procesamiento de imagen que cree un thumb.</td>
+<td class="td">R</td>
+</tr>
+<tr>
+<td class="td"><strong>thumb_marker</strong></td>
+<td class="td">_thumb</td>
+<td class="td">Ninguna</td>
+<td class="td">Especifica el indicador de thumbnail.  Ser&aacute; insertado justo antes de la extensi&oacute;n del archivom as&iacute; que mifoto.jpg ser&aacute; mifoto_thumb.jpg</td>
+<td class="td">R</td>
+</tr>
+<tr>
+<td class="td"><strong>maintain_ratio</strong></td>
+<td class="td">TRUE</td>
+<td class="td">TRUE/FALSE (boolean)</td>
+<td class="td">Especifica si mantener la proporci&oacute;n del aspecto original cuando redimensiona o usar valores duros.</td>
+<td class="td">R</td>
+</tr>
+<tr>
+<td class="td"><strong>master_dim</strong></td>
+<td class="td">auto</td>
+<td class="td">auto, width, height</td>
+<td class="td">Especifica que usar como la hacha maestra cuando redimensiona o crea thumbs. Por ejemplo, digamos que quiere redimensionar una imagen a 100 X 75 pixeles. Si su imagen de origen no permite redimensionamiento perfecto a esas dimensiones, esta configuraci&oacute;n determina que hacha debe ser usada como valor duro. "auto" establece el hacha autom&aacute;ticamente basado en si la imagen es m&aacute;s alta que ancha o viceversa.</td>
+<td class="td">R</td>
+</tr>
+<tr>
+<td class="td"><strong>rotation_angle</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">90, 180, 270, vrt, hor</td>
+<td class="td">Especifica el &aacute;ngulo de rotaci&oacute;n cuando se rotan imagenes. Note que PHP rota contra las agujas del reloj, as&iacute; que una rotaci&oacute;n de 90 grados a la derecha debe ser especificada como 270.</td>
+<td class="td">X</td>
+</tr>
+<tr>
+<td class="td"><strong>x_axis</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece la cordenada X en pixeles para recortar una imagen. Por ejemplo, una configuraci&oacute;n de 30 cortar&aacute; una imagen 30 pixeles desde la izquierda.</td>
+<td class="td">C</td>
+</tr>
+<tr>
+<td class="td"><strong>y_axis</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece la cordenada X en pixeles para recortar una imagen. Por ejemplo, una configuraci&oacute;n de 30 cortar&aacute; una imagen 30 pixeles desde arriba.</td>
+<td class="td">C</td>
+</tr>
+</table>
+
+<h2>Estableciendo preferencias en un archivo de configuraci&oacute;n</h2>
+
+<p>Si prefiere no establecer preferencias usando los m&eacute;todos anteriores, puede en su lugar ponerlos en un archivo de configuraci&oacute;n. Simplemente cree un nuevo archivo llamado <var>image_lib.php</var> y el arreglo <var>$config</var> en ese archivo. Entonces guarde el archivo en: <var>config/image_lib.php</var> y ser&aacute; usado autom&aacute;ticamente. NO necesitar&aacute; usar la funci&oacute;n <dfn>$this->image_lib->initialize</dfn> si guarda sus preferencias en un archivo de configuraci&oacute;n.</p>
+
+<h2>$this->image_lib->resize()</h2>
+<p>La funci&oacute;n de redimensi&oacute;n de imagen le permite redimensionar la imagen original, crear una copia (con o sin redimensi&oacute;n), o crear una imagen thumbnail.</p>
+
+<p>Por prop&oacute;sitos pr&aacute;cticos no hay diferencia entre crear una copia y crear un thumbnail excepto que un thumb tendr&aacute; el marcador thumbnail como parte de su nombre (por ejemplo, mifoto_thumb.jpg).</p>
+
+<p>Todas las preferencias listadas en la tabla anterior est&aacute;n disponibles por esta funci&oacute;n excepto estas tres:  rotation, x_axis, and y_axis.</p>
+
+<h3>Creando un Thumbnail</h3>
+<p>La funci&oacute;n de redimensi&oacute;n crear&aacute; un archivo thumbnail (y preserva el original) si establece esta preferencia como TRUE:</p>
+
+<code>$config['create_thumb'] = TRUE;</code>
+
+<p>Esta preferencia s&oacute;lo determina un thumbnail es creado o no.</p>
+
+<h3>Creando una Copia</h3>
+<p>La funci&oacute;n de redimensi&oacute;n crear&aacute; una copia del archivo de imagen (y preservar&aacute; el original) su establece una ruta y/o un nuevo nombre de archivo usando esta preferencia:</p>
+
+<code>$config['new_image'] = '/ruta/a/nueva_imagen.jpg';</code>
+
+<p>Nota acerca de esta preferencia:</p>
+
+<ul>
+<li>Si s&oacute;lo el nombre de la nueva imagen es especificado ser&aacute; ubicada en la misma carpeta que el original</li>
+<li>Si s&oacute;lo la ruta es especificada, la nueva imagen ser&aacute; ubicada en el destino con el mismo nombre que el original.</li>
+<li>Si ambos, la ruta y nombre de la imagen, son especificados ser&aacute; ubicado en su propia destinaci&oacute;n y con el nuevo nombre dado.</li>
+</ul>
+
+<h3>Redimensionando la Imagen Original</h3>
+
+<p>Si ninguno de las dos preferencias listadas arriba (create_thumb, y new_image) son usadas, la funci&oacute;n de redimensi&oacute;n usar&aacute; la imagen original como destino de procesamiento.</p>
+
+<h2>$this->image_lib->crop()</h2>
+<p>La funci&oacute;n de recortar funciona casi id&eacute;nticamente a la funci&oacute;n de redimensi&oacute;n excepto que requiere que establezca preferencias para las hachas X e Y (en pixeles) especificando donde cortar, as&iacute;:</p>
+
+<code>$config['x_axis'] = '100';<br />
+$config['y_axis'] = '40';</code>
+
+<p>Todas las preferencias listadas en la tabla anterior est&aacute;n disponibles excepto estas:  rotation, width, height, create_thumb, new_image.</p>
+
+<p>Aqu&iacute; hay un ejemplo mostrando como puede recortar una imagen:</p>
+
+<code>$config['image_library'] = 'imagemagick';<br />
+$config['library_path'] = '/usr/X11R6/bin/';<br />
+$config['source_image']	= '/ruta/a/imagen/mifoto.jpg';<br />
+$config['x_axis'] = '100';<br />
+$config['y_axis'] = '60';<br />
+<br />
+$this->image_lib->initialize($config);
+<br />
+<br />
+if ( ! $this->image_lib->crop())<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $this->image_lib->display_errors();<br />
+}</code>
+
+<p>Nota: Sin una interface visual es dif&iacute;cil recortar imagenes, as&iacute; que esta funci&oacute;n no es muy &uacute;til a menos que tenga intenciones de construir dicha interface. Esto es exactamente lo que hicimos para el m&oacute;dulo de galer&iacute;a de fotos en ExpressionEngine, el CMS que desarrollamos. Agregamos una Interface de Usuario que permite que el area a recortar sea seleccionada.</p>
+
+<h2>$this->image_lib->rotate()</h2>
+<p>La funci&oacute;n de rotaci&oacute;n de imagen requiere que el &aacute;ngulo de rotaci&oacute;n sea establecido a trav&eacute;s de esta preferencia:</p>
+
+<code>$config['rotation_angle'] = '90';</code>
+
+<p>Hay 5 opciones de rotaci&oacute;n:</p>
+
+<ol>
+<li>90 - rota 90 grados contra las agujas del reloj.</li>
+<li>180 - rota 180 grados contra las agujas del reloj.</li>
+<li>270 - rota 270 grados contra las agujas del reloj..</li>
+<li>hor - Voltea la imagen horizontalmente.</li>
+<li>vrt - Voltea la imagen verticalmente.</li>
+</ol>
+
+<p>Aqu&iacute; hay un ejemplo mostrando como puede rotar una imagen:</p>
+
+<code>$config['image_library'] = 'netpbm';<br />
+$config['library_path'] = '/usr/bin/';<br />
+$config['source_image']	= '/ruta/a/imagen/mifoto.jpg';<br />
+$config['rotation_angle'] = 'hor';<br />
+<br />
+$this->image_lib->initialize($config);
+<br />
+<br />
+if ( ! $this->image_lib->rotate())<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $this->image_lib->display_errors();<br />
+}</code>
+
+<h2>$this-&gt;image_lib-&gt;clear()</h2>
+
+<p>La funci&oacute;n "clear" restablece todos los valores por defecto usados cuando se procesa una imagen. Usted podr&iacute;a querer llamarla si est&aacute; procesando im&aacute;genes en un ciclo.</p>
+
+<p><code>$this-&gt;image_lib-&gt;clear();</code></p>
+
+<br/>
+
+<h1>Marca de Agua</h1>
+<p>La caracter&iacute;stica Marca de Agua requiere la librer&iacute;a GD/GD2.</p>
+
+<h2>Dos tipos de Marca de Agua</h2>
+<p>Hay dos tipos de marca de agua que puede usar:</p>
+
+<ul>
+<li><strong>Texto</strong>: El mensaje de marca de agua ser&aacute; generado usando texto, ya sea con una fuente True Type que especifique, o usando
+la salida de texto nativo que la librer&iacute;a GD soporta. Si usa la versi&oacute;n True Type, su instalaci&oacute;n de GD debe ser compilada con soporte
+True Type (la mayor&iacute;a lo son, pero no todos).</li>
+<li><strong>Revestimiento</strong>: El mensaje de marca de agua ser&aacute; generado al revestir la imagen (usualmente un PNG o GIF transparent)
+conteniendo su marca de agua sobre la imagen de origen.</li>
+</ul>
+
+<h2>Marca de agua en una imagen</h2>
+<p>Al igual que con la otra funciones el procesamiento general para marca de agua involucra establecer las preferencias correspondientes a la acci&oacute;n que intente realizar, entonces llamar a la funci&oacute;n "watermark". Aqu&iacute; hay un ejemplo:</p>
+
+<code>
+$config['source_image']	= '/ruta/a/imagen/mifoto.jpg';<br />
+$config['wm_text'] = 'Copyright 2006 - John Doe';<br />	
+$config['wm_type'] = 'text';<br />
+$config['wm_font_path'] = './system/fonts/texb.ttf';<br />
+$config['wm_font_size']	= '16';<br />
+$config['wm_font_color'] = 'ffffff';<br />
+$config['wm_vrt_alignment']  = 'bottom';<br />
+$config['wm_hor_alignment']  = 'center';<br />
+$config['wm_padding']  = '20';<br />
+<br />
+$this->image_lib->initialize($config);
+<br />
+<br />
+$this->image_lib->watermark();</code>
+
+<p>El ejemplo anterior usar&aacute; una fuente de 16 p&iacute;xeles para crear el texto "Copyright 2006 - John Doe".  La marca de agua ser&aacute; posicionada abajo/al centro de la imagen, 20 p&iacute;xeles desde el fondo de la imagen.</p>
+
+<p class="important"><strong>Nota:</strong> Para que la clase de imagen pueda hacer cualquier procesamiento, el archivo de imagen debe tener permisos de 777.</p>
+
+<h2>Preferencias de Marca de Agua</h2>
+<p>Esta tabla muestra las preferencias que est&aacute;n disponibles para ambos tipos de marcas de agua (texto o revestimiento)</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+<th>Preferencia</th>
+<th>Valor&nbsp;por&nbsp;defecto</th>
+<th>Opciones</th>
+<th>Descripci&oacute;n</th>
+</tr>
+<tr>
+<td class="td"><strong>wm_type</strong></td>
+<td class="td">text</td>
+<td class="td">type, overlay</td>
+<td class="td">Establece el tipo de marca de agua que debe ser usado.</td>
+</tr>
+<tr>
+<td class="td"><strong>source_image</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Establece el nombre/ruta de la imagen de origen. La ruta debe ser relativa o una ruta absoluta del servidor, no una URL.</td>
+</tr>
+<tr>
+<td class="td"><strong>dynamic_output</strong></td>
+<td class="td">FALSE</td>
+<td class="td">TRUE/FALSE (boolean)</td>
+<td class="td">Determina si el nuevo archivo de imagen debe ser escrito a disco o generado din&aacute;micamente. Nota: Si elije la configuraci&oacute;n din&aacute;mica, s&oacute;lo una imagen puede ser mostrada a la vez, y no puede ser posicionada en la p&aacute;gina. Simplemente muestra la imagen din&aacute;micamente a su explorador, junto con los encabezados de imagen.</td>
+</tr>
+<tr>
+<td class="td"><strong>quality</strong></td>
+<td class="td">90%</td>
+<td class="td">1 - 100%</td>
+<td class="td">Establece la calidad de la imagen. Mientras m&aacute;s alta sea la calidad, mayor ser&aacute; el tama&ntilde;o del archivo.</td>
+</tr>
+<tr>
+<td class="td"><strong>padding</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Un n&uacute;mero</td>
+<td class="td">La cantidad de espaciado, establecido en p&iacute;xeles, que ser&aacute;n aplicados a la marca de agua para establecer la distancia desde el borde de sus im&aacute;genes.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_vrt_alignment</strong></td>
+<td class="td">bottom</td>
+<td class="td">top, middle, bottom</td>
+<td class="td">Establece el alineamiento vertical para la marca de agua de la imagen.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_hor_alignment</strong></td>
+<td class="td">center</td>
+<td class="td">left, center, right</td>
+<td class="td">Establece el alineamiento horizontal para la marca de agua de la imagen.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_vrt_offset</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Puede especificar un punto de comienzo vertical (en pixeles) para aplicar a la posici&oacute;n de la marca de agua. El
+punto normalmente mueve la marca de agua hacia abajo, excepto que haya establecido alineamiento como "down" (abajo) entonces
+el valor de comienzo mover&aacute; la marca de agua hacia arriba en la imagen.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_hor_offset</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">Puede especificar un punto de comienzo horizontal (en pixeles) para aplicar a la posici&oacute;n de la marca de agua. El
+punto normalmente mueve la marca de agua a la derecha, excepto que haya establecido alineamiento como "right" (a la derecha) entonces
+el valor de comienzo mover&aacute; la marca de agua a la izquierda de la imagen.</td>
+</tr>
+</table>
+
+<h3>Preferencia de Texto</h3>
+<p>Esta tabla muestra las preferencias que est&aacute;n disponibles para el tipo de texto de la marca de agua.</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+<th>Preferencia</th>
+<th>Valor&nbsp;por&nbsp;defecto</th>
+<th>Opciones</th>
+<th>Descripci&oacute;n</th>
+</tr>
+<tr>
+<td class="td"><strong>wm_text</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">El texto que quiere mostrar como marca de agua. T&iacute;picamente este ser&aacute; una nota de derechos registrados.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_font_path</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">La ruta del servidor a la fuente True Type que quiera usar. Si no usa esta opci&oacute;n, la fuente nativa de la GD ser&aacute; usada.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_font_size</strong></td>
+<td class="td">16</td>
+<td class="td">Ninguna</td>
+<td class="td">El tama&ntilde;o del texto. Nota: si no est&aacute; usando la opci&oacute;n True Type anterior, el n&uacute;mero es establecido usando un rango de 1 - 5.
+De otra forma, puede usar cualquier tama&ntilde;o de pixel v&aacute;lido para la guente que est&aacute; usando.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_font_color</strong></td>
+<td class="td">ffffff</td>
+<td class="td">Ninguna</td>
+<td class="td">El color de la fuente, especificada en hexadecimal. Nota, debe usar los 6 caracteres de valor hexadecimal completos (por ejemplo, 993300), en vez de la versi&oacute;n abreviada de tres caracteres (por ejemplo, fff).</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_shadow_color</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">el color de la sombra, especificada en hexadecimal. Si deja esta opci&oacute;n vac&iacute;a, no se usar&aacute; sombra. Nota, debe usar los 6 caracteres de valor hexadecimal completos (por ejemplo, 993300), en vez de la versi&oacute;n abreviada de tres caracteres (por ejemplo, fff).</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_shadow_distance</strong></td>
+<td class="td">3</td>
+<td class="td">Ninguna</td>
+<td class="td">La distancia (en pixeles) desde la fuente a la que la sombra debe aparecer.</td>
+</tr>
+</table>
+
+<h3>Preferencias de Revestimiento</h3>
+<p>Esta tabla muestra las preferencias que est&aacute;n disponibles para el tipo de revestimiento de la marca de agua.</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+<th>Preferencia</th>
+<th>Valor&nbsp;por&nbsp;defecto</th>
+<th>Opciones</th>
+<th>Descripci&oacute;n</th>
+</tr>
+<tr>
+<td class="td"><strong>wm_overlay_path</strong></td>
+<td class="td">Ninguna</td>
+<td class="td">Ninguna</td>
+<td class="td">La ruta del servidor a la imagen que quiere usar como marca de agua. Requerido s&oacute;lo si usa el m&eacute;todo de revestimiento.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_opacity</strong></td>
+<td class="td">50</td>
+<td class="td">1 - 100</td>
+<td class="td">Opacidad de la imagen. Puede especificar la opacidad (por ejemplo, transparencia) de su imagen de marca de agua. Esto
+permite a la marca de agua ser d&eacute;bil y no oscurecer completamente los detalles de la imagen detr&ntilde;as de ella. Una opacidad del 50% es t&iacute;pica.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_x_transp</strong></td>
+<td class="td">4</td>
+<td class="td">Un n&uacute;mero</td>
+<td class="td">Si su imagen de marca de agua es una imagen PNG o GIF, puede especificar un color a la imagen a ser "transparente". Esta opci&oacute;n (junto con la pr&oacute;xima) le permitir&aacute; especificar ese color. Esto funciona expecificando la coordenada de pixel "X" e "Y" (medida desde arriba a la izquierda) dentro de la imagen que corresponde a un pixel representativo del color que quiere transparentar.</td>
+</tr>
+<tr>
+<td class="td"><strong>wm_y_transp</strong></td>
+<td class="td">4</td>
+<td class="td">Un n&uacute;mero</td>
+<td class="td">Junto con la opci&oacute;n anterior, esto le permite especificar la coordenada a un pixel representativo del color que quiere transparentar.</td>
+</tr>
+</table>
+</div><!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="ftp.html">Clase FTP</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="input.html">Clase Input</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper Array : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper Array
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+	
+<h1>Helper Array</h1>
+
+<p>El archivo del Helper Array contiene funciones que lo ayudan a trabajar con arrays.</p>
+
+<h2>Cargar este Helper</h2>
+
+<p>Este helper se carga usando el siguiente c&oacute;digo:</p>
+<code>$this->load->helper('array');</code>
+
+<p>Est&aacute;n disponibles las siguientes funciones:</p>
+
+<h2>element()</h2>
+
+<p>Le permite extraer un elemento desde un array. La funci&oacute;n prueba si el &iacute;ndice del array est&aacute; establecido y si tiene valor. Si el valor existe se devuelve. Si el valor no existe, devuelve FALSE, o lo que haya especificado como valor por defecto en el tercer par&aacute;metro. Ejemplo:</p>
+
+<pre>
+$array = array('color' => 'red', 'shape' => 'round', 'size' => '');
+
+// Devuelve "red"
+echo element('color', $array);
+
+// Devuelve NULL
+echo element('size', $array, NULL);
+</pre>
+
+<h2>random_element()</h2>
+<p>Toma como entrada un array y devuelve un elemento suyo al azar. Ejemplo de uso:</p>
+
+<pre>
+$quotes = array(
+		"Me parece que cuanto trabajo m&aacute;s duro, m&aacute;s suerte parezco tener. - Thomas Jefferson",
+		"No te quedes en la cama, a menos que puedas hacer dinero en ella. - George Burns",
+		"No perdimos el juego, simplemente nos quedamos sin tiempo. - Vince Lombardi",
+		"Si todo parece bajo control, usted no va lo suficientemente r&aacute;pido. - Mario Andretti",
+		"La realidad es simplemente una ilusi&oacute;n, aunque una muy persistente. - Albert Einstein",
+		"La suerte favorece a la mente preparada. - Louis Pasteur",
+		"Hay algo mal que no est&aacute; bien. - Ricardo Bravo"
+);
+
+echo random_element($quotes);
+</pre>
+
+<h2>elements()</h2>
+<p>Le permite extraer una cantidad de elementos desde un array. La funci&oacute;n prueba si cada uno de los &iacute;ndices del array est&aacute; establecido. Si un &iacute;ndice no existe se establece a <samp>FALSE</samp>, o lo que sea que se haya especificado como valor por defecto a trav&eacute;s del tercer par&aacute;metro. Ejemplo:</p>
+
+<pre>
+$array = array(
+		'color' => 'red',
+		'shape' => 'round',
+		'radius' => '10',
+		'diameter' => '20'
+);
+
+$my_shape = elements(array('color', 'shape', 'height'), $array);
+</pre>
+
+<p>Lo anterior devolver&aacute; el siguiente array:</p>
+
+<pre>
+array(
+	'color' => 'red',
+	'shape' => 'round',
+	'height' => FALSE
+);
+</pre>
+
+<p>Puede establecer el tercer par&aacute;metro a cualquier valor por defecto que quiera:</p>
+
+<pre>
+$my_shape = elements(array('color', 'shape', 'height'), $array, NULL);
+</pre>
+
+<p>Lo anterior devolver&aacute; el siguiente array:</p>
+
+<pre>
+array(
+	'color' => 'red',
+	'shape' => 'round',
+	'height' => NULL
+);
+</pre>
+
+<p>Esto es &uacute;til al enviar el array $_POST a uno de sus Modelos. Esto impide que los usuarios env&iacute;en datos POST adicionales para ingresarse en las tablas:</p>
+
+<pre>
+$this->load->model('post_model');
+
+$this->post_model->update(elements(array('id', 'title', 'content'), $_POST));
+</pre>
+
+<p>Esto asegura que solamente los campos id, title y content se enviar&aacute;n para actualizarse.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp; <a href="../database/index.html">Clase Database</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="captcha_helper.html">Helper CAPTCHA</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

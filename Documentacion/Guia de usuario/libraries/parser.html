@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Parser : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Parser
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Parser</h1>
+
+<p>La Clase Parser le permite analizar seudo-variables contenidas dentro de los archivos de vistas. Puede analizar variables simples o pares de etiquetas variables. Si nunca us&oacute; un motor de plantillas, las seudo-variables se ven as&iacute;:</p>
+
+<code>
+&lt;html&gt;<br />
+&lt;head&gt;<br />
+&lt;title&gt;<kbd>{blog_titulo}</kbd>&lt;/title&gt;<br />
+&lt;/head&gt;<br />
+&lt;body&gt;<br />
+<br />
+&lt;h3&gt;<kbd>{blog_encabezado}</kbd>&lt;/h3&gt;<br />
+<br />
+<kbd>{blog_entradas}</kbd><br />
+&lt;h5&gt;<kbd>{titulo}</kbd>&lt;/h5&gt;<br />
+&lt;p&gt;<kbd>{cuerpo}</kbd>&lt;/p&gt;<br />
+<kbd>{/blog_entradas}</kbd><br />
+&lt;/body&gt;<br />
+&lt;/html&gt;
+</code>
+
+<p>Estas variables no son verdaderas variables de PHP, sino representaciones en texto plano que le permiten eliminar PHP de sus plantillas (archivos de vista).</p>
+
+<p class="important"><strong>Nota:</strong> CodeIgniter <strong>no</strong> requiere que use esta clase ya que usar puro PHP en sus p&aacute;ginas de vista las hace correr un poco m&aacute;s r&aacute;pido. Sin embargo, algunos desarrolladores prefieren usar un motor te plantillas si trabajar con dise&ntilde;adores que pueden sentir consfusi&oacute;n trabajando con PHP.</p>
+
+<p><strong>Advierta tambi&eacute;n:</strong> La Clase de Sintaxis de Plantillas <strong>no</strong> es una soluci&oacute;n completa a las sintaxis de plantillas. Lo hemos mantenido muy delgada para mantener al m&aacute;ximo el desempe&ntilde;o.</p>
+
+<h2>Inicializando la Clase</h2>
+<p>Como la mayor&iacute;a de las otras clases en CodeIgniter, la clase de Sintaxis es inicializada en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('parser');</code>
+
+<p>Una vez cargada, el objeto de la librer&iacute;a de Sintaxis estar&aacute; disponible usando: <dfn>$this->parser</dfn></p>
+
+<p>Las siguientes funciones est&aacute;n disponibles en esta librer&iacute;a:</p>
+
+<h2>$this->parser->parse()</h2>
+<p>Esta funci&oacute;n acepta un nombre de plantilla y un arreglo de datos como entrada, y genera una versi&oacute;n en consecuencia.  Ejemplo:</p>
+
+<code>
+$this->load->library('parser');<br />
+<br />
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_titulo' => 'El T&iacute;tulo de mi Blog',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_heading' => 'El Encabezado de mi Blog'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->parser->parse('blog_plantilla', $data);
+</code>
+
+<p>El primer contiene el nombre del <a href="../general/views.html">archivo de vista</a> (en este ejemplo ser&iacute;a llamado blog_plantilla.php), y el segundo par&aacute;mentro contiene un arreglo asociativo de datos para ser reemplazados en la plantilla.  En el ejemplo anterior, la plantilla contendr&iacute;a dos variabels: {blog_titulo} y {blog_heading}</p>
+
+<p>No hay necesidad de "echo" o de hacer algo con los datos devueltos por <dfn>$this->parser->parse()</dfn>.  es autom&aacute;ticamente pasado a la clase de salida para ser enviado al explorador. Sin embargo, si quiere que los datos sean devueltos en vez de enviados a la clase de salida puede pasar TRUE (buleano) al tercer par&aacute;metro:</p>
+
+<code>$string = $this->parser->parse('blog_plantilla', $data, TRUE);</code>
+
+<h2>$this->parser->parse_string()</h2>
+<p>Este m&eacute;todo trabaja exactamente igual que parse(), solo que acepta una cadena como primer par&aacute;metro en lugar de un archivo de vista.</p>
+
+<h2>Pares de variables</h2>
+<p>En el ejemplo anterior el c&oacute;digo permite variables simples ser reemplazadas. &iquest;Qu&eacute; pasa si quiere un bloque entero de variables sean repetidos, con cada iteraci&oacute;n conteniendo nuevos valores? Considere el ejemplo de la plantilla que mostramos al principio de la p&aacute;gina:</p>
+
+<code>
+&lt;html&gt;<br />
+&lt;head&gt;<br />
+&lt;title&gt;<kbd>{blog_titulo}</kbd>&lt;/title&gt;<br />
+&lt;/head&gt;<br />
+&lt;body&gt;<br />
+<br />
+&lt;h3&gt;<kbd>{blog_heading}</kbd>&lt;/h3&gt;<br />
+<br />
+<kbd>{blog_entradas}</kbd><br />
+&lt;h5&gt;<kbd>{titulo}</kbd>&lt;/h5&gt;<br />
+&lt;p&gt;<kbd>{cuerpo}</kbd>&lt;/p&gt;<br />
+<kbd>{/blog_entradas}</kbd><br />
+&lt;/body&gt;<br />
+&lt;/html&gt;
+</code>
+
+<p>En el c&oacute;digo anterior notar&aacute; un par de variables: <kbd>{blog_entradas}</kbd> datos... <kbd>{/blog_entradas}</kbd>. En un caso como este, el pedazo entero de datos entre este par se repetir&aacute; m&uacute;ltiples veces, correspondiendo al n&uacute;mero de filas en un resultado.</p>
+
+<p>La sintaxis de pares de variables es hecho usando el id&eacute;ntico c&oacute;digo mostrado arriba para sintaxis de variables simples, a excepci&oacute;n que agregar&aacute; un arreglo multi-dimensional correspondiente a sus datos de pares de variables. Considere este ejemplo:</p>
+
+<code>
+$this->load->library('parser');<br />
+<br />
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_titulo'&nbsp;&nbsp; => 'El T&iacute;tulo de mi Blog',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_heading' => 'El Encabezado de mi Blog',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_entradas' => array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('titulo' => 'Titulo 1', 'cuerpo' => 'Cuerpo 1'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('titulo' => 'Titulo 2', 'cuerpo' => 'Cuerpo 2'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('titulo' => 'Titulo 3', 'cuerpo' => 'Cuerpo 3'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('titulo' => 'Titulo 4', 'cuerpo' => 'Cuerpo 4'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('titulo' => 'Titulo 5', 'cuerpo' => 'Cuerpo 5')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->parser->parse('blog_plantilla', $data);
+</code>
+
+<p>Si sus "pares" de datos vienen de un resultado de base de datos, el cual ya es un arreglo multidimensional, puede simplemente usar la funci&oacute;n result de base de datos:</p>
+
+<code>
+$query = $this->db->query("SELECT * FROM blog");<br />
+<br />
+$this->load->library('parser');<br />
+<br />
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_titulo'&nbsp;&nbsp; => 'El T&iacute;tulo de mi Blog',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_heading' => 'El Encabezado de mi Blog',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_entradas' => $query->result_array()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->parser->parse('blog_plantilla', $data);
+</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="pagination.html">Clase Pagination</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="security.html">Clase Security</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

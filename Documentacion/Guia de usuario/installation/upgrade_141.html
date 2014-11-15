@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Gu&iacute;a de Usuario del CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a de Usuario del CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Actualizar de 1.4.0 to 1.4.1 </td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content"><h1>Actualizando desde 1.4.0 a 1.4.1</h1>
+<p class="important"><strong>Nota:</strong> Las instrucciones en esta p&aacute;gina asumen que est&aacute; corriendo la versi&oacute;n 1.4.0. Si no ha actualizado todav&iacute;a a esa versi&oacute;n por favor haga esto primero.</p>
+<p>Antes de realizar una actualizaci&oacute;n deber&iacute;a tomar su sitio fuera de li&iacute;nea reemplazando el archivo index.php con uno est&aacute;tico.</p>
+<h2>Paso 1: Actualice sus archivos de CodeIgniter</h2>
+<p>Reemplace los siguientes directorios en su carpeta "system" con la nueva versi&oacute;n:</p>
+<p class="important"><strong>Nota:</strong> Si ha hecho un desarrollo en los archivos especial en estas carpeta, por favor haga copias de ellos primero.</p>
+<ul>
+<li>codeigniter</li>
+<li>drivers</li>
+<li>helpers</li>
+<li>libraries</li>
+</ul>
+<h2>Paso 2: Update your config.php file</h2>
+<p>Abra su archivo <dfn>application/config/config.php</dfn> y agregue este nuevo item:</p>
+<pre>
+/*
+|--------------------------------------------------------------------------
+| Output Compression
+|--------------------------------------------------------------------------
+|
+| Enables Gzip output compression for faster page loads.  When enabled,
+| the output class will test whether your server supports Gzip.
+| Even if it does, however, not all browsers support compression
+| so enable only if you are reasonably sure your visitors can handle it.
+|
+| VERY IMPORTANT:  If you are getting a blank page when compression is enabled it
+| means you are prematurely outputting something to your browser. It could
+| even be a line of whitespace at the end of one of your scripts.  For
+| compression to work, nothing can be sent before the output buffer is called
+| by the output class.  Do not "echo" any values with compression enabled.
+|
+*/
+$config['compress_output'] = FALSE;
+</pre>
+<h2>Paso 3: Renombre un Item de Autoload</h2>
+<p>Abra el siguiente archivo: <dfn>application/config/autoload.php</dfn></p>
+<p>Encuentre este arreglo:</p>
+<code>$autoload['core'] = array();</code>
+<p>Y renombrelo a esto:</p>
+<code>$autoload['libraries'] = array();</code>
+<p>Este cambio fue hecho para mejorar la claridad ya que algunos usuarios no estaban seguros que sus propias librar&iacute;as pod&iacute;an ser auto-cargadas.</p>
+<h2>Paso 4: Actualice su gu&iacute;a de usuario</h2>
+<p>Por favor tambi&eacute;n reemplace sus copias locales de la gu&iacute;a del usuario con la nueva versi&oacute;n.</p></div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="index.html">Instrucciones de Instalaci&oacute;ns</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="troubleshooting.html">Soluci&oacute;n de Problemas</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

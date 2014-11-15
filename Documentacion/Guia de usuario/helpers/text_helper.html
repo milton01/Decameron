@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper Text : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper Text
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Helper Text</h1>
+<p>El Helper Text contiene funciones que asisten en el trabajo con el texto.</p>
+
+<h2>Cargar este Helper</h2>
+<p>Este helper se carga usando el siguiente c&oacute;digo:</p>
+
+<code>$this->load->helper('text');</code>
+
+<p>Las siguientes funciones estan disponibles:</p>
+
+<h2>word_limiter()</h2>
+<p>Fragmenta una cadena al n&uacute;mero de <strong>palabras</strong> especificadas. Por ejemplo:</p>
+
+<code>
+$string = "He aqu&iacute; una bonita cadena de texto que consta de doce palabras.";<br />
+<br />
+$string = word_limiter($string, 4);<br /><br />
+// Retorna: He aqu&iacute; una bonita#8230;
+</code>
+
+<p>El tercer par&aacute;metro es un sufijo opcional a&ntilde;adido a la cadena. Por defecto se a&ntilde;ade una elipsis.</p>
+
+<h2>character_limiter()</h2>
+<p>Fragmenta una cadena al n&uacute;mero de <strong>caracteres</strong> especificados. Mantiene la integridad de las palabras de manera que la cantidad de caracteres puede ser ligeramente, mas o menos, lo que especifique. Por ejemplo:</p>
+
+<code>
+$string = "He aqu&iacute; una bonita cadena de texto que consta de doce palabras.";<br />
+<br />
+$string = character_limiter($string, 20);<br /><br />
+// Retorna:  He aqu&iacute; una bonita cadena &#8230;
+</code>
+
+<p>El tercer par&aacute;metro es un sufijo opcional a&ntilde;adido a la cadena. Por defecto se a&ntilde;ade una elipsis.</p>
+
+<h2>ascii_to_entities()</h2>
+<p>Convierte valores ASCII entidades de caracteres, Incluyendo ASCII alto y MS Word caracteres que pueden causar problemas cuando se utilizan en una p&aacute;gina web, de manera que puedan ser mostrado constantemente independientemente de la configuraci&oacute;n del navegador o ser almacenados fiablemente en una base de datos. Existe cierta dependencia en su conjunto de caracteres soportados en su servidor, por lo que puede no ser 100% confiable en todos los casos, pero en su mayor parte se deben identificar correctamente los caracteres fuera del rango normal (como caracteres acentuados). Por ejemplo:</p>
+
+<code>$string = ascii_to_entities($string);</code>
+
+<h2>entities_to_ascii()</h2>
+<p>Esta funci&oacute;n hace lo contrario de la anterior; se convierte de vuelta las entidades de caracteres a ASCII.</p>
+
+<h2>convert_accented_characters()</h2>
+
+<p>Transcribe caracteres altos de ASCII a sus equivalentes bajos de ASCII. &Uacute;til cuando se necesitan caracteres no ingleses para usarse donde se usan solamente caracteres est&aacute;ndar ASCII seguros, por ejemplo, en URLs.</p>
+
+<code>$string = convert_accented_characters($string);</code>
+
+<p>Esta funci&oacute;n usa el archivo de configuraci&oacute;n  <dfn>application/config/foreign_chars.php</dfn> para definir el array de la
+transcripci&oacute;n.</p>
+
+<h2>word_censor()</h2>
+<p>Le permite censurar palabras dentro de una cadena de texto. El primer par&aacute;metro contendr&aacute; la cadena original.  El segundo contendr&aacute; un arreglo de palabras inhabilitar&aacute;. El tercer par&aacute;metro (opcional) puede contener un valor de reposici&oacute;n de las palabras. Si no se especifica ser&aacute;n reemplazadas con signos numeral: ####. Por ejemplo:</p>
+
+<code>
+$disallowed = array('darn', 'shucks', 'golly', 'phooey');<br />
+<br />
+$string = word_censor($string, $disallowed, 'Beep!');</code>
+
+<h2>highlight_code()</h2>
+<p>Colorea una cadena de c&oacute;digo (PHP, HTML, etc.). Por ejemplo:</p>
+
+<code>$string = highlight_code($string);</code>
+
+<p>Esta funci&oacute;n usa la funci&oacute;n de PHP highlight_string(), de modo que los colores usados son los especificados en su archivo php.ini.</p>
+
+<h2>highlight_phrase()</h2>
+<p>Destacar&aacute; una frase dentro de una cadena de texto. El primer par&aacute;metro contendr&aacute; la cadena original, el segundo contendr&aacute; la frase que desea destacar. El tercer y cuarto par&aacute;metro contendr&aacute; las eqtiquetas HTML de apertura / cierre con la cual le gustar&iacute;a envolver a la frase. Por ejemplo:</p>
+
+<code>
+$string = "He aqu&iacute; una bonita cadena de texto acerca de nada en particular.";<br />
+<br />
+$string = highlight_phrase($string, "bonita cadena", '&lt;span style="color:#990000">', '&lt;/span>');
+</code>
+
+<p>El texto anterior retorna:</p>
+
+<p>He aqu&iacute; una <span style="color:#990000">bonita cadena</span> de texto acerca de nada en particular.</p>
+
+<h2>word_wrap()</h2>
+<p>Envuelve el texto a la cantidad de <strong>caracteres</strong> especificados mientras mantiene palabras completas. Por ejemplo:</p>
+
+<code>$string = "Aqu&iacute; hay una simple cadena de texto que nos ayudar&aacute; a demostrar esta funci&oacute;n.";<br />
+<br />
+echo word_wrap($string, 25);<br />
+<br />
+// Producir&iacute;a:<br />
+<br />
+Aqu&iacute; hay una simple cadena<br />
+de texto que nos ayudar&aacute;<br />
+a demostrar esta<br />
+funci&oacute;n</code>
+
+<h2>ellipsize()</h2>
+<p>Esta funci&oacute;n quitar&aacute; las etiquetas de la cadena, la dividir&aacute; en una longitud m&aacute;xima definida y le insertar&aacute; puntos suspensivos.</p>
+
+<p>El primer par&aacute;metro es la cadena a la cual aplicar la funci&oacute;n, el segundo par&aacute;metro es la cantidad de caracteres en la cadena final. El tercer par&aacute;metro indica donde en la cadena tienen que aparecer los puntos suspensivos, de 0 a 1, izquierda a derecha. Por ejemplo: un valor de 1 ubicar&aacute; los puntos suspensivos a la derecha de la cadena, .5 en el medio y 0 a la izquierda.</p>
+
+<p>Un par&aacute;metro opcional es el tipo de puntos suspensivos. Por defecto, se insertar&aacute; puntos suspensivos (<samp>&amp;hellip;</samp>).</p>
+
+<code>
+$str = 'esta_cadena_es_demasiado_larga_y_puede_romper_mi_dise&ntilde;o';<br />
+<br />
+echo ellipsize($str, 32, .5);<br/>
+<br/>
+// Produce:
+// esta_cadena_es_de&hellip;romper_mi_dise&ntilde;o
+</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="string_helper.html">Helper String</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="typography_helper.html">Helper Typography</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

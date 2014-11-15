@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>String Helper : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+String Helper
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>String Helper</h1>
+<p>El archivo Helper String contiene funciones que asistiran al trabajar con cadenas.</p>
+
+<h2>Cargar este Helper</h2>
+<p>Este helper es cargado usando el siguiente c&oacute;digo:</p>
+
+<code>$this->load->helper('string');</code>
+
+<p>Las siguientes funciones est&aacute;n disponibles:</p>
+
+<h2>random_string()</h2>
+<p>Genera una cadena aleatoria basada en el tipo y largo especificado. &Uacute;til para crear contrase&ntilde;as o claves (hashes) aleatorias.</p>
+
+<p>El primer par&aacute;metro especifica el tipo de cadena, el segundo el largo. Las siguientes opciones est&aacute;n disponibles:</p>
+<ul>
+	<li><strong>alpha</strong>: Una cadena con letras may&uacute;sculas y min&uacute;sculas solamente.</li>
+	<li><strong>alnum</strong>: Cadenas alfanum&eacute;ricas con caracteres en may&uacute;scula y min&uacute;scula.</li>
+	<li><strong>numeric</strong>: Cadena num&eacute;rica.</li>
+	<li><strong>nozero</strong>: Cadena num&eacute;rica sin ceros.</li>
+	<li><strong>unique</strong>: Encriptada con MD5 y <kbd>uniqid()</kbd>. Nota: El par&aacute;metro de longitud no est&aacute; disponible para este tipo.
+Devuelve una cadena de 32 caracteres de longitud (fija).</li>
+	<li><strong>sha1</strong>: Un n&uacute;mero aleatorio basado en <kbd>do_hash()</kbd> desde <a href="security_helper.html">security helper</a>.</li>
+</ul>
+
+<p>Ejemplo de uso:</p>
+
+<code>echo random_string('alnum', 16);</code>
+
+<h2>alternator()</h2>
+<p>Permite dos o m&aacute;s items alternar entre ellos cuando se recorre una iteraci&oacute;n. Ejemplo:</p>
+
+<code>for ($i = 0; $i < 10; $i++)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo alternator('cadena uno', 'cadena dos');<br />
+}<br />
+</code>
+
+<p>Puede agregar tantos par&aacute;metros como quiera, y con cada iteraci&oacute;n el pr&oacute;ximo item ser&aacute; devuelto.</p>
+
+<code>for ($i = 0; $i < 10; $i++)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo alternator('uno', 'dos', 'tres', 'cuatro', 'cinco');<br />
+}<br />
+</code>
+
+<p><strong>Nota:</strong> Para usar m&uacute;ltiples llamadas separadas a esta funci&oacute;n simplemente llame a la funci&oacute;n sin argumentos para reinicializarla.</p>
+
+<h2>repeater()</h2>
+<p>Genera una copia repetida de los datos que env&iacute;a. Ejemplo:</p>
+
+<code>$cadena = "\n";<br />
+echo repeater($cadena, 30);</code>
+
+<p>Lo anterior generar&aacute; 30 veces el car&aacute;cter "nueva l&iacute;nea".</p>
+
+<h2>reduce_double_slashes()</h2>
+<p>Convierte las dobles barras de una cadena a una sola barra, excepto que se encuentran en http://. Ejemplo: </p>
+
+<code>$cadena = &quot;http://www.ejemplo.com//index.php&quot;;<br />
+echo reduce_double_slashes($cadena); // resulta en &quot;http://www.ejemplo.com/index.php&quot;</code>
+
+<h2>trim_slashes()</h2>
+<p>Remueve cualquier barra al inicio o al final de una cadena. Ejemplo:</p>
+
+<code>$cadena = &quot;/esto/aquello/lootro/&quot;;<br />
+echo trim_slashes($cadena); // results in esto/aquello/lootro</code>
+
+<h2>reduce_multiples()</h2>
+<p>Reduce m&uacute;ltiples instancias de un caracter particular ocurriendo directamente uno despu&eacute;s de otro. Ejemplo:</p>
+
+<code>
+$cadena="Fred, Bill,, Joe, Jimmy";<br />
+$cadena=reduce_multiples($cadena,","); //resulta en "Fred, Bill, Joe, Jimmy"
+</code>
+
+<p>La funci&oacute;n acepta los siguientes par&aacute;metros:</p> 
+
+<code>reduce_multiples(cadena: texto en el que buscar, cadena: caracter a reducir, booleano: remover el caracter del principio o el final de la cadena)</code>
+
+<p>El primer par&aacute;metro contiene la cadena de la cual quiere reducir las multiplicidades. El segundo par&aacute;metro contiene el caracter que quiere reducir.</p>
+
+<p>El tercer par&aacute;metro es Falso por defecto. Si es verdadero remover&aacute; ocurrencias del caracter al principio y al final de la cadena. Ejemplo:</p>
+
+<code>
+$cadena=",Fred, Bill,, Joe, Jimmy,";<br />
+$cadena=reduce_multiples($cadena,",",true); //resulta en "Fred, Bill, Joe, Jimmy"
+</code>
+
+<h2>quotes_to_entities()</h2>
+<p>Convierte comillas simples y dobles en una cadena a la entidad HTML correspondiente. Ejemplo:</p>
+
+<code>$cadena="Joe's \"dinner\"";<br />
+$cadena=quotes_to_entities($cadena); //resulta en "Joe&amp;#39;s &amp;quot;dinner&amp;quot;"
+</code>
+
+<h2>strip_quotes()</h2>
+<p>Remueve las comillas simples y dobles de una cadena. Ejemplo:</p>
+
+<code>$cadena="Joe's \"dinner\"";<br />
+$cadena=strip_quotes($cadena); //results in "Joes dinner"
+</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="smiley_helper.html">Helper Smiley</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="text_helper.html">Helper Text</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

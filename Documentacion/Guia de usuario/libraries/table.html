@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<title>Clase Table : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="153" height="44" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Table
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Table</h1>
+<p>La Clase Table provee funciones que le permite autogenerar una tabla HTML desde arreglos o juegos de resultados de base de datos.</p>
+
+<h2>Inicializar la Clase</h2>
+<p>Como la mayor&iacute;a de las otras clases en CodeIgniter, la clase de Tabla es inicializada en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('table');</code>
+
+<p>Una vez cargada, el objeto de la librer&iacute;a de Tabla estar&aacute; disponible usando <dfn>$this->table</dfn></p>
+
+<h2>Ejemplos</h2>
+<p>Aqu&iacute; hay un ejemplo mostrando como puede crear una tabla usando arreglos multidimensionales. Note que el primer &iacute;ndice del arreglo ser&aacute; el encabezado de la tabla (o puede establecer sus propios encabezazdos usando la funci&oacute;n <dfn>set_heading()</dfn> descrita en la referencia de funciones debajo).</p>
+
+<code>
+$this->load->library('table');<br />
+<br />
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('Nombre', 'Color', 'Tama&ntilde;o'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('Fred', 'Azul', 'Peque&ntilde;o'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('Mary', 'Rojo', 'Grande'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array('John', 'Verde', 'Mediano')	<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+echo $this->table->generate($data);
+</code>
+
+<p>Aqu&iacute; hay un ejemplo de una tabla creada desde un resultado de una consulta a la base de datos. La clase de tabla generar&aacute; los encabezados basados en el nombre de la tabla (o puede establecer sus propios encabezados usando la funci&oacute;n <dfn>set_heading()</dfn> descrita en la referencia de funciones debajo).</p>
+
+<code>
+$this->load->library('table');<br />
+<br />
+$consulta = $this->db->query("SELECT * FROM my_table");<br />
+<br />
+echo $this->table->generate($consulta);
+</code>
+
+<p>Aqu&iacute; hay un ejemplo mostrando como puede crear una tabla usando par&aacute;metros discretos:</p>
+
+<code>
+$this->load->library('table');<br />
+<br />
+$this->table->set_heading('Nombre', 'Color', 'Tama&ntilde;o');<br />
+<br />
+$this->table->add_row('Fred', 'Azul', 'Peque&ntilde;o');<br />
+$this->table->add_row('Mary', 'Rojo', 'Grande');<br />
+$this->table->add_row('John', 'Verde', 'Mediano');<br />
+<br />
+echo $this->table->generate();		
+</code>
+
+<p>Aqu&iacute; est&aacute; el mismo ejemplo, excepto que en vez de par&aacute;metros individuales, se usan arreglos:</p>
+
+<code>
+$this->load->library('table');<br />
+<br />
+$this->table->set_heading(array('Nombre', 'Color', 'Tama&ntilde;o'));<br />
+<br />
+$this->table->add_row(array('Fred', 'Azul', 'Peque&ntilde;o'));<br />
+$this->table->add_row(array('Mary', 'Rojo', 'Grande'));<br />
+$this->table->add_row(array('John', 'Verde', 'Mediano'));<br />
+<br />
+echo $this->table->generate();
+</code>
+
+<h2>Cambiar Como se ve su Tabla</h2>
+<p>La Clase Table le permite establecer una plantilla de tabla con la cual puede especificar el dise&ntilde;o. Aqu&iacute; hay un prototipo de plantilla:</p>
+
+<code>
+$plantilla =  array (<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'table_open'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;table border="0" cellpadding="4" cellspacing="0">',<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'heading_row_start'&nbsp;&nbsp;&nbsp;=> '&lt;tr>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'heading_row_end'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;/tr>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'heading_cell_start'&nbsp;&nbsp;=> '&lt;th>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'heading_cell_end'&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;/th>',<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'row_start'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;tr>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'row_end'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;/tr>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'cell_start'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;td>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'cell_end'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;/td>',<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'row_alt_start'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;tr>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'row_alt_end'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;/tr>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'cell_alt_start'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;td>',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'cell_alt_end'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;/td>',<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'table_close'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '&lt;/table>'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->table->set_template($plantilla);
+</code>
+
+<p class="important"><strong>Nota:</strong>&nbsp; Notar&aacute; que hay dos juegos de bloques de "fila" en la plantilla. Esto le permite crear alternativamente colores de fila o dise&ntilde;os de elementos que alternen en cada iteraci&oacute;n de los datos de fila.</p>
+
+<p>NO requiere que env&iacute;e un template completo. Si s&oacute;lo necesita cambiar partes del dise&ntilde;o puede simplemente enviar esos elementos. En este ejemplo, s&oacute;lo la etiqueta de apertura de tabla es cambiada:</p>
+
+<code>
+$plantilla =  array ( 'table_open'&nbsp;&nbsp;=> '&lt;table border="1" cellpadding="2" cellspacing="1" class="mytable">' );<br />
+<br />
+$this->table->set_template($plantilla);
+</code>
+
+<br />
+
+<h1>Referencia de Funciones</h1>
+
+<h2>$this->table->generate()</h2>
+<p>Devuelve una cadena que contiene la tabla generada. Acepta un par&aacute;metro opcional que puede ser un arreglo o un objeto de resultado de base de datos.</p>
+
+<h2>$this->table->set_caption()</h2>
+<p>Permite agregar un "caption" a la tabla.</p>
+
+<code>$this->table->set_caption('Colores');</code>
+
+<h2>$this->table->set_heading()</h2>
+<p>Permite establecer el encabezado de la tabla. Puede enviar un arreglo o par&aacute;metros discretos:</p>
+
+<code>$this->table->set_heading('Nombre', 'Color', 'Tama&ntilde;o');</code>
+
+<code>$this->table->set_heading(array('Nombre', 'Color', 'Tama&ntilde;o'));</code>
+
+<h2>$this->table->add_row()</h2>
+<p>Le permite agregar una fila a su tabla. Puede enviar un arreglo o par&aacute;metros discretos:</p>
+
+<code>$this->table->add_row('Azul', 'Rojo', 'Verde');</code>
+
+<code>$this->table->add_row(array('Azul', 'Rojo', 'Verde'));</code>
+
+<p>Si quisiera establecer atributos de etiquetas de una celda individual, puede usar un array asociativo para esa celda. La clave asociativa <dfn>'data'</dfn> define los datos de la celda. Cualquier otro par clave => valor se agregar&aacute; como atributo <dfn>clave='valor'</dfn> a la etiqueta:</p>
+
+<code>
+$cell = array('data' => 'Azul', 'class' => 'highlight', 'colspan' => 2);<br />
+$this->table->add_row($cell, 'Rojo', 'Verde');<br />
+<br />
+// genera<br />
+// &lt;td class='highlight' colspan='2'&gt;Azul&lt;/td&gt;&lt;td&gt;Rojo&lt;/td&gt;&lt;td&gt;Verde&lt;/td&gt;
+</code>
+
+<h2>$this->table->make_columns()</h2>
+<p>Esta funci&oacute;n toma un arreglo unidimensional como entrada y crea un arreglo multidimensional con una profundidad igual al n&uacute;mero de columnas deseadas. Esto permite a un simple arreglo con varios elementos ser mostrado en una tabla que tiene una cantidad fija de columnas. Considere este ejemplo:</p>
+
+<code>
+$lista = array('uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', ocho', 'nueve', 'diez', 'once', 'doce');<br />
+<br />
+$nueva_lista = $this->table->make_columns($lista, 3);<br />
+<br />
+$this->table->generate($nueva_lista);<br />
+<br />
+// Genera una tabla con este prototipo<br />
+<br />
+&lt;table border="0" cellpadding="4" cellspacing="0"&gt;<br />
+&lt;tr&gt;<br />
+&lt;td&gt;uno&lt;/td&gt;&lt;td&gt;dos&lt;/td&gt;&lt;td&gt;tres&lt;/td&gt;<br />
+&lt;/tr&gt;&lt;tr&gt;<br />
+&lt;td&gt;cuatro&lt;/td&gt;&lt;td&gt;cinco&lt;/td&gt;&lt;td&gt;seis&lt;/td&gt;<br />
+&lt;/tr&gt;&lt;tr&gt;<br />
+&lt;td&gt;siete&lt;/td&gt;&lt;td&gt;ocho&lt;/td&gt;&lt;td&gt;nueve&lt;/td&gt;<br />
+&lt;/tr&gt;&lt;tr&gt;<br />
+&lt;td&gt;diez&lt;/td&gt;&lt;td&gt;once&lt;/td&gt;&lt;td&gt;doce&lt;/td&gt;&lt;/tr&gt;<br />
+&lt;/table&gt;
+</code>
+
+<h2>$this->table->set_template()</h2>
+<p>Le permite establece su plantilla. Puede enviar una plantilla total o parcial.</p>
+
+<code>
+$plantilla =  array ( 'table_open'&nbsp;&nbsp;=> '&lt;table border="1" cellpadding="2" cellspacing="1" class="mytable">' );<br />
+<br />
+$this->table->set_template($plantilla);
+</code>
+
+<h2>$this->table->set_empty()</h2>
+<p>Le permite establecer un valor por defecto para usar en cualquier celda de la tabla que est&eacute; vac&iacute;a. Puede, por ejemplo, establecer un espacio sin quiebre (non-breaking space):</p>
+
+<code>$this->table->set_empty("&amp;nbsp;");</code>
+
+<h2>$this->table->clear()</h2>
+<p>Le permite limpiar el encabezado y filas de datos. Si necesita mostrar m&uacute;ltiples tablas con diferentes datos deber&iacute;a llamar a esta funci&oacute;n despu&eacute;s de que cada tabla ha sido generada para vaciar la informaci&oacute;n de la tabla previa. Ejemplo:</p>
+
+<code>
+$this->load->library('table');<br />
+<br />
+$this->table->set_heading('Nombre', 'Color', 'Tama&ntilde;o');<br />
+$this->table->add_row('Fred', 'Azul', 'Peque&ntilde;o');<br />
+$this->table->add_row('Mary', 'Rojo', 'Grande');<br />
+$this->table->add_row('John', 'Verde', 'Mediano');<br />
+<br />
+echo $this->table->generate();<br />
+<br />
+<kbd>$this->table->clear();</kbd><br />
+<br />
+$this->table->set_heading('Nombre', 'D&iacute;a', 'Env&iacute;o');<br />
+$this->table->add_row('Fred', 'Mi&eacute;rcoles', 'Expreso');<br />
+$this->table->add_row('Mary', 'Lunes', 'A&eacute;reo');<br />
+$this->table->add_row('John', 'S&aacute;bado', 'De la noche a la ma&ntilde;ana');<br />
+<br />
+echo $this->table->generate();
+</code>
+
+<h2>$this->table->function</h2>
+<p>Le permite especificar funciones nativas de PHP o un objeto, array o funci&oacute;n v&aacute;lidos para aplicarse a todos los datos de las celdas.</p>
+
+<code>
+$this->load->library('table');<br />
+<br />
+$this->table->set_heading('Nombre', 'Color', 'Tama&ntilde;o');<br />
+$this->table->add_row('Lucas', '&lt;strong>Blue&lt;/strong>', 'Small');<br />
+<br />
+$this->table->function = 'htmlspecialchars';<br />
+echo $this->table->generate();<br />
+</code>
+
+<p>En el ejemplo anterior, a todos los datos de las celdas se les ejecut&oacute; la funci&oacute;n <dfn>htmlspecialchars()</dfn> de PHP, resultando en:</p>
+
+<code>&lt;td&gt;Lucas&lt;/td&gt;&lt;td&gt;&lt;strong&gt;Azul&lt;/strong&gt;&lt;/td&gt;&lt;td&gt;Small&lt;/td&gt;</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;<a href="sessions.html">&nbsp;Clase Session</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="trackback.html">Clase Trackbacks</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

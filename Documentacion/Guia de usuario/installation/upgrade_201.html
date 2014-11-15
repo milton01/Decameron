@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Actualizar de 2.0.0 to 2.0.1 : Gu&iacute;a de Usuario del CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a de Usuario del CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Actualizar de 2.0.0 to 2.0.1
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Actualizar de 2.0.0 a 2.0.1</h1>
+<p>Antes de realizar una actualizaci&oacute;n deber&iacute;a sacar de l&iacute;nea su sitio reemplazando el archivo index.php con uno est&aacute;tico.</p>
+
+<h2>Paso 1: Actualizar sus archivos CodeIgniter</h2>
+<p>Reemplace todos los archivos y directorios en su carpeta system y reemplace su archivo index.php. Si se hicieron modificaciones a su index.php, ellas se deber&aacute;n hacer otra vez en la nueva versi&oacute;n.</p>
+
+<p class="important"><strong>Nota:</strong> Si tiene alg&uacute;n archivo desarrollado a medida, por favor haga una copia primero.</p>
+
+<h2>Paso 2: Reemplazar config/mimes.php</h2>
+<p>Este archivo de configuraci&oacute;n se actualiz&oacute; para contener m&aacute;s tipos mime, por favor copiarlo a <kbd>application/config/mimes.php</kbd>.</p>
+
+<h2>Paso 3: Verificar si hay formularios que env&iacute;an al controlador por defecto</h2>
+<p>El comportamiento por defecto para <kbd>form_open()</kbd> cuando se lo llamaba sin par&aacute;metros sol&iacute;a ser el env&iacute;o al controlador por defecto, pero ahora dejar&aacute; una acci&oacute;n vac&iacute;a (action="") significando que el formulario ser&aacute; enviado a la URL actual. Si el env&iacute;o al controlador por defecto fue el comportamiento esperado, se necesitar&aacute; cambiarlo de:</p>
+
+<code>echo form_open(); //&lt;form action="" method="post" accept-charset="utf-8"></code>
+
+<p>a usar <kbd>base_url()</kbd>:</p>
+
+<code>echo form_open('/'); //&lt;form action="http://example.com/index.php/" method="post" accept-charset="utf-8"><br/>
+echo form_open(base_url()); //&lt;form action="http://example.com/" method="post" accept-charset="utf-8"></code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="index.html">Instrucciones de Instalaci&oacute;ns</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="troubleshooting.html">Soluci&oacute;n de Problemas</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

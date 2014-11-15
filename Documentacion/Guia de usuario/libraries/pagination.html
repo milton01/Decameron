@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Pagination : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Pagination
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Clase Pagination</h1>
+<p>La Clase Paginaci&oacute;n de CodeIgniter es muy f&aacute;cil de usar, y es 100% personalizable, ya sea din&aacute;micamente o a trav&eacute;s de las preferencias almacenadas.</p>
+
+<p>Si no est&aacute; familiarizado con el t&eacute;rmino "paginaci&oacute;n", se refiere a los v&iacute;nculos que le permite navegar de una p&aacute;gina a otra, como este:</p>
+
+<code>
+	<a href="#">&laquo; First</a>&nbsp;&nbsp;<a href="#">&lt;</a>&nbsp;<a href="#">1</a>&nbsp;<a href="#">2</a>&nbsp;<b>3</b>&nbsp;<a href="#">4</a>&nbsp;<a href="#">5</a>&nbsp;<a href="#">&gt;</a>&nbsp;&nbsp;<a href="#">Last &raquo;</a>
+</code>
+
+<h2>Ejemplo</h2>
+<p>Este es un ejemplo sencillo que muestra c&oacute;mo crear una de paginaci&oacute;n en sus funciones del <a href="../general/controllers.html">controller</a>:</p>
+
+<code>
+$this->load->library('pagination');<br /><br />	
+$config['base_url'] = 'http://www.your-site.com/index.php/test/page/';<br />
+$config['total_rows'] = '200';<br />
+$config['per_page']  = '20';
+<br /><br />
+$this->pagination->initialize($config);
+<br /><br />
+echo  $this->pagination->create_links();
+</code>
+
+<h3>Notas:</h3>
+<p>El arreglo <var>$config</var> contiene sus variables de configuraci&oacute;n. estas son pasadas a la funci&oacute;n <dfn>$this->pagination->initialize</dfn> como se muestra arriba. A pesar de que hay una veintena de items que usted puede configurar, el m&iacute;nimo que necesita son los tres mostrados. Aqu&iacute; hay una descripci&oacute;n de lo que representan esos items:</p>
+
+<ul>
+	<li><strong>base_url</strong> Esta es la URL completa a la clase/funci&oacute;n del controlador que contiene su n&uacute;mero de p&aacute;ginas. En el ejemplo anterior, &eacute;sta apunta a un controlador denominado "Test" y a una funci&oacute;n llamada "page". Tenga en cuenta que Ud. puede <a href="../general/routing.html">modificar el trazado de su URI</a> si necesita una estructura diferente.</li>
+	<li><strong>total_rows</strong> Este n&uacute;mero representa la cantidad total de filas en el conjunto de resultados que est&aacute; creando para el n&uacute;mero de p&aacute;ginas. Normalmente, este ser&aacute; el n&uacute;mero total de filas que retorno su consulta a la base de datos.
+	</li>
+	<li><strong>per_page</strong> El n&uacute;mero de elementos que tiene intenci&oacute;n de mostrar por p&aacute;gina. En el ejemplo anterior, Ud. desea mostrar 20 elementos por p&aacute;gina.</li>
+</ul>
+
+<p>La funcic&oacute;n <var>create_links()</var>  retorna una cadena vac&iacute;a cuando no hay paginaci&oacute;n para mostrar.</p>
+
+<h3>Establecer preferencias en un archivo de configuraci&oacute;n</h3>
+<p>Si prefiere no definir las preferencias utilizando el m&eacute;todo anterior, puede ponerlas en un archivo de configuraci&oacute;n. Basta con crear un nuevo archivo llamado <var>pagination.php</var>, y agregar el arreglo <var>$config</var> en ese archivo. A continuaci&oacute;n guarde el archivo en: <var>config/pagination.php</var> y ser&aacute; utilizado autom&aacute;ticamente. Ud. No necesita usar la funci&oacute;n <dfn>$this->pagination->initialize</dfn> si guarda sus preferencias en un archivo de configuraci&oacute;n.</p>
+
+<h2>Personalizando la Paginaci&oacute;n</h2>
+<p>La siguiente es una lista de todas las preferencias que se pueden pasar a la funci&oacute;n de inicializaci&oacute;n para ajustar la pantalla.</p>
+
+<h4>$config['uri_segment'] = 3;</h4>
+<p>La funci&oacute;n determina autom&aacute;ticamente cual segmento de su URI contiene el n&uacute;mero de p&aacute;gina. Si usted necesita algo diferente se puede especificar.</p>
+
+<h4>$config['num_links'] = 2;</h4>
+<p>El n&uacute;mero de links en "digitos" que Ud. desea antes y despu&eacute;s del n&uacute;mero de p&aacute;gina seleccionado. Por ejemplo, el n&uacute;mero 2 indica que habr&aacute; dos d&iacute;gitos en ambos lados, como en el ejemplo de enlaces en la parte superior de esta p&aacute;gina.</p>
+
+<h2>Agregando Marcas de Cierre</h2>
+<p>Si desea rodear toda la paginaci&oacute;n con algunas marcas lo puede hacer con estas dos preferencias:</p>
+
+<h4>$config['full_tag_open'] = '&lt;p>';</h4>
+<p>La etiqueta de apertura situada en la parte izquierda de todo el resultado.</p>
+
+<h4>$config['full_tag_close'] = '&lt;/p>';</h4>
+<p>La etiqueta de cierre situada en la parte derecha de todo el resultado.</p>
+
+<h2>Personalizando el enlace "Primero"</h2>
+
+<h4>$config['first_link'] = 'Primero';</h4>
+<p>El texto que le gustar&iacute;a que se muestre en el "primer" enlace de la izquierda.</p>
+
+<h4>$config['first_tag_open'] = '&lt;div>';</h4>
+<p>La etiqueta de apertura para el enlace "first".</p>
+
+<h4>$config['first_tag_close'] = '&lt/div>';</h4>
+<p>La etiqueta de cierre para el enlace "first".</p>
+
+<h2>Personalizando el enlace "&Uacute;ltimo"</h2>
+
+<h4>$config['last_link'] = '&Uacute;ltimo';</h4>
+<p>El texto que le gustar&iacute;a que se muestre en el "&uacute;ltimo" enlace de la derecha.</p>
+
+<h4>$config['last_tag_open'] = '&lt;div>';</h4>
+<p>La etiqueta de apertura para el enlace "last".</p>
+
+<h4>$config['last_tag_close'] = '&lt/div>';</h4>
+<p>La etiqueta de cierre para el enlace "last".</p>
+
+<h2>Personalizando el enlace "Siguiente"</h2>
+
+<h4>$config['next_link'] = '&amp;gt';</h4>
+<p>El texto que le gustar&iacute;a que se muestre en el enlace de p&aacute;gina "siguiente".</p>
+
+<h4>$config['next_tag_open'] = '&lt;div>';</h4>
+<p>La etiqueta de apertura para el enlace "next".</p>
+
+<h4>$config['next_tag_close'] = '&lt/div>';</h4>
+<p>La etiqueta de cierre para el enlace "next".</p>
+
+<h2>Personalizando el enlace "Anterior"</h2>
+
+<h4>$config['prev_link'] = '&amp;lt';</h4>
+<p>El texto que le gustar&iacute;a que se muestre en el enlace de p&aacute;gina "anterior".</p>
+
+<h4>$config['prev_tag_open'] = '&lt;div>';</h4>
+<p>La etiqueta de apertura para el enlace "previous".</p>
+
+<h4>$config['prev_tag_close'] = '&lt/div>';</h4>
+<p>La etiqueta de cierre para el enlace "previous".</p>
+
+<h2>Personalizando el enlace "P&aacute;gina Actual"</h2>
+
+<h4>$config['cur_tag_open'] = '&lt;b>';</h4>
+<p>La etiqueta de apertura para el enlace "current".</p>
+
+<h4>$config['cur_tag_close'] = '&lt/b>';</h4>
+<p>La etiqueta de cierre para el enlace "current".</p>
+
+<h2>Personalizando el enlace "D&iacute;gito"</h2>
+
+<h4>$config['num_tag_open'] = '&lt;div>';</h4>
+<p>La etiqueta de apertura para el enlace "digit".</p>
+
+<h4>$config['num_tag_close'] = '&lt/div>';</h4>
+<p>La etiqueta de cierre para el enlace "digit".</p>
+
+<h2>Ocultar las P&aacute;ginas</h2>
+
+<p>Si quiere que no se listen p&aacute;ginas espec&iacute;ficas (por ejemplo, quiere solamente los enlaces "siguiente" y "anterior"), puede suprimir su presentaci&oacute;n al agregar:</p>
+
+<code>$config['display_pages'] = FALSE;</code>
+
+<h2>Agregar una Clase a cada Ancla</h2>
+
+<p>Si quiere agregar un atributo de clase a cada enlace presentado por la Clase Pagination, puede establecer el &iacute;ndice "anchor_class" del array config igual al nombre de clase que desea.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="migration.html">Clase Migration</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="parser.html">Clase Parser</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

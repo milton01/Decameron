@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Gu&iacute;a de Estilo PHP : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<style type="text/css" media="screen">
+	code {
+		white-space: pre;
+	}
+</style>
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Gu&iacute;a de Estilo PHP
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Estilo y Sintaxis Generales</h1>
+
+<p>La siguiente p&aacute;gina describe el uso de reglas de codificaci&oacute;n usadas al desarrollar CodeIgniter.</p>
+
+<h2>Tabla de Conenido</h2>
+<ul class="minitoc">
+	<li><a href="#file_format">Formato de Archivo</a></li>
+	<li><a href="#php_closing_tag">Etiqueta de Cierre de PHP</a></li>
+	<li><a href="#class_and_method_naming">Nomenclatura de Clases y M&eacute;todos</a></li>
+	<li><a href="#variable_names">Nombres de Variable</a></li>
+	<li><a href="#commenting">Comentarios</a></li>
+	<li><a href="#constants">Constantes</a></li>
+	<li><a href="#true_false_and_null">TRUE, FALSE y NULL</a></li>
+	<li><a href="#logical_operators">Operadores L&oacute;gicos</a></li>
+	<li><a href="#comparing_return_values_and_typecasting">Comparar Valores de Retorno y Typecasting</a></li>
+	<li><a href="#debugging_code">C&oacute;digo de Depuraci&oacute;n</a></li>
+	<li><a href="#whitespace_in_files">Espacios en Blanco en Archivos</a></li>
+	<li><a href="#compatibility">Compatibilidad</a></li>
+	<li><a href="#class_and_file_names_using_common_words">Nombres de Clases y Archivos usando Palabras Comunes</a></li>
+	<li><a href="#database_table_names">Nombres de Tablas de Base de Datos</a></li>
+	<li><a href="#one_file_per_class">Un Archivo por Clase</a></li>
+	<li><a href="#whitespace">Espacios en Blanco</a></li>
+	<li><a href="#line_breaks">Saltos de L&iacute;nea</a></li>
+	<li><a href="#code_indenting">Indentaci&oacute;n de C&oacute;digo</a></li>
+	<li><a href="#bracket_spacing">Espaciado de Par&eacute;ntesis y Llaves</li>
+	<li><a href="#localized_text">Texto Localizado</a></li>
+	<li><a href="#private_methods_and_variables">M&eacute;todos Privados y Variables</a></li>
+	<li><a href="#php_errors">Errores de PHP</a></li>
+	<li><a href="#short_open_tags">Etiquetas de Apertura Cortas</a></li>
+	<li><a href="#one_statement_per_line">Una Sentencia por L&iacute;nea</a></li>
+	<li><a href="#strings">Cadenas</a></li>
+	<li><a href="#sql_queries">Consultas SQL</a></li>
+	<li><a href="#default_function_arguments">Argumentos Por Defecto de Funciones</a></li>
+</ul>
+
+<h2><a name="file_format"></a>Formato de Archivo</h2>
+<div class="guidelineDetails">
+
+	<p>Los archivos deber&iacute;an guardarse con codificaci&oacute;n Unicode (UTF-8). <em>No</em> deber&iacute;a usarse el <abbr title="Byte Order Mark">BOM</abbr>. A diferencia de UTF-16 y UTF-32, no hay un bit de orden para indicar en un archivo codificado con UTF-8, y el <abbr title="Byte Order Mark">BOM</abbr> puede tener efectos colaterales negativos en PHP en el env&iacute;o de la salida, evitando que la aplicaci&oacute;n sea capaz de establecer sus encabezados. Se deber&iacute;an usar las terminaciones de l&iacute;nea de Unix (LF).</p>
+
+	<p></p>Esta es la forma de aplicar esas configuraciones en los editores de texto m&aacute;s comunes. Las instrucciones para su editor de texto pueden variar; lea la documentaci&oacute;n de su editor.</p>
+
+	<h5>TextMate</h5>
+	<ol>
+		<li>Abra las Preferencias de la Aplicaci&oacute;n</li>
+		<li>Hacer clic en Avanzado, y luego en la solapa "Guardar"</li>
+		<li>En "Codificaci&oacute;n de Archivo", seleccione "UTF-8 (recomendado)"</li>
+		<li>En "Terminaci&oacute;n de L&iacute;nea", seleccione "LF (recomendado)"</li>
+		<li><em>Opcional:</em> Marque "Tambi&eacute;n usar para los archivos existentes" si desea modificar las terminaciones de l&iacute;nea de archivos que abre para las nuevas preferencias.</li>
+	</ol>
+
+	<h5>BBEdit</h5>
+	<ol>
+		<li>Abra las Preferencias de la Aplicaci&oacute;n</li>
+		<li>Seleccione "Codificaciones del Texto" en la izquierda.</li>
+		<li>En "Codificaci&oacute;n del texto para nuevos documentos", seleccione "Unicode (UTF-8, sin BOM)"</li>
+		<li><em>Opcional:</em> En "Si no se puede determinar la codificaci&oacute;n del archivo, usar", seleccione "Unicode (UTF-8, sin BOM)"</li>
+		<li>Selecciones "Archivos de Texto" en la izquierda.</li>
+		<li>En "Saltos de L&iacute;nea por Defecto", seleccione "Mac OS X y Unix (LF)"</li>
+	</ol> 
+</div>
+
+<h2><a name="php_closing_tag"></a>Etiqueta de Cierre de PHP</h2>
+<div class="guidelineDetails">
+<p>La etiqueta de cierre de PHP en un documento PHP <strong>?&gt;</strong> es opcional para el analizador de PHP. Sin embargo, si se usa, cualquier espacios en blanco que siga a la etiqueta de cierre, sea introducida por el desarrollador, el usuario o una aplicaci&oacute;n FTP, puede causar una salida no deseada, errores de PHP, o si la &uacute;ltima se suprime, p&aacute;ginas en blanco. Por esta raz&oacute;n, todos los archivos de PHP deber&iacute;an <strong>OMITIR</strong> la etiqueta de cierre de PHP, y en su lugar usar un bloque de comentario para marcar el fin del archivo y su ubicaci&oacute;n relativa a la ra&iacute;z de la aplicaci&oacute;n. Esto le permite a&uacute;n identificar al archivo como completo y no trunco.</p>
+
+<code><strong>INCORRECTO</strong>:
+&lt;?php
+
+echo "Este es mi c&oacute;digo!";
+
+?&gt;
+
+<strong>CORRECTO</strong>:
+&lt;?php
+
+echo "Este es mi c&oacute;digo!";
+
+/* Fin del archivo mi_archivo.php */
+/* Ubicaci&oacute;n: ./system/modules/mi_modulo/mi_archivo.php */
+</code>
+</div>
+
+<h2><a name="class_and_method_naming"></a>Nomenclatura de Clases y M&eacute;todos</h2>
+<div class="guidelineDetails">
+	<p>Los nombres de clases siempre deber&iacute;an comenzar con una letra may&uacute;scula. Varias palabras se deber&iacute;an separar con un gui&oacute;n de subrayado y no usar CamelCase. Todos los otros m&eacute;todos de clase se deber&iacute;an escribir completamente en min&uacute;sculas y su nombre deber&iacute;a indicar claramente su funci&oacute;n, incluyendo preferiblemente un verbo. Trate de evitar los nombres demasiado largos y detallados.</p>
+	<code><strong>INCORRECTO</strong>:
+class superclass
+class SuperClass
+
+<strong>CORRECTO</strong>:
+class Super_class</code>
+
+
+	<code>class Super_class {
+
+	function __construct()
+	{
+
+	}
+}</code>
+
+	<p>Ejemplos de una nomenclatura de m&eacute;todos adecuada e inadecuada:</p>
+
+	<code><strong>INCORRECTO</strong>:
+function fileproperties()					// no es descriptivo y necesita un gui&oacute;n de subrayado de separaci&oacute;n
+function fileProperties()					// no es descriptivo y usa CamelCase
+function getfileproperties()					// Mejor! Pero todav&iacute;a le falta el gui&oacute;n de subrayado de separaci&oacute;n
+function getFileProperties()					// usa CamelCase
+function get_the_file_properties_from_the_file()	// demasiada palabrer&iacute;a
+
+<strong>CORRECTO</strong>:
+function get_file_properties()	// descriptivo, gui&oacute;n de subrayado de separaci&oacute;n y todas la letras son min&uacute;sculas</code>
+
+</div>
+
+<h2><a name="variable_names"></a>Nombres de Variable</h2>
+<div class="guidelineDetails">
+	<p>La directriz para el nombramiento de variables es muy similar al usado para m&eacute;todos de clase. Concretamente, las variables deber&iacute;an contener solamente letras min&uacute;sculas, usar guiones de subrayado como separadores y tener un nombre que razonablemente indique su prop&oacute;sito y contendo. Variables de nombre muy corto o sin palabras se deber&iacute;an usar solamente como iteradores en ciclos <dfn>for()</dfn>.</p>
+<code><strong>INCORRECTO</strong>:
+$j = &apos;foo&apos;;				//las variables de una sola letra se deber&iacute;an usar solamente en ciclos for()
+$Str					// contiene letras may&uacute;sculas
+$bufferedText			// usas CamelCase y podr&iacute;a acortarse sin perder sentido sem&aacute;ntico
+$groupid				// varias palabras, necesita un separador de gui&oacute;n de subrayado
+$name_of_last_city_used	// demasiado largo
+
+<strong>CORRECTO</strong>:
+for ($j = 0; $j &lt; 10; $j++)
+$str
+$buffer
+$group_id
+$last_city
+</code>
+</div>
+
+<h2><a name="commenting"></a>Comentarios</h2>
+<div class="guidelineDetails">
+	<p>En general, el c&oacute;digo debe ser comentado de forma prol&iacute;fica. No s&oacute;lo ayuda a describir el flujo y la intenci&oacute;n del c&oacute;digo para los programadores con menos experiencia, sino que puede resultar muy valiosa al regresar a su propio c&oacute;digo meses despu&eacute;s en l&iacute;nea. No hay un formato establecido para comentarios, pero se recomienda lo siguiente.</p>
+
+	<p>Estilo de comentarios <a href="http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblock">DocBlock</a> que precede declaraciones de clases y m&eacute;todos, que puede ser levantado por los IDEs:</p>
+
+<code>/**
+ * Super Class
+ *
+ * @package	Nombre del paquete
+ * @subpackage	Subpaquete
+ * @category	Categor&iacute;a
+ * @author		Nombre del autor
+ * @link		http://ejemplo.com
+ */
+class Super_class {</code>
+
+<code>/**
+ * Codifica una cadena para usarla en XML
+ *
+ * @access	public
+ * @param	string
+ * @return	string
+ */
+function xml_encode($str)</code>
+
+	<p>UUsar comentarios en l&iacute;nea simple dentro del c&oacute;digo, dejando una l&iacute;nea en blanco entre un bloque largo de comentarios y el c&oacute;digo.</p>
+
+<code>// rompe las cadenas mediante caracteres de nueva l&iacute;nea
+$parts = explode("\n", $str);
+
+// Un comentario m&aacute;s grande de lo que necesita para dar un gran detalle de lo que
+// est&aacute; ocurriendo y porque puede usar varios comentarios de l&iacute;nea simple. Trate
+// de mantener un ancho razonable, alrededor de 70 caracteres es m&aacute;s f&aacute;cil para
+// leer. No dude en vincular recursos externos que pueden proveer grandes
+// detalles:
+//
+// http://ejemplo.com/informacion_acerca_de_algo/en_particular/
+
+$parts = $this->foo($parts);
+</code>
+</div>
+
+<h2><a name="constants"></a>Constantes</h2>
+<div class="guidelineDetails">
+	<p>Las constantes siguen las mismas directrices que las variables, excepto que las constantes siempre deber&iacute;an escribirse completamente en may&uacute;sculas. <em>Siempre usar constantes de CodeIgniter cuando sea adecuado, por ejemplo, SLASH, LD, RD, PATH_CACHE, etc.</em></p>
+
+<code><strong>INCORRECTO</strong>:
+myConstant					// missing underscore separator and not fully uppercase
+N							// no single-letter constants
+S_C_VER						// not descriptive
+$str = str_replace('{foo}', 'bar', $str);	// should use LD and RD constants
+
+<strong>CORRECTO</strong>:
+MY_CONSTANT
+NEWLINE
+SUPER_CLASS_VERSION
+$str = str_replace(LD.'foo'.RD, 'bar', $str);
+</code>
+</div>
+
+<h2><a name="true_false_and_null"></a>TRUE, FALSE y NULL</h2>
+<div class="guidelineDetails">
+	<p>Las palabras clave <strong>TRUE</strong>, <strong>FALSE</strong> y <strong>NULL</strong> siempre deber&iacute;an escribirse completamente en may&uacute;sculas.</p>
+
+<code><strong>INCORRECTO</strong>:
+if ($foo == true)
+$bar = false;
+function foo($bar = null)
+
+<strong>CORRECTO</strong>:
+if ($foo == TRUE)
+$bar = FALSE;
+function foo($bar = NULL)</code>
+</div>
+
+<h2><a name="logical_operators"></a>Operadores L&oacute;gicos</h2>
+<div class="guidelineDetails">
+	<p>Se desaconseja el uso de <strong>||</strong> dado que la claridad de algunos dispositivos de salida es baja (por ejemplo, podr&iacute;a verse como el n&uacute;mero 11). Es preferible <strong>&amp;&amp;</strong> en lugar de <strong>AND</strong> pero ambos son aceptables y un espacio siempre deber&iacute;a preceder y seguir a <strong>!</strong>.</p>
+<code><strong>INCORRECTO</strong>:
+if ($foo || $bar)
+if ($foo AND $bar)  // okay but not recommended for common syntax highlighting applications
+if (!$foo)
+if (! is_array($foo))
+
+<strong>CORRECTO</strong>:
+if ($foo OR $bar)
+if ($foo && $bar) // recommended
+if ( ! $foo)
+if ( ! is_array($foo))
+</code>
+		</div>
+
+<h2><a name="comparing_return_values_and_typecasting"></a>Comparar Valores de Retorno y Typecasting</h2>
+<div class="guidelineDetails">
+	<p>Algunas funciones de PHP devuelven FALSE en caso de falla, pero tambi&eacute;n puede haber un valor de retorno v&aacute;lido de "" o 0, lo que se evaluar&iacute;a como FALSE en comparaciones poco precisas. Sea expl&iacute;cito al comparar el tipo de variable al usar esos valores de retorno en condicionales para asegurar que el valor de retorno es en realidad lo que espera, y no un valor que tiene un equivalente de evaluaci&oacute;n de tipo relajado.</p>
+
+	<p>Use el mismo rigor cuando en el retorno y verificaci&oacute;n de sus propias variables. Use <strong>===</strong> y <strong>!==</strong> seg&uacute;n sea necesario.</p>
+<code><strong>INCORRECTO</strong>:
+// Si 'foo' est&aacute; al inicio de la cadena, strpos devolver&aacute; un 0,
+// resultando esta evaluaci&oacute;n condicional como TRUE
+if (strpos($str, 'foo') == FALSE)
+
+<strong>CORRECTO</strong>:
+if (strpos($str, 'foo') === FALSE)
+</code>
+
+<code><strong>INCORRECTO</strong>:
+function build_string($str = "")
+{
+	if ($str == "")	 // oh-oh! &iquest;Qu&eacute; ocurre si se pasa como argumento FALSE o el entero 0?
+	{
+
+	}
+}
+
+<strong>CORRECTO</strong>:
+function build_string($str = "")
+{
+	if ($str === "")
+	{
+
+	}
+}</code>
+
+		<p>Vea tambi&eacute;n acerca del <a href="http://us3.php.net/manual/en/language.types.type-juggling.php#language.types.typecasting">typecasting</a>, lo que puede ser muy &uacute;til. El typecasting tiene un efecto ligeramente distinto que puede ser deseable. Al convertir una variable a una cadena, por ejemplo, las variables <kbd>NULL</kbd> y <kbd>FALSE</kbd> se convierten en cadenas vac&iacute;as, 0 (y otros n&uacute;meros) se convierten en cadenas de d&iacute;gitos, y el booleano <kbd>TRUE</kbd> se convierte en "1":</p>
+<code>$str = (string) $str;	// trata a $str como una cadena</code>
+</div>
+
+<h2><a name="debugging_code"></a>C&oacute;digo de Depuraci&oacute;n</h2>
+<div class="guidelineDetails">
+
+	<p>No se puede dejar c&oacute;digo de depuraci&oacute;n en el lugar a menos que se lo comente, por ejemplo, ninguna llamada a <dfn>var_dump()</dfn>, <dfn>print_r()</dfn>/>, <dfn>die()</dfn>, o <dfn>exit()</dfn> usada durante la creaci&oacute;n de un complemento.</p>
+
+<code>// print_r($foo);</code>
+</div>
+
+<h2><a name="whitespace_in_files"></a>Espacios en Blanco en Archivos</h2>
+<div class="guidelineDetails">
+	<p>Los espacios en blanco no pueden preceder a la etiqueta de apertura de PHP o seguir a la etiqueta de cierre de PHP. La salida se almacena en b&uacute;fer, por lo tanto los espacios en blanco en sus archivos pueden provocar que la salida comience antes que CodeIgniter imprima su contenido, conduciendo a errores y a la incapacidad de CodeIgniter de enviar los encabezados adecuados. En el siguiente ejemplo, seleccione el texto con el rat&oacute;n para revelar los espacios en blanco INCORRECTOS.</p>
+
+	<p><strong>INCORRECTO</strong>:</p>
+<code>
+&lt;?php
+	// ...hay un espacio en blanco y un salto de l&iacute;nea antes de la etiqueta de
+	// apertura de PHP
+	// as&iacute; como un espacio en blanco despu&eacute;s de la etiqueta de cierre de PHP
+?&gt;
+
+</code>
+			<p><strong>CORRECTO</strong>:</p>
+<code>&lt;?php
+	// este ejemplo no tiene espacios en blanco antes o despu&eacute;s de las etiquetas
+	// de apertura y cierre de PHP
+?&gt;</code>
+
+		</div>
+
+<h2><a name="compatibility"></a>Compatibilidad</h2>
+<div class="guidelineDetails">
+	<p>A menos que sea mencionado espec&iacute;ficamente en la documentaci&oacute;n de su complemento, todo c&oacute;digo tiene que ser compatible con PHP versi&oacute;n 4.3 o superior. Adem&aacute;s, no usar funciones de PHP que necesiten instalar de bibliotecas no est&aacute;ndares, a menos que su c&oacute;digo contenga un m&eacute;todo alternativo cuando la funci&oacute;n no est&eacute; disponible, o impl&iacute;citamente documente que su complemento necesita dichas bibliotecas de PHP.</p>
+</div>
+
+<h2><a name="class_and_file_names_using_common_words"></a>Nombres de Clases y Archivos usando Palabras Comunes</h2>
+<div class="guidelineDetails">
+	<p>Cuando su clase o nombre de archivo son una palabra com&uacute;n, o puede ser bastante probable que nombre igual en otro script de PHP, proveer un prefijo &uacute;nico para ayudar a impedir esa colisi&oacute;n. Siempre darse cuenta que sus usuarios finales pueden ejecutar otros complementos o scripts de PHP o de terceras partes. Elija un prefijo que sea &uacute;nico para identificarlo como desarrollador o compa&ntilde;&iacute;a.</p>
+<code><strong>INCORRECTO</strong>:
+class Email		pi.email.php
+class Xml		ext.xml.php
+class Import		mod.import.php
+
+<strong>CORRECTO</strong>:
+class Pre_email		pi.pre_email.php
+class Pre_xml		ext.pre_xml.php
+class Pre_import	mod.pre_import.php
+</code>
+</div>
+
+<h2><a name="database_table_names"></a>Nombres de Tablas de Base de Datos</h2>
+<div class="guidelineDetails">
+	<p>Cualquier tabla que su complemento pueda usar tiene que tener el prefijo '<samp>exp_</samp>', seguido por un prefijo de unicidad que lo identifique a Ud como desarrollador o compa&ntilde;&iacute;a, y luego un breve nombre descriptivo de tabla. No necesita preocuparse acerca del prefijo de base de datos que se usa en la instalaci&oacute;n del usuario, ya que la clase database de CodeIgniter convertir&aacute; autom&aacute;ticamente '<samp>exp_</samp>' a lo que realmente se usa.</p>
+<code><strong>INCORRECTO</strong>:
+email_addresses		// faltan ambos prefijos
+pre_email_addresses	// falta el prefijo exp_
+exp_email_addresses	// falta el prefijo &uacute;nico
+
+<strong>CORRECTO</strong>:
+exp_pre_email_addresses
+</code>
+
+	<p class="important"><strong>Nota:</strong> Tenga en cuenta que MySQL tiene un l&iacute;mite de 64 caracteres para los nombres de tablas. Esto no deber&iacute;a ser un problema, ya que los nombres de tablas que superan esa cantidad probablemente no tengan nombres razonables. Por ejemplo, el siguiente nombre de tabla excede esta limitaci&oacute;n por un caracter. Tonto &iquest;no? <strong>exp_pre_email_addresses_of_registered_users_in_seattle_washington</strong></p>
+</div>
+
+<h2><a name="one_file_per_class"></a>Un Archivo por Clase</h2>
+<div class="guidelineDetails">
+	<p>Usar archivos separados para cada clase que su complemento use, a menos que las clases est&eacute;n <em>estrechamente relacionadas</em>. Un ejemplo de archivos de CodeIgniter que contienen varias clases es el archivo de la clase <samp>Database</samp>, que contiene tanto a la clase <samp>DB</samp> como a la clase <samp>DB_Cache</samp>, y el complemento <samp>Magpie</samp>, que contiene tanto a la clase <samp>Magpie</samp> como a <samp>Snoopy</samp>.</p>
+</div>
+
+<h2><a name="whitespace"></a>Espacios en Blanco</h2>
+<div class="guidelineDetails">
+	<p>Usar tabuladores en lugar de espacios en blanco en su c&oacute;digo. Esto puede parecer una peque&ntilde;ez, pero usando tabuladores en lugar de espacios en blanco le permite al desarrollador que mira su c&oacute;digo para tener indentaci&oacute;n en los niveles que prefiera y personalizar en cualquier aplicaci&oacute;n que use. Y como beneficio colateral, resulta en archivos (un poco) m&aacute;s compactos, almacenando un caracter de tabulador contra, digamos, cuatro caracteres de espacio.</p>
+</div>
+
+<h2><a name="line_breaks"></a>Saltos de L&iacute;nea</h2>
+<div class="guidelineDetails">
+	<p>Los archivos se tienen que guardar con saltos de l&iacute;nea de Unix. Esto es m&aacute;s un problema para los desarrolladores que trabajan en Windows, pero en cualquier caso, aseg&uacute;rese de que su editor de texto est&aacute; configurado para guardar los archivos con saltos de l&iacute;nea de Unix.</p>
+</div>
+
+<h2><a name="code_indenting"></a>Indentaci&oacute;n de C&oacute;digo</h2>
+<div class="guidelineDetails">
+	<p>Usar el estilo de indentaci&oacute;n de Allman. Con excepci&oacute;n de las declaraciones de clase, las llaves siempre se ubican en l&iacute;nea con ellas mismas, e indentadas al mismo nivel que las sentencias de control que las "poseen".</p>
+
+<code><strong>INCORRECTO</strong>:
+function foo($bar) {
+	// ...
+}
+
+foreach ($arr as $key => $val) {
+	// ...
+}
+
+if ($foo == $bar) {
+	// ...
+} else {
+	// ...
+}
+
+for ($i = 0; $i &lt; 10; $i++)
+	{
+	for ($j = 0; $j &lt; 10; $j++)
+		{
+		// ...
+		}
+	}
+
+<strong>CORRECTO</strong>:
+function foo($bar)
+{
+	// ...
+}
+
+foreach ($arr as $key => $val)
+{
+	// ...
+}
+
+if ($foo == $bar)
+{
+	// ...
+}
+else
+{
+	// ...
+}
+
+for ($i = 0; $i &lt; 10; $i++)
+{
+	for ($j = 0; $j &lt; 10; $j++)
+	{
+		// ...
+	}
+}</code>
+</div>
+
+<h2><a name="bracket_spacing"></a>Espaciado de Par&eacute;ntesis y Llaves</h2>
+<div class="guidelineDetails">
+	<p>En general, los par&eacute;ntesis y las llaves no deber&iacute;an usar espacios adicionales. La excepci&oacute;n es que un espacio siempre deber&iacute;a seguir a las estructuras de control de PHP que acepten argumentos entre par&eacute;ntesis (declare, do-while, elseif, for, foreach, if, switch, while), para ayudar a distinguirlas de las funciones e incrementar la legibilidad.</p>
+
+In general, parenthesis and brackets should not use any additional spaces.  The exception is that a space should always follow PHP control structures that accept arguments with parenthesis (declare, do-while, elseif, for, foreach, if, switch, while), to help distinguish them from functions and increase readability.
+
+<code>INCORRECTO:
+$arr[ $foo ] = 'foo';
+
+CORRECTO:
+$arr[$foo] = 'foo'; // no spaces around array keys
+
+
+INCORRECTO:
+function foo ( $bar )
+{
+
+}
+
+CORRECTO:
+function foo($bar) // no spaces around parenthesis in function declarations
+{
+
+}
+
+
+INCORRECTO:
+foreach( $query->result() as $row )
+
+CORRECTO:
+foreach ($query->result() as $row) // single space following PHP control structures, but not in interior parenthesis
+</code>
+</div>
+
+<h2><a name="localized_text"></a>Texto Localizado</h2>
+<div class="guidelineDetails">
+	<p>Cualquier texto que se muestre en el panel de control, deber&iacute;a usar variables de idioma en su archivo de idioma para permitir la localizaci&oacute;n</p>
+
+<code>INCORRECTO:
+return "Invalid Selection";
+
+CORRECTO:
+return $this->lang->line('invalid_selection');</code>
+</div>
+
+<h2><a name="private_methods_and_variables"></a>M&eacute;todos Privados y Variables</h2>
+	<div class="guidelineDetails">
+	<p>Se deber&iacute;an prefijar con un gui&oacute;n de subrayado los m&eacute;todos y variables que solamente son accedidos internamente por su clase, tales como utilidades y helpers de funciones usan para abstracci&oacute;n del c&oacute;digo.</p>
+
+<code>convert_text()		// m&eacute;todo p&uacute;blico
+_convert_text()		// m&eacute;todo privado</code>
+</div>
+
+<h2><a name="php_errors"></a>Errores de PHP</h2>
+<div class="guidelineDetails">
+	<p>El c&oacute;digo tiene que ejecutar libre de errores y no depender que las advertencias y avisos est&eacute;n ocultos para cumplir con este requisito. Por ejemplo, nunca acceder una variable que no estableci&oacute; por si mismo (tal como claves del array $_POST), sin primero verificar si est&aacute;n establecidas con isset().</p>
+
+	<p>Asegurarse que durante el desarrollo de su complemento, el reporte de errores est&eacute; habilitado para TODOS los usuarios y que display_errors est&aacute; habilitado en el entorno de PHP. Puede verificar esto con:</p>
+
+<code>if (ini_get('display_errors') == 1)
+{
+	exit "Enabled";
+}</code>
+
+	<p>En algunos servidores donde display_errors est&aacute; deshabilitado, y no tiene la posibilidad de cambiar esto en el php.ini, a menudo se puede habilitar con:</p>
+
+<code>ini_set('display_errors', 1);</code>
+
+	<p class="important"><strong>NOTA:</strong> Establecer el par&aacute;metro <a href="http://us.php.net/manual/en/ref.errorfunc.php#ini.display-errors">display_errors</a> con ini_set() en tiempo de ejecuci&oacute;n, no es lo mismo que tenerlo habilitado en el entorno de PHP. Es decir, no tendr&aacute; ning&uacute;n efecto si el script contiene errores fatales.</p>
+</div>
+
+<h2><a name="short_open_tags"></a>Etiquetas de Apertura Cortas</h2>
+<div class="guidelineDetails">
+	<p>Usar siempre etiquetas de apertura de PHP completas, en caso que el servidor no tenga habilitada la directiva short_open_tag.</p>
+
+<code><strong>INCORRECTO</strong>:
+&lt;? echo $foo; ?&gt;
+
+&lt;?=$foo?&gt;
+
+<strong>CORRECTO</strong>:
+&lt;?php echo $foo; ?&gt;</code>
+</div>
+
+<h2><a name="one_statement_per_line"></a>Una Sentencia por L&iacute;nea</h2>
+<div class="guidelineDetails">
+	<p>Nunca combinar sentencias en una sola l&iacute;nea.</p>
+
+<code><strong>INCORRECTO</strong>:
+$foo = 'this'; $bar = 'that'; $bat = str_replace($foo, $bar, $bag);
+
+<strong>CORRECTO</strong>:
+$foo = 'this';
+$bar = 'that';
+$bat = str_replace($foo, $bar, $bag);
+</code>
+</div>
+
+<h2><a name="strings"></a>Cadenas</h2>
+<div class="guidelineDetails">
+	<p>Siempre use cadenas de comillas simples a menos que necesite variables analizadas, y en casos donde necesite variables analizadas, use llaves para impedir &aacute;vidos an&aacute;lisis sint&aacute;cticos de elementos. Tambi&eacute;n puede usar cadenas de comillas dobles si la cadena contiene comillas simples, por lo tanto no hay necesidad de escapar caracteres.</p>
+<code><strong>INCORRECTO</strong>:
+"My String"							// no hay an&aacute;lisis de variables, por lo tanto no use comillas dobles
+"My string $foo"						// se necesitan llaves
+'SELECT foo FROM bar WHERE baz = \'bag\''	// repugnante
+
+<strong>CORRECTO</strong>:
+'My String'
+"My string {$foo}"
+<kbd>"</kbd>SELECT foo FROM bar WHERE baz = <dfn>'</dfn>bag<dfn>'</dfn><kbd>"</kbd></code>
+		</div>
+
+<h2><a name="sql_queries"></a>Consultas SQL</h2>
+<div class="guidelineDetails">
+	<p>Las palabras clave de MySQL se ponen siempre en may&uacute;sculas: SELECT, INSERT, UPDATE, WHERE, AS, JOIN, ON, IN, etc.</p>
+	<p>
+Dividir las consultar largas en varias l&iacute;neas para darles legibilidad, preferiblemente cortando en cada cl&aacute;usula.</p>
+
+<code><strong>INCORRECTO</strong>:
+// las palabras clave est&aacute;n en min&uacute;sculas y las consultas son demasiado largas
+// para una l&iacute;nea simple (... indica continuaci&oacute;n de l&iacute;nea)
+$query = $this->db->query("select foo, bar, baz, foofoo, foobar as raboof, foobaz
+...from exp_pre_email_addresses
+...where foo != 'oof' and baz != 'zab' order by foobaz limit 5, 100");
+
+<strong>CORRECTO</strong>:
+$query = $this->db->query("SELECT foo, bar, baz, foofoo, foobar AS raboof, foobaz
+				FROM exp_pre_email_addresses
+				WHERE foo != 'oof'
+				AND baz != 'zab'
+				ORDER BY foobaz
+				LIMIT 5, 100");</code>
+		</div>
+
+<h2><a name="default_function_arguments"></a>Argumentos Por Defecto de Funciones</h2>
+<div class="guidelineDetails">
+	<p>Cuando sea adecuado, proveer argumentos por defecto a las funciones, que ayudan a evitar errores de PHP con llamadas err&oacute;neas y proveen valores comunes alternativos que pueden salvar unas pocas l&iacute;neas de c&oacute;digo. Ejemplo:</p>
+<code>function foo($bar = '', $baz = FALSE)</code>
+</div>
+
+</div>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="security.html">Seguridad</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="../doc_style/index.html">Escribir Documentaci&oacute;n</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

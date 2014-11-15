@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Seguridad : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Seguridad
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Seguridad</h1>
+
+<p>Esta p&aacute;gina describe algunas "buenas pr&aacute;cticas" acerca de segurdad web, y detalles de caracter&iacute;sticas de seguridad interna de CodeIgniter.</p>
+
+<h2>Seguridad en URI</h2>
+
+<p>CodeIgniter es bastante restrictivo sobre que caracteres permitir en las cadenas URI para ayudar a minimizar la posibilidad de que datos maliciosos puedan ser pasados a su aplicaci&oacute;n. Las URIs s&oacute;lo pueden contener lo siguiente:</p>
+
+<ul>
+<li>Texto alfanum&eacute;rico</li>
+<li>"Tilde": ~ </li>
+<li>Punto: .</li>
+<li>Dos puntos: :</li>
+<li>Guion bajo: _</li>
+<li>Guion: -</li>
+</ul>
+
+<h2>Datos GET, POST, y COOKIE</h2>
+
+<p>Los datos GET son simplemente anulados por CodeIgniter ya que el sistema utiliza segmentos URI en vez de las tradicionales query strings de URL (a menos que la opci&oacute;n query string est&eacute; habilitada en su archivo config). El arreglo global GET es <strong>destruido</strong> por la clase Input durante la inicializaci&oacute;n del sistema.</p>
+
+<h2>Register_globals</h2>
+
+<p>Durante la inicializaci&oacute;n del sistema, todas las variables globales son destruidas, excepto aquellas encontradas en los arreglos <var>$_POST</var> y <var>$_COOKIE</var>. La rutina de eliminaci&oacute;n es efectivamente lo misma que <kbd>register_globals = off</kbd>.</p>
+
+<a name="error_reporting"></a>
+<h2>error_reporting</h2>
+
+<p>En entornos de producci&oacute;n, es normalmente deseable deshabilitar el reporte de errores de PHP estableciendo la bandera interna error_reporting al valor 0. Esto deshabilita los errores nativos de PHP evitando que se presenten por pantalla, los que pueden contener informaci&oacute;n sensible.</p>
+
+<p>Establecer la constante <kbd>ENVIRONMENT</kbd> de CodeIgniter en el archivo index.php al valor '<kbd>production</kbd>', desconectar&aacute; esos errores. En el modo de desarrollo, se recomienda que se use el valor '<kbd>development</kbd>'. Se puede encontrar m&aacute;s informaci&oacute;n acerca de la diferencia entre entornos en la p&aacute;gina <a href="environments.html">Manejo de M&uacute;ltiples Entornos</a>.</p>
+
+<h2>magic_quotes_runtime</h2>
+
+<p>La directiva magic_quotes_runtime es apagada durante la inicializaci&oacute;n del sistema para que no tenga que remover las barras cuando se recuperen datos de la base de datos.</p>
+
+<h1>Buenas pr&aacute;cticas</h1>
+
+<p>Antes de aceptar cualquier dato en su aplicaci&oacute;n, ya sean datos POST desde el env&iacute;o de un formulario, datos COOKIE, datos URI, datos XML-RPC, o incluso datos desde el arreglo SERVER, est&aacute; alentado a practicar estos tres pasos de acercamiento:</p>
+
+<ol>
+<li>Filtrar los datos como si fueran contaminados.</li>
+<li>Validar los datos para asegurarse que conforman el tipo correcto, largo, tama&ntilde;o, etc. (a veces, este paso puede reemplazar al paso uno)</li>
+<li>Escapar los datos entes de enviarlo a su base de datos.</li>
+</ol>
+CodeIgniter provee las siguientes funciones para asistirlo en este proceso</p>
+
+<ul>
+<li><h2>Filtro de XSS</h2>
+<p>CodeIgniter viene con un filtro de XSS (Cross Site Scripting). Este filtro busca t&eacute;cnicas comunmente usadas para embeber Javascript malicioso a sus datos, u otro tipo de c&oacute;digo que intente "secuestrar" (hijack) cookies o hacer otra cosa maliciosa. El Filtro XSS es descripto <a href="../libraries/input.html">aqu&iacute;</a>.
+</p>
+</li>
+<li><h2>Validar los datos</h2>
+<p>CodeIgniter tiene una <a href="../libraries/validation.html">Clase de Validaci&oacute;n</a> que le asiste en la validaci&oacute;n, filtro y preparaci&oacute;n de datos.</p>
+</li>
+<li><h2>Escapar todos los datos antes de insertarlo a la base de datos</h2>
+<p>Nunca inserte informaci&oacute;n a su base de datos sin escaparla. Por favor vea la secci&oacute;n que trata <a href="../database/queries.html">consultas</a> para m&aacute;s informaci&oacute;n.</p>
+</li>
+</ul>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="alternative_php.html">Sintaxis Alternativa de PHP</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="styleguide.html">Gu&iacute;a de Estilo PHP</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>
