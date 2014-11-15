@@ -22,7 +22,7 @@ $lang['common_search'] = '搜尋';
 $lang['common_delete'] = '刪除';
 $lang['common_remove'] = '移除';
 $lang['common_view_recent_sales'] = '最新的消售資訊';
-$lang['common_you_are_using_ospos'] = '您正在使用 Decameron 版本';
+$lang['common_you_are_using_ospos'] = '您正在使用 Open Source Point of Sale 版本';
 $lang['common_please_visit_my'] = '請造訪';
 $lang['common_website'] = '網站';
 $lang['common_fields_required_message'] = '紅色欄位為必填';
@@ -35,7 +35,7 @@ $lang['common_confirm_search'] = '您已經選擇一行或多行，在搜索後�
 $lang['common_no_persons_to_display'] = '沒有使用者資料可以顯示';
 $lang['common_return_policy'] = '退貨政策';
 $lang['common_price'] = '價值';
-$lang['common_welcome_message']= '歡迎使用Decameron，請點擊下面的模組以開始使用！';
+$lang['common_welcome_message']= '歡迎使用Open Source Point of Sale，請點擊下面的模組以開始使用！';
 $lang['common_inv'] = '庫存';
 $lang['common_det'] = '更多';
 ?>

@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/login.css" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Hotel Decameron <?php echo $this->lang->line('login_login'); ?></title>
+<title>Open Source Point Of Sale <?php echo $this->lang->line('login_login'); ?></title>
 <script src="<?php echo base_url();?>js/jquery-1.2.6.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
 <script type="text/javascript">
 $(document).ready(function()
@@ -14,7 +14,7 @@ $(document).ready(function()
 </script>
 </head>
 <body>
-<h1>Hotel Decameron <?php echo $this->config->item('application_version'); ?></h1>
+<h1>Open Source Point Of Sale <?php echo $this->config->item('application_version'); ?></h1>
 
 <?php echo form_open('login') ?>
 <div id="container">

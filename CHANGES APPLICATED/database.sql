@@ -8,28 +8,29 @@
 -- PHP Version: 5.3.3
 
 --
--- Database: `decameron`
+-- Database: `pos`
 --
 
 -- --------------------------------------------------------
-
+CREATE DATABASE IF NOT EXISTS `decameron`;
+USE `decameron`;
 --
--- Table structure for table `reser_app_config`
+-- Table structure for table `decameron_app_config`
 --
 
-CREATE TABLE `reser_app_config` (
+CREATE TABLE `decameron_app_config` (
   `key` varchar(255) NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_app_config`
+-- Dumping data for table `decameron_app_config`
 --
 
-INSERT INTO `reser_app_config` (`key`, `value`) VALUES
+INSERT INTO `decameron_app_config` (`key`, `value`) VALUES
 ('address', '123 Nowhere street'),
-('company', 'Hotel Decameron'),
+('company', 'Open Source Point of Sale'),
 ('default_tax_rate', '8'),
 ('email', 'admin@pappastech.com'),
 ('fax', ''),
@@ -41,10 +42,10 @@ INSERT INTO `reser_app_config` (`key`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_customers`
+-- Table structure for table `decameron_customers`
 --
 
-CREATE TABLE `reser_customers` (
+CREATE TABLE `decameron_customers` (
   `person_id` int(10) NOT NULL,
   `account_number` varchar(255) DEFAULT NULL,
   `taxable` int(1) NOT NULL DEFAULT '1',
@@ -54,17 +55,17 @@ CREATE TABLE `reser_customers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_customers`
+-- Dumping data for table `decameron_customers`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_employees`
+-- Table structure for table `decameron_employees`
 --
 
-CREATE TABLE `reser_employees` (
+CREATE TABLE `decameron_employees` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `person_id` int(10) NOT NULL,
@@ -74,19 +75,19 @@ CREATE TABLE `reser_employees` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_employees`
+-- Dumping data for table `decameron_employees`
 --
 
-INSERT INTO `reser_employees` (`username`, `password`, `person_id`, `deleted`) VALUES
+INSERT INTO `decameron_employees` (`username`, `password`, `person_id`, `deleted`) VALUES
 ('admin', '439a6de57d475c1a0ba9bcb1c39f0af6', 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_giftcards`
+-- Table structure for table `decameron_giftcards`
 --
 
-CREATE TABLE `reser_giftcards` (
+CREATE TABLE `decameron_giftcards` (
   `giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
   `giftcard_number` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `value` decimal(15,2) NOT NULL,
@@ -97,17 +98,17 @@ CREATE TABLE `reser_giftcards` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=48 ;
 
 --
--- Dumping data for table `reser_giftcards`
+-- Dumping data for table `decameron_giftcards`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_inventory`
+-- Table structure for table `decameron_inventory`
 --
 
-CREATE TABLE `reser_inventory` (
+CREATE TABLE `decameron_inventory` (
   `trans_id` int(11) NOT NULL AUTO_INCREMENT,
   `trans_items` int(11) NOT NULL DEFAULT '0',
   `trans_user` int(11) NOT NULL DEFAULT '0',
@@ -122,17 +123,17 @@ CREATE TABLE `reser_inventory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `reser_inventory`
+-- Dumping data for table `decameron_inventory`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_items`
+-- Table structure for table `decameron_items`
 --
 
-CREATE TABLE `reser_items` (
+CREATE TABLE `decameron_items` (
   `name` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `supplier_id` int(11) DEFAULT NULL,
@@ -158,21 +159,21 @@ CREATE TABLE `reser_items` (
   `custom10` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`item_id`),
   UNIQUE KEY `item_number` (`item_number`),
-  KEY `reser_items_ibfk_1` (`supplier_id`)
+  KEY `decameron_items_ibfk_1` (`supplier_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `reser_items`
+-- Dumping data for table `decameron_items`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_items_taxes`
+-- Table structure for table `decameron_items_taxes`
 --
 
-CREATE TABLE `reser_items_taxes` (
+CREATE TABLE `decameron_items_taxes` (
   `item_id` int(10) NOT NULL,
   `name` varchar(255) NOT NULL,
   `percent` decimal(15,2) NOT NULL,
@@ -180,17 +181,17 @@ CREATE TABLE `reser_items_taxes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_items_taxes`
+-- Dumping data for table `decameron_items_taxes`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_item_kits`
+-- Table structure for table `decameron_item_kits`
 --
 
-CREATE TABLE `reser_item_kits` (
+CREATE TABLE `decameron_item_kits` (
   `item_kit_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -198,35 +199,35 @@ CREATE TABLE `reser_item_kits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `reser_item_kits`
+-- Dumping data for table `decameron_item_kits`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_item_kit_items`
+-- Table structure for table `decameron_item_kit_items`
 --
 
-CREATE TABLE `reser_item_kit_items` (
+CREATE TABLE `decameron_item_kit_items` (
   `item_kit_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `quantity` decimal(15,2) NOT NULL,
   PRIMARY KEY (`item_kit_id`,`item_id`,`quantity`),
-  KEY `reser_item_kit_items_ibfk_2` (`item_id`)
+  KEY `decameron_item_kit_items_ibfk_2` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_item_kit_items`
+-- Dumping data for table `decameron_item_kit_items`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_item_quantities`
+-- Table structure for table `decameron_item_quantities`
 --
 
-CREATE TABLE IF NOT EXISTS `reser_item_quantities` (
+CREATE TABLE IF NOT EXISTS `decameron_item_quantities` (
   `item_id` int(11) NOT NULL,
   `location_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -238,10 +239,10 @@ CREATE TABLE IF NOT EXISTS `reser_item_quantities` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_modules`
+-- Table structure for table `decameron_modules`
 --
 
-CREATE TABLE `reser_modules` (
+CREATE TABLE `decameron_modules` (
   `name_lang_key` varchar(255) NOT NULL,
   `desc_lang_key` varchar(255) NOT NULL,
   `sort` int(10) NOT NULL,
@@ -252,10 +253,10 @@ CREATE TABLE `reser_modules` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_modules`
+-- Dumping data for table `decameron_modules`
 --
 
-INSERT INTO `reser_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_id`) VALUES
+INSERT INTO `decameron_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_id`) VALUES
 ('module_config', 'module_config_desc', 100, 'config'),
 ('module_customers', 'module_customers_desc', 10, 'customers'),
 ('module_employees', 'module_employees_desc', 80, 'employees'),
@@ -270,10 +271,10 @@ INSERT INTO `reser_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_i
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_people`
+-- Table structure for table `decameron_people`
 --
 
-CREATE TABLE `reser_people` (
+CREATE TABLE `decameron_people` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `phone_number` varchar(255) NOT NULL,
@@ -290,19 +291,19 @@ CREATE TABLE `reser_people` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `reser_people`
+-- Dumping data for table `decameron_people`
 --
 
-INSERT INTO `reser_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`) VALUES
+INSERT INTO `decameron_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`) VALUES
 ('John', 'Doe', '555-555-5555', 'admin@pappastech.com', 'Address 1', '', '', '', '', '', '', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_permissions`
+-- Table structure for table `decameron_permissions`
 --
 
-CREATE TABLE `reser_permissions` (
+CREATE TABLE `decameron_permissions` (
   `module_id` varchar(255) NOT NULL,
   `person_id` int(10) NOT NULL,
   PRIMARY KEY (`module_id`,`person_id`),
@@ -310,10 +311,10 @@ CREATE TABLE `reser_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_permissions`
+-- Dumping data for table `decameron_permissions`
 --
 
-INSERT INTO `reser_permissions` (`module_id`, `person_id`) VALUES
+INSERT INTO `decameron_permissions` (`module_id`, `person_id`) VALUES
 ('config', 1),
 ('customers', 1),
 ('employees', 1),
@@ -328,10 +329,10 @@ INSERT INTO `reser_permissions` (`module_id`, `person_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_receivings`
+-- Table structure for table `decameron_receivings`
 --
 
-CREATE TABLE `reser_receivings` (
+CREATE TABLE `decameron_receivings` (
   `receiving_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `supplier_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
@@ -344,17 +345,17 @@ CREATE TABLE `reser_receivings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `reser_receivings`
+-- Dumping data for table `decameron_receivings`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_receivings_items`
+-- Table structure for table `decameron_receivings_items`
 --
 
-CREATE TABLE `reser_receivings_items` (
+CREATE TABLE `decameron_receivings_items` (
   `receiving_id` int(10) NOT NULL DEFAULT '0',
   `item_id` int(10) NOT NULL DEFAULT '0',
   `description` varchar(30) DEFAULT NULL,
@@ -370,17 +371,17 @@ CREATE TABLE `reser_receivings_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_receivings_items`
+-- Dumping data for table `decameron_receivings_items`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales`
+-- Table structure for table `decameron_sales`
 --
 
-CREATE TABLE `reser_sales` (
+CREATE TABLE `decameron_sales` (
   `sale_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
@@ -393,17 +394,17 @@ CREATE TABLE `reser_sales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `reser_sales`
+-- Dumping data for table `decameron_sales`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales_items`
+-- Table structure for table `decameron_sales_items`
 --
 
-CREATE TABLE `reser_sales_items` (
+CREATE TABLE `decameron_sales_items` (
   `sale_id` int(10) NOT NULL DEFAULT '0',
   `item_id` int(10) NOT NULL DEFAULT '0',
   `description` varchar(30) DEFAULT NULL,
@@ -421,17 +422,17 @@ CREATE TABLE `reser_sales_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_sales_items`
+-- Dumping data for table `decameron_sales_items`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales_items_taxes`
+-- Table structure for table `decameron_sales_items_taxes`
 --
 
-CREATE TABLE `reser_sales_items_taxes` (
+CREATE TABLE `decameron_sales_items_taxes` (
   `sale_id` int(10) NOT NULL,
   `item_id` int(10) NOT NULL,
   `line` int(3) NOT NULL DEFAULT '0',
@@ -443,17 +444,17 @@ CREATE TABLE `reser_sales_items_taxes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_sales_items_taxes`
+-- Dumping data for table `decameron_sales_items_taxes`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales_payments`
+-- Table structure for table `decameron_sales_payments`
 --
 
-CREATE TABLE `reser_sales_payments` (
+CREATE TABLE `decameron_sales_payments` (
   `sale_id` int(10) NOT NULL,
   `payment_type` varchar(40) NOT NULL,
   `payment_amount` decimal(15,2) NOT NULL,
@@ -462,17 +463,17 @@ CREATE TABLE `reser_sales_payments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_sales_payments`
+-- Dumping data for table `decameron_sales_payments`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales_suspended`
+-- Table structure for table `decameron_sales_suspended`
 --
 
-CREATE TABLE `reser_sales_suspended` (
+CREATE TABLE `decameron_sales_suspended` (
   `sale_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
@@ -485,17 +486,17 @@ CREATE TABLE `reser_sales_suspended` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `reser_sales_suspended`
+-- Dumping data for table `decameron_sales_suspended`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales_suspended_items`
+-- Table structure for table `decameron_sales_suspended_items`
 --
 
-CREATE TABLE `reser_sales_suspended_items` (
+CREATE TABLE `decameron_sales_suspended_items` (
   `sale_id` int(10) NOT NULL DEFAULT '0',
   `item_id` int(10) NOT NULL DEFAULT '0',
   `description` varchar(30) DEFAULT NULL,
@@ -512,17 +513,17 @@ CREATE TABLE `reser_sales_suspended_items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_sales_suspended_items`
+-- Dumping data for table `decameron_sales_suspended_items`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales_suspended_items_taxes`
+-- Table structure for table `decameron_sales_suspended_items_taxes`
 --
 
-CREATE TABLE `reser_sales_suspended_items_taxes` (
+CREATE TABLE `decameron_sales_suspended_items_taxes` (
   `sale_id` int(10) NOT NULL,
   `item_id` int(10) NOT NULL,
   `line` int(3) NOT NULL DEFAULT '0',
@@ -533,17 +534,17 @@ CREATE TABLE `reser_sales_suspended_items_taxes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_sales_suspended_items_taxes`
+-- Dumping data for table `decameron_sales_suspended_items_taxes`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sales_suspended_payments`
+-- Table structure for table `decameron_sales_suspended_payments`
 --
 
-CREATE TABLE `reser_sales_suspended_payments` (
+CREATE TABLE `decameron_sales_suspended_payments` (
   `sale_id` int(10) NOT NULL,
   `payment_type` varchar(40) NOT NULL,
   `payment_amount` decimal(15,2) NOT NULL,
@@ -551,17 +552,17 @@ CREATE TABLE `reser_sales_suspended_payments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_sales_suspended_payments`
+-- Dumping data for table `decameron_sales_suspended_payments`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_sessions`
+-- Table structure for table `decameron_sessions`
 --
 
-CREATE TABLE `reser_sessions` (
+CREATE TABLE `decameron_sessions` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
   `ip_address` varchar(45) NOT NULL DEFAULT '0',
   `user_agent` varchar(120) NOT NULL,
@@ -571,16 +572,16 @@ CREATE TABLE `reser_sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_sessions`
+-- Dumping data for table `decameron_sessions`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_stock_locations`
+-- Table structure for table `decameron_stock_locations`
 --
 
-CREATE TABLE `reser_stock_locations` (
+CREATE TABLE `decameron_stock_locations` (
   `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `location_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
@@ -588,18 +589,18 @@ CREATE TABLE `reser_stock_locations` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8;
 
 --
--- Dumping data for table `reser_stock_locations`
+-- Dumping data for table `decameron_stock_locations`
 --
 
-INSERT INTO `reser_stock_locations` ( `deleted`, `location_name` ) VALUES ('0', 'stock');
+INSERT INTO `decameron_stock_locations` ( `deleted`, `location_name` ) VALUES ('0', 'stock');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reser_suppliers`
+-- Table structure for table `decameron_suppliers`
 --
 
-CREATE TABLE `reser_suppliers` (
+CREATE TABLE `decameron_suppliers` (
   `person_id` int(10) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `account_number` varchar(255) DEFAULT NULL,
@@ -609,7 +610,7 @@ CREATE TABLE `reser_suppliers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reser_suppliers`
+-- Dumping data for table `decameron_suppliers`
 --
 
 
@@ -618,129 +619,129 @@ CREATE TABLE `reser_suppliers` (
 --
 
 --
--- Constraints for table `reser_customers`
+-- Constraints for table `decameron_customers`
 --
-ALTER TABLE `reser_customers`
-  ADD CONSTRAINT `reser_customers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `reser_people` (`person_id`);
+ALTER TABLE `decameron_customers`
+  ADD CONSTRAINT `decameron_customers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `decameron_people` (`person_id`);
 
 --
--- Constraints for table `reser_employees`
+-- Constraints for table `decameron_employees`
 --
-ALTER TABLE `reser_employees`
-  ADD CONSTRAINT `reser_employees_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `reser_people` (`person_id`);
+ALTER TABLE `decameron_employees`
+  ADD CONSTRAINT `decameron_employees_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `decameron_people` (`person_id`);
 
 --
--- Constraints for table `reser_inventory`
+-- Constraints for table `decameron_inventory`
 --
-ALTER TABLE `reser_inventory`
-  ADD CONSTRAINT `reser_inventory_ibfk_1` FOREIGN KEY (`trans_items`) REFERENCES `reser_items` (`item_id`),
-  ADD CONSTRAINT `reser_inventory_ibfk_2` FOREIGN KEY (`trans_user`) REFERENCES `reser_employees` (`person_id`);
+ALTER TABLE `decameron_inventory`
+  ADD CONSTRAINT `decameron_inventory_ibfk_1` FOREIGN KEY (`trans_items`) REFERENCES `decameron_items` (`item_id`),
+  ADD CONSTRAINT `decameron_inventory_ibfk_2` FOREIGN KEY (`trans_user`) REFERENCES `decameron_employees` (`person_id`);
 
 --
--- Constraints for table `reser_items`
+-- Constraints for table `decameron_items`
 --
-ALTER TABLE `reser_items`
-  ADD CONSTRAINT `reser_items_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `reser_suppliers` (`person_id`);
+ALTER TABLE `decameron_items`
+  ADD CONSTRAINT `decameron_items_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `decameron_suppliers` (`person_id`);
 
 --
--- Constraints for table `reser_items_taxes`
+-- Constraints for table `decameron_items_taxes`
 --
-ALTER TABLE `reser_items_taxes`
-  ADD CONSTRAINT `reser_items_taxes_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`) ON DELETE CASCADE;
+ALTER TABLE `decameron_items_taxes`
+  ADD CONSTRAINT `decameron_items_taxes_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `reser_item_kit_items`
+-- Constraints for table `decameron_item_kit_items`
 --
-ALTER TABLE `reser_item_kit_items`
-  ADD CONSTRAINT `reser_item_kit_items_ibfk_1` FOREIGN KEY (`item_kit_id`) REFERENCES `reser_item_kits` (`item_kit_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `reser_item_kit_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`)  ON DELETE CASCADE;
+ALTER TABLE `decameron_item_kit_items`
+  ADD CONSTRAINT `decameron_item_kit_items_ibfk_1` FOREIGN KEY (`item_kit_id`) REFERENCES `decameron_item_kits` (`item_kit_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `decameron_item_kit_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`)  ON DELETE CASCADE;
 
 --
--- Constraints for table `reser_permissions`
+-- Constraints for table `decameron_permissions`
 --
-ALTER TABLE `reser_permissions`
-  ADD CONSTRAINT `reser_permissions_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `reser_employees` (`person_id`),
-  ADD CONSTRAINT `reser_permissions_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `reser_modules` (`module_id`);
+ALTER TABLE `decameron_permissions`
+  ADD CONSTRAINT `decameron_permissions_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `decameron_employees` (`person_id`),
+  ADD CONSTRAINT `decameron_permissions_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `decameron_modules` (`module_id`);
 
 --
--- Constraints for table `reser_receivings`
+-- Constraints for table `decameron_receivings`
 --
-ALTER TABLE `reser_receivings`
-  ADD CONSTRAINT `reser_receivings_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `reser_employees` (`person_id`),
-  ADD CONSTRAINT `reser_receivings_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `reser_suppliers` (`person_id`);
+ALTER TABLE `decameron_receivings`
+  ADD CONSTRAINT `decameron_receivings_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `decameron_employees` (`person_id`),
+  ADD CONSTRAINT `decameron_receivings_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `decameron_suppliers` (`person_id`);
 
 --
--- Constraints for table `reser_receivings_items`
+-- Constraints for table `decameron_receivings_items`
 --
-ALTER TABLE `reser_receivings_items`
-  ADD CONSTRAINT `reser_receivings_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`),
-  ADD CONSTRAINT `reser_receivings_items_ibfk_2` FOREIGN KEY (`receiving_id`) REFERENCES `reser_receivings` (`receiving_id`);
+ALTER TABLE `decameron_receivings_items`
+  ADD CONSTRAINT `decameron_receivings_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`),
+  ADD CONSTRAINT `decameron_receivings_items_ibfk_2` FOREIGN KEY (`receiving_id`) REFERENCES `decameron_receivings` (`receiving_id`);
 
 --
--- Constraints for table `reser_sales`
+-- Constraints for table `decameron_sales`
 --
-ALTER TABLE `reser_sales`
-  ADD CONSTRAINT `reser_sales_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `reser_employees` (`person_id`),
-  ADD CONSTRAINT `reser_sales_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `reser_customers` (`person_id`);
+ALTER TABLE `decameron_sales`
+  ADD CONSTRAINT `decameron_sales_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `decameron_employees` (`person_id`),
+  ADD CONSTRAINT `decameron_sales_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `decameron_customers` (`person_id`);
 
 --
--- Constraints for table `reser_sales_items`
+-- Constraints for table `decameron_sales_items`
 --
-ALTER TABLE `reser_sales_items`
-  ADD CONSTRAINT `reser_sales_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`),
-  ADD CONSTRAINT `reser_sales_items_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `reser_sales` (`sale_id`),
-  ADD CONSTRAINT `reser_sales_items_ibfk_3` FOREIGN KEY (`item_location`) REFERENCES `reser_stock_locations` (`location_id`);
+ALTER TABLE `decameron_sales_items`
+  ADD CONSTRAINT `decameron_sales_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`),
+  ADD CONSTRAINT `decameron_sales_items_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `decameron_sales` (`sale_id`),
+  ADD CONSTRAINT `decameron_sales_items_ibfk_3` FOREIGN KEY (`item_location`) REFERENCES `decameron_stock_locations` (`location_id`);
 
 --
--- Constraints for table `reser_sales_items_taxes`
+-- Constraints for table `decameron_sales_items_taxes`
 --
-ALTER TABLE `reser_sales_items_taxes`
-  ADD CONSTRAINT `reser_sales_items_taxes_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `reser_sales_items` (`sale_id`),
-  ADD CONSTRAINT `reser_sales_items_taxes_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`);
+ALTER TABLE `decameron_sales_items_taxes`
+  ADD CONSTRAINT `decameron_sales_items_taxes_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `decameron_sales_items` (`sale_id`),
+  ADD CONSTRAINT `decameron_sales_items_taxes_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`);
 
 --
--- Constraints for table `reser_sales_payments`
+-- Constraints for table `decameron_sales_payments`
 --
-ALTER TABLE `reser_sales_payments`
-  ADD CONSTRAINT `reser_sales_payments_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `reser_sales` (`sale_id`);
+ALTER TABLE `decameron_sales_payments`
+  ADD CONSTRAINT `decameron_sales_payments_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `decameron_sales` (`sale_id`);
 
 --
--- Constraints for table `reser_sales_suspended`
+-- Constraints for table `decameron_sales_suspended`
 --
-ALTER TABLE `reser_sales_suspended`
-  ADD CONSTRAINT `reser_sales_suspended_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `reser_employees` (`person_id`),
-  ADD CONSTRAINT `reser_sales_suspended_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `reser_customers` (`person_id`);
+ALTER TABLE `decameron_sales_suspended`
+  ADD CONSTRAINT `decameron_sales_suspended_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `decameron_employees` (`person_id`),
+  ADD CONSTRAINT `decameron_sales_suspended_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `decameron_customers` (`person_id`);
 
 --
--- Constraints for table `reser_sales_suspended_items`
+-- Constraints for table `decameron_sales_suspended_items`
 --
-ALTER TABLE `reser_sales_suspended_items`
-  ADD CONSTRAINT `reser_sales_suspended_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`),
-  ADD CONSTRAINT `reser_sales_suspended_items_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `reser_sales_suspended` (`sale_id`),
-  ADD CONSTRAINT `reser_sales_suspended_items_ibfk_3` FOREIGN KEY (`item_location`) REFERENCES `reser_stock_locations` (`location_id`);
+ALTER TABLE `decameron_sales_suspended_items`
+  ADD CONSTRAINT `decameron_sales_suspended_items_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`),
+  ADD CONSTRAINT `decameron_sales_suspended_items_ibfk_2` FOREIGN KEY (`sale_id`) REFERENCES `decameron_sales_suspended` (`sale_id`),
+  ADD CONSTRAINT `decameron_sales_suspended_items_ibfk_3` FOREIGN KEY (`item_location`) REFERENCES `decameron_stock_locations` (`location_id`);
 
 --
--- Constraints for table `reser_sales_suspended_items_taxes`
+-- Constraints for table `decameron_sales_suspended_items_taxes`
 --
-ALTER TABLE `reser_sales_suspended_items_taxes`
-  ADD CONSTRAINT `reser_sales_suspended_items_taxes_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `reser_sales_suspended_items` (`sale_id`),
-  ADD CONSTRAINT `reser_sales_suspended_items_taxes_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`);
+ALTER TABLE `decameron_sales_suspended_items_taxes`
+  ADD CONSTRAINT `decameron_sales_suspended_items_taxes_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `decameron_sales_suspended_items` (`sale_id`),
+  ADD CONSTRAINT `decameron_sales_suspended_items_taxes_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`);
 
 --
--- Constraints for table `reser_sales_suspended_payments`
+-- Constraints for table `decameron_sales_suspended_payments`
 --
-ALTER TABLE `reser_sales_suspended_payments`
-  ADD CONSTRAINT `reser_sales_suspended_payments_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `reser_sales_suspended` (`sale_id`);
+ALTER TABLE `decameron_sales_suspended_payments`
+  ADD CONSTRAINT `decameron_sales_suspended_payments_ibfk_1` FOREIGN KEY (`sale_id`) REFERENCES `decameron_sales_suspended` (`sale_id`);
 
 --
--- Constraints for table `reser_item_quantities`
+-- Constraints for table `decameron_item_quantities`
 --
-ALTER TABLE `reser_item_quantities`
-  ADD CONSTRAINT `reser_item_quantities_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `reser_items` (`item_id`),
-  ADD CONSTRAINT `reser_item_quantities_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `reser_stock_locations` (`location_id`);
+ALTER TABLE `decameron_item_quantities`
+  ADD CONSTRAINT `decameron_item_quantities_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `decameron_items` (`item_id`),
+  ADD CONSTRAINT `decameron_item_quantities_ibfk_2` FOREIGN KEY (`location_id`) REFERENCES `decameron_stock_locations` (`location_id`);
 
 --
--- Constraints for table `reser_suppliers`
+-- Constraints for table `decameron_suppliers`
 --
-ALTER TABLE `reser_suppliers`
-  ADD CONSTRAINT `reser_suppliers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `reser_people` (`person_id`);
+ALTER TABLE `decameron_suppliers`
+  ADD CONSTRAINT `decameron_suppliers_ibfk_1` FOREIGN KEY (`person_id`) REFERENCES `decameron_people` (`person_id`);

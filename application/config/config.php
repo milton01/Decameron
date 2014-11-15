@@ -5,7 +5,7 @@
 | Code Version
 |--------------------------------------------------------------------------
 |
-| This is the version of Decameron you're running
+| This is the version of Open Source Point of Sale you're running
 |
 |
 */
@@ -82,7 +82,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'es';
+$config['language']	= 'en';
 
 /*
 |--------------------------------------------------------------------------
@@ -237,7 +237,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = 'PUT_YOUR_ENCRYPTION_KEY_HERE';
+$config['encryption_key'] = 'decameron';
 
 /*
 |--------------------------------------------------------------------------
@@ -262,7 +262,7 @@ $config['sess_expiration']		= 0;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= TRUE;
-$config['sess_table_name']		= 'reser_sessions';
+$config['sess_table_name']		= 'decameron_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= FAlSE;
 $config['sess_time_to_update']	= 86400;

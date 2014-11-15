@@ -49,11 +49,11 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = '';
-$db['default']['password'] = '';
-$db['default']['database'] = '';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'Mazda62005';
+$db['default']['database'] = 'decameron';
 $db['default']['dbdriver'] = 'mysql';
-$db['default']['dbprefix'] = 'ospos_';
+$db['default']['dbprefix'] = 'decameron_';
 $db['default']['pconnect'] = FALSE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;

@@ -31,7 +31,7 @@ class Languagecheck extends CI_Controller {
 		$this->load->helper('directory');
 
 		// for simplicity, we don't use views
-		$this->output('h1', 'Decameron - Language file checking and validation');
+		$this->output('h1', 'Open Source Point of Sale - Language file checking and validation');
 
 		// determine the language file path
 		if ( ! is_dir($this->lang_path) )

@@ -1,5 +1,5 @@
 <?php
-//require_once ("secure_area.php");
+require_once ("secure_area.php");
 class Sales extends Secure_area
 {
 	function __construct()

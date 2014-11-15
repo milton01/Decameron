@@ -1,0 +1,14 @@
+Description:
+Only variable references should be returned by reference IIS code igniter
+
+-------------------------------------SOLUTION---------------------------------------------
+Filename: core/Common.php
+Line Number: 257
+
+BEFORE CHANGE:
+return $_config[0] =& $config; 
+
+AFTER CHANGE:
+$_config[0] =& $config;
+return $_config[0];
+------------------------------------------------------------------------------------------

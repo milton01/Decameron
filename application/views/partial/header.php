@@ -4,9 +4,9 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<base href="<?php echo base_url();?>" />
-	<title><?php echo $this->config->item('company').' -- '.$this->lang->line('common_powered_by').' System' ?></title>
+	<title><?php echo $this->config->item('company').' -- '.$this->lang->line('common_powered_by').' OS Point Of Sale' ?></title>
 	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/ospos.css" />
-	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/ospos_print.css"  media="print"/>
+	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/decameron_print.css"  media="print"/>
 	<script>BASE_URL = '<?php echo site_url(); ?>';</script>
 	<script src="<?php echo base_url();?>js/jquery-1.2.6.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
 	<script src="<?php echo base_url();?>js/jquery.color.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
@@ -37,7 +37,7 @@ html {
 	<div id="menubar_container">
 		<div id="menubar_company_info">
 		<span id="company_title"><?php echo $this->config->item('company'); ?></span><br />
-		<span style='font-size:8pt;'><?php echo $this->lang->line('common_powered_by').' All Inclusive Hotel & Resorts'; ?></span>
+		<span style='font-size:8pt;'><?php echo $this->lang->line('common_powered_by').' Open Source Point Of Sale'; ?></span>
 	</div>
 
 		<div id="menubar_navigation">
