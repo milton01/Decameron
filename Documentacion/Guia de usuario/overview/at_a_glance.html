@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CodeIgniter de un Vistazo : Gu&iacute;a del Usuario CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+&iquest;Qu&eacute; es CodeIgniter?
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>CodeIgniter de un Vistazo</h1>
+
+
+<h2>CodeIgniter es un Framework para Aplicaciones</h2>
+
+<p>CodeIgniter es un conjunto de herramientas para gente que construyen aplicaciones web usando PHP. Su objetivo
+es permitirle desarrollar proyectos mucho m&aacute;s r&aacute;pido que lo que podr&iacute;a hacer si escribiera c&oacute;digo desde cero, al
+proveer un rico conjunto de bibliotecas para tareas com&uacute;nmente necesarias, tanto como una interfaz sencilla y una
+estructura l&oacute;gica para acceder a esas bibliotecas. CodeIgniter le permite enfocarse creativamente en su proyecto al
+minimizar la cantidad de c&oacute;digo necesario para una tarea dada.</p>
+
+<h2>CodeIgniter es Libre</h2>
+<p>CodeIgniter est&aacute; liberado bajo licencias open source del estilo Apache/BSD, as&iacute; que puede usarlo donde desee.
+Para mayor informaci&oacute;n lea el <a href="../license.html">acuerdo de licencia</a>.</p>
+
+<h2>CodeIgniter es Liviano</h2>
+<p>Es realmente liviano. El n&uacute;cleo del sistema s&oacute;lo requiere algunas bibliotecas muy peque&ntilde;as. Esto est&aacute; en marcado
+contraste con muchos frameworks que requieren muchos m&aacute;s recursos. Las bibliotecas adicionales se cargan
+din&aacute;micamente bajo pedido, basado en sus necesidades para un proceso dado, por lo que el sistema base es muy
+ligero y bastante r&aacute;pido.</p>
+
+<h2>CodeIgniter es R&aacute;pido</h2>
+<p>Es verdaderamente r&aacute;pido. Lo desafiamos a que encuentre un framework que tenga mejor desempe&ntilde;o que
+CodeIgniter.</p>
+
+
+<h2>CodeIgniter Usa M-V-C</h2>
+<p>CodeIgniter usa el enfoque Modelo-Vista-Controlador, que permite una gran separaci&oacute;n entre la l&oacute;gica y la
+presentaci&oacute;n. Es particularmente bueno para proyectos en los que los dise&ntilde;adores trabajan en sus archivos de
+plantillas, ya que el c&oacute;digo en estos archivos ser&aacute; m&iacute;nimo. Describimos MVC en m&aacute;s detalle en su propia p&aacute;gina.</p>
+
+<h2>CodeIgniter Genera URLs Claras</h2>
+<p>Las URLs generadas por CodeIgniter son claras y amigables con los motores de b&uacute;squeda. En lugar de usar el
+enfoque est&aacute;ndar "query string" caracter&iacute;stico de sistemas din&aacute;micos, CodeIgniter usa el enfoque basado en
+segmentos:</p>
+
+<code>example.com/<var>news</var>/<dfn>article</dfn>/<samp>345</samp></code>
+
+<p><strong>Nota</strong>: Por defecto el archivo <kbd>index.php</kbd> est&aacute; incluido en la URL pero se puede quitar usando un sencillo archivo
+<kbd>.htaccess</kbd>.</p>
+
+<h2>CodeIgniter Trae un Pu&ntilde;ado de Paquetes</h2>
+<p>CodeIgniter viene con una gama completa de bibliotecas que facilitan las tareas de desarrollo web m&aacute;s
+com&uacute;nmente usadas, como acceso a base de datos, env&iacute;o de correo electr&oacute;nico, validaci&oacute;n de datos de
+formularios, manejo de sesiones, manipulaci&oacute;n de im&aacute;genes, trabajo con datos XML-RPC y mucho m&aacute;s.</p>
+
+<h2>CodeIgniter es Extensible</h2>
+<p>El sistema se puede extender f&aacute;cilmente a trav&eacute;s de sus propias bibliotecas, helpers, extensiones de clases o sistema de hooks.</p>
+
+
+<h2>CodeIgniter No Necesita un Motor de Plantillas</h2>
+<p>Aunque CodeIgniter viene con un sencillo motor de plantillas que se puede usar opcionalmente, Ud no est&aacute; forzado
+a usar uno. Los Motores de Plantillas simplemente no pueden igualar el desempe&ntilde;o del PHP nativo, y la sintaxis
+que hay que aprender para usar un motor de plantillas normalmente es solo marginalmente m&aacute;s f&aacute;cil que aprender
+los fundamentos de PHP. Considere este bloque de c&oacute;digo PHP:</p>
+
+<code>&lt;ul><br />
+<br />
+&lt;?php foreach ($addressbook as $name):?><br />
+<br />
+&lt;li>&lt;?=$name?>&lt;/li><br />
+<br />
+&lt;?php endforeach; ?><br />
+<br />
+&lt;/ul></code>
+
+<p>Comp&aacute;relo con el seudo-c&oacute;digo usado por un motor de plantillas:</p>
+
+<code>&lt;ul><br />
+<br />
+{foreach from=$addressbook item="name"}<br />
+<br />
+&lt;li>{$name}&lt;/li><br />
+<br />
+{/foreach}<br />
+<br />
+&lt;/ul></code>
+
+<p>S&iacute;, el ejemplo del motor de plantillas es un poco m&aacute;s claro, pero viene con el precio del desempe&ntilde;o ya que hay que
+convertir el seudo-c&oacute;digo de vuelta en PHP para ejecutarlo. Como uno de nuestros objetivos es <em>m&aacute;ximo
+desempe&ntilde;o</em>, optamos por no obligar a usar un motor de plantillas.</p>
+
+
+<h2>CodeIgniter est&aacute; Completamente Documentado</h2>
+<p>Los programadores aman programar y odian escribir documentaci&oacute;n. No somos diferentes, por supuesto, pero
+como la documentaci&oacute;n es <strong>tan importante</strong> como el c&oacute;digo en s&iacute; mismo, estamos comprometidos a hacerlo.
+Nuestro c&oacute;digo fuente es extremadamente claro y bien comentado tambi&eacute;n.</p>
+
+
+<h2>CodeIgniter tiene una Amigable Comunidad de Usuarios</h2>
+
+<p>Puede encontrar a nuestra creciente comunidad de usuarios participando de nuestros <a href="http://codeigniter.com/forums/">Foros de la Comunidad</a>.</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="getting_started.html">Primeros Pasos</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="cheatsheets.html">Hojas de Referencia</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

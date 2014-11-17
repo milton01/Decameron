@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Crear Clases del N&uacute;cleo : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Crear Clases del N&uacute;cleo
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Creaci&oacute;n de Clases de Sistema de N&uacute;cleo</h1>
+
+<p>Cada vez que CodeIgniter corre hay varias clases base que son inicializados autom&aacute;ticamente como parte del n&uacute;cleo del entorno de trabajo. Es posible, sin embargo, intercambiar cualquiera de las clases de sistema de n&uacute;cleo con sus propias versiones o incluso extender las versiones de n&uacute;cleo.</p>
+
+<p><strong>La mayor&iacute;a de los usuarios nunca necesitar&aacute; hacer nada de esto, pero la opci&oacute;n de reemplazar o extenderla existe para quienes qioerem significantemente alterar el n&uacute;cleo de CodeIgniter.</strong></p>
+
+<p class="important"><strong>Nota:</strong>&nbsp; Meterse con una clase de sistema de n&uacute;cleo tiene varias implicaciones, as&iacute; que est&eacute; seguro que sabe lo que est&aacute; haciendo antes de intentarlo.</p>
+
+<h2>Lista de Clases de Sistema</h2>
+
+<p>La siguiente es una lista de archivos de sistema de n&uacute;cleo que son invocados cada vez que CodeIgniter corre:</p>
+
+<ul>
+<li>Benchmark</li>
+<li>Config</li>
+<li>Controller</li>
+<li>Exceptions</li>
+<li>Hooks</li>
+<li>Input</li>
+<li>Language</li>
+<li>Loader</li>
+<li>Log</li>
+<li>Output</li>
+<li>Router</li>
+<li>URI</li>
+<li>Utf8</li>
+</ul>
+
+<h2>Reemplazar las Clases de N&uacute;celo</h2>
+
+<p>Para usar una de sus propias clases de sistema en vez de una de las predeterminadas simplemente ubique su versi&oacute;n dentro de su directorio local <dfn>application/libraries</dfn>:</p>
+
+<code>application/libraries/<dfn>alguna-clase.php</dfn></code>
+
+<p>Si el directorio no existe, puedes crearlo.</p>
+
+<p>Cualquier archivo llamado id&eacute;nticamente a uno de la lista de arriba ser&aacute; usado en vez del normalmente usado</p>
+
+<p>Por favor note que su clase debe usar <kbd>CI</kbd> como prefijo. Por ejemplo, si su archivo es llamado<kbd>Input.php</kbd> la clase ser&aacute; llamada:</p>
+
+<code>
+class CI_Input {<br /><br />
+}
+</code>
+
+<h2>Extendiendo las Clases de N&uacute;cleo</h2>
+
+<p>Si todo lo que necesita hacer es agregar alguna funcionalidad a una librer&iacute;a existente - quiz&aacute;s agregar una funci&oacute;n o dos - entonces es exagerado reemplazar la librer&iacute;a entera con su versi&oacute;n. En este caso es mejor simplemente extender la clase. Extender la clase es casi id&eacute;ntico a reemplazar la clase con un par de exceptiones:</p>
+
+<ul>
+<li>La declaraci&oacute;n de clase debe extender la clase padre.</li>
+<li>Su nuevo nombre de clase y de archivo debe ser prefijado con <kbd>MY_</kbd> (este item es configurable. Vea abajo.).</li>
+</ul>
+
+<p>Por ejemplo, para extender la clase nativa <kbd>Input</kbd> crear&aacute; un archivo llamado dfn>application/libraries/</dfn><kbd>MY_Input.php</kbd>, y declara su clase con:</p>
+
+<code>
+class MY_Input extends CI_Input {<br /><br />
+}</code>
+
+<p>Nota: Si necesita usar un constructor en su clase, asegurese que extiende al constructor del padre:</p>
+
+<code>
+class MY_Input extends CI_Input {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp; function __construct()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::__construct();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+
+<p class="important"><strong>Consejo:</strong>&nbsp; Cualquier funci&oacute;n en su clase que es nombrada id&eacute;nticamente a las funciones en la clase padre ser&aacute;n usadas en vez de las nativas (esto es conocido como "sobreescritura de m&eacute;todo"). Esto le permite alterar sustancialmente el n&uacute;cleo de CodeIgniter.</p>
+
+<p>Si est&aacute; extendiendo la clase Controller del n&uacute;cleo, entonces aseg&uacute;rese de extender su nueva clase en los contructores de sus controladores de la aplicaci&oacute;n.</p>
+
+<code>class Welcome extends MY_Controller {<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function __construct()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent::__construct();<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;function index()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->load->view('welcome_message');<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}</code>
+
+<h3>Estableciendo Su Propio Prefijo</h3>
+
+<p>Para establecer su propio prefijo de sub-clase, abra su archivo <dfn>application/config/config.php</dfn> y busque este item:</p>
+
+<code>$config['subclass_prefix'] = 'MY_';</code>
+
+<p>Por favor note que todas las librer&iacute;as nativas de CodeIgniter est&aacute;n prefijadas con <kbd>CI_</kbd> para NO usar ese prefijo.</p>
+
+</div>
+
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="creating_libraries.html">Crear tus Propias Librer&iacute;as</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="hooks.html">Hooks - Extender el N&uacute;cleo</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

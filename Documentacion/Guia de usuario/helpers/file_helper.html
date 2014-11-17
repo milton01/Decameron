@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper File : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper File
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Helper File</h1>
+<p>El Helper File contiene funciones que asisten al trabajo con archivos.</p>
+
+<h2>Cargando este Helper</h2>
+<p>Este helper es cargado usando el siguiente c&oacute;digo:</p>
+
+<code>$this->load->helper('file');</code>
+
+<p>Las funciones siguientes est&aacute;n disponibles:</p>
+
+<h2>read_file('<var>ruta</var>')</h2>
+<p>Devuelve los datos contenidos en el archivo especificado en la ruta. Ejemplo:</p>
+
+<code>$cadena = read_file('./ruta/al/archivo.php');</code>
+
+<p>La ruta puede ser relativa o absoluta del servidor. Devuelve FALSE (booleano) en fallo.</p>
+
+<p class="important"><strong>Nota:</strong> La ruta es relativa al archivo principal del sitio index.php, NO de tus archivos controladores o vistas. CodeIgniter usa un controlador frontal, as&iacute; que las rutas siemrpe son relativas al &iacute;ndice del sitio principal.</p>
+
+<p>Si tu servidor corre con la restricci&oacute;n open_basedir esta funci&oacute;n puede no funcionar si est&aacute; tratando de acceder a un archivo superior al script llamado.</p>
+
+<h2>write_file('<var>ruta</var>', <kbd>$datos</kbd>)</h2>
+<p>Escribe los datos al archivo especificado en la ruta. Si el archivo no existe, la funci&oacute;n lo crear&aacute;. Ejemplo:</p>
+
+<code>
+$datos = 'Algunos datos de archivo';<br />
+<br />
+if ( ! write_file('./ruta/al/archivo.php', $datos))<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp; echo 'No se pudo escribir el archivo';<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp; echo 'Archivo escrito!';<br />
+}</code>
+
+<p>Puede opcionalmente establecer el modo de escritura a trav&eacute;s del tercer par&aacute;metro:</p>
+
+<code>write_file('./ruta/al/archivo.php', $datos, <var>'r+'</var>);</code>
+
+<p>El modo por defecto es <kbd>wb</kbd>.  Por favor vea la <a href="http://php.net/fopen">gu&iacute;a del usuario de PHP</a> para opciones de modo.</p>
+
+<p class="important"><strong>Nota:</strong> Para que esta funci&oacute;n escriba datos en un archivo sus permisos deben ser tales que sea escriturable (666, 777, etc.). Si el archivo no existe todav&iacute;a, el directorio que lo contiene debe ser escriturable.</p>
+
+<p class="important"><strong>Nota:</strong> La ruta es relativa al archivo principal del sitio index.php, NO de tus archivos controladores o vistas. CodeIgniter usa un controlador frontal, as&iacute; que las rutas siemrpe son relativas al &iacute;ndice del sitio principal.</p>
+
+<h2>delete_files('<var>ruta</var>')</h2>
+
+<p>Borra TODOS los archivos contenidos en la ruta suuministrada. Ejemplo:</p>
+
+<code>delete_files('./ruta/a/directorio/');</code>
+
+<p>Si el segundo par&aacute;metro es establecido como <kbd>true</kbd>, cualquier directorio contenido dentro de la ra&iacute;z de la ruta ser&aacute; eliminado tambi&eacute;n. Ejemplo:</p>
+
+<code>delete_files('./ruta/a/directorio/', TRUE);</code>
+
+<p class="important"><strong>Nota:</strong> Los archivos deben ser escriturables o del sistema para poder ser borrados.</p>
+
+<h2>get_filenames('<var>ruta/a/directorio/</var>')</h2>
+<p>Toma una ruta del servidor como entrada y devuelve un arreglo que contiene el nombre de toso los archivos contenidos en &eacute;l. La ruta puede ser opcionalmente agregada a los nombres de los archivos estableciendo el segundo par&aacute;metro como TRUE.</p>
+
+<h2>get_dir_file_info('<var>ruta/al/directorio/</var>', <kbd>$top_level_only</kbd> = TRUE)</h2>
+<p>Lee el directorio especificado y arma un array conteniendo los nombres, tama&ntilde;os, fechas y permisos de los archivos. Las sub-carpetas contenidas dentro de la ruta especificada solamente se leen si se lo fuerza enviando el segundo par&aacute;metro, <kbd>$top_level_only</kbd> en <samp>FALSE</samp>, ya que esta puede ser una operaci&oacute;n intensiva.</p>
+
+<h2>get_file_info('<var>ruta/al/archivo</var>', <kbd>$file_information</kbd>)</h2>
+
+<p>Dados un archivo y una ruta, devuelve el nombre, ruta, tama&ntilde;o, y fecha de modificaci&oacute;n. El segundo par&aacute;metro le permite declarar expl&iacute;citamente la informaci&oacute;n que quiere devolver. Las opciones son: name, server_path, size, date, readable, writable, executable, fileperms. Devuelve FALSE si no se encuentra el archivo.</p>
+
+<p class="important"><strong>Nota:</strong> La opci&oacute;n "writable" usa la funci&oacute;n is_writable() de PHP que es conocida por tener problemas en el servidor web IIS. En su lugar, considere usar "fileperms", que devuelve informaci&oacute;n de la funci&oacute;n fileperms() de PHP.</p>
+<h2>get_mime_by_extension('<var>file</var>')</h2>
+
+<p>Traduce una extensi&oacute;n de archivo a un tipo mime basado en config/mimes.php. Devuelve FALSE si no se puede determinar al tipo, o abrir el archivo de configuraci&oacute;n mime.</p>
+<code>
+$file = "somefile.png";
+echo $file . ' tiene un tipo mime de ' . get_mime_by_extension($file);
+</code>
+
+<p class="critical"><strong>Nota:</strong> Esta no es una forma exacta de determinar el tipo mime del archivo, estnado aqu&iacute; estrictamente por
+conveniencia. Por cuestiones de seguridad, no se deber&iacute;a usar.</p>
+
+<h2>symbolic_permissions(<kbd>$perms</kbd>)</h2>
+<p>Toma permisos num&eacute;ricos (tales como los devueltas por <kbd>fileperms()</kbd> y devuelve la notaci&oacute;n simb&oacute;lica est&aacute;ndar de los permisos de archivo.</p>
+
+<code>echo symbolic_permissions(fileperms('./index.php'));<br />
+<br />
+// -rw-r--r--</code>
+
+<h2>octal_permissions(<kbd>$perms</kbd>)</h2>
+<p>Toma permisos num&eacute;ricos (tales como los devueltas por <kbd>fileperms()</kbd> y devuelve la notaci&oacute;n octal de tres caracteres de los permisos de archivo.</p>
+
+<code>echo octal_permissions(fileperms('./index.php'));<br />
+<br />
+// 644</code>
+
+</div>
+
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="email_helper.html">Helper Email</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="form_helper.html">Helper Form</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

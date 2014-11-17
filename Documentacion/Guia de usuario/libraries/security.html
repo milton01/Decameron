@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Security : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Security
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Clase Security</h1>
+<p>La Clase Security contiene m&eacute;todos que lo ayudan a crear una aplicaci&oacute;n segura, procesando los datos de entrada para brindarle seguridad.</p>
+
+<h2>Filtrado XSS</h2>
+
+<p>CodeIgniter viene con un filtro para evitar Cross Site Scripting Hack que puede correr autom&aacute;ticamente tanto para filtrar todos los datos POST y COOKIE que se encuentren como por &iacute;tem. Por defecto, <strong>NO</strong> corre globalmente ya que genera una peque&ntilde;a sobrecarga de procesamiento, y puede que no lo necesite en todos los casos.</p>
+
+<p>El filtro XSS busca t&eacute;cnicas com&uacute;nmente usadas para disparar Javascript u otro tipo de c&oacute;digo que intenta secuestrar cookies o hacer cosas maliciosas. Si se encuentra algo no permitido, se lo presenta en forma segura al convertir los datos a entidades de caracter.</p>
+
+<p>Nota: Esta funci&oacute;n solamente se deber&iacute;a usar para tratar los datos enviados. No es algo que se deber&iacute;a usar para procesamiento general en tiempo de ejecuci&oacute;n dada la sobrecarga de procesamiento que causa.</p>
+
+<p>Para filtrar datos mediante el filtro XSS, use esta funci&oacute;n:</p>
+
+<h2>$this->security->xss_clean()</h2>
+<p>Aqu&iacute; hay un ejemplo de uso:</p>
+
+<code>$data = $this->security->xss_clean($data);</code>
+
+<p>Si desea que el filtro funcione autom&aacute;ticamente cada vez que encuentra datos POST o COOKIE, puede habilitarlo al abrir su archivo <kbd>application/config/config.php</kbd> y configurando esto:</p>
+
+<code>$config['global_xss_filtering'] = TRUE;</code>
+
+<p>Nota: Si usa la Clase Form_validation, &eacute;sta tambi&eacute;n le da la posibilidad de Filtrado XSS.</p>
+
+<p>Un segundo par&aacute;metro opcional, is_image, le permite a esta funci&oacute;n ser usada para probar im&aacute;genes contra potenciales ataques XSS, &uacute;til para la seguridad de subidas de archivos. Cuando se establece a TRUE este segundo par&aacute;metro, en lugar de devolver una cadena alterada, la funci&oacute;n devuelve TRUE si la imagen es segura y FALSE si contiene informaci&oacute;n potencialmente maliciosa que un navegador podr&iacute;a ejecutar.</p>
+
+<code>
+if ($this->security->xss_clean($file, TRUE) === FALSE)<br />
+{<br />
+// el archivo fall&oacute; la prueba XSS<br />
+}
+</code>
+
+<h2>$this->security->sanitize_filename()</h2>
+<p>Al aceptar nombres de archivo desde la entrada del usuario, es mejor descontaminarlos para evitar el recorrido de directorios y otros problemas de seguridad. Para hacerlo, use el m&eacute;todo <dfn>sanitize_filename()</dfn> de la Clase Security. Este es un ejemplo:</p>
+
+<code>$filename = $this->security->sanitize_filename($this->input->post('filename'));</code>
+
+<p>Si es aceptable para la entrada del usuario incluir rutas relativas, por ejemplo <kbd>archivo/en/alguna/carpeta/aprobada.txt</kbd>, puede establecer el segundo par&aacute;metro opcional, <samp>$relative_path</samp> a TRUE.</p>
+
+<code>$filename = $this->security->sanitize_filename($this->input->post('filename'), TRUE);</code>
+
+<!-- @todo write docs for CSRF methods -->
+
+<h2>Cross-site request forgery (CSRF)</h2>
+<p>Puede habilitar la protecci&oacute;n CSRF abriendo su archivo <kbd>application/config/config.php</kbd> y configurando esto:</p>
+
+<code>$config['csrf_protection'] = TRUE;</code>
+
+<p>Si usa el <a href="../helpers/form_helper.html">helper form</a>  la <var>funci&oacute;n form_open()</var> insertar&aacute; autom&aacute;ticamente un campo CSRF oculto en su formulario.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="parser.html">Clase Parser</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="sessions.html">Clase Session</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

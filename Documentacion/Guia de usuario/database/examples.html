@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Inicio R&aacute;pido de Base de Datos : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Inicio R&aacute;pido de Base de Datos: C&oacute;digo de Ejemplo
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+	<h1>Inicio R&aacute;pido de Base de Datos: C&oacute;digo de Ejemplo</h1>
+	<p>La p&aacute;gina siguiente contiene c&oacute;digo de ejemplo mostrando como la clase de base de datos es usada. Para detalles completos por favor lea las p&aacute;ginas individuales describiendo cada funci&oacute;n.</p>
+
+	<h2>Inicializando la Clase de Base de Datos</h2>
+	<p>El c&oacute;digo siguiente carga e inicializa la clase de base de datos basado en tu <a href="configuration.html">configuraci&oacute;n</a>:</p>
+
+<code>$this->load->database();</code>
+
+	<p>Una vez cargada la clase, est&aacute; lista para ser usada como se describe a continuaci&oacute;n.</p>
+
+	<p>Nota: si todas tus p&aacute;ginas requieren acceso a la base de datos, puedes conectarla autom&aacute;ticamente. Vea la p&aacute;gina de <a href="connecting.html">conexi&oacute;n</a> para detalles.</p>
+
+	<h2>Consulta Est&aacute;ndar con M&uacute;ltiples Resultados (Versi&oacute;n Objeto)</h2>
+
+<code>$consulta = $this->db->query('SELECT nombre, titulo, email FROM mi_tabla');<br />
+<br />
+foreach ($consulta->result() as $fila)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->titulo;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->nombre;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->email;<br />
+}<br />
+<br />
+echo 'Resultados Totales: ' . $consulta->num_rows();
+</code>
+
+<p>La funci&oacute;n <dfn>result()</dfn> de arriba devuelve un arreglo de <strong>objetos</strong>. Por ejemplo: $fila->titulo</p>
+
+<h2>Consulta Est&aacute;ndar con M&uacute;ltiples Resultados (Versi&oacute;n Arreglo)</h2>
+
+<code>$consulta = $this->db->query('SELECT nombre, titulo, email FROM mi_tabla');<br />
+<br />
+foreach ($consulta->result_array() as $fila)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila['titulo'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila['nombre'];<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila['email'];<br />
+}</code>
+
+<p>La funci&oacute;n <dfn>result_array()</dfn> de arriba devuelve una arreglo de arreglos con &iacute;ndices comunes. Por ejemplo:  $fila['titulo']</p>
+
+<h2>Probando los Resultados</h2>
+
+<p>Si ejecutas consultas que pueden <strong>not</strong> producir un resultado, eres animado a probar el resultado antes usando la funci&oacute;n <dfn>num_rows()</dfn>:</p>
+
+<code>
+$consulta = $this->db->query("YOUR QUERY");<br />
+<br />
+if ($consulta->num_rows() > 0)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;foreach ($consulta->result() as $fila)<br />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->titulo;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->nombre;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->body;<br />
+&nbsp;&nbsp;&nbsp;}<br />
+}
+</code>
+
+<h2>Consulta Est&aacute;ndar Con Un Solo Resultado</h2>
+
+<code>$consulta = $this->db->query('SELECT nombre FROM mi_tabla LIMIT 1');<br />
+<br />
+$fila = $consulta->row();<br />
+echo $fila->nombre;<br />
+</code>
+
+<p>La funci&oacute;n de arriba <dfn>row()</dfn> devuelve un <strong>objeto</strong>. Por ejemplo: $fila->nombre</p>
+
+<h2>Consulta Est&aacute;ndar Con Un Solo Resultado (Versi&oacute;n Arreglo)</h2>
+
+<code>$consulta = $this->db->query('SELECT nombre FROM mi_tabla LIMIT 1');<br />
+<br />
+$fila = $consulta->row_array();<br />
+echo $fila['nombre'];<br />
+</code>
+
+<p>La funci&oacute;n de arriba <dfn>row_array()</dfn> devuelve un <strong>arreglo</strong>. Por ejemplo: $fila['nombre']</p>
+
+<h2>Insertar Est&aacute;ndar</h2>
+
+<code>
+$sql = "INSERT INTO mitabla (titulo, nombre) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES (".$this->db->escape($titulo).", ".$this->db->escape($nombre).")";<br />
+<br />
+$this->db->query($sql);<br />
+<br />
+echo $this->db->affected_rows();
+</code>
+
+<h2>Consulta Active Record</h2>
+
+<p>El <a href="active_record.html">Patr&oacute;n Active Record</a> otorga una forma simplificada de recuperar datos:</p>
+
+<code>
+$consulta = $this->db->get('nombre_tabla');<br />
+<br />
+foreach ($consulta->result() as $fila)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->titulo;<br />
+}</code>
+
+<p>La funci&oacute;n <dfn>get()</dfn> de arriba devuelve todos los resultados de la tabla.
+La clase <a href="active_record.html">Active Record</a> contiene un completo complemento de funciones para trabajar con datos.</p>
+
+<h2>Insertar con Active Record</h2>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'titulo' => $titulo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre' => $nombre,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'fecha' => $fecha<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->db->insert('mitabla', $data);
+<br /><br />
+// Produce: INSERT INTO mitabla (titulo, nombre, fecha) VALUES ('{$titulo}', '{$nombre}', '{$fecha}')</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="index.html">Clase Database</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="configuration.html">Configuraci&oacute;n de Base de Datos</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Typography : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Typography
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Clase Typography</h1>
+<p>La clase Typography provee funciones que le ayudan a formatear texto.</p>
+
+<h2>Inicializar la Clase</h2>
+
+<p>Como la mayor&iacute;a de las clases en CodeIgniter, la clase Typography se inicializa en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('typography');</code>
+
+<p>Una vez cargada, el objeto de la biblioteca Typography estar&aacute; disponible usando: <dfn>$this->typography</dfn></p>
+
+<h2>auto_typography()</h2>
+<p>Formatea texto para que sea HTML sem&aacute;ntica y tipogr&aacute;ficamente correctos. Toma como entrada una cadena y la devuelve con el siguiente formato:</p>
+
+<ul>
+<li>Rodea p&aacute;rrafos dentro de &lt;p&gt;&lt;/p&gt; (busca saltos de l&iacute;nea dobles para identificar p&aacute;rrafos).</li>
+<li>Los saltos de l&iacute;nea simples se convierten en &lt;br /&gt;, excepto aquellos que aparecen dentro de etiquetas &lt;pre>.</li>
+<li>Los elementos a nivel de bloque, como las etiquetas &lt;div&gt;, no tienen saltos de l&iacute;nea autom&aacute;tico dentro de los p&aacute;rrafos, pero s&iacute; su texto contenido, si contiene p&aacute;rrafos.</li>
+<li>Las comillas se convierten correctamente en comillas tipogr&aacute;ficas enfrentadas, excepto aquellas que aparecen dentro de las etiquetas.</li>
+<li>Los ap&oacute;strofes se convierten en ap&oacute;strofes tipogr&aacute;ficos.</li>
+<li>Los guiones dobles (sea como -- estos o como estos--otros) se convierten en estos&#8212;guiones.</li>
+<li>Tres puntos correlativos sea precediendo o siguiendo a una palabras, se convierten en puntos suspensivos &#8230;</li>
+<li>Los espacios dobles siguiendo sentencias se convierten en &amp;nbsp; que imitan el doble espaciado.</li>
+</ul>
+
+<p>Ejemplo de Uso:</p>
+
+<code>$string = $this->typography->auto_typography($string);</code>
+
+<h3>Par&aacute;metros</h3>
+<p>Hay un par&aacute;metro opcional que determina si el analizador sint&aacute;ctico deber&iacute;a reducir de dos saltos de l&iacute;nea consecutivos a dos. Usar el booleano <kbd>TRUE</kbd> o <kbd>FALSE</kbd>.</p>
+
+<p>Por defecto, el analizador sint&aacute;ctico no reduce los saltos de l&iacute;nea. En otras palabras, si no se env&iacute;an par&aacute;metros es lo mismo que hacer esto:</p>
+
+<code>$string = $this->typography->auto_typography($string, <kbd>FALSE</kbd>);</code>
+
+<p class="important"><strong>Nota:</strong> El formateo tipogr&aacute;fico puede ser intensivo en el uso del procesador, particularmente si hay mucho
+contenido a formatear. Si elige esta funci&oacute;n puede querer considerar <a href="../general/caching.html">cachear</a> sus p&aacute;ginas.</p>
+
+<h2>format_characters()</h2>
+<p>Esta funci&oacute;n es similar a la <dfn>auto_typography()</dfn> anterior, excepto que solamente hace conversi&oacute;n de caracteres:</p>
+
+<ul>
+<li>Las comillas se convierten correctamente a comillas tipogr&aacute;ficas enfrentadas, excepto para aquellas que aparecen dentro de etiquetas.</li>
+<li>Los ap&oacute;strofes se convierten a ap&oacute;strofes tipogr&aacute;ficos.</li>
+<li>Los guiones dobles (sea como -- estos o como estos--otros) se convierten en estos&#8212;guiones.</li>
+<li>Tres puntos correlativos sea precediendo o siguiendo a una palabras, se convierten en puntos suspensivos &#8230;</li>
+<li>Los espacios dobles siguiendo sentencias se convierten en &amp;nbsp; que imitan el doble espaciado.</li>
+</ul>
+
+<p>Ejemplo de Uso:</p>
+
+<code>$string = $this->typography->format_characters($string);</code>
+
+<h2>nl2br_except_pre()</h2>
+
+<p>Convierte caracteres de nueva l&iacute;nea en etiquetas &lt;br /&gt; a menos que aparezcan dentro de etiquetas &lt;pre&gt;. Esta funci&oacute;n es id&eacute;ntica a la funci&oacute;n <dfn>nl2br()</dfn> nativa de PHP, excepto que ignora las etiquetas &lt;pre&gt;.</p>
+
+<p>Ejemplo de Uso:</p>
+
+<code>$string = $this->typography->nl2br_except_pre($string);</code>
+
+<h2>protect_braced_quotes</h2>
+
+<p>Al usar la biblioteca Typography junto con la Clase Parser, a veces puede ser deseable proteger las comillas simples y dobles con llaves. Para habilitar esto, establecer la propiedad <kbd>protect_braced_quotes</kbd> de la clase a <samp>TRUE</samp>.</p>
+
+<p>Ejemplo de Uso:</p>
+
+<code>
+$this->load->library('typography');<br />
+$this->typography->protect_braced_quotes = TRUE;
+</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="trackbacks.html">Clase Trackbacks</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="unit_testing.html">Clase Unit_test</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

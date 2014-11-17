@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase URI : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase URI
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase de URI</h1>
+<p>La Clase de URI provee funciones que le ayudar&aacute;n a obtener informaci&oacute;n desde cadenas URI. Si usa ruteo URI, puede tambi&eacute;n obtener informaci&oacute;n de segmentos redirigidos.</p>
+
+<p class="important"><strong>Nota:</strong> Esta clase es inicializada autom&aacute;ticamente por el sistema, as&iacute; que no necesita hacerlo manualmente.</p>
+
+<h2>$this->uri->segment(<var>n</var>)</h2>
+<p>Permite recuperar un segmento espec&iacute;fico. Donde <var>n</var> es el n&uacute;mero de segmento que desea recuperar. Los segmentos est&aacute;n numerados de izquierda a derecha. Por ejemplo, si su URL completa es esta:</p>
+
+<code>http://www.your-site.com/index.php/noticias/local/ciudad/subio_el_crimen</code>
+
+<p>Los n&uacute;meros de segmentos ser&aacute;n estos:</p>
+
+<ol>
+<li>noticias</li>
+<li>local</li>
+<li>ciudad</li>
+<li>subio_el_crimen</li>
+</ol>
+
+<p>Por defecto, la funci&oacute;n devuelve (buleano) si el segmento no existe. Existe un opcional segundo par&aacute;metro que le permite establecer su propio valor por defecto si el segmento no se encuentra. Por ejemplo, esto le dir&aacute; a la funci&oacute;n que devuelva el n&uacute;mero cero en caso de fallo:</p>
+
+<code>$producto_id = $this->uri->segment(3, 0);</code>
+
+<p>Ayuda a evitar tener que escribir l&iacute;neas de c&oacute;digo as&iacute;:</p>
+
+<code>
+if ($this->uri->segment(3) === FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$product_id = 0;<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$product_id = $this->uri->segment(3);<br />
+}<br />
+</code>
+
+<h2>$this->uri->rsegment(<var>n</var>)</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la previa, excepto que le permite recuperar un segmento espec&iacute;fico de su  redirigida URI en el caso de que est&eacute; usando la caracter&iacute;stica de <a href="../general/routing.html">Ruteo de URI</a> de CodeIgniter.</p>
+
+<h2>$this->uri->slash_segment(<var>n</var>)</h2>
+<p>Esta funci&oacute;n es casi id&eacute;ntica a <dfn>$this->uri->segment()</dfn>, excepto que agrega una barra al principio y/o final basado en el segundo par&aacute;metro. Si el par&aacute;metro no es usado, una barra es agregada al final. Ejemplos:</p>
+
+<code>
+$this->uri->slash_segment(<var>3</var>);<br />
+$this->uri->slash_segment(<var>3</var>, 'leading');<br />
+$this->uri->slash_segment(<var>3</var>, 'both');
+</code>
+
+<p>Devuelve:</p>
+
+<ol>
+<li>segment/</li>
+<li>/segment</li>
+<li>/segment/</li>
+</ol>
+
+<h2>$this->uri->slash_rsegment(<var>n</var>)</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la previa, excepto que le permite recuperar un segmento espec&iacute;fico de su redirigida URI en el caso de que est&eacute; usando la caracter&iacute;stica de <a href="../general/routing.html">Ruteo de URI</a> de CodeIgniter.</p>
+
+<h2>$this->uri->uri_to_assoc(<var>n</var>)</h2>
+<p>Esta funci&oacute;n le permite transformar segmentos URI en un arreglo asociativo de pares de claves/valores. Considere esta URI:</p>
+
+<code>index.php/usuario/busqueda/nombre/jose/ubicacion/UK/sexo/masculino</code>
+
+<p>Usando esta funci&oacute;n puede transformar la URI en un arreglo asociativo con este prototipo:</p>
+
+<code>
+[array]<br />
+(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'nombre' => 'jose'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'ubicacion'	=> 'UK'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'sexo'	=> 'masculino'<br />
+)
+</code>
+
+<p>El primer par&aacute;metro de la funci&oacute;n establece un inicio. Por defecto es establecido en <kbd>3</kbd> ya que sus URI normalmente contendr&aacute;n un controlador/funci&oacute;n en el primer y segundo segmento. Ejemplo:</p>
+
+<code>
+$arreglo = $this->uri->uri_to_assoc(3);<br />
+<br />
+echo $arreglo['nombre'];
+</code>
+
+<p>El segundo par&aacute;metro le permite establecer nombres de clave por defecto, as&iacute; el arreglo devuelto por la funci&oacute;n siempre contendr&aacute; los &iacute;ndices esperados, incluso si no est&aacute;n en la URI. Ejemplo:</p>
+
+<code>
+$por_defecto = array('nombre', 'genero', 'ubicacion', 'tipo', 'orden');<br />
+<br />
+$arreglo = $this->uri->uri_to_assoc(3, $por_defecto);
+</code>
+
+<p>Si la URI no contiene un valor por defecto, un &iacute;ndice del arreglo ser&aacute; establecido con ese nombre, con el valor de FALSE.</p>
+
+<p>Por &uacute;ltimo, si un valor correspondiente no es encontrado para una clave dada (si hay un n&uacute;mero impar de segmentos de URI) el valor ser&aacute; establecido en FALSE (boolean).</p>
+
+<h2>$this->uri->ruri_to_assoc(<var>n</var>)</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la previa, excepto que le permite recuperar un segmento espec&iacute;fico de su redirigida URI en el caso de que est&eacute; usando la caracter&iacute;stica de <a href="../general/routing.html">Ruteo de URI</a> de CodeIgniter.</p>
+
+<h2>$this->uri->assoc_to_uri()</h2>
+<p>Toma un arreglo asociativo como entrada y genera una cadena URI de &eacute;l. La claves del arreglo ser&aacute;n incluidos en la cadena. Ejemplo:</p>
+
+<code>
+$arreglo = array('producto' => 'zapatos', 'tamano' => 'largo', 'color' => 'rojo');<br />
+<br />
+$str = $this->uri->assoc_to_uri($arreglo);<br />
+<br />
+// Produce:  producto/zapatos/tamano/largo/color/rojo
+</code>
+
+<h2>$this->uri->uri_string()</h2>
+<p>Devuelve una cadena con la URI completa. Por ejemplo, si su URL completa es.</p>
+
+<code>http://www.su-sitio.com/index.php/noticias/local/345</code>
+
+<p>La funci&oacute;n devolver&aacute; esto:</p>
+<code>/noticias/local/345</code>
+
+<h2>$this->uri->ruri_string(<var>n</var>)</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la previa, excepto que le permite recuperar un segmento espec&iacute;fico de su redirigida URI en el caso de que est&eacute; usando la caracter&iacute;stica de <a href="../general/routing.html">Ruteo de URI</a> de CodeIgniter.</p>
+
+<h2>$this->uri->total_segments()</h2>
+<p>Devuelve el n&uacute;mero de segmentos totales.</p>
+
+<h2>$this->uri->total_rsegments()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la previa, excepto que le permite recuperar un segmento espec&iacute;fico de su redirigida URI en el caso de que est&eacute; usando la caracter&iacute;stica de <a href="../general/routing.html">Ruteo de URI</a> de CodeIgniter.</p>
+
+<h2>$this->uri->segment_array()</h2>
+<p>Devuelve un arreglo que contiene los segmentos URI. Por ejemplo:</p>
+
+<code>
+$segs = $this->uri->segment_array();<br />
+<br />
+foreach ($segs as $segmento)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $segmento;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo '&lt;br />';<br />
+}</code>
+
+<h2>$this->uri->rsegment_array(<var>n</var>)</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la previa, excepto que le permite recuperar un segmento espec&iacute;fico de su redirigida URI en el caso de que est&eacute; usando la caracter&iacute;stica de <a href="../general/routing.html">Ruteo de URI</a> de CodeIgniter.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="file_uploading.html">Clase Upload</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="user_agent.html">Clase User_agent</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

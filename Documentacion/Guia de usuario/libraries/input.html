@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Input : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Input
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Clase Input</h1>
+
+<p>La Clase de Entrada sirve para dos prop&oacute;sitos:</p>
+
+<ol>
+<li>Pre-procesa datos de entrada global por seguridad.</li>
+<li>Provee alguna funciones auxiliares para recuperar datos de entradas y pre-procesarlos.</li>
+</ol>
+
+<p class="important"><strong>Nota:</strong> Esta clase es inicializada autom&aacute;ticamente por el sistema, as&iacute; que no hay necesidad de que lo haga manualmente.</p>
+
+<h2>Filtros de Seguridad</h2>
+<p>La funci&oacute;n de filtro de seguridad es llamada autom&aacute;ticamente cuando un nuevo <a href="../general/controllers.html">controlador</a> es invocado. Hace lo siguiente:</p>
+
+<ul>
+<li>Destruye todo el arreglo global GET. Ya que CodeIgniter no utiliza cadenas GET, no hay raz&oacute;n para permitirla.</li>
+<li>Destruye todas las variables globales en el caso de que register_globals est&eacute; habilitado.</li>
+<li>Filtra las claves de POST/COOKIE, permitiendo s&oacute;lo caracteres alfanum&eacute;ricos (y algunos pocos m&aacute;s).</li>
+<li>Provee filtro XSS (Cross-site Scripting Hacks). Esto puede ser habilitado globalmente, o a pedido.</li>
+<li>Estandariza las caracteres de nueva l&iacute;nea a \n</li>
+</ul>
+
+
+
+<h2>Filtro XSS</h2>
+
+<p>La Clase Input tiene la habilidad de filtrar la entrada autom&aacute;ticamente para evitar ataques cross-site scripting. Si
+desea que el filtrado se ejecute autom&aacute;ticamente cada vez que encuentra datos POST o COOKIE, puede habilitarlo abriendo su archivo <kbd>application/config/config.php</kbd> y configurando esto:</p>
+
+<code>$config['global_xss_filtering'] = TRUE;</code>
+
+<p>Por favor, referirse a la documentaci&oacute;n de la <a href="security.html">Clase Security</a> para mayor informaci&oacute;n sobre el Filtrado XSS en su aplicaci&oacute;n.</p>
+
+<h2>Usar Datos POST, COOKIE, or SERVER</h2>
+<p>CodeIgniter viene con tres funciones asistentes que le permiter recuperar &iacute;tems POST, COOKIE or SERVER.  La principal ventaja de usar las funciones provistas en vez de traer el &iacute;tem directamente ($_POST['algo']) es que la funci&oacute;n verificar&aacute; si el &iacute;tem existe y devuelve false (buleano) si no. Esto le permite convenientemente usar datos sin tener que probar si un &iacute;tem existe primero. En otras palabras, normalmente puede hacer algo as&iacute;:</p>
+
+<code>
+if ( ! isset($_POST['algo']))<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$algo = FALSE;<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$algo = $_POST['algo'];<br />
+}</code>
+
+<p>Con las funciones de CodeIgniter puede simplemente hacer esto:</p>
+
+<code>$algo = $this->input->post('algo');</code>
+
+<p>Las tres funciones son:</p>
+
+<ul>
+<li>$this->input->post()</li>
+<li>$this->input->cookie()</li>
+<li>$this->input->server()</li>
+</ul>
+
+<h2>$this->input->post()</h2>
+
+<p>El primer par&aacute;metro contendr&aacute; el nombre del &iacute;tem POST que est&aacute; buscando:</p>
+
+<code>$this->input->post('algun_dato');</code>
+
+<p>La funci&oacute;n devuelve FALSE (buleano) si el &iacute;tem que intenta recuperar no existe.</p>
+
+<p>El segundo opcional par&aacute;metro le permite correr los datos a trav&eacute;s del filtro XSS. Es habilitada al establecer el segundo par&aacute;metro como un booleano TRUE;</p>
+
+<code>$this->input->post('algun_dato', TRUE);</code>
+
+<p>Para devolver un array de todos los &iacute;tems POST, llamarla sin par&aacute;metros.</p>
+
+<p>Para devolver todos los &iacute;tems POST y pasarlos a trav&eacute;s del filtro XSS, deje el primer par&aacute;metro en blanco y establezca el segundo par&aacute;metro a un booleano.</p>
+
+<p>La funci&oacute;n devuelve FALSE (booleano) si no hay &iacute;tems en el POST.</p>
+
+<code>
+	$this->input->post(); // devuelve todos los &iacute;tems POST con Filtrado XSS<br/>
+$this->input->post(NULL, FALSE); // devuelve todos los &iacute;tems POST sin Filtrado XSS<br/>
+</code>
+
+<h2>$this->input->get()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la funci&oacute;n post, solo que recupera datos GET:</p>
+
+<code>$this->input->get('algun_dato', TRUE);</code>
+
+<p>Para devolver un array de todos los &iacute;tems, llamarla sin par&aacute;metros.</p>
+
+<p>Para devolver todos los &iacute;tems GET y pasarlos a trav&eacute;s del filtro XSS, deje el primer par&aacute;metro en blanco y establezca el segundo par&aacute;metro al booleano TRUE.</p>
+
+<p>La funci&oacute;n devuelve FALSE (booleano) si no hay &iacute;tems en el GET.</p>
+
+<code>
+	$this->input->get(); // devuelve todos los &iacute;tems GET con Filtrado XSS
+	<br />
+	$this->input->get(NULL, FALSE); // devuelve todos los &iacute;tems items sin Filtrado XSS
+</code>
+
+<h2>$this->input->get_post()</h2>
+<p>Esta funci&oacute;n buscar&aacute; datos a traves de los flujos post y get, primero en post y luego en get:</p>
+
+<code>$this->input->get_post('algun_dato', TRUE);</code>
+
+<h2>$this->input->cookie()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la funci&oacute;n post, s&oacute;lo que recupera datos de cookie:</p>
+
+<code>$this->input->cookie('algun_dato', TRUE);</code>
+
+<h2>$this->input->server()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a las funciones anteriores, s&oacute;lo que recupera datos del servidor:</p>
+
+<code>$this->input->server('algun_dato');</code>
+
+<h2>$this->input->set_cookie()</h2>
+<p>Establece una cookie conteniendo los valores que especifique. Hay dos formas de pasarle informaci&oacute;n a esta funci&oacute;n: M&eacute;todo de Array y Par&aacute;metros Discretos.</p>
+
+<h4>M&eacute;todo de Array</h4>
+<p>Al usar este m&eacute;todo, se pasa un array asociativo al primer par&aacute;metro:</p>
+
+<code>
+$cookie = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp;=> 'Nombre de la Cookie',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'value'&nbsp;&nbsp;=> 'Valor de la Cookie',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'expire' => '86500',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'domain' => '.algun-dominio.com',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'path'&nbsp;&nbsp;&nbsp;=> '/',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'prefix' => 'mi_prefijo_',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;'secure' => TRUE<br />
+);<br />
+<br />
+$this->input->set_cookie($cookie);
+</code>
+
+<p><strong>Notas:</strong></p>
+
+<p>&bull; Solamente el nombre y el valor son obligatorios. Para borrar una cookie establezca la caducudad ('expire') en blanco.</p>
+
+<p>&bull; La caducidad se establece en <strong>segundos</strong>, que se agregar&aacute;n a la hora actual. No incluya la hora, sino solamente la cantidad de segundos desde <em>ahora</em> en los que desea que la cookie sea v&aacute;lida. Si la caducidad se establece a cero, la cookie durar&aacute; solamente el tiempo en el que el navegador est&eacute; abierto.</p>
+
+<p>&bull; Para las cookies de todo el sitio, independientemente de c&oacute;mo sea solicitado su sitio, agregar su URL al <strong>dominio</strong> comenzando con un punto, as&iacute;: .su-dominio.com</p>
+
+<p>&bull; Normalmente la ruta no es necesaria porque la funci&oacute;n establece una ruta de servidor.</p>
+
+<p>&bull; Solamente se necesita el prefijo si necesita evitar colisiones de nombres con otras cookies que se llaman igual en su servidor.</p>
+
+<p>&bull; Solamente se necesita el booleano 'secure' si quiere hacer una cookie segura, estableci&eacute;ndolo a TRUE.</p>
+
+<h4>Par&aacute;metros Discretos</h4>
+<p>Si lo prefiere, puede establecer la cookie pas&aacute;ndole datos al usar par&aacute;metros individuales:</p>
+
+<code>
+	$this->input->set_cookie($name, $value, $expire, $domain, $path, $prefix, $secure);
+</code>
+
+<h2>$this->input->cookie()</h2>
+<p>Le permite recuperar una cookie. El primer par&aacute;metro contendr&aacute; el nombre de la cookie que est&aacute; buscando
+(incluyendo cualquier prefijo):</p>
+
+<code>cookie('alguna_cookie');</code>
+
+<p>La funci&oacute;n devuelve FALSE (booleano) si el &iacute;tem que est&aacute; intentando recuperar no existe.</p>
+
+<p>El segundo par&aacute;metro (opcional) le permite pasar los datos a trav&eacute;s del filtro XSS. Se habilita estableciendo el segundo par&aacute;metro al booleano TRUE.</p>
+
+<p><code>cookie('alguna_cookie', TRUE);</code></p>
+
+<h2>$this->input->ip_address()</h2>
+<p>Devuelve la direcci&oacute;n IP del usuario actual. Si la direcci&oacute;n IP no es v&aacute;lida, la funci&oacute;n devolver&aacute; la IP: 0.0.0.0.</p>
+
+<code>echo $this->input->ip_address();</code>
+
+<h2>$this->input->valid_ip(<var>$ip</var>)</h2>
+<p>Toma como entrada una direcci&oacute;n IP y devuelve TRUE o FALSE (booleano) seg&uacute;n sea v&aacute;lida o no. Nota: La funci&oacute;n $this->input->ip_address() anterior valida la IP autom&aacute;ticamente.</p>
+
+<code>if ( ! $this-&gt;input-&gt;valid_ip($ip))<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp; echo 'Inv&aacute;lida';<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp; echo 'V&aacute;lida';<br />
+}</code>
+<p>Acepta un segundo parámetro opcional de cadena "IPv4" o "IPv6" para especificar un formato de IP. El valor por defecto controla ambos formatos.</p>
+
+<h2>$this->input->user_agent()</h2>
+<p>Devuelve el agente de usuario (navegador web) que usa el usuario actual. Devuelve FALSE si no est&aacute; disponible.</p>
+
+<code>echo $this->input->user_agent()</code>
+
+<p>Vea la <a href="user_agent.html">Clase User_agent</a> para obtener informaci&oacute;n de c&oacute;mo extraer de la cadena del agente de usuario.</p>
+
+<h2>$this->input->request_headers()</h2>
+<p>&Uacute;til si est&aacute; corriendo en un entorno que no es Apache donde <a href="http://php.net/apache_request_headers">apache_request_headers()</a> no est&aacute; soportado.</p>
+
+<code>$headers = $this->input->request_headers();</code>
+
+<h2>$this->input->get_request_header();</h2>
+<p>Devuelve un miembro simple del array de encabezados de solicitud.</p>
+
+<code>$this->input->get_request_header('algun-encabezado', TRUE);</code>
+
+<h2>$this->input->is_ajax_request()</h2>
+<p>Comprueba si el encabezado de servidor <var>HTTP_X_REQUESTED_WITH</var> est&aacute; establecido y devuelve una respuesta booleana.</p>
+
+<h2>$this->input->is_cli_request()</h2>
+<p>Comprueba si la constante <var>STDIN</var> est&aacute; establecida, que es una forma segura de probar si PHP se est&aacute; ejecutando desde la l&iacute;nea de comandos.</p>
+
+<code>$this->input->is_cli_request()</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="image_lib.html">Clase Image_lib</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="javascript.html">Clase Javascript</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

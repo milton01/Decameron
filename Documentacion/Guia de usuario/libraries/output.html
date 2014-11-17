@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Output : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Output
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Clase Output</h1>
+<p>La Clase Output es una clase peque&ntilde;a con una funci&oacute;n principal: Enviar la p&aacute;gina web terminada al navegador. Es responsable de <a href="../general/caching.html">almacenar en cach&eacute;</a> las p&aacute;ginas web, si se usa esta funcionalidad.</p>
+
+<p class="important"><strong>Nota:</strong> El sistema inicializa autom&aacute;ticamente esta clase, por lo que no hay necesidad de hacerlo manualmente.</p>
+
+<p>Bajo circunstancias normales no advertir&aacute; la Clase Output, ya que funciona de forma transparente sin su intervenci&oacute;n. Por ejemplo, cuando usa la clase <a href="../libraries/loader.html">Load</a> para cargar un archivo de vista, se pasa autom&aacute;ticamente a la Clase Output, a la cual llamar&aacute; autom&aacute;ticamente CodeIgniter al final de la ejecuci&oacute;n del sistema. Sin embargo, es posible que Ud intervenga manualmente con la salida si lo necesita, usando cualesquiera de las siguientes dos funciones:</p>
+
+<h2>$this->output->set_output();</h2>
+<p>Le permite establecer manualmente la cadena de salida final. Ejemplo de Uso:</p>
+
+<code>
+$this->output->set_output($data);
+</code>
+
+<p><strong>Importante:</strong> Si establece manualmente la salida, tiene que ser la &uacute;ltima cosa hecha en la funci&oacute;n que la llama. Por ejemplo, si arma una p&aacute;gina en una de sus funciones controlador, no establezca la salida hasta el fin.</p>
+
+<h2>$this->output->set_content_type();</h2>
+<p>Le permite establecer el tipo mime de su p&aacute;gina para que sirva datos JSON, JPEG's, XML, etc. f&aacute;cilmente.</p>
+<pre>
+$this->output
+	->set_content_type('application/json')
+	->set_output(json_encode(array('foo' => 'bar')));
+	
+$this->output
+	->set_content_type('jpeg') // Tambi&eacute;n podr&iacute;a usar ".jpeg" que tendr&aacute; el punto eliminado antes de buscar en config/mimes.php
+->set_output(file_get_contents('files/algo.jpg'));
+</pre>
+
+<p><strong>Importante:</strong> Asegurarse que ninguna cadena no-mime que pase a este m&eacute;todo existe en config/mimes.php o no tendr&aacute; efecto.</p>
+
+<h2>$this->output->get_output();</h2>
+<p>Le permite recuperar manualmente cualquier salida que haya sido enviada para almacenar en la clase Output. Ejemplo de Uso:</p>
+
+<code>$string = $this->output->get_output();</code>
+
+<p>Advierta que los datos solamente se recuperar&aacute;n con esta funci&oacute;n si previamente fueron enviados a la clase Output por una de las funciones de CodeIgniter, como <var>$this->load->view()</var>.</p>
+
+<h2>$this->output->append_output();</h2>
+<p>Agrega datos en la cadena de salida. Ejemplo de Uso:</p>
+
+<code>$this->output->append_output($data);</code>
+
+<h2>$this->output->set_header();</h2>
+<p>Le permite establecer manualmente los encabezados de servidor, que la clase Output enviar&aacute; cuando imprima la pantalla final renderizada. Ejemplo:</p>
+
+<code>
+$this->output->set_header("HTTP/1.0 200 OK");<br />
+$this->output->set_header("HTTP/1.1 200 OK");<br />
+$this->output->set_header('Last-Modified: '.gmdate('D, d M Y H:i:s', $last_update).' GMT');<br />
+$this->output->set_header("Cache-Control: no-store, no-cache, must-revalidate");<br />
+$this->output->set_header("Cache-Control: post-check=0, pre-check=0");<br />
+$this->output->set_header("Pragma: no-cache");
+</code>
+
+<h2>$this->output->set_status_header(<var>code</var>, '<var>text</var>');</h2>
+<p>Le permite establecer manualmente el encabezado de estado del servidor. Ejemplo:</p>
+
+<code>
+$this->output->set_status_header('401');<br />
+// Establecer el encabezado como: No Autorizado
+</code>
+
+<p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">Ver</a> aqu&iacute; la lista completa de encabezados.</p>
+
+<h2>$this->output->enable_profiler();</h2>
+<p>Le permite habiitar/deshabilitar el <a href="../general/profiling.html">Perfilador</a>, el cual mostrar&aacute; pruebas de desempe&ntilde;o y otros datos al final de las p&aacute;ginas con fines de depuraci&oacute;n y optimizaci&oacute;n.</p>
+
+<p>Para habilitar el perfilador, ubique la siguiente funci&oacute;n en cualquier parte dentro de sus funciones <a href="../general/controllers.html">controlador</a>:</p>
+
+<code>$this->output->enable_profiler(TRUE);</code>
+
+<p>
+Cuando est&eacute; habilitado, se generar&aacute; un informe y se lo mostrar&aacute; al final de las p&aacute;ginas.</p>
+
+<p>Para deshabilitar el perfilador, usar&aacute;:</p>
+
+<code>$this->output->enable_profiler(FALSE);</code>
+
+<h2>this->output->set_profiler_sections()</h2>
+<p>Le permite habilitar/deshabilitar secciones espec&iacute;ficas del Perfilador cuando est&eacute; habilitado. Referirse a la documentaci&oacute;n del <a href="../general/profiling.html">Perfilador</a> para mayor informaci&oacute;n.</p>
+
+<h2>$this->output->cache()</h2>
+<p>La biblioteca output de CodeIgniter tambi&eacute;n controla el almacenamiento en cach&eacute;. Para mayor informaci&oacute;n, vea la
+documentaci&oacute;n del <a href="../general/caching.html">almacenamiento en cach&eacute;</a>.</p>
+
+<h2>Analizar las Variables de Ejecuci&oacute;n</h2>
+
+<p>CodeIgniter analizar&aacute; las seudo-variables <var>{elapsed_time}</var> y <var>{memory_usage}</var> en su salida por defecto. Para deshabilitar esto, establecer la propiedad de clase <var>$parse_exec_vars</var> a <var>FALSE</var> en su controlador.</p>
+
+<code>$this->output->parse_exec_vars = FALSE;</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="migration.html">Clase Migration</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="pagination.html">Clase Pagination</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

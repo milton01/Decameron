@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Upload : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Upload
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Upload</h1>
+
+<p>La Clase Upload de CodeIgniter le permite subir archivos. Puede establecer varias preferencias, restringir el tipo y tama&ntilde;o de los archivos.</p>
+
+<h2>El Proceso</h2>
+<p>Subir un archivo involucra el siguiente proceso general:</p>
+
+<ul>
+<li>Un formulario de carga es mostrado, permitiendole al usuario seleccionar un archivo y subirlo.</li>
+<li>Cuando el formulario es enviado, el archivo es subido a la destinaci&oacute;n que especifique.</li>
+<li>En el camino, el archivo es validado para estar seguro que es permitido basado en las preferencias que haya establecido.</li>
+<li>Una vez cargado, al usuario se le mostrar&aacute; un mensaje de &eacute;xito.</li>
+</ul>
+
+<p>Para demostrar este proceso aqu&iacute; hay un peque&ntilde;o tutorial. Luego encontrar&aacute; informaci&oacute;n de referencia.</p>
+
+<h2>Crear el Formulario de Carga</h2>
+<p>Usando un editor de texto, crear un formulario llamado <dfn>formulario_carga.php</dfn>.  En &eacute;l, ubique este c&oacute;digo y guardelo en su carpeta <samp>applications/views/</samp>:</p>
+
+<pre>
+&lt;html>
+&lt;head>
+&lt;title>Formulario de Carga&lt;/title>
+&lt;/head>
+&lt;body>
+&lt;?=$error;?>
+&lt;?=form_open_multipart('upload/do_upload'); ?>
+&lt;input type="file" name="userfile" size="20" />
+&lt;br />&lt;br />
+&lt;input type="submit" value="upload" />
+&lt;/form>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<p>Notar&aacute; que estamos usando el asistente de formulario para crear la etiqueta de apertura de formulario. La carga de archivos requiere un formulario "multipart", as&iacute; que el asistente crea la sintaxis apropiada para usted.  Tambi&eacute;n notar&aacute; que hay un variable $error. Esto es para que podamos mostrar mensajes de error en el caso que el usuario haga algo mal.</p>
+
+<h2>La p&aacute;gina de &eacute;xito</h2>
+<p>Usando un editor de texto, debes crear un formulario llamado <dfn>upload_success.php</dfn>. En el, coloque este c&oacute;digo y gu&aacute;rdelo dentro de su carpeta <samp>applications/views/</samp>:</p>
+
+<pre>
+&lt;head>
+&lt;title>Formulario de Carga&lt;/title>
+&lt;/head>
+&lt;body>
+&lt;h3>Su archivo fue exitosamente subido!&lt;/h3>
+&lt;ul>
+&lt;?php foreach($upload_data as $item => $value):?>
+&lt;li>&lt;?=$item;?>: &lt;?=$value;?>&lt;/li>
+&lt;?php endforeach; ?>
+&lt;/ul>
+&lt;p>&lt;?=anchor('upload', 'Subir otro archivo!'); ?>&lt;/p>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<h2>El controlador</h2>
+<p>Usando un editor de texto, debe crear un controlador llamado <dfn>upload.php</dfn>. En el, coloque el siguiente c&oacute;digo y gu&aacute;rdelo en su carpeta <samp>applications/controllers/</samp>:</p>
+
+<pre>
+&lt;?php
+class Upload extends CI_Controller {
+	
+	function Upload()
+	{
+		parent::Controller();
+		$this->load->helper(array('form', 'url'));
+	}
+	
+	function index()
+	{	
+		$this->load->view('formulario_carga', array('error' => ' ' ));
+	}
+	function do_upload()
+	{
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+		
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+			
+			$this->load->view('formulario_carga', $error);
+		}	
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+			
+			$this->load->view('upload_success', $data);
+		}
+	}	
+}
+?>
+</pre>
+
+<h2>La carpeta Upload</h2>
+<p>Ud. necesitar&aacute; una carpeta de destino para sus im&aacute;gines subidas. Cree una carpeta en la raiz de su instalaci&oacute;n CodeIgniter llamado <dfn>uploads</dfn> y establezca los permisos de archivo a 777.</p>
+
+<h2>Pru&eacute;belo!</h2>
+<p>Para probar su propio formulario, visite su sitio usando una URL similar a esta:</p>
+
+<code>www.tu-sitio.com/index.php/<var>upload</var>/</code>
+
+<p>You should see an upload form. Try uploading an image file (either a jpg, gif, or png). If the path in your controller is correct it should work.</p>
+
+<br/>
+
+<h1>Gu&iacute;a de Referencia</h1>
+
+<h2>Inicializar la Clase Upload</h2>
+
+<p>Como la mayor&iacute;a de las clases en CodeIgniter, la Clase Upload inicializa en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('upload');</code>
+
+<p>Una vez que la clase Upload est&aacute; cargada, el objeto estar&aacute; disponible usando: <dfn>$this->upload</dfn></p>
+
+<h2>Establecer Preferencias</h2>
+
+<p>Similar a otras bibliotecas, controlar&aacute; lo que est&aacute; permitido subir basado en sus preferencias. En el controlador que construy&oacute; antes, establecer estas preferencias:</p>
+
+<code>
+$config['upload_path'] = './uploads/';<br />
+$config['allowed_types'] = 'gif|jpg|png';<br />
+$config['max_size']	= '100';<br />
+$config['max_width']  = '1024';<br />
+$config['max_height']  = '768';<br />
+<br />
+$this->load->library('upload', $config);<br />
+<br />
+
+// Alternativamente puede establecer preferencias llamando a la funci&oacute;n<br/>
+// initialize(). &Uacute;til si carga autom&aacute;ticamente la clase:<br />
+// $this->upload->initialize($config);
+</code>
+
+<p>Las preferencias anteriores son bastante claras por s&iacute; mismas. Debajo est&aacute; la tabla que describe todas las preferencias disponibles.</p>
+
+<h2>Preferencias</h2>
+
+<p>The following preferences are available.  The default value indicates what will be used if you do not specify that preference.</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+<th>Preferencia</th>
+<th>Valor por Defecto</th>
+<th>Opciones</th>
+<th>Descripci&oacute;n</th>
+</tr>
+<tr>
+<td class="td"><strong>upload_path</strong></td>
+<td class="td">Ninguno</td>
+<td class="td">Ninguna</td>
+<td class="td">Ruta a la carpeta donde se deber&iacute;an ubicar los archivos subidos. La carpeta tiene que ser escribible y la ruta puede ser absoluta o relativa.</td>
+</tr>
+<tr>
+<td class="td"><strong>allowed_types</strong></td>
+<td class="td">Ninguno</td>
+<td class="td">Ninguna</td>
+<td class="td">Tipo mime correspondiente a los tipos de archivo que se permiten subir. Normalmente la extensi&oacute;n del archivo se puede usar como tipo mime. Separe varios tipos con barras verticales.</td>
+</tr>
+<tr>
+<td class="td"><strong>file_name</strong></td>
+<td class="td">Ninguno</td>
+<td class="td">Nombre de archivo deseado</td>
+<td class="td">
+	<p>Si lo establece, CodeIgniter renombrar&aacute; el archivo subido con este nombre. La extensi&oacute;n provista en el nombre de archivo tiene que ser la de un tipo de archivo permitido.</p>
+</td>
+</tr>
+<tr>
+<td class="td"><strong>overwrite</strong></td>
+<td class="td">FALSE</td>
+<td class="td">TRUE/FALSE (booleano)</td>
+<td class="td">Establecida a TRUE, si existe un archivo con el mismo nombre que el que est&aacute; cargando, se sobrescribir&aacute;. Establecida a FALSE, se le agregar&aacute; un n&uacute;mero al nombre de archivo si existe otro con el mismo nombre.</td>
+</tr>
+<tr>
+<td class="td"><strong>max_size</strong></td>
+<td class="td">0</td>
+<td class="td">Ninguna</td>
+<td class="td">Tama&ntilde;o m&aacute;ximo (en kilobytes) que el archivo puede tener. Establecer a cero para sin l&iacute;mite. Nota: La mayor&iacute;a de las instalaciones de PHP tiene su propio l&iacute;mite, seg&uacute;n se especifica en el archivo php.ini. Normalmente por defecto es 2 MB (o 2048 KB).</td>
+</tr>
+<tr>
+<td class="td"><strong>max_width</strong></td>
+<td class="td">0</td>
+<td class="td">Ninguna</td>
+<td class="td">Ancho m&aacute;ximo (en pixeles) que el archivo puede tener. Establecer a cero para sin l&iacute;mite.</td>
+</tr>
+<tr>
+<td class="td"><strong>max_height</strong></td>
+<td class="td">0</td>
+<td class="td">Ninguna</td>
+<td class="td">Alto m&aacute;ximo (en pixeles) que el archivo puede tener. Establecer a cero para sin l&iacute;mite.</td>
+</tr>
+<tr>
+<td class="td"><strong>max_filename</strong></td>
+<td class="td">0</td>
+<td class="td">Ninguna</td>
+<td class="td">Longitud m&aacute;xima que un nombre de archivo puede tener. Establecer a cero para sin l&iacute;mite.</td>
+</tr>
+<tr>
+<td class="td"><strong>encrypt_name</strong></td>
+<td class="td">FALSE</td>
+<td class="td">TRUE/FALSE (booleano)</td>
+<td class="td">Establecida a TRUE se convertir&aacute; el nombre del archivo a una cadena encriptada aleatoriamente. Puede ser &uacute;til si quisiera que la persona que suba el archivo no pueda discernir su nombre.</td>
+</tr>
+<tr>
+<td class="td"><strong>remove_spaces</strong></td>
+<td class="td">TRUE</td>
+<td class="td">TRUE/FALSE (booleano)</td>
+<td class="td">Establecida a TRUE, cualquier espacio en el nombre del archivo se convertir&aacute; en gui&oacute;n de subrayado. Se recomienda.</td>
+</tr>
+</table>
+
+<h2>Establecer Preferencias en un Archivo de Configuraci&oacute;n</h2>
+
+<p>Si prefiere no establecer las preferencias usando este m&eacute;todo, en su lugar puede ponerlas dentro de un archivo de configuraci&oacute;n. Simplemente cree un nuevo archivo llamado <var>upload.php</var> y agregue el array <var>$config</var> a ese archivo. Luego guarde el archivo en <var>config/upload.php</var> y se lo utilizar&aacute; autom&aacute;ticamente. NO necesitar&aacute; usar la funci&oacute;n <dfn>$this->upload->initialize</dfn> si guarda sus preferencias en un archivo de configuraci&oacute;n.</p>
+
+<h2>Referencia de Funciones</h2>
+
+<p>Est&aacute;n disponibles las siguiente funciones:</p>
+
+<h2>$this->upload->do_upload()</h2>
+
+<p>Realiza la subida basada en las preferencias que se establecieron. Nota: Por defecto la rutina de subida espera que los archivos vengan en un campo de formulario llamado <dfn>userfile</dfn> y el formulario tiene que ser de tipo "multipart":</p>
+
+<code>&lt;form method="post" action="some_action" enctype="multipart/form-data" /></code>
+
+<p>Si quisiera establecer su propio nombre de archivo, simplemente pase su valor a la funci&oacute;n <dfn>do_upload()</dfn>:</p>
+
+<code>
+$field_name = "algun_nombre_de_campo";<br />
+$this->upload->do_upload($field_name);
+</code>
+
+<h2>$this->upload->display_errors()</h2>
+<p>Recupera cualquier mensaje de error si la funci&oacute;n <dfn>do_upload()</dfn> devuelve FALSE. La funci&oacute;n no hace eco autom&aacute;ticamente, devuelve los datos para que pueda asignarlos si resulta necesario.</p>
+
+<h3>Formatear Errores</h3>
+<p>Por defecto, la funci&oacute;n anterior envuelve cualqueir error dentro de etiquetas <p>. Puede establecer sus propios delimitadores con esto:</p>
+
+<code>$this->upload->display_errors('<var>&lt;p></var>', '<var>&lt;/p></var>');</code>
+
+<h2>$this->upload->data()</h2>
+<p>Esta es una funci&oacute;n helper que devuelve un array que contiene todos los datos relacionados al archivo que subi&oacute;. Este es el prototipo del array:</p>
+
+<pre>
+Array
+(
+	[file_name] => mi_pic.jpg
+	[file_type] => image/jpeg
+	[file_path] => /ruta/a/su/subida/
+	[full_path] => /ruta/a/su/subida/jpg.jpg
+	[raw_name] => mi_pic
+	[orig_name] => mi_pic.jpg
+	[client_name] => mi_pic.jpg
+	[file_ext] => .jpg
+	[file_size] => 22.2
+	[is_image] => 1
+	[image_width] => 800
+	[image_height] => 600
+	[image_type] => jpeg
+	[image_size_str] => width="800" height="200"
+)
+</pre>
+
+<h3>Explicaci&oacute;n</h3>
+
+<p>Esta es una explicaci&oacute;n de los &iacute;tems del array anterior</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr><th>Item</th><th>Descripci&oacute;n</th></tr>
+<tr><td class="td"><strong>file_name</strong></td>
+<td class="td">Nombre del archivo que se subi&oacute;, incluyendo la extensi&oacute;n</td></tr>
+<tr><td class="td"><strong>file_type</strong></td>
+<td class="td">Tipo Mime del archivo</td></tr>
+<tr><td class="td"><strong>file_path</strong></td>
+<td class="td">Ruta absoluta del servidor al archivo</td></tr>
+<tr><td class="td"><strong>full_path</strong></td>
+<td class="td">Ruta absoluta del servidor incluyendo el nombre de archivo</td></tr>
+<tr><td class="td"><strong>raw_name</strong></td>
+<td class="td">Nombre del archivo sin la extensi&oacute;n</td></tr>
+<tr><td class="td"><strong>orig_name</strong></td>
+<td class="td">Nombre original del archivo. Solamente es &uacute;til si usa la opci&oacute;n de nombre encriptado</td></tr>
+<tr><td class="td"><strong>client_name</strong></td>
+<td class="td">Nombre de archivo como lo proporciona el agente de usuario, antes de cualquier preparaci&oacute;n o
+incremento del nombre de archivo</td></tr>
+<tr><td class="td"><strong>file_ext</strong></td>
+<td class="td">Extensi&oacute;n de archivo con el punto</td></tr>
+<tr><td class="td"><strong>file_size</strong></td>
+<td class="td">Tama&ntilde;o del archivo en kilobytes</td></tr>
+<tr><td class="td"><strong>is_image</strong></td>
+<td class="td">Si el archivo es o no una imagen. 1 = imagen. 0 = no lo es</td></tr>
+<tr><td class="td"><strong>image_width</strong></td>
+<td class="td">Ancho de la imagen</td></tr>
+<tr><td class="td"><strong>image_height</strong></td>
+<td class="td">Altura de la imagen</td></tr>
+<tr><td class="td"><strong>image_type</strong></td>
+<td class="td">Tipo de imagen. Normalmente la extensi&oacute;n sin el punto</td></tr>
+<tr><td class="td"><strong>image_size_str</strong></td>
+<td class="td">Una cadena que contiene ancho y alto. &Uacute;til para ponerlo en una etiqueta de imagen</td></tr>
+</table>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="unit_testing.html">Clase Unit_test</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="uri.html">Clase URI</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+</div>
+
+</body>
+</html>

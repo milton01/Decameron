@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Cart : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Shopping Cart Class
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Cart</h1>
+
+<p>La Clase Cart permite que los &iacute;tems se agreguen a la sesi&oacute;n que permanece activa mientras un usuario est&aacute; navegando su sitio. Estos &iacute;tems se puede recuperar y mostrar en un formato est&aacute;ndar de "carrito de compras", permiti&eacute;ndole al usuario actualizar o quitar &iacute;tems del carrito.</p>
+
+<p>Por favor advierta que la Clase Cart SOLAMENTE provee funcionalidad de "carrito". No provee funcionalidades de env&iacute;o, autorizaci&oacute;n de tarjeta de cr&eacute;dito u otro procesamiento adicional.</p>
+
+<h2>Inicializar la Clase Cart</h2>
+
+<p><strong>Importante:</strong> La Clase Cart usa la <a href="sessions.html">Clase Session</a> de CodeIgniter para guardar la informaci&oacute;n del carrito en la base de datos, por lo tanto, antes de usar la Clase Cart tiene que establecer una tabla de base de datos como se indica en la <a href="sessions.html">documentaci&oacute;n de la Clase Session</a> y establecer las preferencias de la sesi&oacute;n en su archivo <kbd>application/config/config.php</kbd> para utilizar una base de datos.</p>
+
+<p>Para inicializar la Clase Cart en su controlador, use la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('cart');</code>
+
+<p>Una vez cargada, el objeto Cart estar&aacute; disponible usando: <dfn>$this->cart</dfn>.</p>
+
+<p class="important"><strong>Nota:</strong> La Clase Cart cargar&aacute; e inicializar&aacute; a la Clase Session autom&aacute;ticamente, por lo que a menos que est&eacute; usando sesiones en otra parte de su aplicaci&oacute;n, no necesita cargar la Clase Session.</p>
+
+<h2>Agregar un &Iacute;tem al Carrito</h2>
+
+<p>Para agregar un &iacute;tem al carrito, simplemente pase un array con la informaci&oacute;n del producto a la funci&oacute;n <dfn>$this-
+>cart->insert()</dfn>, seg&uacute;n se muestra aqu&iacute;:</p>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_123ABC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 39.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'T-Shirt',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'options' => array('Size' => 'L', 'Color' => 'Red')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->insert($data);
+
+</code>
+
+<p class="important"><strong>Importante:</strong> Los primeros cuatro &iacute;ndices del array anterior (<dfn>id</dfn>, <dfn>qty</dfn>, <dfn>price</dfn>, and <dfn>name</dfn>) son <strong>obligatorios</strong>. Si omite alguno de ellos, los datos no se guardar&aacute;n en el carrito. El quinto &iacute;ndice (<dfn>options</dfn>) es opcional. Est&aacute; pensado para usarse en casos donde su producto tiene opciones asociadas con &eacute;l. Use un array para opciones, como se muestra arriba.</p>
+
+<p>Los cinco &iacute;ndices reservados son:</p>
+
+<ul>
+<li><strong>id</strong> - Cada producto en el almac&eacute;n tiene un identificador &uacute;nico. Normalmente ser&aacute; un "sku" u otra identificaci&oacute;n.</li>
+<li><strong>qty</strong> - Es la cantidad que se est&aacute; comprando.</li>
+<li><strong>price</strong> - Es el precio del &iacute;tem.</li>
+<li><strong>name</strong> - Es el nombre del &iacute;tem.</li>
+<li><strong>options</strong> - Cualquier atributo adicional que es necesario para identificar al producto. Tienen que pasarse mediante un array.</li>
+</ul>
+
+<p>Adem&aacute;s de los cinco &iacute;ndices de arriba, hay dos palabra reservadas: <dfn>rowid</dfn> y <dfn>subtotal</dfn>. Se usan internamente en la Clase Cart, por lo que <strong>NO</strong> debe usar esas palabras como &iacute;ndices al insertar datos en el carrito.</p>
+
+<p>Agregar Varios &Iacute;tems al Carrito
+Es posible agregar en una sola acci&oacute;n varios productos al carrito al usar un array multidimensional. Esto es &uacute;til en casos donde desea permitirle a la gente seleccionar entre varios &iacute;tems de la misma p&aacute;gina.</p>
+
+<h2>Agregar Varios &Iacute;tems al Carrito</h2>
+
+<p>Es posible agregar en una sola acci&oacute;n varios productos al carrito al usar un array multidimensional. Esto es &uacute;til en
+casos donde desea permitirle a la gente seleccionar entre varios &iacute;tems de la misma p&aacute;gina.</p>
+
+<code>
+$data = array(<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_123ABC',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 39.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'T-Shirt',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'options' => array('Size' => 'L', 'Color' => 'Red')<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_567ZYX',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 9.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'Coffee Mug'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; => 'sku_965QRS',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'&nbsp;&nbsp; => 29.95,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name'&nbsp;&nbsp;&nbsp; => 'Shot Glass'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->insert($data);
+
+</code>
+
+<h2>Mostrar el Carrito</h2>
+
+<p>
+Para mostrar el carrito crear&aacute; un <a href="../general/views.html">archivo de vista</a> con c&oacute;digo similar al mostrado a continuaci&oacute;n.</p>
+
+<p>Por favor advierta que este ejemplo usa el <a href="../helpers/form_helper.html">helper form</a>.</p>
+
+<code>
+&lt;?php echo form_open('ruta/al/controlador/update/function'); ?><br/>
+<br/>
+&lt;table cellpadding="6" cellspacing="1" style="width:100%" border="0"><br/>
+<br/>
+&lt;tr><br/>
+&nbsp;&nbsp;&lt;th>Cantidad<&lt;/th><br/>
+&nbsp;&nbsp;&lt;th>Item Descripci&oacute;n&lt;/th><br/>
+&nbsp;&nbsp;&lt;th style="text-align:right">Precio&lt;/th><br/>
+&nbsp;&nbsp;&lt;th style="text-align:right">Sub-Total&lt;/th><br/>
+&lt;/tr><br/>
+<br/>
+&lt;?php $i = 1; ?><br/>
+<br/>
+&lt;?php foreach ($this->cart->contents() as $items): ?><br/>
+<br/>
+&nbsp;&nbsp;&lt;?php echo form_hidden($i.'[rowid]', $items['rowid']); ?><br/>
+<br/>
+&nbsp;&nbsp;&lt;tr><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;td>&lt;?php echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?>&lt;/td><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;td><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php echo $items['name']; ?><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php if ($this->cart->has_options($items['rowid']) == TRUE): ?><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php foreach ($this->cart->product_options($items['rowid']) as $option_name => $option_value): ?><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;strong>&lt;?php echo $option_name; ?>:&lt;/strong> &lt;?php echo $option_value; ?>&lt;br /><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php endforeach; ?><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;?php endif; ?><br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;td style="text-align:right">&lt;?php echo $this->cart->format_number($items['price']); ?>&lt;/td><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;td style="text-align:right">$&lt;?php echo $this->cart->format_number($items['subtotal']); ?>&lt;/td><br/>
+&nbsp;&nbsp;&lt;/tr><br/>
+<br/>
+&lt;?php $i++; ?><br/>
+<br/>
+&lt;?php endforeach; ?><br/>
+<br/>
+&lt;tr><br/>
+&nbsp;&nbsp;&lt;td colspan="2">&nbsp;&lt;/td><br/>
+&nbsp;&nbsp;&lt;td class="right">&lt;strong>Total&lt;/strong>&lt;/td><br/>
+&nbsp;&nbsp;&lt;td class="right">$&lt;?php echo $this->cart->format_number($this->cart->total()); ?>&lt;/td><br/>
+&lt;/tr><br/>
+<br/>
+&lt;/table><br/>
+<br/>
+&lt;p>&lt;?php echo form_submit('', 'Actualice su Carrito'); ?>&lt;/p>
+</code>
+
+<h2>Actualizar el Carrito</h2>
+
+<p>Para actualizar la informaci&oacute;n del carrito, tiene que pasar un array conteniendo el <kbd>Row ID</kbd> y la cantidad a la funci&oacute;n <dfn>$this->cart->update()</dfn>:</p>
+
+<p class="important"><strong>Nota:</strong> Si la cantidad se establece a cero, se eliminar&aacute; el &iacute;tem del carrito.</p>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid' => 'b99ccdf16028f015540f341130b6d8ec',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp; => 3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->update($data);
+<br /><br />
+// O un array multidimensional<br /><br />
+$data = array(<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid'&nbsp;&nbsp; => 'b99ccdf16028f015540f341130b6d8ec',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid'&nbsp;&nbsp; => 'xw82g9q3r495893iajdh473990rikw23',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'rowid'&nbsp;&nbsp; => 'fh4kdkkkaoe30njgoe92rkdkkobec333',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'qty'&nbsp;&nbsp;&nbsp;&nbsp; => 2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+
+$this->cart->update($data);
+
+
+
+
+</code>
+
+<p><strong>&iquest;Qu&eacute; es un Row ID?</strong> El <kbd>row ID</kbd> es un identificador &uacute;nico que lo genera el c&oacute;digo del carrito cuando se agrega un &iacute;tem al carrito. La raz&oacute;n por la que se crea un identificador &uacute;nico es para que los mismos productos con diferentes opciones pueden ser administrados por el carrito.</p>
+
+<p>Por ejemplo, digamos que alguien compra dos camisetas iguales (mismo ID de producto), pero diferentes tama&ntilde;os. El ID de producto (y otros atributos) ser&aacute;n id&eacute;nticos para ambos tama&ntilde;os porque es la misma camiseta. La &uacute;nica diferencia ser&aacute; el tama&ntilde;o. El carrito por lo tanto, tiene un medio para identificar esta diferencia para que los dos tama&ntilde;os de camisetas se puedan manejar independientemente. Lo hace mediante la creaci&oacute;n de un &uacute;nico "row ID" basado en el ID de producto y algunas opciones asociadas a &eacute;l.</p>
+
+<p>En casi todos los casos, la actualizaci&oacute;n del carrito ser&aacute; algo que el usuario hace mediante la p&aacute;gina "ver carrito", por lo tanto como desarrollador, es poco probable que tenga que preocuparse por el "row ID", aparte de asegurarse que su p&aacute;gina "ver carrito" contenga esta informaci&oacute;n en un campo oculto de formulario y asegurarse que se pasa a la funci&oacute;n de actualizaci&oacute;n cuando se env&iacute;a el formulario de actualizaci&oacute;n. Para mayor informaci&oacute;n, examine m&aacute;s abajo la construcci&oacute;n de la p&aacute;gina "ver carrito".</p>
+
+<br />
+
+<h1>Referencia de Funciones</h1>
+
+<h2>$this->cart->insert();</h2>
+
+<p>
+Le permite agregar &iacute;tems al carrito de compras, como se indica m&aacute;s arriba.</p>
+
+<h2>$this->cart->update();</h2>
+<p>Le permite actualizar &iacute;tems en el carrito de compras, como se indica m&aacute;s arriba.</p>
+
+<h2>$this->cart->total();</h2>
+<p>Muestra el total del carrito.</p>
+
+<h2>$this->cart->total_items();</h2>
+<p>Muestra la cantidad de total de &iacute;tems en el carrito.</p>
+
+<h2>$this->cart->contents();</h2>
+<p>Devuelve un array conteniendo todo lo del carrito.</p>
+
+<h2>$this->cart->has_options(rowid);</h2>
+<p>Devuelve TRUE (booleano) si una fila en particular del carrito contiene opciones. Se dise&ntilde;&oacute; esta funci&oacute;n para usarla dentro de un bucle con <dfn>$this->cart->contents()</dfn>, ya que tiene que pasar el kbd>rowid</kbd> a esta funci&oacute;n, como se muestra en el ejemplo de <dfn>Mostrar el Carrito</dfn> m&aacute;s arriba.</p>
+
+<h2>$this->cart->product_options(rowid);</h2>
+<p>Devuelve un array de opciones para un producto en particular. Se dise&ntilde;&oacute; esta funci&oacute;n para usarla dentro de un bucle con <dfn>$this->cart->contents()</dfn>, ya que tiene que pasar el <kbd>rowid</kbd> a esta funci&oacute;n, como se muestra en el ejemplo de <dfn>Mostrar el Carrito m&aacute;s arriba</dfn>.</p>
+
+<h2>$this->cart->destroy();</h2>
+<p>Le permite destruir el carrito. Esta funci&oacute;n probablemente sea llamada cuando est&eacute; terminando el procesamiento del pedido del cliente.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="calendar.html">Clase Calendar</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="config.html">Clase Config</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

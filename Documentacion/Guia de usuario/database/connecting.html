@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Conectar a una Base de Datos : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Conectar a una Base de Datos
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Conectar a una Base de Datos</h1>
+
+<p>Hay dos formas de conectarse a una base de datos:</p>
+
+<h2>Conectando autom&aacute;ticamente</h2>
+<p>La caracter&iacute;stica de "auto conexi&oacute;n" cargar&aacute; e instanciar&aacute; la clase de base de datos en cada p&aacute;gina cargada. Para permitir "auto conexi&oacute;n", agregue la palabra <var>database</var> al arreglo "library", como se indica en el siguiente archivo:</p>
+
+<p><kbd>application/config/autoload.php</kbd></p>
+
+<h2>Conectando Manualmente</h2>
+<p>Si s&oacute;lo algunas p&aacute;ginas requieren conexi&oacute;n a la base de datos, puedes conectar manualmente agregando esta l&iacute;nea de c&oacute;digo en cualquier funci&oacute;n donde sea necesario, o en el constructor de tu clase para hacer a la base de datos disponible globalmente en esa clase.</p>
+
+<code>$this->load->database();</code>
+
+<p class="important">Si la funci&oacute;n de arriba <strong>no</strong> contiene ninguna informaci&oacute;n en el primer par&aacute;metro, conectar&aacute; al grupo especificado en tu archivo de configuraci&oacute;n de base de datos. Para la mayor&iacute;a de las personas, este es el m&eacute;todo preferido de uso.</p>
+
+<h3>Par&aacute;metros Disponibles</h3>
+
+<ol>
+	<li>Los valores de conexi&oacute;n de la base de datos, pasado tanto como un array o como una cadena DSN.</li>
+	<li>TRUE/FALSE (booleano). Si devolver el ID de conexi&oacute;n (ver m&aacute;s abajo Conectar a Varias Bases de Datos).</li>
+	<li>TRUE/FALSE (booleano). Si habilitar la Clase Active Record. Establecido a TRUE por defecto.</li>
+</ol>
+
+<h3>Conectar Manualmente a una Base de Datos</h3>
+
+<p>El primer par&aacute;metro de esta funci&oacute;n puede <strong>opcionalmente</strong> ser usado para especificar un grupo en particular de tu archivo de configuraci&oacute;n, o puedes env&iacute;ar valores de conexi&oacute;n para uan base de datos que no est&eacute; especificada en tu archivo de configuraci&oacute;n. Ejemplos:</p>
+
+<p>Para seleccionar un grupo espec&iacute;fico de tu archivo de configuraci&oacute;n, puede hacer esto:</p>
+
+<code>$this->load->database('<samp>nombre_grupo</samp>');</code>
+
+<p>Donde <samp>nombre_grupo</samp> es el nombre del grupo de la conexi&oacute;n de tu archivo de configuraci&oacute;n.</p>
+
+<p>Para conectar manualmente a una base de datos deseada, puedes pasar un arreglo de valores:</p>
+
+<code>$config['hostname'] = "localhost";<br />
+$config['username'] = "myusername";<br />
+$config['password'] = "mypassword";<br />
+$config['database'] = "mydatabase";<br />
+$config['dbdriver'] = "mysql";<br />
+$config['dbprefix'] = "";<br />
+$config['pconnect'] = FALSE;<br />
+$config['db_debug'] = TRUE;<br />
+$config['cache_on'] = FALSE;<br />
+$config['cachedir'] = "";<br />
+$config['char_set'] = "utf8";<br />
+$config['dbcollat'] = "utf8_general_ci";<br />
+<br />
+$this->load->database(<samp>$config</samp>);</code>
+
+<p>Para informaci&oacute;n en cada uno de esos valores por favor vea la <a href="configuration.html">p&aacute;gina de configuraci&oacute;n</a>.</p>
+
+<p>O puedes env&iacute;ar valores de tu base de datos como un "Data Source Name". DSNs debe tener este prototipo:</p>
+
+<code>$dsn = 'dbdriver://username:password@hostname/database';<br />
+<br />
+$this->load->database('<samp>$dsn</samp>');</code>
+
+<p>Para anular los valores de configuraci&oacute;n por defecto al conectar con una cadena DSN, agregar las variables de configuraci&oacute;n como un query string.</p>
+
+<code>$dsn = 'dbdriver://username:password@hostname/database?char_set=utf8&amp;dbcollat=utf8_general_ci&amp;cache_on=true&amp;cachedir=/path/to/cache';<br />
+<br />
+$this->load->database(<samp>$dsn</samp>);</code>
+
+<h2>Conectando a M&uacute;ltiples Bases de Datos</h2>
+<p>Si necesita conectar a m&aacute;s de una base de datos simult&aacute;neamente puede hacer como sigue:</p>
+
+<code>$DB1 = $this->load->database('grupo_uno', TRUE);<br />
+$DB2 = $this->load->database('grupo_dos', TRUE);
+</code>
+
+<p>Nota: Cambi&eacute; las palabras "grupo_uno" y "grupo_dos" al nombre del grupo espec&iacute;fico al que se est&aacute; conectando (o puede pasar los valores de conexi&oacute;n como se indico antes).</p>
+
+<p>Cuando se establece el segundo par&aacute;metro como TRUE (booleano) la funci&oacute;n devolver&aacute; el objeto de base de datos.</p>
+
+<div class="important">
+<p>Cuando se conecta de esta forma, deber&aacute; usar el nombre del objeto para ejecutar comandos en vez de la sintaxis usada a trav&eacute;s de esta gu&iacute;a. En otras palabras, en vez de ejecutar comandos con:</p>
+<p>$this->db->query();<br />$this->db->result();<br /> etc...</p>
+<p>En vez use:</p>
+<p>$DB1->query();<br />$DB1->result();<br /> etc...</p>
+</div>
+
+<h2>Reconectar / Mantener la Conexi&oacute;n Viva</h2>
+
+<p>Si se excede el tiempo de espera de inactividad del servidor de base de datos mientras est&aacute; realizando alguna tarea pesada de PHP (por ejemplo, procesando una imagen), deber&iacute;a considerar hacer ping al servidor usando el m&eacute;todo <dfn>reconnect()</dfn> antes de enviar otras consultas, el cual puede mantener la conexi&oacute;n viva o restablecerla.</p>
+
+<code>$this->db->reconnect();</code>
+
+<h2>
+Cerrar Manualmente la Conexi&oacute;n</h2>
+
+<p>Mientras que CodeIgniter se encarga inteligentemente de cerrar las conexiones de bases de datos, la conexi&oacute;n se puede cerrar expl&iacute;citamente.</p>
+
+<code>$this->db->close();</code>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="configuration.html">Configuraci&oacute;n de Base de Datos</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="queries.html">Consultas</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

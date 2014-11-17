@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Administrar Aplicaciones : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Administrar Aplicaciones
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Administrar Aplicaciones</h1>
+
+<p>Por defecto es asumido que s&oacute;lo intentar&aacute; usar CodeIgniter para manejar una aplicaci&oacute;n, el cual construir&aacute; en su directorio <dfn>system/application/</dfn>. Es posible, sin embargo, tener m&uacute;ltiples juegos de aplicaciones que compartan una sola instalaci&oacute;n de CodeIgniter, o incluso renombrar o reubicar su carpeta <dfn>application</dfn>.</p>
+
+<h2>Renombrando la Carpeta Application</h2>
+
+<p>Si quiere renombrar su carpeta <dfn>application</dfn> puede hacerlo mientras que abra su archivo principal <kbd>index.php</kbd> y establezca el nombre usando la variable <samp>$application_folder</samp>:</p>
+
+<code>$application_folder = "application";</code>
+
+<h2>Reubicando la Carpeta Aplicaci&oacute;n</h2>
+
+<p>Es posible mover su carpeta <dfn>application</dfn> a una diferente ubicaci&oacute;n en su servidor de la carpeta <kbd>system</kbd>. Para hacerlo abra su archivo principal <kbd>index.php</kbd> y establezca una <em>direcci&oacute;n absoluta en el servidor</em> en la variable <samp>$application_folder</samp>.</p>
+
+<code>$application_folder = "/Ruta/a/su/aplicacion";</code>
+
+<h2>Corriendo M&uacute;ltiples Aplicaciones con una Instalaci&oacute;n de CodeIgniter</h2>
+
+<p>Si quiere compartir una instalaci&oacute;n com&uacute;n de CodeIgniter para manejar diferentes aplicaciones simplemente ponga todos los directorios ubicados en su carpeta <kbd>application</kbd> en su propia sub-carpeta.</p>
+
+<p>Por ejemplo, digamos que quiere crear dos aplicaciones, "foo" y "bar".  Estructurar&aacute; su carpeta de aplicaci&oacute;n as&iacute;:</p>
+
+<code>system/application/<var>foo</var>/<br />
+system/application/<var>foo</var>/config/<br />
+system/application/<var>foo</var>/controllers/<br />
+system/application/<var>foo</var>/errors/<br />
+system/application/<var>foo</var>/libraries/<br />
+system/application/<var>foo</var>/models/<br />
+system/application/<var>foo</var>/views/<br />
+system/application/<samp>bar</samp>/<br />
+system/application/<samp>bar</samp>/config/<br />
+system/application/<samp>bar</samp>/controllers/<br />
+system/application/<samp>bar</samp>/errors/<br />
+system/application/<samp>bar</samp>/libraries/<br />
+system/application/<samp>bar</samp>/models/<br />
+system/application/<samp>bar</samp>/views/</code>
+
+<p>Para seleccionar una aplicaci&oacute;n en particular para usar requiere que abra si archivo principal y <kbd>index.php</kbd> establezca la variable <dfn>$application_folder</dfn>. Por ejemplo, para seleccionar la aplicaci&oacute;n "foo" usar&aacute; esto:</p>
+
+<code>$application_folder = "application/foo";</code>
+
+<p class="important"><strong>Nota:</strong>&nbsp; Cada una de sus aplicaciones necesitar&aacute; su propio archivo <dfn>index.php</dfn> el cual llama a la aplicaci&oacute;n deseada.  El archivo index.php puede ser nombrado como desee.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="cli.html">Ejecutar Mediante la CLI</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="alternative_php.html">Alternative PHP Syntax</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

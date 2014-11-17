@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper URL : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper URL
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Helper URL</h1>
+
+<p>El archivo Helper URL contiene funciones que asiste al trabajo con URLs.</p>
+
+<h2>Cargar este Helper</h2>
+<p>Este helper se carga usando el siguiente c&oacute;digo:</p>
+
+<code>$this->load->helper('url');</code>
+
+<p>Las siguientes funciones est&aacute;n disponibles:</p>
+
+<h2>site_url()</h2>
+<p>Devuelve una URL de tu sitio, como se especifica en el archivo de configuraci&oacute;n. El archivo index.php (o lo que sea que haya establecido como la <dfn>index_page</dfn> de su sitio en el archivo de configuraci&oacute;n) ser&aacute; agregado a la URL, as&iacute; tambi&eacute;n como cualquier segmento URI pasado a la funci&oacute;n.</p>
+
+<p>Se recomienda usar esta funci&oacute;n en cualquier momento que necesite generar una URL local para que sus p&aacute;ginas sean m&aacute;s portables en el caso de que su URL cambie.</p>
+
+<p>Los segmentos pueden ser opcionalmente pasados a la funci&oacute;n como una cadena o un arreglo. Aqu&iacute; hay ejemplo con cadenas:</p>
+
+<code>echo site_url("noticias/local/123");</code>
+
+<p>El ejemplo anterior devolver&aacute; algo as&iacute;: http://www.su-sitio.com/index.php/noticias/local/123</p>
+
+<p>Aqu&iacute; hay un ejemplo de segmentos pasados como un arreglo:</p>
+
+<code>
+$segmentos = array('noticias', 'local', '123');<br />
+<br />
+echo site_url($segments);</code>
+
+<h2>base_url()</h2>
+<p>Devuelve la URL base de su sitio, como se especifica en su archivo de configuraci&oacute;n. Ejemplo:</p>
+
+<code>echo base_url();</code>
+
+<h2>current_url()</h2>
+<p>Devuelve la URL completa (segmentos incluidos) de la p&aacute;gina que se est&aacute; viendo en este momento.</p>
+
+<h2>uri_string()</h2>
+<p>Devuelve los segmentos URI de cualquier p&aacute;gina que contiene esta funci&oacute;n. Por ejemplo, si la URL fuera esta:</p>
+
+<code>http://some-site.com/blog/comments/123</code>
+
+<p>The function would return:</p>
+
+<code>/blog/comments/123</code>
+
+<h2>index_page()</h2>
+<p>Devuelve la p&aacute;gina "index" de su sitio, como se especifica en su archivo de configuraci&oacute;n. Ejemplo:</p>
+
+<code>echo index_page();</code>
+
+<h2>anchor()</h2>
+<p>Crea un link HTML est&aacute;ndar basado en su URL de sitio local:</p>
+
+<code>&lt;a href="http://www.su-sitio.com">Cliquee aqu&iacute;&lt;/a></code>
+
+<p>La etiqueta tiene tres par&aacute;metros opcionales:</p>
+
+<code>anchor(<var>segmentos de uri</var>, <var>texto</var>, <var>atributos</var>)</code>
+
+<p>El primer par&aacute;metro puede contener cualquier segmento que quiera agregarle a la URL. Como con la funci&oacute;n <dfn>site_url()</dfn> previa, los segmentos pueden ser una cadena o un arreglo.</p>
+
+<p class="important"><strong>Nota:</strong>&nbsp; Si est&aacute; construyendo hiperv&iacute;nculos que son internos a su aplicaci&oacute;n no incluya la URL base (http://...).  Esta ser&aacute; agregada autom&aacute;ticamente desde la informaci&oacute;n especificada en su archivo de configuraci&oacute;n. Incluya s&oacute;lo los segmentos URI que desee agregar a la URL.</p>
+
+<p>El segundo segmento es el texto que quiere que diga el hiperv&iacute;nculo. Si lo deja vaci&oacute;, la URL ser&aacute; usada.</p>
+
+<p>El tercer par&aacute;metro puede contener una lista de atributos que quiere agregar al hiperv&iacute;nculo. Los atributos puedem ser simples cadenas o arreglos asociativos.</p>
+
+<p>Aqu&iacute; hay algunos ejemplos:</p>
+
+<code>echo anchor('noticias/local/123', 'Mis Noticias');</code>
+
+<p>Producir&aacute;: &lt;a href="http://www.su-sitio.com/index.php/noticias/local/123" title="Mis Noticias">Mis Noticias&lt;/a></p>
+
+<code>echo anchor('noticias/local/123', 'Mis Noticias', array('title' => 'Las mejores noticias!'));</code>
+
+<p>Producir&aacute;: &lt;a href="http://www.su-sitio.com/index.php/noticias/local/123" title="Las mejores noticias!">Mis Noticias&lt;/a></p>
+
+<h2>anchor_popup()</h2>
+<p>Casi id&eacute;ntica a la funci&oacute;n <dfn>anchor()</dfn> excepto que abre la URL en una ventana nueva. Puede especificar atributos de ventana de JavaScript en el tercer par&aacute;metro para controlar c&oacute;mo la ventana es abierta. Si el tercer par&aacute;metro no est&aacute; establecido simplemente abrir&aacute; una nueva ventana con su configuraci&oacute;n de explorador. Aqu&iacute; hay un ejemplo con atributos:</p>
+
+<code>
+$atts = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'width'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '800',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'height'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '600',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'scrollbars' => 'yes',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'status'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'yes',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'resizable'&nbsp;&nbsp;=> 'yes',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'screenx'&nbsp;&nbsp;&nbsp;&nbsp;=> '0',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'screeny'&nbsp;&nbsp;&nbsp;&nbsp;=> '0'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+echo anchor_popup('noticias/local/123', 'Cliqueame!', $atts);</code>
+
+<p class="important"><strong>Nota:</strong> los atributos anteriores son los predeterminados para la funci&oacute;n as&iacute; que s&oacute;lo necesita establecer los que son diferentes de los que necesita. Si desea que la funci&oacute;n use todos los predeterminados, simplemente pase un arreglo vac&iacute;o en el tercer par&aacute;metro:</p>
+
+<code>echo anchor_popup('noticias/local/123', 'Cliqueame!', array());</code>
+
+<h2>mailto()</h2>
+<p>Crea un hiperv&iacute;nculo est&aacute;ndar HTML. Ejemplo de uso:</p>
+
+<code>echo mailto('yo@mi-sitio.com', 'Cliquee Aqu&iacute; para Contactarme');</code>
+
+<p>Como la funci&oacute;n <dfn>anchor()</dfn> previa, puede establecer atributos usando el tercer par&aacute;metro.</p>
+
+<h2>safe_mailto()</h2>
+<p>Es id&eacute;ntica a la funci&oacute;n anterior, salvo que escribe una versi&oacute;n ofuscada de la etiqueta mailto usando n&uacute;meros ordinales escritos con JavaScript para ayudar a evitar que la direcci&oacute;n de email sea recolectada por bots de spam.</p>
+
+<h2>auto_link()</h2>
+<p>Autom&aacute;ticamente turna las URLs y direcciones de email contenidas en una cadena en hiperv&iacute;nculos. Ejemplo:</p>
+
+<code>$cadena = auto_link($cadena);</code>
+
+<p>El segundo par&aacute;metro determina si las URLs y los mails son convertidos o s&oacute;lo uno de ellos. El comportamiento por defecto es ambos si el par&aacute;metro no est&aacute; especificado</p>
+
+<p>Convertir s&oacute;lo URLs:</p>
+
+<code>$cadena = auto_link($cadena, 'url');</code>
+
+<p>Convertir s&oacute;lo direcciones de Email:</p>
+
+<code>$cadena = auto_link($cadena, 'email');</code>
+
+<p>El tercer par&aacute;metro determina si los hiperv&iacute;nculos ser&aacute;n mostrados en una nueva ventana. El valor puede ser TRUE o FALSE (booleano):</p>
+
+<code>$cadena = auto_link($cadena, 'both', TRUE);</code>
+
+<h2>url_title()</h2>
+<p>Toma una cadena como entrada y crea una cadena amigable para humanos. Esto es &uacute;til si, por ejemplo, tiene un blog en el cual desee usar como t&iacute;tulo de las entradas en la URL. Ejemplo:</p>
+
+<code>$titulo = "Que hay de malo con 'CSS'?";<br />
+<br />
+$titulo_url = url_title($titulo);<br />
+<br />
+// Produce:  que-hay-de-malo-con-css
+</code>
+
+<p>El segundo par&aacute;metro determina el delimitador de palabra. Por defecto los guiones son usados.</p>
+<code>$titulo = "Que hay de malo con 'CSS'?";<br />
+<br />
+$titulo_url = url_title($titulo, '_');<br />
+<br />
+// Produce:  que_hay_de_malo_con_css
+</code>
+
+<p>El tercer par&aacute;metro determina si se fuerza o no por los caracteres en min&uacute;sculas. Por defecto no. Las opciones son <dfn>TRUE</dfn>/<dfn>FALSE</dfn>:</p>
+
+<code>
+$title = "Que est&aacute; mal en el CSS?";<br />
+<br />
+$url_title = url_title($title, '_', TRUE);<br />
+<br />
+// Produce: que_est&aacute;_mal_en_el_css
+</code>
+
+<h3>prep_url()</h3>
+<p>La funci&oacute;n agregar&aacute; <kbd>http://</kbd> en caso de que le falte a una URL. Pase una cadena URL a la funci&oacute;n as&iacute;:</p>
+
+<code>
+$url = "www.ejemplo.com";<br /><br />
+$url = prep_url($url);</code>
+
+<h2>redirect()</h2>
+<p>Hace un "redireccionamiento a trav&eacute;s de cabeceras" a la URI especificada. Al igual que las otras funciones de este asistente, esta est&aacute; designada para redireccionar a URL locales dentro de su sitio. <strong>No</strong> debe especificar la URL de su sitio, sino simplemente los segmentos URI al controlador al que quiere redireccionar. Esta funci&oacute;n construir&aacute; la URL basada en los valores de sus archivos de configuraci&oacute;n.</p>
+
+<p>El sengudo par&aacute;metro le permite elegir entre el m&eacute;todo "location" (por defecto) o el m&eacute;todo "refresh". Location es m&aacute;s r&aacute;pido, pero en servidores Windows puede ser un problema. Ejemplo:</p>
+
+<code>if ($logged_in == FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;redirect('/login/form/', 'refresh');<br />
+}<br />
+<br />
+// with 301 redirect<br />
+redirect('/article/13', 'location', 301);</code>
+
+<p class="important"><strong>Nota:</strong> Para que esta funci&oacute;n funcione debe ser usado antes que cualquier salida al explorador ya que utiliza encabezados del servidor.</p>
+
+<p class="important"><strong>Nota:</strong> Para un control muy fino sobre los encabezados, deber&iacute;a usar la funci&oacute;n set_header() de la <a href="../libraries/output.html">Clase Output</a>.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="typography_helper.html">Helper Typography</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="xml_helper.html">Helper XML</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

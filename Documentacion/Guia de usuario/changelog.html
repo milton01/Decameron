@@ -1,0 +1,1440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<style type='text/css' media='all'>@import url('userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='userguide.css' />
+
+<script type="text/javascript" src="./nav/nav.js"></script>
+<script type="text/javascript" src="./nav/prototype.lite.js"></script>
+<script type="text/javascript" src="./nav/moo.fx.js"></script>
+<script type="text/javascript" src="./nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Registro de Cambios: Gu&iacute;a del Usuario de CodeIgniter</title>
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('./');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="./images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="./toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Registro de Cambios
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Ir" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Registro de Cambios</h1>
+
+<h2>Versión 2.1.4</h2>
+<p>Fecha de Publicación: 8 de Julio de 2013</p>
+
+<ul>
+	<li>Cambios Generales
+		<ul>
+			<li>Mejora de la seguridad en <kbd>xss_clean()</kbd>.</li>
+		</ul>
+	</li>
+</ul>
+
+<h3>Errores corregidos para 2.1.4:</h3>
+<ul>
+	<li>Corregido error (#1936) - <a href="libraries/migration.html">Librería Migrations</a> método <samp>latest()</samp> tenía un error al recuperar los valores de idioma.</li>
+	<li>Corregido error (#2021) - <a href="libraries/migration.html">Librería Migrations</a> archivo de configuración utiliza erróneamente los saltos de línea estilo de Windows.</li>
+	<li>Corregido error (#1969) - <a href="database/active_record.html">Active Record</a> método <samp>set_update_batch()</samp> estaba incorrecto el uso de las variables y podría causar un error.</li>
+	<li>Corregido error (#2337) - <a href="libraries/email.html">Librería Email</a> método <samp>print_debugger()</samp> no estaba utilizando <samp>htmlspecialchar()</samp> cuando se muestra en el navegador.</li>
+</ul>
+
+<h2>Versión 2.1.3</h2>
+<p>Fecha de Publicación: 8 de Octubre de 2012</p>
+
+<h3>Errores corregidos para 2.1.3:</h3>
+<ul>
+	<li>Se corrigi&oacute; un error (#1543) - <a href="libraries/caching.html#file">File-based Caching</a>, método <samp>get_metadata()</samp> utiliza una clave de la matriz no existente para buscar el valor de TTL.</li>
+	<li>Se corrigi&oacute; un error (#1314) - <a href="libraries/session.html">Session Library</a>, método <samp>sess_destroy()</samp> no destruía la matriz userdata.</li>
+	<li>Se corrigi&oacute; un error por el que <a href="libraries/profiler.html">Profiler Library</a> lanzaba un error E_WARNING si <a href="libraries/session.html">Session</a> userdata contenía objetos.</li>
+	<li>Se corrigi&oacute; un error (#1699) - <a href="libraries/migration.html">Migration Library</a> ignoraba la configuración de <samp>$config['migration_path']</samp>.</li>
+	<li>Se corrigi&oacute; un error (#227) - <a href="libraries/input.html">Input Library</a> permitía la suplantación incondicional de direccioens IP para clientes HTTP  a través de la cabecera HTTP_CLIENT_IP.</li>
+	<li>Se corrigi&oacute; un error (#907) - <a href="libraries/input.html">Input Library</a> ignoraba cabeceras HTTP_X_CLUSTER_CLIENT_IP y HTTP_X_CLIENT_IP en la comprobación de proxies.</li>
+	<li>Se corrigi&oacute; un error (#940) - <samp>csrf_verify()</samp> utilizaba, para establecer la cookie CSRF durante el procesamiento de una petición POST sin datos POST reales, lo que resultaba en la validación de una solicitud que debe ser considerada inválido.</li>
+	<li>Se corrigi&oacute; un error en la <a href="libraries/security.html">Security Library</a> donde se creaba una cookie CSRF incluso si <samp>$config['csrf_protection']</samp> era FALSO.</li>
+	<li>Se corrigi&oacute; un error (#1715) - <a href="libraries/input.html">Input Library</a> desencadena <samp>csrf_verify()</samp> en las solicitudes CLI.</li>
+</ul>
+
+
+<h2>Versión 2.1.2</h2>
+<p>Fecha de Publicación: 29 de junio de 2012</p>
+<ul>
+	<li>Cambios generales
+		<ul>
+			<li>Mejora de la seguridad en xss_clean ().</li>
+		</ul>
+	</li>
+</ul>
+
+<h2>Versión 2.1.1</h2>
+<p>Fecha de Publicación: 12 de junio de 2012</p>
+<ul>
+	<li>Cambios generales
+		<ul>
+			<li>Corregido soporte para archivos docx xlsx, en mimes.php.</li>
+		</ul>
+	</li>
+	<li>Bibliotecas</li>
+		<ul>
+			<li>Además mejora en la detección de tipo MIME en la Biblioteca <a href="libraries/file_uploading.html">File Uploading</a>.</li>
+			<li>Se ha añadido soporte para IPv6 a la Biblioteca <a href="libraries/input.html">Input</a>.</li>
+			<li>Añadido soporte para el parámetro de formato IP a la Biblioteca <a href="libraries/form_validation.html">Form Validation</a>.</li>
+		</ul>
+		<li>Helpers</li>
+			<ul>
+				<li><samp>url_title()</samp> rendimiento y producción mejorado. Ahora puede utilizar cualquier cadena como delimitador. Compatible con "guión" o "guión bajo" como delimitadores de palabras.</li>
+			</ul>
+</ul>
+
+<h3>Errores corregidos para 2.1.1</h3>
+<ul>
+	<li>Se ha corregido un error (#697) - Una clave de matriz mal usada en la biblioteca Upload para buscar tipos MIME.</li>
+	<li>Se ha corregido un error - form_open() en la comparación de $acción contra site_url() en lugar de base_url()</li>
+	<li>Se ha corregido un error - CI_Upload::_file_mime_type() podría haber fallado si mime_content_type() se utiliza para la detección y devuelve FALSE.</li>
+	<li>Se ha corregido un error (#538) - rutas de Windows eran ignoradas cuando se utiliza la clase <a href="libraries/image_lib.html">Image Manipulation</a> para crear un nuevo archivo.</li>
+	<li>Se ha corregido un error - Cuando el almacenamiento en caché de base de datos esta habilitado, $this->db->query() comprueba la caché antes que las variables vinculantes dando lugar a que las consultas en caché no se encuentran.</li>
+	<li>Se ha corregido un error - el valor CSRF de las cookies se le permitió ser cualquier cadena (no vacía) antes de que se escriben en la salida, por lo que era un riesgo la inyección de código.</li>
+	<li>Se ha corregido un error (#726) - PDO pone un argumento 'dbname' en la cadena de conexión que, independientemente de la plataforma de base de datos en uso, hizo imposible el uso de SQLite.</li>
+	<li>Se ha corregido un error - CI_DB_pdo_result::num_rows() no retornaba un valor de forma adecuada en las consultas SELECT, siendo que se basaba en PDOStatement::rowCount().</li>
+	<li>Se ha corregido un error (#1059) - CI_Image_lib::clear() no era correcta la limpieza de todas las propiedades de los objetos necesarios, es decir, anchura y altura.</li>
+	<li>Se ha corregido un error (#1387) - Método from() de Active Record no escapaba los alias de tabla.</li>
+</ul>
+
+<h2>Version 2.1.0</h2>
+<p>Fecha de Publicación: 14 de noviembre de 2011</p>
+<ul>
+	<li>Cambios Generales
+		<ul>
+			<li>Se corrigio un potencial defecto de inyección de parametros en la <a href="libraries/security.html">Biblioteca Security</a> y se reforzo el filtro XSS por vulnerabilidades en HTML5.</li>
+			<li>Las reglas de validación de un callback ahora pueden aceptar parametros como cualquier otra regla de validacion.</li>
+			<li>Se agrego html_escape() a las <a href="general/common_functions.html">Funciones Comunes</a> para escapar la salida de HTML y evitar XSS facil.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>Se agrego <samp>increment_string()</samp> al <a href="helpers/string_helper.html">String Helper</a> para transformar "foo" en "foo-1" o "foo-1" en "foo-2&#129;".</li>
+			<li>Alterada la acci&oacute;n realizar form - helper de la funci&oacute;n helper form_open_multipart para qeu sea llamada opcional. Correcciones (#65)</li>
+			<li><samp>url_title()</samp> ahora eliminara los guiones adicionales al comienzo y al final.</li>
+			<li>Se mejoro la velocidad del metodo <b>random_string()</b> del <a href="helpers/string_helper.html">Helper String</a>.</li>
+		</ul>
+	</li>
+	<li>Database
+		<ul>
+			<li>Se agreg&oacute; el driver <a href="http://www.cubrid.org/" target="_blank">CUBRID</a> al <a href="libraries/database.html">driver de Base de datos</a>. Gracias al equipo CUBRID por suministrar este parche.</li>
+			<li>Se agreg&oacute; el driver <a href="http://www.php.net/manual/en/intro.pdo.php" target="_blank">PDO</a> al <a href="libraries/database.html">driver de Base de datos</a>.</li>
+			<li>Se fuerzan los tipos de limit y offset a enteros en el <a href="database/queries.html">driver de Base de Datos</a> para evitar una posible inyecci&oacute;n.</li>
+			<li>Se agreg&oacute; la opci&oacute;n 'none' para el tercer argumento opcional de <kbd>$this->db->like()</kbd> en el <a href="database/active_record.html">driver de Base de Datos</a>.
+			</li>
+			<li>Se agreg&oacute; <kbd>$this->db->insert_batch()</kbd> para el driver OCI8 (Oracle).</li>
+		</ul>
+	</li>
+	<li>Bibliotecas
+		<ul>
+			<li>Se cambio <kbd>$this->cart->insert()</kbd> en la <a href="libraries/cart.html">biblioteca Cart</a> para devolver el Row ID si un elemento unico se inserto exitosamente.</li>
+			<li>Se agrego soporte para establecer un parametro opcional en las reglas de validacion de los callbacks usando la biblioteca <a href="libraries/form_validation.html">Form Validation</a>.</li>
+			<li>Se agrego la <a href="libraries/migration.html">biblioteca Migration</a> para asistir en la aplicacion de actualizaciones incrementales en el esquema de la base de datos.</li>
+			<li>Hijos de divers se puede encontrar en cualquier ruta del paquete.</li>
+			<li>Se agrego <samp>is_unique</samp> a la <a href="libraries/form_validation.html">biblioteca Form Validation</a>.</li>
+			<li>Se agrego <kbd>$config['use_page_numbers']</kbd> la la <a href="libraries/pagination.html">biblioteca Pagination</a>, que permite numeros de pagina reales en la URI.</li>
+			<li>Se agregaron las Encriptaciones TLS y SSL para SMTP.</li>
+		</ul>
+	</li>
+	<li>Core
+		<ul>
+			<li>Se cambiaron las funciones privadas en la <a href="libraries/cart.html">biblioteca URI</a> a protected por lo que <kbd>MY_URI</kbd> puede anularlas.</li>
+			<li>Se elimino la constalente booleana <samp>CI_CORE</samp> de CodeIgniter.php (no hay mas diferencias entre las versiones Core y Reactor).</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 2.1.0</h3>
+<ul>
+<li>Se corrigi&oacute; #378 Robots identificados como navegadores regulares por la <a href="libraries/user_agent.html">clase User Agent</a>.</li>
+<li>If a config class was loaded first then a library with the same name is loaded, the config would be ignored.</li>
+<li>Se corrigi&oacute; un error (Reactor #19) donde 1) en algunos casos se ignoraba la ruta 404_override, y 2) las bibliotecas cargadas autom&aacute;ticamente no estaban disponibles para el controlador 404_override cuando un controlador exist&iacute;a pero el m&eacute;todo solicitado no.</li>
+<li>Se corrigi&oacute; un error (Reactor #89) donde la exportaci&oacute;n MySQL fallar&iacute;a si la tabla tiene guiones u otro tipo de car&aacute;cter no alfanum&eacute;rico.</li>
+<li>Se corrigi&oacute; un error (#200) donde las consultas MySQL podr&iacute;an malformarse despu&eacute;s de llamar a <kbd>$this->db->count_all()</kbd> y luego <kbd>$this->db->get()</kbd></li>
+<li>Se corrigi&oacute; un error (#105) que evitaba que los errores de las consultas fueran al registro a menos que la depuraci&oacute;n de la base de datos estuviera habilitada.</li>
+<li>Se corrigi&oacute; un error (#160) &ndash; Se elimin&oacute; una copia innecesaria de un array en el driver de cach&eacute; de archivos.</li>
+<li>Se corrigi&oacute; un error (#150) - <samp>field_data()</samp> ahora devuelve correctamente la longitud de la columna.</li>
+<li>Se corrigi&oacute; un error (#8) - <samp>load_class()</samp> ahora busca primero las clases del n&uacute;cleo en <samp>APPPATH</samp>, permiti&eacute;ndoles ser reemplazadas.</li>
+<li>Se corrigi&oacute; un error (#24) &ndash; El driver de base de datos ODBC llamaba a un padre incorrecto en __construct().</li>
+<li>Se corrigi&oacute; un error (#85) &ndash; La funci&oacute;n <kbd>escape_str()</kbd> de la base de datos OCI8 (Oracle) no escapaba correctamente.</li>
+<li>Se corrigi&oacute; un error (#344) &ndash; Usando el esquema encontrado en <a href="libraries/sessions.html">Saving Session Data to a Database</a>, el sistema lanzar&iacute;a el error "user_data no tiene un valor por defecto" al borrar y luego crear una sesi&oacute;n.</li>
+<li>Se corrigi&oacute; un error (#112) &ndash; Al conectar, el driver OCI8 (Oracle) no pasaba el conjunto de caracteres configurado de la base de datos.</li>
+<li>Se corrigi&oacute; un error (#182) - OCI8 (Oracle) driver used to re-execute the statement whenever num_rows() is called.</li>
+<li>Se corrigi&oacute; un error (#82) &ndash; Los nombres de campos de la cl&aacute;usula WHERE en el m&eacute;todo <kbd>update_string()</kbd> de la base datos no estaban escapados, causando consultas fallidas en algunos casos.</li>
+<li>Se corrigi&oacute; un error (#89) &ndash; Se corrigi&oacute; una falta de coincidencia de tipos de una variable en <kbd>display_error()</kbd> de DB, donde se espera un array pero en su lugar se establece un string.</li>
+<li>Se corrigi&oacute; un error (#467) &ndash; Se suprimieron las alertas generadas por <kbd>get_magic_quotes_gpc()</kbd> (obsoleto en PHP 5.4)</li>
+<li>Se corrigi&oacute; un error (#484) &ndash; La primera vez que se llama a <kbd>_csrf_set_hash()</kbd>, no se establece el hash en la cookie (en Security.php).</li>
+<li>Se corrigi&oacute; un error (#60) &ndash; Se agreg&oacute; el m&eacute;todo <kbd>_file_mime_type()</kbd> a la <a href="libraries/file_uploading.html">biblioteca File Uploading</a> para corregir una posible inyecci&oacute;n en el tipo MIME (tambi&eacute;n se corrigi&oacute; el error #394).</li>
+<li>Se corrigi&oacute; un error (#537) &ndash; Soporte para todos los tipos wav en el navegador.</li>
+<li>Se corrigi&oacute; un error (#576) &ndash; Usar la funci&oacute;n <kbd>ini_get()</kbd> para detectar si apc est&aacute; habilitado o no.</li>
+<li>Se corrigi&oacute; un formato de fecha/hora inv&aacute;lido en el <a href="helpers/date_helper.html">Helper Date</a> y en la <a href="libraries/xmlrpc.html">biblioteca XMLRPC</a>.</li>
+</ul>
+
+<h2>Versi&oacute;n 2.0.3</h2>
+<p>Fecha de Publicación: 20 de agosto de 2011</p>
+<ul>
+	<li>Seguridad
+		<ul>
+			<li><p>Se hizo una mejora en los drivers MySQL y MySQLi para evitar un vector potencial para la inyecci&oacute;n SQL en sitios que usan conjuntos de caracteres mutibyte en la conexi&oacute;n del cliente de base de datos.</p>
+				<p>Una incompatibilidad en versiones de PHP &lt; 5.2.3 y de MySQL 5.0.7 con <em>mysql_set_charset()</em> crean una situaci&oacute;n en la que los conjuntos de caracteres multibyte en esos entornos pueden exponerse potencialmente a un ataque de inyecci&oacute;n SQL. Latin-1, UTF-8 y otros conjuntos de carateres de &#8220;ASCII bajo&#8221; no se ven afectados en esos entornos.</p>
+				<p class="critical">Si est&aacute; corriendo o considera correr un conjunto de caracteres multibye en su conexi&oacute;n, por favor preste atenci&oacute;n al entorno del servidor con el que est&aacute; desplegando para asegurarse que no es vulnerable.</p></li>
+		</ul>
+	</li>
+	<li>Cambios Generales
+		<ul>
+			<li>Se corrigi&oacute; un error que hab&iacute;a en un comentario en el archivo index.php.</li>
+			<li>Se agregaron userdata a la Clase Session para la salida del perfilador. Adem&aacute;s se agreg&oacute; una bandera mostrar/ocultar en los Encabezados HTTP, Datos de Sesi&oacute;n y Variables de Configuraci&oacute;n.</li>
+			<li>Se elimin&oacute; el uso interno de la constante <samp>EXT</samp>.</li>
+			<li>Actualizaciones visuales a los archivos de vista welcome_message y plantillas de error por defecto. Gracias a <a href="https://bitbucket.org/danijelb">danijelb</a> por la solicitud.</li>
+			<li>Se agreg&oacute; "application/x-csv" a mimes.php.</li>
+			<li>Se corrigi&oacute; un error en los adjuntos la <a href="libraries/email.html">biblioteca Email</a> con un "." en el nombre del adjunto usando tipos MIME inv&aacute;lidos.</li>
+			<li>Las reglas de validaci&oacute;n Callback ahora se pueden aceptar par&aacute;metros como cualquier otra regla de validaci&oacute;n.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>Se agreg&oacute; un tercer par&aacute;metro opcional a <samp>heading()</samp> que permite agregar atributos HTML a laetiqueta de encabezado presentada.</li>
+			<li><kbd>form_open()</kbd> ahora s&oacute;lo a&ntilde;ade un campo de protecci&oacute;n oculto (Cross-site Reference Forgery) cuando la acci&oacute;n del formulario es interna y se establece el m&eacute;todo POST.</li>
+			<li>Las funciones <samp>plural()</samp> y <samp>singular()</samp> se modificaron en <a href="helpers/inflector_helper.html">Inflector helper</a> para apoyar mucho m&aacute;s palabras.</li>
+		</ul>
+	</li>
+	<li>Bibliotecas
+		<ul>
+			<li>Se alter&oacute; Session para usar una mayor coincidencia en la cadena user_agent. Ver las notas de actualizaci&oacute;n de 2.0.2 a 2.0.3 si se usan sesiones de base de datos.</li>
+
+			<li>Se agreg&oacute; <kbd>is_unique</kbd> a la <a href="libraries/form_validation.html">Clase Form Validation</a>.</li>
+
+			<li>Se agreg&oacute; <kbd>$this->db->set_dbprefix()</kbd> al <a href="database/queries.html">driver de la Base de Datos</a>.</li>
+			<li>Se cambi&oacute; <kbd>$this->cart->insert()</kbd> en la <a href="libraries/cart.html">Biblioteca Cart</a> para devolver el Row ID cuando un &iacute;tem simple se inserta exitosamente.</li>
+			<li>Se agreg&oacute; <kbd>$this->load->get_var()</kbd> a la <a href="libraries/loader.html">Biblioteca Loader</a> para recuperar variables globales establecidas con <kbd>$this->load->view()</kbd> y <kbd>$this->load->vars()</kbd>.</li>
+			<li>Se cambi&oacute; <kbd>$this->db->having()</kbd> para insertar comillas usando escape() en lugar de escape_str().</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 2.0.3</h3>
+<ul>
+	<li>Se agreg&oacute; ENVIRONMENT a las constantes reservadas. (Reactor #196)</li>
+	<li>Se cambi&oacute; la verificaci&oacute;n del servidor para asegurar que SCRIPT_NAME est&eacute; definido. (Reactor #57)</li>
+	<li>Se elimin&oacute; <samp>APPPATH.'third_party'</samp> del cargador autom&aacute;tico de paquetes para anular las estad&iacute;sticas de archivo innecesarias si no hay paquetes o si el desarrollador no carga ning&uacute;n paquete por defecto.</li>
+	<li>Se corrigi&oacute; un error (Reactor #231) en el que un SQL de ejemplo de la tabla de base de datos de la Bilblioteca Sessions no conten&iacute;a un &iacute;ndice en last_activity. Ver notas de <a href="installation/upgrade_203.html">actualizaci&oacute;n de 2.0.2 a2.0.3</a>.</li>
+	<li>Se corrigi&oacute; un error (Reactor #229) en un SQL de ejemplo en la documentaci&oacute;n de la Biblioteca Sessions que conten&iacute;a un SQL incorrecto.</li>
+	<li>Se corrigi&oacute; un error (Core #340) en el que al pasar el segundo par&aacute;metro a $this->db->select(), los nombre de columnas en las consultas subsecuentes no se escapaban correctamente.</li>
+	<li>Se corrigi&oacute; el problema #199 &ndash; Los atributos pasados como cadena no incluyen un espacio entre ellos y la etiqueta de apertura.</li>
+	<li>Se corrigi&oacute; un error donde el m&eacute;todo <kbd>$this->cart->total_items()</kbd> de la <a href="libraries/cart.html">Biblioteca Cart</a> ahora devuelve la suma de las cantidades de todos los elementos en el carrito en lugar de la cantidad total.</li>
+	<li>Se corrigi&oacute; un error donde al no establecer 'null' al agregar campos en db_forge para los drivers MySQL y MySQLi aparecer&iacute;a NULL por defecto en lugar de NOT NULL como sugiere la documentaci&oacute;n.</li>
+	<li>Se corrigi&oacute; un error donde al usar <kbd>$this->db->select_max()</kbd>, <kbd>$this->db->select_min()</kbd>, se pod&iacute;an lanzar advertencias. Gracias a w43l por el parche.</li>
+	<li>Se reemplazaron las verificacones para STDIN con php_sapi_name() == 'cli' que en suconjunto es m&aacute;s confiable. Esto deber&iacute;a obtener los par&aacute;metros en el funcionamiento de crontab.</li>
+</ul>
+
+<h2>Versi&oacute;n 2.0.2</h2>
+<p>Fecha de Publicación: 7 de Abril de 2011<br />
+Etiqueta Hg: v2.0.2</p>
+<ul>
+	<li>Cambios Generales
+		<ul>
+			<li>Se movi&oacute; al n&uacute;cleo la <a href="./libraries/security.html">Biblioteca de Seguridad</a> y ahora se carga autom&aacute;ticamente. Por favor quitar las llamadas de carga.</li>
+			<li>La clase CI_SHA ahora es obsoleta. Todas las versiones soportadas de PHP proveen una funci&oacute;n <kbd>sha1()</kbd>.</li>
+			<li><kbd>constants.php</kbd> ahora se cargar&aacute; desde la carpeta del entorno si est&aacute; disponible.</li>
+			<li>Se agreg&oacute; registro de errores de la clave de idioma.</li>
+			<li>Se hizo opcional el Soporte de Entorno. Comentar o borrar la contante para detener las verificaciones del entorno.</li>
+			<li>Se agreg&oacute; Soporte de Entorno para Hooks.</li>
+			<li>Se agreg&oacute; el prefijo CI_ al <a href="libraries/caching.html">driver de Cach&eacute;</a>.</li>
+			<li>Se agreg&oacute; <a href="./general/cli.html">Uso de CLI</a> a la documentaci&oacute;n.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>Se quito el previamente obsoleto <kbd>dohash()</kbd> del <a href="./helpers/security_helper.html">helper Security</a>; en su lugar usar <kbd>do_hash()</kbd>.</li>
+			<li>Se cambio la funcion 'plural' para que no arruine la capitalizacion de su cadena. Tambien tiene en cuenta los acronimos que tienen todas mayusculas.</li>
+		</ul>
+	</li>
+	<li>Database
+		<ul>
+			<li><kbd>$this->db->count_all_results()</kbd> ahora devolver&aacute; un entero en lugar de una cadena.</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 2.0.2</h3>
+<ul>
+	<li>Se arreglo un error (Reactor #145) donde la Biblioteca Output tenia a parse_exec_vars establecido como protected.</li>
+	<li>Se arreglo un error (Reactor #80) donde is_really_writable crearia un archivo vacio en Windows o con safe_mode activado.</li>
+	<li>Se arreglaron varios errores en la Guia del Usuario.</li>
+	<li>Se agrego el metodo is_cli_request() a la documentacion para la <a href="libraries/input.html">clase Input</a>.</li>
+	<li>Se agregaron entradas form_validation_lang para <kbd>decimal</kbd>, <kbd>less_than</kbd> y <kbd>greater_than</kbd>.</li>
+	<li><a href="https://bitbucket.org/ellislab/codeigniter-reactor/issue/153/escape-str-bug-in-mssql-driver">Problema arreglado #153</a> Error Escape Str en el driver de MSSQL.</li>
+	<li><a href="https://bitbucket.org/ellislab/codeigniter-reactor/issue/172/bug-in-chrome-and-form_open-in-201">Problema arreglado #172</a> Google Chrome 11 publica incorrectamente cuando action esta vacia.</li>
+</ul>
+
+<h2>Version 2.0.1</h2>
+<p>Fecha de Publicación: 15 de Marzo de 2011<br />
+Etiqueta Hg: v2.0.1</p>
+<ul>
+	<li>Cambios Generales
+		<ul>
+			<li>Se agreg&oacute; <kbd>$config['cookie_secure']</kbd> en el archivo de configuraci&oacute;n para permitir requeirir una orden segura (HTTPS) para establecer las cookies.</li>
+			<li>Se agreg&oacute; la constante <kbd>CI_CORE</kbd> para ayudar a diferenciar entre el Core: TRUE Reactor : FALSO.</li>
+			<li>Se agreg&oacute; una constante <kbd>ENVIRONMENT</kbd> en index.php, que afecta la configuraci&oacute;n de presentaci&oacute;n de informes de error PHP  y opcionalmente, que archivos de configuraci&oacute;n se cargan (ver m&aacute;s abajo). Leer m&aacute;s en la p&aacute;gina de <a href="general/environments.html">Manejo de M&uacute;ltiples Entornos</a>.</li>
+			<li>
+     Se agreg&oacute; soporte para archivos de configuraci&oacute;n <a href="libraries/config.html#environments">espec&iacute;ficos de entorno</a>.</li>
+		</ul>
+	</li>
+	<li>Bibliotecas
+		<ul>
+			<li>Se agreg&oacute; las reglas <kbd>decimal</kbd>, <kbd>less_than</kbd> y <kbd>greater_than</kbd> a la <a href="libraries/form_validation.html">Clase Form validation</a>.</li>
+			<li>Llos m&eacute;todos <kbd>post()</kbd> y <kbd>get()</kbd> de la <a href="libraries/input.html">Clase Input</a> devolver&aacute; ahora un array completo si el primer argumento no se proporciona.</li>
+			<li>Cookies seguras ahora pueden hacerse con el helper <kbd>set_cookie()</kbd> y el m&eacute;todo de <a href="libraries/input.html">Clase Input</a>.</li>
+			<li>Se agreg&oacute; <kbd>set_content_type()</kbd> a la <a href="libraries/output.html">Clase Output</a> para establecer la salida del encabezado de HTTP <kbd>Content-Type</kbd> basado en un tipo MIME o una clave de la matriz de config/mimes.php.</li>
+			<li><a href="libraries/output.html">Clase Output</a> ahora soporta el encadenamiento de m&eacute;todo.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>Cambi&oacute; la l&oacute;gica de <kbd>form_open()</kbd> en <a href="helpers/form_helper.html">Helper Form</a>. Si ning&uacute;n valor es pasado suministra la URL actual.</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 2.0.1</h3>
+<ul>
+	<li>Peticiones de la CLI se puede ejecutar desde cualquier carpeta, no s&oacute;lo cuando CD'ed esta junto a index.php.</li>
+	<li>Solucionado el problema #41: Se agreg&oacute; audio/mp3 tipo MIME a mp3.</li>
+	<li>Arreglado un bug (Core #329), donde el driver de almacenamiento en cach&eacute; de archivos hace referencia incorrecta al directorio de cach&eacute;.</li>
+	<li>Arreglado un bug (Reactor #69), donde fue nombrada la biblioteca SHA1 incorrectamente.</li>
+</ul>
+
+<h2>Version 2.0.0</h2>
+<p>Fecha de Publicación: 28 de Enero de 2011<br />
+Etiqueta Hg: v2.0.0</p>
+<ul>
+	<li>Cambios Generales
+		<ul>
+			<li>Se reita soporte para PHP 4. CodeIgniter ahora requiere PHP 5.1.6.</li>
+			<li>Scaffolding, despu&eacute;s de haber quedado en desuso por varias versiones, se ha eliminado.</li>
+			<li>Plugins se han eliminado, en favor de los Helpers. El plugin CAPTCHA de se ha convertido en un Helper y se ha <a href="./helpers/captcha_helper.html">documentado</a>. El plugin de calendario JavaScript fue retirado debido a la gran disponibilidad de calendarios en JavaScript, sobre todo con jQuery.</li>
+			<li>Se agreg&oacute; nuevo tipo especial de biblioteca: <a href="./general/drivers.html">Drivers</a>.</li>
+			<li>Se agreg&oacute; completo apoyo de cadena de consulta. Vea el archivo de configuraci&oacute;n para m&aacute;s detalles.</li>
+			<li>Se movi&oacute; la carpeta de la aplicaci&oacute;n fuera de la carpeta del sistema.</li>
+			<li>Se movi&oacute; las carpetas system/cach&eacute; y del system/loga a la carpeta de la aplicaci&oacute;n.</li>
+			<li>Se agreg&oacute; anulaci&oacute;n de enrutamiento para el archivo index.php principal, lo que permite el enrutamiento normal para ser reemplazado por un archivo "index" base.</li>
+			<li>Se agreg&oacute; la capacidad de para establecer los valores de configuraci&oacute;n (o anular los valores de configuraci&oacute;n) directamente desde el conjunto de datos en el archivo index.php principal. Esto permite que una sola aplicaci&oacute;n sea utilizada con controladores frontales m&uacute;ltiples, cada una con sus propios valores de configuraci&oacute;n.</li>
+			<li>Se agreg&oacute; <kbd>$config['directory_trigger']</kbd> en el archivo de configuraci&oacute;n de manera que un controlador de sub-directorio se puede especificar cuando se ejecuta cadenas _GET en lugar de segmentos URI.</li>
+			<li>Se agreg&oacute; la capacidad para establecer "paquetes" caminos - rutas espec&iacute;ficas en las que las clases Loader y Config debe tratar de buscar primero un archivo solicitado. Esto permite la distribuci&oacute;n de las sub-aplicaciones con sus propias bibliotecas, modelos, archivos de configuraci&oacute;n, etc, en un solo directorio "paquete". Consulte la documentaci&oacute;n de la <a href="libraries/loader.html">Clase Loader</a> para m&aacute;s detalles.</li>
+			<li>El c&oacute;digo en desarrollo ahora est&aacute; alojado en <a href="http://bitbucket.org/ellislab/codeigniter-reactor/">BitBucket</a>.</li>
+			<li>Se elimin&oacute; la obsoleta clase Validation.</li>
+			<li>Se agreg&oacute; Prefijo CI_ de todas las clases.</li>
+			<li>Las rutas de paquetes ahora se puede establecer en application/config/autoload.php.</li>
+			<li>file_name de la <a href="libraries/file_uploading.html">Clase Upload</a> ahora se puede establecer sin una extensi&oacute;n, la extensi&oacute;n ser&aacute; tomada del archivo cargado en lugar del nombre pasado.</li>
+			<li>
+En <a href="database/forge.html">Database Forge</a> el nombre se puede omitir del segundo par&aacute;metro de $ this->dbForge->modify_column() si no se cambia el nombre.</li>
+			<li><kbd>$config['base_url']</kbd> est&aacute; vac&iacute;o por defecto, y supone que lo que deber&iacute;a ser.</li>
+			<li>Habilitada completamente compatibilidad de Command Line Interface con <kbd>config['uri_protocol'] = 'CLI';</kbd>.</li>
+		</ul>
+	</li>
+	<li>Bibliotecas
+		<ul>
+			<li>Se agreg&oacute; un <a href="libraries/caching.html">controlador de memoria cach&eacute;</a> con APC, memcached, y apoyo basado en archivos.</li>
+			<li>Se las propiedades <var>$prefix</var>, <var>$suffix</var> and <var>$first_url</var> a la <a href="./libraries/pagination.html">Clase Pagination</a>.</li>
+			<li>Se agreg&oacute; la capacidad para suprimir los enlaces primero, anterior, siguiente, &uacute;ltimo, y p&aacute;gina mediante el establecimiento de sus valores a FALSE en la <a href="./libraries/pagination.html">Clase Pagination</a>.</li>
+			<li>Se agreg&oacute; la <a href="./libraries/security.html">Clase Security </a>, que ahora contiene la funci&oacute;n <dfn>xss_clean</dfn>, la funci&oacute;n <dfn>filename_security</dfn> y otras funciones relacionadas con la seguridad.</li>
+			<li>Se agreg&oacute; la protecci&oacute;n CSRF (Cross-site Reference Forgery) a la <a href="./libraries/security.html">Clase Security</a>.</li>
+			<li>Se agreg&oacute; la propiedad <var>$parse_exec_vars</var> a la Clase output.</li>
+			<li>Se agreg&oacute; la habilidad de activar/desactivar las distintas secciones de <a href="general/profiling.html">Profiler</a></li>
+			<li>Se agreg&oacute; una opci&oacute;n de comod&iacute;n de <kbd>$config['allowed_types'] = '*'</kbd> para la <a href="./libraries/file_uploading.html">Clase Upload</a>.</li>
+			<li>Se agreg&oacute; un "objeto" variable de configuraci&oacute;n de la Clase XML-RPC Server para que se pueda especificar el objeto a buscar en los m&eacute;todos solicitados, en lugar de asumir que est&aacute; en el SuperObject $CI.</li>
+			<li>Se agreg&oacute; "is_object" en la lista de las pruebas unitarias, capaces de ser corridas.</li>
+			<li>La clase Table va a generar una celda vac&iacute;a con una cadena en blanco, o de valor NULL.</li>
+			<li>Se agreg&oacute; la habilidad para establecer atributos de las etiquetas de las celdas individuales en la Clase Table.</li>
+			<li>Se agreg&oacute; un <kbd>m&eacute;todo parse_string()</kbd> para la <a href="libraries/parser.html">clase Parser</a>.</li>
+			<li>Se agreg&oacute; cabeceras HTTP y la informaci&oacute;n de configuraci&oacute;n a la salida de <a href="general/profiling.html">Perfilador</a>.</li>
+			<li>Se agreg&oacute; Chrome y Flock la lista de los navegadores detectables por <kbd>browser()</kbd> en la <a href="libraries/user_agent.html">Clase User Agent</a>.</li>
+			<li>La <a href="libraries/unit_testing.html">clase Unit Test</a> ahora tiene disponible un campo opcional "notas" y permite la visualizaci&oacute;n de los items resultantes de las pruebas usando <kbd>$this->unit->set_test_items()</kbd>.</li>
+			<li>Se agreg&oacute; una variable de clase <kbd>$xss_clean</kbd> a la biblioteca XMLRPC, permitiendo el control sobre el uso del m&eacute;todo <kbd>xss_clean()</kbd> de la biblioteca Security.</li>
+			<li>Se agreg&oacute; un m&eacute;todo <kbd>download()</kbd> a la <a href="libraries/ftp.html">biblioteca FTP</a>.</li>
+			<li>Se cambi&oacute; <kbd>do_xss_clean()</kbd> para devolver FALSE si el archivo subido no pasa las comprobaciones de XSS.</li>
+			<li>Se agreg&oacute; stripslashes() y trim()ing de comillas dobles del valor de $_FILES para estandarizar el tipo de entrada en la biblioteca Input.</li>
+			<li>Se agreg&oacute; un segundo par&aacute;metro (booleano) a <kbd>$this->zip->read_dir('/ruta/al/ directorio', FALSE)</kbd> para eliminar el rastro anterior de carpetas vac&iacute;as al crear un archivo Zip. Este ejemplo contiene un zip con "directorio" y todo su contenido.</li>
+			<li>Se agreg&oacute; la capacidad de la biblioteca de im&aacute;genes para controlar la transparencia de las operaciones de cambio de tama&ntilde;o PNG cuando se utiliza la librer&iacute;a GD.</li>
+			<li>Se modific&oacute; la clase Session para evitar el uso si no hay clave de cifrado establecida en el archivo de configuraci&oacute;n.</li>
+			<li>Se agreg&oacute; el nuevo elemento de configuraci&oacute;n <kbd>sess_expire_on_close</kbd> de la clase Session para permitir que las sesiones de auto-expiren cuando la ventana del navegador es cerrada.</li>
+			<li>Mejora del rendimiento de la biblioteca Encryption en los servidores donde Mcrypt est&aacute; disponible.</li>
+			<li>Se cambi&oacute; el modo de cifrado por defecto en la biblioteca Encryption a CBC.</li>
+			<li>Se agreg&oacute; un metodo <kbd>encode_from_legacy()</kbd> para proporcionar una forma de transici&oacute;n de datos cifrados de CodeIgniter 1.x a CodeIgniter 2.x. Por favor, consulte las <a href="./installation/upgrade_200.html">instrucciones de actualizaci&oacute;n</a> para m&aacute;s detalles.</li>
+			<li>Modificaci&oacute;n de la biblioteca Form_Validation para permitir el m&eacute;todo de encadenamiento en las funciones <kbd>set_rules()</kbd>, <kbd>set_message()</kbd> y <kbd>set_error_delimiters()</kbd>.</li>
+			<li>Modificaci&oacute;n de la Biblioteca de correo electr&oacute;nico para permitir el m&eacute;todo de encadenamiento.</li>
+			<li>Se agreg&oacute; <kbd>request_headers()</kbd>, <kbd>get_request_header()</kbd> y <kbd>is_ajax_request()</kbd> a la clase Input.</li>
+			<li>Modificaci&oacute;n de la biblioteca <a href="libraries/user_agent.html">User agent</a> para que <kbd>is_browser()</kbd>, <kbd>is_mobile()</kbd> y <kbd>is_robot()</kbd>, opcioalmente, puede comprobar si es un navegador espec&iacute;fico o dispositivo m&oacute;vil.</li>
+			<li>Se modific&oacute; la <a href="libraries/input.html">biblioteca Input</a> de modo que <kbd>post()</kbd> y <kbd>get()</kbd> devuelve todos los items POST y GET, respectivamente), si no se pasan par&aacute;metros.</li>
+		</ul>
+	</li>
+	<li>Database
+		<ul>
+			<li><a href="./database/configuration.html">configuraci&oacute;n de base de datos</a>.</li>
+			<li>Se agreg&oacute; valor <kbd>autoinit</kbd> a la <a href="./database/configuration.html">configuraci&oacute;n de base de datos</a>.</li>
+			<li>Se agreg&oacute; valor <kbd>stricton</kbd> a la <a href="./database/configuration.html">configuraci&oacute;n de base de datos</a>.</li>
+			<li>Se agreg&oacute; <kbd>database_exists()</kbd> a la clase <a href="database/utilities.html">Database Utilities</a>.</li>
+			<li>El cambio sem&aacute;ntico para la funci&oacute;n db->version() para permitir una lista de excepciones para las bases de datos con funciones para devolver la cadena de versi&oacute;n en lugar de las consultas SQL especialmente formadas. Actualmente, esta lista s&oacute;lo incluye Oracle y SQLite.</li>
+			<li>Se ha corregido un error en el controlador espec&iacute;fico de protecci&oacute;n identificador de tabla podr&iacute;a dar lugar a consultas con formato incorrecto en las funciones <kbd>field_data()</kbd>.</li>
+			<li>Se ha corregido un error por el que se hace referencia a una variable de clase no definida en los controladores de base de datos.</li>
+			<li>Modificado los errores de base de datos para mostrar el nombre y n&uacute;mero de l&iacute;nea de una consulta problem&aacute;tica.</li>
+			<li>Eliminadas las siguientes funciones en desuso: orwhere, orlike, groupby, orhaving, orderby, getwhere.</li>
+			<li>Eliminadas las funciones obsoletas _drop_database() y _create_database() de los drviers de utilidad DB.</li>
+			<li>Mejora en la funci&oacute;n create_table() de dbforge para el driver de Postgres.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+		<li>Se agreg&oacute; la funci&oacute;n <kbd>convert_accented_characters()</kbd> al <a href="./helpers/text_helper.html">helper text</a>.</li>
+			<li>Se agreg&oacute; accept-charset a la lista de atributos insertados de <kbd>form_open()</kbd> en el <a href="helpers/form_helper.html">Helper Form</a>.</li>
+			<li>Obsoleta la funci&oacute;n <kbd>dohash()</kbd> en favor de <kbd>do_hash()</kbd> para asignar consistencia de nombres.</li>
+			<li>Non-backwards compatible con el cambio hecho a <kbd>get_dir_file_info()</kbd> en el <a href="helpers/file_helper.html">Helper File</a>. No es m&aacute;s recursiva por defecto con el fin de fomentar el uso responsable (esta funci&oacute;n puede provocar problemas de rendimiento del servidor cuando se usa sin cuidado).</li>
+			<li>Modificado el segundo par&aacute;metro de <kbd>directory_map()</kbd> en el <a href="helpers/directory_helper.html">Helper Directory</a> al aceptar un entero para especificar nivel de recursividad.</li>
+			<li>>Modificado <kbd>delete_files()</kbd> en el <a href="helpers/file_helper.html">Helper File</a> para devolver FALSE en caso de fallo.</li>
+			<li>Se agreg&oacute; un segundo par&aacute;metro opcional en <kbd>byte_format()</kbd> en el <a href="helpers/number_helper.html">Helper Number</a> para permitir precisi&oacute;n decimal.</li>
+			<li>Se agreg&oacute; tipos de cadenas alpha, y sha1 de <kbd>random_string()</kbd> en el <a href="helpers/string_helper.html">Helper String</a>.</li>
+			<li>Modificado <kbd>prep_url()</kbd> a fin de no anteponer http:// si la cadena suministrada ya lo tiene.</li>
+			<li>Modificado <kbd>get_file_info</kbd> en el Helper File, cambio de filectime() para filemtime() para las fechas.</li>
+			<li>Modificado <kbd>smiley_js()</kbd> para a&ntilde;adir un tercer par&aacute;metro opcional para devolver s&oacute;lo el javascript, sin etiquetas de script.</li>
+			<li>La funci&oacute;n <kbd>img()</kbd> del Helper HTML ahora va a generar una cadena vac&iacute;a del atributo alt si no se proporciona.</li>
+			<li>Si CSRF est&aacute; activada en el archivo de configuraci&oacute;n de la aplicaci&oacute;n, <kbd>form_open()</kbd> autom&aacute;ticamente se inserta como un campo oculto.</li>
+			<li>Se agreg&oacute; <kbd>sanitize_filename()</kbd> en el <a href="./helpers/security_helper.html">Helper Security</a>.</li>
+			<li>Se agreg&oacute; <kbd>ellipsize()</kbd> al <a href="./helpers/text_helper.html">Helper Text</a>.</li>
+			<li>Se agreg&oacute; <kbd>elements()</kbd> al <a href="./helpers/array_helper.html">Helper Array</a>.</li>
+		</ul>
+	</li>
+	<li>Otros Cambios
+		<ul>
+			<li>Se agreg&oacute; un segundo par&aacute;metro opcional a <kbd>show_404()</kbd> para desactivar el registro.</li>
+			<li>Actualizado cargador para aplicar autom&aacute;ticamente el prefijo sub-clase como una opci&oacute;n cuando se cargan las clases. Los nombres de clase puede ir precedido con el estandard "CI_" o el mismo prefijo que la subclase, o sin prefijo.</li>
+			<li>Aumento de la aleatoriedad con <kbd>is_really_writable()</kbd> para evitar colisiones de archivos cuando cientos o miles de solicitudes se producen al mismo tiempo.</li>
+			<li>Conmutados algunos usos de la constante DIR_WRITE_MODE a FILE_WRITE_MODE donde los directorios y archivos que no se van a operar.</li>
+			<li><kbd>get_mime_by_extension()</kbd> es ahora entre indiferente entre may&uacute;sculas y min&uacute;sculas.</li>
+			<li>Se agreg&oacute; "default" a los nombres de la lista <a href="general/reserved_names.html">Reserved Names</a>.</li>
+			<li>Se agreg&oacute; 'application/x-msdownload' para los archivos .exe y 'aplicaci&oacute;n/x-gzip-compressed' para los archivos .tgz en config/mimes.php.</li>
+			<li>Actualizaci&oacute;n de la biblioteca output para no comprimir la salida o enviar encabezados content-length, si el servidor se ejecuta con zlib.output_compression habilitado.</li>
+			<li>Eliminado un llamado a is_really_writable() en cada solicitud, a menos que realmente se necesite (Output caching).</li>
+			<li>Documentado <kbd>append_output()</kbd> en la <a href="libraries/output.html">clase Output</a>.</li>
+			<li>Documentado un segundo argumento en la funci&oacute;n <kbd>decode()</kbd> para la <a href="libraries/encryption.html">Clase Encryption</a>.</li>
+			<li>Documentado db->close().</li>
+			<li>Actualizaci&oacute;n del router para apoyar una ruta predeterminada con cualquier n&uacute;mero de segmentos.</li>
+			<li>Se movio la funci&oacute;n _remove_invisible_characters() desde la <a href="libraries/security.html">Biblioteca Security</a> a las <a href="general/common_functions.html">funciones comunes</a>.</li>
+			<li>Se agreg&oacute; audio/mpeg3 como un tipo MIME v&aacute;lido para MP3.</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 2.0.0</h3>
+<ul>
+	<li>Se ha corregido un error en el que no se pod&iacute;a cambiar el User-Agent para enviar correo electr&oacute;nico.</li>
+	<li>Corregido un error en la clase Output que env&iacute;a la salida incorrecta en cach&eacute; de los controladores de la aplicaci&oacute;n de su propio m&eacute;todo <dfn>_output()</dfn>.</li>
+	<li>Corregido un error en una consulta que no tendr&iacute;a tiempo de ejecuci&oacute;n de consultas salvo que causa errores en el Perfil.</li>
+	<li>Se ha corregido un error que estaba escribiendo entradas en el registro cuando varios ayudantes id&eacute;nticos y plugins fueron cargados.</li>
+	<li>Se corrigi&oacute; varios errores tipogr&aacute;ficos de gu&iacute;a del usuario o ejemplos (#10693, #8951, #7825, #8660, #7883, #6771, #10656).</li>
+	<li>Se ha corregido una clave de lenguaje en perfiles: "profiler_no_memory_usage" a "profiler_no_memory".</li>
+	<li>Se ha solucionado un error en la librer&iacute;a Zip que no permit&iacute;a la descarga de servidores PHP4.</li>
+	<li>Se ha corregido un error en la biblioteca Form Validation, donde los campos que se pasan como par&aacute;metros la regla no se est&aacute; traduciendo (#9132)</li>
+	<li>Modificado Helpr inflector para pluralizar correctamente palabras que terminan en 'ch' o 'sh'</li>
+	<li>Se ha corregido un error en xss_clean() que no permite guiones en las cadenas de consulta de las URL que recibe.</li>
+	<li>Corregidos errores en get_dir_file_info() y get_file_info() en el Helper File con la recursividad y las rutas de archivos en Windows.</li>
+	<li>Se ha corregido un error en el par&aacute;metro activo de anulaci&oacute;n de registro que no le permite deshabilitar Active Record, si se ha habilitado en su archivo de configuraci&oacute;n de base de datos.</li>
+	<li>Se ha corregido un error en reduce_double_slashes() en el Helper String para eliminar adecuadamente barras invertidas dobles (#7585)</li>
+	<li>Se ha corregido un error en values_parsing() de la biblioteca XML-RPC que impidi&oacute; que las variables de tipo NULL como 'cadena' sea manejado adecuadamente.</li>
+	<li>Se ha corregido un error form_open_multipart() no acepta los argumentos de cadena de atributos (#10930).</li>
+	<li>Se ha corregido un error (#10470), en get_mime_by_extension () para diferenciar entre may&uacute;sculas y min&uacute;sculas.</li>
+	<li>Se ha corregido un error por el que algunos mensajes de error para SQLite y controladores de Oracle, no se mostraraban.</li>
+	<li>Corregido un error en los archivos creados con la Biblioteca Email resultante en fechas de creaci&oacute;n de archivo de 1980.</li>
+	<li>Se ha corregido un error en la librer&iacute;a Session que dar&iacute;a lugar a un error de PHP cuando se trata de almacenar los valores con los objetos.</li>
+	<li>Se ha corregido un error por el al extender la clase Controller se traducir&iacute;a en un error de PHP fatal.</li>
+	<li>Se ha corregido Strict Standards Error en el archivo index.php.</li>
+	<li>Se ha corregido un error por el que getimagesize() se iniciaba sin necesidad de revisar los archivos que no eran imagen en is_allowed_type().</li>
+	<li>Se ha corregido un error en la librer&iacute;a Encryption donde una clave vac&iacute;a no estaba provocando un error.</li>
+	<li>Se ha corregido un error en la biblioteca Email en que los destinatarios CC y BCC no se restablece cuando se utiliza el m&eacute;todo Clear() (#109).</li>
+	<li>Se ha corregido un error en el Helper URL en prep_url() que podr&iacute;a causar un error de PHP en versiones de PHP &lt; 5.1.2.</li>
+	<li>Se agreg&oacute; un mensaje de registro en core/output si el valor de configuraci&oacute;n del directorio de cach&eacute; no se ha encontrado.</li>
+	<li>Se ha corregido un error en el que varias bibliotecas no se pudieron cargar pasando una matriz a load->library()</li>
+	<li>Se ha corregido un error en Helper HTML que se haya dejado espacio en blanco en exceso de entre las etiquetas src y alt en la funci&oacute;n img().</li>
+	<li>Se ha corregido un error en la funci&oacute;n_compile_queries() del perfilador.</li>
+	<li>Se ha corregido un error en el asistente de la fecha en que la variable DATE_ISO8601 devolv&iacute;a una cadena de fecha con formato incorrecto.</li>
+</ul>
+
+<h2>Version 1.7.2</h2>
+<p>Fecha de lanzamiento: 11 de Septiembre de 2009<br />
+Etiqueta Hg: v1.7.2</p>
+<ul>
+	<li>Bibliotecas
+		<ul>
+			<li>Se ha a&ntilde;adido una nueva <a href="libraries/cart.html">Clase Cart</a>.</li>
+			<li>A&ntilde;adida la posibilidad de pasar $config['nombre_archivo'] a la <a href="libraries/file_uploading.html">clase Upload</a> y renombrar el archivo cargado.</li>
+			<li>Ha cambiado el orden de la lista user-agents para Safaricon mayor precisi&oacute;n el propio informe. (# 6844)</li>
+		</ul>
+	</li>
+	<li>Database
+		<ul>
+			<li>Cambiado el uso de gettype() en escape() para m&eacute;todos is_*, ya que futuras versiones de PHP puede cambiar su salida.</li>
+			<li>Actualizados todos los drivers de base de datos para manejar matrices en escape_str()</li>
+			<li>A&ntilde;adido escape_like_str() para escapar las cadenas a ser utilizadas en condiciones LIKE.</li>
+			<li>Actualizado Active Record para utilizar el nuevo mecanismo de escapar LIKE.</li>
+			<li>A&ntilde;adido m&eacute;todo reconnect() a los drivers DB para tratar de mantener viva/restablecer la conexi&oacute;n despu&eacute;s de una larga inactividad.</li>
+			<li>Modificado controlador MSSQL para usar mssql_get_last_message() en mensajes de error.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>A&ntilde;adido <kbd>form_multiselect()</kbd> en el <a href="helpers/form_helper.html">helper Form</a>.</li>
+			<li>Modificado form_hidden() en el <a href="helpers/form_helper.html">helper Form</a> para aceptar arrays multi-dimensionales.</li>
+			<li>Modificado <kbd>form_prep()</kbd> en el <a href="helpers/form_helper.html">helper Form</a> para realizar un seguimiento de los campos preparados para evitar m&uacute;ltiples preparaci&oacute;n/mutaci&oacute;n de las llamadas posteriores que pueden ocurrir cuando se utiliza la Form Validation y funciones para las salidas de los campos.</li>
+			<li>Modificado <kbd>directory_map()</kbd> en el <a href="helpers/directory_helper.html">helper Directory</a> para permitir la inclusi&oacute;n de los archivos ocultos, y regresar FALSE en caso de fallo al leer el directorio.</li>
+			<li>Modificado el <a href="helpers/smiley_helper.html">helper Smiley</a> para trabajar con m&uacute;ltiples campos e insertar el emoticono en la &uacute;ltima posici&oacute;n conocida del cursor.</li>
+		</ul>
+	</li>
+	<li>General
+		<ul>
+			<li>Compatible con PHP 5.3.0</li>
+			<li>Modificado <a href="general/errors.html">show_error()</a> para permitir el env&iacute;o de c&oacute;digos de respuesta HTTP del servidor.</li>
+			<li>Modificado <a href="general/errors.html">show_404()</a> para enviar c&oacute;digo de estado 404, eliminaci&oacute;n de la declaraci&oacute;n de CGI no compatible con header() de la plantilla error_404.php.</li>
+			<li>A&ntilde;adido set_status_header() a las <a href="general/common_functions.html">funciones comunes</a> para permitir el uso cuando la clase output no est&aacute; disponible.</li>
+			<li>A&ntilde;adido is_php() a las <a href="general/common_functions.html">funciones comunes</a> para facilitar la comparaci&oacute;n la versi&oacute;n de PHP.</li>
+			<li>A&ntilde;adido 2 "hojas de referencia" CodeIgniter (gracias a DesignFellow.com de esta contribuci&oacute;n).</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 1.7.2</h3>
+<ul>
+	<li>Se corrigieron varios errores tipogr&aacute;ficos en gu&iacute;a del usuario o ejemplos (#6743, #7214, #7516, #7287, #7852, #8224, #8324, #8349).</li>
+	<li>Se ha corregido un error en la biblioteca Form Validation en devoluciones de llamadas multiples que no estaba trabajando (#6110)</li>
+	<li>Valor de tipo de documento helper por defecto ayudante le faltaba un "1".</li>
+	<li>Se ha corregido un error en la clase de language, cuando la salida de un error de un archivo no encontrado.</li>
+	<li>Se ha corregido un error en la librer&iacute;a Calendar, en el nombre corto de la salida para "mayo".</li>
+	<li>Arreglado un error en ORIG_PATH_INFO que permit&iacute;a URI de tan s&oacute;lo una barra invertida.</li>
+	<li>Se ha corregido un error fatal en Oracle y los drivers ODBC (#6752)</li>
+	<li>Se ha corregido un error por el que xml_from_result() hac&iacute;a la comprobaci&oacute;n de un m&eacute;todo que no exist&iacute;a.</li>
+	<li>Corregido un error en la base de datos Forge add_column y modify_column no hac&iacute;a lopp cuando se env&iacute;an varios campos.</li>
+	<li>Corregido un error en el Helper File cuando usaba '/' en lugar de la constante DIRECTORY_SEPARATOR.</li>
+	<li>Corregido un error para evitar errores de PHP al intentar utilizar sendmail en los servidores que se han desactivado manualmente la funci&oacute;n popen() de PHP.</li>
+	<li>Se ha corregido un error que podr&iacute;a provocar errores de PHP en datos XML-RPC si el tipo de datos de PHPnNo se han especificado en el tipo XML-RPC.</li>
+	<li>Se ha corregido un error en la clase XML-RPC con el an&aacute;lisis de tipos de datos dateTime.iso8601.</li>
+	<li>Se ha corregido sustituci&oacute;n de cadenas sensible may&iacute;sculas/min&uacute;sculas en xss_clean()</li>
+	<li>Se ha corregido un error en form_textarea() cuando los datos del formulario no fue preparado correctamente.</li>
+	<li>Se ha corregido un error en form_prep() que provoca no preservar las entidades en la entrada original del usuario cuando se le llama de nuevo en un elemento de formulario</li>
+	<li>Se ha corregido un error en _protect_identifiers(), donde el prefijo de intercambio ($swap_pre) no se observ&oacute;.</li>
+	<li>Corregido un error en la cabecera enviada estado 400 de los 'caracteres no permitidos URI' que no era compatible con los entornos de CGI.</li>
+	<li>Se ha corregido un error en la clase typography donde las etiquetas de encabezado puede tener etiquetas de p&aacute;rrafo insertadas cuando se utiliza auto_typography ().</li>
+</ul>
+
+<h2>Version 1.7.1</h2>
+<p>Fecha de lanzamiento: 10 de Febrero de 2009<br />
+Etiqueta Hg: 1.7.1</p>
+<ul>
+	<li>Bibliotecas
+		<ul>
+			<li>Se ha solucionado la falla de seguridad ejecuci&oacute;n arbitraria de un script (#6068) en la biblioteca Form Validation (gracias a HKK)</li>
+			<li>Cambiado indicador por defecto de p&aacute;gina actual en la biblioteca Pagination para usar &lt;strong&gt; lugar de &lt;b&gt;</li>
+			<li>Una cabecera "HTTP/1.1 400 Bad Request" se env&iacute;a ahora cuando se encuentran caracteres no permitidos.</li>
+			<li>A&ntilde;adido de los elementos en l&iacute;nea &lt;big&gt;, &lt;small&gt;, &lt;q&gt;, y &lt;tt&gt; del programa de an&aacute;lisis de la tipograf&iacute;a.</li>
+			<li>Agregado informe de errores m&aacute;s preciso para la biblioteca Email cuando se usa sendmail.</li>
+			<li>Se ha eliminado un chequeo estricto del <kbd>rotate()</kbd> en la funci&oacute;n de la <a href="libraries/image_lib.html">clase de manipulaci&oacute;n de im&aacute;genes</a>.</li>
+			<li>A&ntilde;adida mayor comprobaci&oacute;n de error en el guardado de archivo en la biblioteca de imagen cuando se utiliza la librer&iacute;a GD.</li>
+			<li>Se ha agregado una nueva l&iacute;nea adicional entre cabeceras de correo electr&oacute;nico de varias partes y el texto del mensaje MIME para una mejor compatibilidad con una variedad MUA.</li>
+			<li>Realizadas peque&ntilde;as mejoras en la eficiencia y la precisi&oacute;n de explode_name() en la librer&iacute;a de im&aacute;genes.</li>
+		</ul>
+	</li>
+	<li>Database
+		<ul>
+			<li>A&ntilde;adido where_in a la lista de argumentos esperados recibidos por <kbd>delete()</kbd>.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>A&ntilde;adida capacidad de tener optgroups en <kbd>form_dropdown()</kbd> en el <a href="helpers/form_helper.html">helper Form</a>.</li>
+			<li>Se ha a&ntilde;adido una funci&oacute;n doctype() al <a href="helpers/html_helper.html">helper HTML</a>.</li>
+			<li>A&ntilde;adida la capacidad para obligar min&uacute;scula para <kbd>url_title()</kbd> en el <a href="helpers/url_helper.html">helper URL</a>.</li>
+			<li>Se ha cambiado el "tipo" predeterminado de <kbd>form_button()</kbd> de "button" a "submit" en el <a href="helpers/form_helper.html">helper form</a>.</li>
+			<li>Cambiado redirect() en el helper URL para permitir redirecciones de las URLs fuera del sitio de CI.</li>
+			<li>Actualizado get_cookie() para tratar de recuperar la cookie usando el prefijo global de cookies si el nombre de la cookie solicitado no existe.</li>
+		</ul>
+	</li>
+	<li>Otros Cambios
+		<ul>
+			<li>Mejorada la seguridad en <kbd>xss_clean()</kbd> para ayudar a prevenir ataques contra Internet Explorer.</li>
+			<li>A&ntilde;adida 'Application/msexcel' a config/mimes.php para los archivos xls.</li>
+			<li>A&ntilde;adido item 'proxy_ips' de configuraci&oacute;n para lista blanca de servidores proxy inverso la que confia en la cabecera de HTTP_X_FORWARDED_FOR para determinar la direcci&oacute;n IP del visitante.</li>
+			<li>Mejora de la precisi&oacute;n Upload::is_allowed_filetype() para im&aacute;genes (#6715)</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 1.7.1</h3>
+<ul>
+	<li>Database
+		<ul>
+			<li>Corregido un error al hacer "random" en order_by() (#5706).</li>
+			<li>Corregido un error en la adici&oacute;n de una clave principal a trav&eacute;s Forge cunado falla (#5731).</li>
+			<li>Se ha corregido un error al usar el cach&eacute; de base de datos de m&uacute;ltiples bases de datos (#5737).</li>
+			<li>Se ha corregido un error por el que TRUNCATE no ha considerado una consulta "write" (# 6619).</li>
+			<li>Se ha corregido un error por el que csv_from_result() hac&iacute;a la comprobaci&oacute;n de un m&eacute;todo que no existe.</li>
+			<li>Arreglado un bug _protect_identifiers() donde se forma la incorrecta eliminaci&oacute;n de todos los s&iacute;mbolos de canalizaci&oacute;n de items</li>
+		</ul>
+	</li>
+	<li>Arreglados varios errores tipogr&aacute;ficos gu&iacute;a del usuario o ejemplos (#5998, #6093, #6259, #6339, #6432, #6521).</li>
+	<li>Se ha corregido un error en el driver MySQLi cuando no se especifica el puerto</li>
+	<li>Se ha corregido un error (#5702), en el que la etiqueta del campo no se han recuperado bien, cuando se "emparejan" un campo a otro.</li>
+	<li>Arreglado un bug en el que los identificadores no eran correctos cuando se escapaba caracteres reservados.</li>
+	<li>Arreglado un bug con la expresi&oacute;n regular utilizada para proteger las etiquetas de p&aacute;rrafo presentados en la tipograf&iacute;a de autom&aacute;tica.</li>
+	<li>Se ha corregido un error en el que los guiones dobles dentro de atributos de las etiquetas se est&aacute;n convirtiendo en entidades gui&oacute;n.</li>
+	<li>Se ha corregido un error en el que los espacios dobles en atributos de las etiquetas se est&aacute;n convirtiendo a las entidades del espacio de no separaci&oacute;n.</li>
+	<li>Se han solucionado algunos problemas de precisi&oacute;n con comillas tipogr&aacute;ficas en Typography::format_characters()</li>
+	<li>Cambi&oacute; de algunos comentarios en docblock para reflejar los valores reales de retorno.</li>
+	<li>Se ha corregido un error con caracteres ASCII altos en sujeto y de las cabeceras de correo electr&oacute;nico.</li>
+	<li>Se ha corregido un error en xss_clean(), donde los espacios en blanco despu&eacute;s de una entidad de car&aacute;cter validada no se conserva.</li>
+	<li>Corregido un error en los comentarios de HTML y etiquetas &lt;pre&gt; se est&aacute; analizando en Typography::auto_typography().</li>
+	<li>Arreglado un bug con la limpieza de espacio de no separaci&oacute;n en Typography::auto_typography().</li>
+	<li>Se ha corregido un error al escapar una sentencia compuestaen de la base de datos (por ejemplo: SUM()) no se manej&oacute; correctamente con los prefijos de base de datos.</li>
+	<li>Se ha corregido un error cuando una comilla de apertura est&aacute; precedida por una etiqueta de p&aacute;rrafo y seguida inmediatamente de otra etiqueta.</li>
+	<li>Se ha corregido un error en el Helper Texto que afecta a algunos lugares donde word_censor() no trabaja en las palabras que empiezan o terminan con un car&aacute;cter acentuado.</li>
+	<li>Se ha corregido un error del limitador de car&aacute;cter en el Helper text cuando el l&iacute;mite siempre cruza la &uacute;ltima palabra de la cadena.</li>
+	<li>Se ha corregido un error (#6342) con plural() en el Helper Infletion con las palabras que terminan en "y".</li>
+	<li>Corregido error (#6517) donde segmentos URI enrutados devuelto por el m&eacute;todo  URI::rsegment() no son correctos para el controlador por defecto.</li>
+	<li>Se ha corregido un error (#6706) en el Helper Security, donde xss_clean() se utiliza un segundo argumento obsoleto.</li>
+	<li>Se ha corregido un error en la funci&oacute;n url_title() del Helper URL en la que las barras finales se permiti&oacute; al final de una URL.</li>
+	<li>Se ha corregido un error (#6669) en la clase E-mail cuando CRLF se utiliza para el car&aacute;cter de nueva l&iacute;nea con las cabeceras cuando se utiliza con el protocolo de "email".</li>
+	<li>Se ha corregido un error (#6500), donde URI::A_filter_uri() era un exit() de error en lugar de utilizar show_error().</li>
+	<li>Se ha corregido un error (#6592) en el Helper File, donde la recursividad de get_dir_file_info() no se estaba produciendo correctamente.</li>
+	<li>Ajustada Typography::auto_typography() para unos pocos los casos.</li>
+</ul>
+
+<h2>Version 1.7</h2>
+<p>Fecha de lanzamiento: 23 de Octubre de 2008<br />
+Etiqueta Hg: 1.7.0</p>
+<ul>
+	<li>Bibliotecas
+		<ul>
+			<li>Se ha a&ntilde;adido una nueva <a href="libraries/form_validation.html">Clase Form Validation</a>. Simplifica fijar reglas y nombres de campo, admite matrices como nombres de campo, permite grupos de reglas de validaci&oacute;n para ser guardados en un archivo de configuraci&oacute;n y a&ntilde;ade algunas funciones auxiliares para su uso en los archivos de vista. <strong>Tenga en cuenta que la anterior clase Validation es considerada obsoleta</strong>. Vamos a dejarl en la carpeta de bibliotecas por alg&uacute;n tiempo para que las aplicaciones existentes que lo utilizan no se rompan, pero se le anima a migrar a la nueva versi&oacute;n.</li>
+			<li>Actualizaci&oacute;n de la <a href="libraries/sessions.html">clase Sessions</a> para que los datos personalizados que se guardan se almacenen en una base de datos en lugar de la cookie de sesi&oacute;n (asumiendo que usted est&aacute; utilizando una base de datos para almacenar datos de sesi&oacute;n), lo que permite muchos m&aacute;s datos para ser salvados.</li>
+			<li>A&ntilde;adida la capacidad para almacenar las bibliotecas en los subdirectorios dentro de cualquiera de las carpetas de las "bibliotecas" principales o "bibliotecas"  de la aplicaci&oacute;n local. Por favor, consulte la <a href="libraries/loader.html">clase Loader</a> para m&aacute;s informaci&oacute;n.</li>
+			<li>A&ntilde;adida la capacidad para asignar objetos de la biblioteca con sus propios nombres de variables cuando se utiliza <kbd>$this->load->library()</kbd>. Por favor, consulte la <a href="libraries/loader.html">clase Loader</a> para m&aacute;s informaci&oacute;n.</li>
+			<li>A&ntilde;adido controlador clase/m&eacute;todo de informaci&oacute;n a la <a href="general/profiling.html">clase Profiler</a> y el apoyo para las conexiones de bases de datos.</li>
+			<li>Mejora de la caracter&iacute;stica "tipograf&iacute;a autom&aacute;tica" y se traslad&oacute; fuera del helper a su propia <a href="libraries/typography.html">Clase Typography</a>.</li>
+			<li>Mejora del rendimiento y la precisi&oacute;n de <kbd>xss_clean()</kbd>, incluida la reducci&oacute;n de falsos positivos en las pruebas de imagen/archivo.</li>
+			<li>Mejora de la <a href="./libraries/parser.html">clase Parser</a> para permitir m&uacute;ltiples llamadas a la funci&oacute;n parse(). La salida de cada llamada se a&ntilde;ade en la salida.</li>
+			<li>A&ntilde;adida la opci&oacute;n de <dfn>max_filename</dfn> para establecer un l&iacute;mite de longitud al nombre de archivo en la <a href="libraries/file_uploading.html">clase File Upload</a>.</li>
+			<li>A&ntilde;adida funci&oacute;n <dfn>set_status_header()</dfn> a la <a href="libraries/output.html">clase Output</a>.</li>
+			<li>Modificada clase <a href="libraries/pagination.html">Pagination</a> para la salida de s&oacute;lo el "primer" enlace cuando el v&iacute;nculo de la p&aacute;gina no se muestra.</li>
+			<li>A&ntilde;adido soporte para mb_strlen en la clase <a href="libraries/form_validation.html">Form Validation</a> para calcular correctamente las longitudes de cadena de los idiomas multi-byte.</li>
+		</ul>
+	</li>
+	<li>Database
+		<ul>
+			<li>Mejora de la clase Active Record para permitir que la columna ruta completa y el nombre de la tabla: hostname.database.table.column. Tambi&eacute;n ha mejorado el manejo de alias.</li>
+			<li>Mejora como nombres de tablas y columnas se escapan y se pone prefijo. It ahora acepta a los nombres completos de ruta, cuando se adiciona de prefijos y escapan.</li>
+			<li>A&ntilde;adida funci&oacute;n de Active Record de almacenamiento en cach&eacute; para las funciones "update" y "delete".</li>
+			<li>Agregado de eliminaci&oacute;n de caracteres de control no imprimibles en la <kbd>escape_str()</kbd> de los drivers de DB que no cuentan con los mecanismos de escape nativo de PHP (mssql, oci8, ODBC), para evitar posibles errores de SQL, y las posibles fuentes de inyecci&oacute;n de SQL.</li>
+			<li>A&ntilde;adido soporte para el puerto de MySQL, MySQLi, y MS controladores de base de datos SQL.</li>
+			<li>A&ntilde;adida la variable nombre del controlador en cada controlador de base de datos, basado en el informe de fallo #4436.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>Se han a&ntilde;adido varios "ajustes" de funciones en el <a href="helpers/form_helper.html">helper Form</a> que permiten que los datos POST a recuperar y poner en el formualrio. Estos est&aacute;n destinados a ser utilizados por s&iacute; solos, o con nueva la <a href="libraries/form_validation.html">clase Form Validation</a>.</li>
+			<li>A&ntilde;adido current_url() y uri_segments() para <a href="helpers/url_helper.html">helper URL</a>.</li>
+			<li>Alteraci&oacute;n <kbd>auto_link()</kbd> en el <a href="helpers/url_helper.html">helper URL</a> para que las direcciones de email con "+" esten vinculados.</li>
+			<li>A&ntilde;adido meta() a <a href="helpers/html_helper.html">helper HTML</a>.</li>
+			<li>Mejora de la precisi&oacute;n de los c&aacute;lculos de <a href="helpers/number_helper.html">helper Number</a>.</li>
+			<li>Se eliminaron los saltos de l&iacute;nea a&ntilde;adido ("\n") de la mayor&iacute;a de funciones del helper form y  HTML.</li>
+			<li>Validaci&oacute;n m&aacute;s estricta en la funci&oacute;n <kbd>human_to_unix()</kbd> del <a href="helpers/date_helper.html">helper Date</a>, y se elimina la expresi&oacute;n regular POSIX.</li>
+			<li>Actualizaci&oacute;n del <a href="helpers/date_helper.html">helper Date</a> para que coincida con las zonas de tiempo actuales del mundo y desplazamientos.</li>
+			<li>Modificado url_title() en el <a href="helpers/url_helper.html">helper URL</a> para eliminar caracteres y d&iacute;gitos que forman parte de las entidades de caracteres, para permitir que los guiones, guiones bajos y per&iacute;odos, independientemente del separador $ y para permitir que los caracteres en may&uacute;scula.</li>
+			<li>A&ntilde;adido soporte para atributos arbitrarios en anchor_popup() del <a href="helpers/url_helper.html">helper URL</a>.</li>
+		</ul>
+	</li>
+	<li>Otros Cambios
+		<ul>
+			<li>A&ntilde;adido <a href="./general/styleguide.html">Gu&iacute;a de Estilo para PHP</a> en documentaci&oacute;n.</li>
+			<li>Se incluy&oacute; en la desinfecci&oacute;n <kbd>xss_clean()</kbd> para una etiqueta obsoleta HTML que podr&iacute;a ser objeto de abuso en la entrada del usuario en Internet Explorer.</li>
+			<li>Se han a&ntilde;adido unos cuantos documentos openxml tipos MIME y un agente adicional m&oacute;vil para mimes.php y user_agents.php respectivamente.</li>
+			<li>Se ha a&ntilde;adido una comprobaci&oacute;n de bloqueo de archivo en el almacenamiento en cach&eacute;, antes de intentar escribir en el archivo.</li>
+			<li>Modificado clave de limpieza de cookie para desarmar unos pocos nombres de claves problem&aacute;ticas que pueden estar presentes en ciertos ambientes, la prevenci&oacute;n de CI es detener la ejecuci&oacute;n.</li>
+			<li>Cambi&oacute; la salida del generador de perfiles para utilizar el atributo de estilo en lugar de limpiar y se a&ntilde;ade el identificador "codeigniter_profiler" al div contenedor.</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 1.7.0</h3>
+<ul>
+	<li>Solucionado un problema en <kbd>xss_clean()</kbd> que podr&iacute;a eliminar algunos atributos de las etiquetas deseadas.
+</li>
+	<li>Arreglados una variedad de errores tipogr&aacute;ficos de gu&iacute;a de los usuarios o ejemplos (#4807, #4812, #4840, #4862, #4864, #4899, #4930, #5006, #5071, #5158, #5229, #5254, #5351).</li>
+	<li>Arreglado una edici&oacute;n de 1.6.3 que se hicieron en el array $robots en user_agents.php caer.</li>
+	<li>Se ha corregido un error en la <a href="libraries/email.html">biblioteca Email</a> con codificaci&oacute;n de entrecomillado imprimible generaba incorrecta codificaci&oacute;n de caracteres espacio y tabulador.</li>
+	<li>Modificada desinfecci&oacute;n XSS no m&aacute;s largo y coma despu&eacute;s de a&ntilde;adir  &amp;[una sola letra], como en el M&amp;M, B&amp;B, etc.</li>
+	<li>Modificada desinfecci&oacute;n XSS que ya no tira de etiquetas de la imagen XHTML de barras de cierre.</li>
+	<li>Se ha corregido un error en la clase Sessions cuando las sesiones de base de datos se utilizan en para actualizar todos los datos de usuario se errante por escrito a la cookie de sesi&oacute;n.</li>
+	<li>Se ha corregido un error (#4536) en las copias de seguridad con el driver de MySQL, donde algunos c&oacute;digo heredado estaba causando ciertos caracteres que se escaparon dos.</li>
+	<li>Corregido un error de enrutamiento (#4661) que se produjo cuando la ruta por defecto apuntaban a una subcarpeta.</li>
+	<li>Corregida la ortograf&iacute;a de "Dhaka" en la funci&oacute;n <kbd>timezone_menu()</kbd> del <a href="helpers/date_helper.html">helper Date</a>.</li>
+	<li>Corregida la ortograf&iacute;a de "raspberry" en config/smileys.php.</li>
+	<li>Coregido entre par&eacute;ntesis incorrecto en funci&oacute;n <kbd>form_open()</kbd> (#5135).</li>
+	<li>Se ha corregido un error que hac&iacute;a caso omiso al comparar los m&eacute;todos de controlador (#4560).</li>
+	<li>Se ha corregido un error (#4615) que no se estaba poniendo la configuraci&oacute;n SMTP de autorizaci&oacute;n cuando se utiliza la funci&oacute;n de inicializaci&oacute;n.</li>
+	<li>Se ha corregido un error en <kbd>highlight_code()</kbd> en el <a href="helpers/text_helper.html">helper Text</a> que dejar&iacute;a a un &lt;/span&gt; par&aacute;sito en ciertos casos.</li>
+	<li>Corregido error de Oracle (#3306) que imped&iacute;a varias consultas en una sola acci&oacute;n.</li>
+	<li>Corregido error de ODBC que se ten&iacute;an en cuenta parametros de conexi&oacute;n debido al uso de un constructor.</li>
+	<li>Se ha corregido un error del drver de la base de datos num_rows() que podr&iacute;a causar un error en el controlador de Oracle.</li>
+	<li>Corregido error MS SQL (#4915). Corchetes a&ntilde;adidos alrededor del nombre de base de datos en MS SQL drver a la hora de seleccionar la base de datos, en caso de que los caracteres reservados se utilizan en el nombre.</li>
+	<li>Corregido un error de cach&eacute; DB (#4718) en el que la trayectoria era incorrecta cuando no hay segmentos URI estaban presentes.</li>
+	<li>Solucionado un problema de clase Image_lib # 4562. Un camino no se ha definido para NetPBM.</li>
+	<li>Solucionado un problema de clase Image_lib #4532. Al recortar una imagen con los misma de altura/ancho que configuraci&oacute;n de la salida, se hace una copia.</li>
+	<li>Corregido error DB_driver (#4900), en el que un error de base de datos no se estaba conectado correctamente.</li>
+	<li>Corregido error DB de copia de seguridad en el que los nombres de campo no se escap&oacute;.</li>
+	<li>Se ha corregido un error de almacenamiento en cach&eacute; de base de datos de Active Record en el que varias llamadas a los datos almacenados en cach&eacute; no se est&aacute; cumpliendo.</li>
+	<li>Se ha corregido un error en la clase Sessions que fue no permitir barras en la matriz serializada.</li>
+	<li>Corregido un error de validaci&oacute;n de formulario en el que se realizaba "isset" el mensaje de error desencadenada por ser "requerida" la regla.</li>
+	<li>Se ha corregido un error de ortograf&iacute;a en un mensaje de error del cargador.</li>
+	<li>Arreglado un error (#5050) con la validaci&oacute;n de IP con segmentos vac&iacute;os.</li>
+	<li>Arreglado un error en el que el int&eacute;rprete estaba siendo codiciosos si son varios conjuntos id&eacute;nticos de las etiquetas se han encontrado.</li>
+</ul>
+
+<h2>Version 1.6.3</h2>
+<p>Fecha de lanzamiento: 26 de Junio de 2008<br />
+Etiqueta Hg: v1.6.3</p>
+<p>Version 1.6.3 es una versi&oacute;n de seguridad y mantenimiento y se recomienda para todos los usuarios.</p>
+<ul>
+	<li>Database
+		<ul>
+			<li>Modificado clase Forge MySQL/MySQLi para dar nombres expl&iacute;citos a las claves</li>
+			<li>Se agreg&oacute; la habilidad de establecer m&uacute;ltiples columnas claves no principales para la <a href="database/forge.html">clase Forge</a></li>
+			<li>A&ntilde;adida la capacidad para establecer otros valores de configuraci&oacute;n de base de datos en las <a href="database/connecting.html">conexiones DSN</a> a trav&eacute;s de la cadena de consulta.</li>
+			</ul>
+	</li>
+	<li>Bibliotecas
+		<ul>
+			<li>Establecer comprobaci&oacute;n de tipos MIME en la <a href="libraries/file_uploading.html">clase Upload</a> para hacer referencia a la variable global mime.</li>
+			<li>A&ntilde;adido soporte para las cadenas de consulta a la <a href="libraries/pagination.html">clase Pagination</a>, autom&aacute;ticamente descubierta o declara de forma expl&iacute;cita.</li>
+			<li>A&ntilde;adido <kbd>get_post()</kbd> a la <a href="libraries/input.html">clase Input</a>.</li>
+			<li>Documentado <kbd>get()</kbd> en la <a href="libraries/input.html">clase Input</a>.</li>
+			<li>A&ntilde;adida la capacidad para generar autom&aacute;ticamente los elementos del idioma como etiquetas de formulario en la <a href="libraries/language.html">clase Language</a>.</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>A&ntilde;adido <a href="helpers/language_helper.html">helper Language</a>.</li>
+			<li>A&ntilde;adido <a href="helpers/number_helper.html">helper Number</a>.</li>
+			<li><a href="helpers/form_helper.html">helper Form</a> redise&ntilde;ado para permitir <kbd>form_open()</kbd> y <kbd>form_fieldset()</kbd> para aceptar matrices o cadenas como argumentos.</li>
+		</ul>
+	</li>
+	<li>Otros Cambios
+		<ul>
+			<li>Mejorada la seguridad en <kbd>xss_clean()</kbd>.</li>
+			<li>Se elimin&oacute; una referencia router sin usar en <kbd>_display_cache()</kbd>.</li>
+			<li>Agregada capacidad de <a href="libraries/input.html">utilizar xss_clean() para probar im&aacute;genes</a> para XSS, &uacute;tiles para la seguridad de carga.</li>
+			<li>Ampliada considerablemente la lista de los m&oacute;viles de user agent en config/user_agents.php.</li>
+			<li>Informaci&oacute;n sobre charset en la gu&iacute;a del usuario se ha movido por encima de la titularidad para fines de internacionalizaci&oacute;n (#4614).</li>
+			<li>A&ntilde;adido "Utilizaci&oacute;n de matrices asociativas en un par&aacute;metro de petici&oacute;n" ejemplo a la <a href="libraries/xmlrpc.html">p&aacute;gina XMLRPC gu&iacute;a del usuario</a>.</li>
+			<li>Eliminado maxlength y el tama&ntilde;o de los atributos que se agregan autom&aacute;ticamente de form_input() en el <a href="helpers/form_helper.html">helper form</a>.</li>
+			<li>Documentado el uso de <kbd>byte_format()</kbd> en  <a href="helpers/number_helper.html">helper number</a>.</li>
+		</ul>
+	</li>
+</ul>
+<h3>Errores corregidos para 1.6.3</h3>
+<ul>
+	<li>Se ha a&ntilde;adido una clave de idioma para valid_emails en validation_lang.php.</li>
+	<li>Soluciones modificadas de error (#3419) con el an&aacute;lisis de conexiones DSN de bases de datos.</li>
+	<li>Movido la funci&oacute;n <kbd>_has_operators()</kbd> (#4535) en DB_driver desde DB_active_rec.</li>
+	<li>Se ha corregido un error de sintaxis en upload_lang.php.</li>
+	<li>Se ha corregido un error (#4542) con una expresi&oacute;n regular en la biblioteca de im&aacute;genes.</li>
+	<li>Se ha corregido un error (#4561), donde <kbd>orhaving()</kbd> no hac&iacute;a correctamente el env&iacute;o de valores.</li>
+	<li>Se elimin&oacute; algunas de las variables utilizadas desde el c&oacute;digo (# 4563).</li>
+	<li>Se ha corregido un error por el que <kbd>having()</kbd> no hac&iacute;a la adici&oacute;n de un = en la declaraci&oacute;n (#4568).</li>
+	<li>Corregidos varios errores tipogr&aacute;ficos de la gu&iacute;a de usuarios o ejemplos (#4574, #4706).</li>
+	<li>A&ntilde;adido encabezados quoted-printable a clase Email cuando la anulaci&oacute;n de varias partes se utiliza.</li>
+	<li>Se ha corregido una etiqueta de doble apertura &lt;p&gt; en las p&aacute;ginas de &iacute;ndice de cada directorio del sistema.</li>
+</ul>
+
+<h2>Version 1.6.2</h2>
+<p>Fecha de lanzamiento: 13 de Mayo de 2008<br />
+Etiqueta Hg: 1.6.2</p>
+<ul>
+	<li>Active Record
+		<ul>
+			<li>A&ntilde;adida la capacidad para prevenir que se escapen en cl&aacute;usulas <kbd>having()</kbd>.</li>
+			<li>
+A&ntilde;adido <kbd>rename_table()</kbd> en <a href="./database/forge.html">DBForge</a>.</li>
+			<li>Se ha corregido un error que no permit&iacute;a escapar al ser desactivado si el valor de una consulta era NULL.</li>
+			<li>DB Forge es ahora asignado a cualquiera de los modelos que existen despu&eacute;s de la carga (#3457).</li>
+			</ul>
+	</li>
+	<li>Database
+		<ul>
+			<li>A&ntilde;adido <a href="./database/transactions.html">modo estricto</a> a las transacciones de bases de datos.</li>
+			<li>Comportamiento de escape en where() ha cambiado las cl&aacute;usulas, los valores entre los que tienen argumento &quot;FALSE&quot; ya no se escapa (es decir: encomillado).</li>
+		</ul>
+	</li>
+	<li>Config
+		<ul>
+			<li>A&ntilde;adido 'application/vnd.ms-powerpoint' a la lista de tipos MIME.</li>
+			<li>A&ntilde;adido 'audio/mpg' a la lista de tipos MIME.</li>
+			<li>A&ntilde;adido nuevo archivo constants.php modificable por el usuario que contiene el modo de archivo y las constantes fopen.</li>
+			<li>A&ntilde;adida la capacidad para establecer los ajustes de configuraci&oacute;n a trav&eacute;s de CRLF en la <a href="libraries/email.html">clase Email</a></li>
+		</ul>
+	</li>
+	<li>Bibliotecas
+		<ul>
+			<li>A&ntilde;adido una mayor seguridad para el manejo de nombre de archivo en la biblioteca Uploadde carga.</li>
+			<li>A&ntilde;adido una mayor seguridad para las sesiones de los datos de la manipulaci&oacute;n lado del cliente.</li>
+			<li>La clase MySQLi forge ya est&aacute; en sincron&iacute;a con MySQL forge.</li>
+			<li>A&ntilde;adida la capacidad para establecer los ajustes de configuraci&oacute;n a trav&eacute;s de CRLF en la clase <a href="libraries/email.html">Email</a>.</li>
+			<li>Resultados de <a href="libraries/unit_testing.html">pruebas unitarias</a> tienen ahora un c&oacute;digo de color y se hizo un cambio a la plantilla por defecto de los resultados.</li>
+			<li>Se agreg&oacute; una regla valid_emails a la clase de Validation.</li>
+			<li>La <a href="libraries/zip.html">clase Zip</a> ahora existe en <kbd>download()</kbd>.</li>
+			<li>La <a href="libraries/zip.html">clase Zip</a> ha experimentado una importante reescritura para mejor velocidad y claridad (agradecimiento a stanleyxu por el trabajo duro y la contribuci&oacute;n de c&oacute;digo en el informe de error #3425!)</li>
+		</ul>
+	</li>
+	<li>Helpers
+		<ul>
+			<li>Se ha <a href="helpers/compatibility_helper.html">Helper Compatibility</a> para el uso de algunas funciones comunes de PHP 5 con seguridad en las aplicaciones que puedan ejecutarse en servidores de PHP 4 (Seppo, gracias por el duro trabajo y la contribuci&oacute;n de c&oacute;digo!)</li>
+			<li>A&ntilde;adido <kbd>form_button()</kbd> en el <a href="helpers/form_helper.html">helper Form</a>.</li>
+			<li>Cambiado las funciones <kbd>radio()</kbd> y <kbd>checkbox()</kbd>para que por defecto este no marcada.</li>
+			<li>A&ntilde;adida la posibilidad de incluir una opci&oacute;n de c&oacute;digo de respuesta HTTP en la funci&oacute;n <kbd>redirect()</kbd> del <a href="helpers/url_helper.html">Helper URL</a>.</li>
+			<li>Modificado <kbd>img()</kbd> en la <a href="helpers/html_helper.html">Helper HTML</a> para quitar espacios que no sean necesarios (#4208).</li>
+			<li>Modificado <kbd>anchor()</kbd> en el <a href="helpers/url_helper.html">helper URL</a> ya no es predeterminado a&ntilde;adir t&iacute;tulo=atributo (#4209).</li>
+			<li>El <a href="helpers/download_helper.html">helper Download</a>, ahora existe en <kbd>force_download()</kbd>.</li>
+			<li>A&ntilde;adido <kbd>get_dir_file_info()</kbd>, <kbd>get_file_info()</kbd> y <kbd>get_mime_by_extension()</kbd> para el <a href="helpers/file_helper.html">Helper File</a>.</li>
+			<li>A&ntilde;adido <kbd>symbolic_permissions()</kbd> y <kbd>octal_permissions()</kbd> al <a href='helpers/file_helper.html'>helper File</a>.</li>
+		</ul>
+	</li>
+	<li>Plugins
+		<ul>
+		<li>Modificado generaci&oacute;n de captcha a la primera mirada de la funci&oacute;n imagecreatetruecolor y reserva para imagecreate si no est&aacute; disponible (#4226).</li>
+		</ul>
+	</li>
+	<li>Otros Cambios
+		<ul>
+			<li>Se agreg&oacute; la habilidad de <a href="libraries/input.html">xss_clean()</a> para aceptar arrays.</li>
+			<li>Eliminado el cierre de las etiquetas PHP de todos los archivos PHP para evitar la salida accidental y potencial de 'cannot modify headers'.</li>
+			<li>Eliminado "scripts" de la ruta de b&uacute;squeda de carga autom&aacute;tica. Scripts en desuso desde la Versi&oacute;n 1.4.1 (21 de septiembre de 2006). Si usted todav&iacute;a tiene que usarlos por razones de legado, ahora deben ser cargados manualmente en cada controlador.</li>
+			<li>Se ha a&ntilde;adido una p&aacute;gina de <a href="general/reserved_names.html">nombres reservados</a> a la gu&iacute;a del usuario, y se migr&oacute; nombres reservados del controlador al mismo.</li>
+			<li>Se ha a&ntilde;adido una p&aacute;gina de <a href="general/common_functions.html">Funciones Comunes</a> a la gu&iacute;a del usuario para las funciones disponibles a nivel global.</li>
+			<li>Mejora de la seguridad y el rendimiento de xss_clean</li>
+		</ul>
+	</li>
+	</ul>
+<h3>Bugfixes for 1.6.2</h3>
+<ul>
+	<li>Corregido un error en las consultas de SET no estaban siendo tratados como "escribir" las consultas.</li>
+	<li>Se ha corregido un error (#3191) con el an&aacute;lisis de URI ORIG_PATH_INFO.</li>
+	<li>Se ha corregido un error en la base de datos Forge, cuando se inserta un campo id (#3456).</li>
+	<li>Se ha corregido un error en la biblioteca tablea que podr&iacute;a hacer que las filas de construcci&oacute;n id&eacute;ntica fallara (#3459).</li>
+	<li>Arreglado controlador de base de datos MySQLi resultaba la comprobaci&oacute;n de controlador para los recursos en lugar de objetos (#3461).</li>
+	<li>Se ha solucionado un error de AR_caching donde no se de seguimiento de alias de tabla (#3463).</li>
+	<li>Se ha corregido un error en la compilaci&oacute;n AR, donde los estados selectos con argumentos he escapado de forma incorrecta (#3478).</li>
+	<li>Se ha solucionado un documentaci&oacute;n incorrecta de $this->load->language (#3520).</li>
+	<li>Corregidos errores (#3523, #4350) en get_filenames() con la recursividad y los problemas con Windows cuando $include_path es usado.</li>
+	<li>Se ha corregido un error (#4153) en la clase XML-RPC dateTime.iso8601 prevenir que se utilicen.</li>
+	<li>Se ha solucionado un error con AR or_where_not_in() (#4171).</li>
+	<li>Arreglado un error con <a href="libraries/input.html">xss_clean()</a> que se sumaba un punto y coma a GET URI variables de cadenas.</li>
+	<li>
+Se ha corregido un error (#4206) en el Helper Directory en el que el recurso de directorio no se cerraba y mejoras de menor importancia.</li>
+	<li>Se ha corregido un error en la librer&iacute;a FTP donde delete_dir() no estaba funcionando de forma recursiva (#4215).</li>
+	<li>Corregido un error de validaci&oacute;n cuando set_rules() se utiliza con un nombre de campo no es un array y la regla (#4220).</li>
+	<li>Se ha corregido un error (#4223), donde el almacenamiento en cach&eacute; DB no iba a funcionar para los objetos de Base de Datos devueltos o conexiones con varias DB.</li>
+	<li>Se ha corregido un error en la librer&iacute;a Upload que puede salir el mismo error dos veces (#4390).</li>
+	<li>Corregido un error en AR cuando se unen con un alias de tabla y tabla de prefijo (#4400).</li>
+	<li>Se ha corregido un error en la clase DB probar el argumento de $params.</li>
+	<li>Se ha corregido un error en la biblioteca Table, donde el 0 entero en datos de la celda se muestra como una celda en blanco.</li>
+	<li>Se ha corregido un error en <kbd>link_tag()</kbd> del <a href="helpers/url_helper.html">helper URL</a> en la que se aprob&oacute; una clave en lugar de un valor.</li>
+	<li>Se ha corregido un error en DB_result::row() que le impidi&oacute; regresar a los campos individuales de MySQL valores NULL.<li>
+	<li>Corregido un error en mensajes de correo electr&oacute;nico SMTP no se tiene la transformaci&oacute;n de puntos realizada en las l&iacute;neas que comienzan con un punto.</li>
+	<li>Se ha corregido un error en display_error() en el controlador de base de datos que era la instancia de objetos nuevos idiomas y excepci&oacute;n, y no con el error de cabecera.</li>
+	<li>Se ha corregido un error (#4413), donde un URI que contiene las barras, por ejemplo, s&oacute;lo se 'http://example.com/index.php?// "dar&iacute;a lugar a errores de PHP</li>
+	<li>Se ha solucionado un error de matriz de cadena de conversi&oacute;n en la biblioteca Validation (#4425)</li>
+	<li>Corregido error (#4451, #4299, #4339) donde las transacciones no dejaba reversi&oacute;n cuando el modo de depuraci&oacute;n est&aacute; habilitado.</li>
+	<li>Se ha corregido un error (#4506) con overlay_watermark() en la biblioteca de im&aacute;genes PNG apoyo a la prevenci&oacute;n de PNG-24s con transparencia alpha</li>
+	<li>Arreglados varios errores tipogr&aacute;ficos en gu&iacute;a del usuario (#3453, #4364, #4379, #4399, #4408, #4412, #4448, #4488).</li>
+	</ul>
+
+<h2>Versi&oacute;n 1.6.1</h2>
+<p>Fecha de publicaci&oacute;n: 12 de febrero, 2008</p>
+<ul>
+    <li>Active Record 
+        <ul>
+            <li>Se agreg&oacute; <a href="./database/active_record.html#caching">Cache de Active Record</a>.</li>
+            <li>Se hizo Active Record completamente consciente del uso de prefijo de base de datos</li>
+        </ul>
+    </li>
+    <li>Drivers de Base de Datos
+        <ul>
+            <li>Se agreg&oacute; soporte para establecer conjunto de caracteres y colaci&oacute;n para MySQLi</li>
+        </ul>
+    </li>
+    <li>Cambios en el N&uacute;cleo
+        <ul>
+            <li>Se modific&oacute; xss_clean() para ser m&aacute;s inteligente con su manejo de cadenas de URL codificadas.</li>
+            <li>Se agreg&oacute; $_SERVER, $_FILES, $_ENV, y $_SESSION a la sanidad de globales.</li>
+                <li>Se agreg&oacute; un <a href="./helpers/path_helper.html">Asistente de Rutas</a>.</li>
+            <li>Se simplific&oacute; _reindex_segments() en la clase URI</li>
+        </ul>
+    </li>
+</ul>
+<h3>Correcci&oacute;n de errores para 1.6.1</h3>
+<ul>
+	<li>Se deprec&oacute; is_numeric como regla de validaci&oacute;n. El uso de numeric e integer son preferidos.</li>
+	<li>Corregido error (#3379) en DBForge con SQLite para la creaci&oacute;n de tablas.</li>
+	<li>Se hizo Active Record completamente consciente del uso de prefijo de base de datos (#3384)</li>
+	<li>Se corrigi&oacute; un error donde DBForge estaba escribiendo SQL invalido en Postgres por agregar parentes&iacute;s alrededor de las tablas en FROM</li>
+	<li>Se cambi&oacute; el comportamiento del update() de Active Record para hacer la cl&aacute;usula WHERE opcional (#3395).</li>
+	<li>Corregido error (#3396) donde ciertas variables POST causaban advertencias PHP.</li>
+	<li>Se corrigi&oacute; un error en query binding (#3402).</li>
+	<li>Se cambi&oacute; el orden de las palabras claves de SQL en el arreglo $highlight en Profiler para que OR no sea resaltado antes de ORDER BY</li>
+	<li>Corregido error (#3404) donde el driver MySQLi comprobaba $this->conn_id como recurso en vez de objeto.</li>
+	<li>Corregido error (#3419) conectando a base de datos a trav&eacute;s de una cadena DSN.</li>
+	<li>Corregido error (#3445) donde el arreglo de segmentos ruteados no era reindexado para comenzar con 1 cuando el controlador por defecto es usado.</li>
+	<li>Corregidos errores tipogr&aacute;ficos en la gu&iacute;a del usuario.</li>
+</ul>
+
+<h2>Versi&oacute;n 1.6.0</h2>
+<p>Fecha de publicaci&oacute;n: January 30, 2008 </p>
+<ul>
+    <li>DBForge
+        <ul>
+            <li>Se agreg&oacute; <a href="./database/forge.html">DBForge</a> a las herramientas de base de datos.</li>
+            <li>Se movi&oacute; <kbd>create_database()</kbd> y <kbd>drop_database()</kbd> a <a href="./database/forge.html">DBForge</a>.</li>
+            <li>Se agreg&oacute; <kbd>add_field()</kbd>, <kbd>add_key()</kbd>, <kbd>create_table()</kbd>, <kbd>drop_table()</kbd>, <kbd>add_column()</kbd>, <kbd>drop_column()</kbd>, <kbd>modify_column()</kbd> a <a href="./database/forge.html">DBForge</a>.</li>
+        </ul>
+    </li>
+    <li>Active Record
+        <ul>
+            <li>Se agreg&oacute; <kbd>protect_identifiers()</kbd> en <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Todas las consultas de AR son tildadas hacia atr&aacute;s si es apropiado a la base de datos.</li>
+            <li>Se agreg&oacute; <kbd>where_in()</kbd>, <kbd>or_where_in()</kbd>, <kbd>where_not_in()</kbd>,  <kbd>or_where_not_in()</kbd>, <kbd>not_like()</kbd> y <kbd>or_not_like()</kbd> a <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Se agreg&oacute; soporte para <kbd>limit()</kbd> en las sentencias de <kbd>update()</kbd> y <kbd>delete()</kbd> en  <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Se agreg&oacute; <kbd>empty_table()</kbd> y <kbd>truncate_table()</kbd> a <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Se agreg&oacute; la habilidad de pasar un array de tablas a la sentencia <kbd>delete()</kbd> en <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Se agreg&oacute; la funci&oacute;n <kbd>count_all_results()</kbd> a <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Se agreg&oacute; <kbd>select_max()</kbd>, <kbd>select_min()</kbd>, <kbd>select_avg()</kbd> y <kbd>select_sum()</kbd> a <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Se agreg&oacute; la habilidad de usar alias con joins en <a href="./database/active_record.html">Active Record</a>.</li>
+            <li>Se agreg&oacute; un tercer par&aacute;metro a la cl&aacute;usula <kbd>like()</kbd> de Active Record para controlar donde se ubica la wildcard. </li>
+            <li>Se agreg&oacute; un tercer par&aacute;metro a <kbd>set()</kbd> en <a href="./database/active_record.html">Active Record</a> que previene escapar datos.</li>
+            <li>Se cambi&oacute; el comportamiento de las variables env&iacute;adas a la cla&uacute;sula where() sin valor son establecidas como &quot;IS NULL&quot;</li>
+        </ul>
+    </li>
+    <li>Otros Relacionos a Base de Datos
+        <ul>
+            <li>Se agreg&oacute; la variable $this->DB->save_queries al driver de la base de datos, habilitando que las consultas sean salvadas o no. Anteriormente eran salvadas siempre.</li>
+            <li>Se agreg&oacute; $this->db->dbprefix() una forma de agregar prefijos a la base de datos manualmente.</li>
+            <li>Se agreg&oacute; 'random' como opci&oacute;n de <kbd>order_by()</kbd>, y se removi&oacute; &quot;rand()&quot; de la lista de opciones ya que era s&oacute;lo de MySQL.</li>
+            <li>Se agreg&oacute; un chequeo de campos nulos a la utilidad de copias de seguridad de bases de datos de MySQL.</li>
+            <li>Se agreg&oacute; el par&aacute;metro &quot;constrain_by_prefix&quot; a la funci&oacute;n db-&gt;list_table(). Si es TRUE limitar&aacute; los resultados s&oacute;lo a nombres de tablas con el prefijo actual.</li>
+            <li>Se deprec&oacute; de Active Record; <kbd>getwhere()</kbd> por <kbd>get_where()</kbd>; <kbd>groupby()</kbd> por <kbd>group_by()</kbd>; <kbd>havingor()</kbd> por <kbd>having_or()</kbd>; <kbd>orderby()</kbd> por <kbd>order_by</kbd>; <kbd>orwhere()</kbd> por <kbd>or_where()</kbd>; y <kbd>orlike()</kbd> por <kbd>or_like()</kbd>.</li>
+            <li>Se modific&oacute; el resultado CSV de datos de <kbd>csv_from_result()</kbd> hac&iacute;a el esp&iacute;ritu re las reglas b&aacute;sicas de RFC 4180.</li>
+            <li>Se agregaron las configuraciones de base de datos 'char_set' y 'dbcollat', para explicitamente establecer la comunicaci&oacute;n del cliente apropiadamente.</li>
+            <li>Se removi&oacute; la configuraci&oacute;n 'active_r' y se reemplaz&oacute; con la configuraci&oacute;n global $active_record, que es m&aacute;s arm&oacute;nico con el esp&iacute;ritu global del comportamiento (#1834).</li>
+        </ul>
+    </li>
+    <li>Cambios en el N&uacute;cleo
+        <ul>
+            <li>Se agreg&oacute; la habilidad de cargar m&uacute;ltiples vistas, cuyo contenido ser&aacute; agregado a la salida en el orden cargado.</li>
+            <li>Se agreg&oacute; la habilidad de <a href="./general/autoloader.html">auto-cargar</a> <a href="./general/models.html">Modelos</a>.</li>
+            <li>Se reorganizaron las clases de URI y Rutas para mejor claridad.</li>
+            <li>Se agreg&oacute; Compat.php para permitir escribir funciones para versiones antiguas de PHP o &aacute;mbientes de PHP que carezcan de ciertas extensiones o librer&iacute;as</li>
+            <li>Se agreg&oacute; uso de memoria, GET, datos de la cadena URI y datos individuales de tiempo de ejecuci&oacute;n de consultas a la salida del Profiler.</li>
+            <li>Se deprec&oacute; Scaffolding.</li>
+            <li>Se agreg&oacute; is_really_writable() a Common.php para proveer un m&eacute;todo confiable en diversas plataformas para probar la capacidad de escritura de un archivo o carpeta.</li>
+        </ul>
+    </li>
+    <li>Librer&iacute;as
+        <ul>
+            <li>Se cambi&oacute; el protocolo de carga de Modelos para permitir extensiones.</li>
+            <li>Se fortaleci&oacute; la librer&iacute;a de Encriptaci&oacute;n para ayudar a proteger contra ataques de hombre en el medio cuando el modo MCRYPT_MODE_CBC es usado.</li>
+            <li>Se agregaron variables Flashdata, regeneraci&oacute;n de session_id y configurables tiempos de actualizaci&oacute;n de sesi&oacute;n a la <a href="./libraries/sessions.html">clase de Sesi&oacute;n.</a></li>
+            <li>Se removi&oacute; 'last_visit' de la clase de Sesi&oacute;n.</li>
+            <li>Se agreg&oacute; una entrada de lenguaje para el error de validaci&oacute;n de valid_ip.</li>
+            <li>Se modific&oacute; prep_for_form() en la clase de Validaci&oacute;n para aceptar arreglos, agregando soporte para arreglos de validaci&oacute;n de POST (a trav&eacute;s de callbacks solamente)</li>
+            <li>Se agreg&oacute; una regla &quot;integer&quot; a la librer&iacute;a de <a href="./libraries/validation.html">Validaci&oacute;n</a>.</li>
+            <li>Se agreg&oacute; valid_base64() a la librer&iacute;a de <a href="./libraries/validation.html">Validaci&oacute;n</a>.</li>
+            <li>Se document&oacute; clear() en la librer&iacute;a de <a href="../libraries/image_lib.html">Procesamiento de Imagen</a>.</li>
+            <li>Se cambi&oacute; el comportamiento de las llamadas de retorno (callbacks) especiales para que no sigan activando la regla &quot;required&quot;.</li>
+            <li>Se modific&oacute; la clase de Upload para que los mensajes de error sean m&aacute;s precisos.</li>
+            <li>Se movi&oacute; el chequeo de safe mode y auth para la librar&iacute;a Email dentro del constructor. </li>
+            <li>Se modificaron los nombres de las variables en el m&eacute;todo _ci_load() de la clase Loader para evitar conflictos con los nombres de las variables de las vistas.</li>
+            <li>Se agregaron algunas variaciones adicionales de mime types para CSV.</li>
+            <li>Se habilitaron los m&eacute;todos 'system' para la librar&iacute;a de Servidor de XML-RPC Server, excepto 'system.multicall' el cual a&uacute;n est&aacute; deshabilitado.</li>
+        </ul>
+    </li>
+    <li>Asistentes &amp; Plugins
+        <ul>
+            <li>Se agreg&oacute; link_tag() al <a href="./helpers/html_helper.html">asistente de HTML</a>.</li>
+            <li>Se agreg&oacute; img() al <a href="./helpers/html_helper.html">asistente de HTML</a>.</li>
+            <li>Se agreg&oacute; la habilidad de <a href="./general/helpers.html">"extender" Asistentes</a>.</li>
+            <li>Se agreg&oacute; un <a href="./helpers/email_helper.html">Asistente de email</a> a los asistentes del n&uacute;cleo.</li>
+            <li>Se agreg&oacute; la funci&oacute;n <kbd>strip_quotes()</kbd> al <a href="./helpers/string_helper.html">asistente de cadenas</a>.</li>
+            <li>Se agreg&oacute; la funci&oacute;n <kbd>reduce_multiples()</kbd> al <a href="./helpers/string_helper.html">asistente de cadenas</a>.</li>
+            <li>Se agreg&oacute; la funci&oacute;n <kbd>quotes_to_entities()</kbd> al <a href="./helpers/string_helper.html">asistente de cadenas</a>.</li>
+            <li>Se agregaron las funciones <kbd>form_fieldset()</kbd>, <kbd>form_fieldset_close()</kbd>, <kbd>form_label()</kbd>, y <kbd>form_reset()</kbd> al <a href="./helpers/form_helper.html">asistente de formulario</a>.</li>
+            <li>Se agreg&oacute; soporte para urls externas en <kbd>form_open()</kbd>.</li>
+            <li>Se removi&oacute; el soporte para db_backup en MySQLi debido a incompatibilidad de funciones.</li>
+            <li>El plugin de Calendario de Javascript ahora usa meses y d&iacute;as desde el archivo de lenguaje de calendario, en vez de valores hard-codeados, internacionalizandolo.</li>
+        </ul>
+    </li>
+    <li>Cambios de Documentaci&oacute;n
+        <ul>
+            <li>Se agreg&oacute; la secci&oacute;n de <a href="./doc_style/index.html">Escribiendo Documentaci&oacute;n</a> para que la comunidad lo use para escribir su propia documentaci&oacute;n.</li>
+            <li>Se agregaron t&iacute;tulos a todas las p&aacute;ginas del manual de usuario.</li>
+            <li>Se agregaron atributos a &lt;html&gt; de la gu&iacute;a del usuario para html v&aacute;lido.</li>
+            <li>Se agreg&oacute; <a href="http://codeigniter.com/user_guide/libraries/zip.html">Zip Encoding Class</a> a la tabla de contenidos de la gu&iacute;a del usuario.</li>
+            <li>Se movi&oacute; parte del menu de javascript de la gu&iacute;a del usuario a un archivo externo.</li>
+            <li>Se document&oacute; <kbd>distinct()</kbd> en <a href="./database/active_record.html">Active Record</a>. </li>
+            <li>Se document&oacute; la funci&oacute;n <kbd>timezones()</kbd> en el <a href="./helpers/date_helper.html">Asistente de Fecha</a>.</li>
+            <li>Se document&oacute; unset_userdata en la <a href="./libraries/sessions.html">clase de Sesi&oacute;n</a>.</li>
+            <li>Se documentaron dos opciones de configuraci&oacute;n en la p&aacute;gina de <a href="./database/configuration.html">configuraci&oacute;n de Base de Datos</a>.</li>
+        </ul>
+    </li>
+</ul>
+<h3>Correcci&oacute;n de errores para 1.6.0</h3>
+<ul>
+    <li>Corregido error (#1813) previniendo usar $CI->db en la misma aplicaci&oacute;n con los objetos devueltos de la base de datos.</li>
+    <li>Corregido error (#1842) donde el arreglo $this->uri->rsegments no inclu&iacute;a el m&eacute;todo "index" si era ruteado al controlador sin el m&eacute;todo impl&iacute;cito.</li>
+    <li>Corregido error (#1872) where word_limiter() no reten&iacute;a espacios en blanco.</li>
+    <li>Corregido error (#1890) en csv_from_result() donde el contenido que inclu&iacute;a el delimitador podr&iacute;a romper el archivo.</li>
+    <li>Corregido error (#2542) en el m&eacute;todo clean_email() de la clase Email para permitir claves de arreglos no-num&eacute;ricos / no-secuenciales.</li>
+    <li>Corregido error (#2545) en <kbd>_html_entity_decode_callback()</kbd> cuando 'global_xss_filtering' est&aacute; habilitado.</li>
+    <li>Corregido error (#2668) en la <a href="./libraries/parser.html">clase de parseo</a> donde los datos num&eacute;ricos eran ignorados.</li>
+    <li>Corregido error (#2679) donde el link de paginaci&oacute;n &quot;anterior&quot; se dibujaba en la primer p&aacute;gina.</li>
+    <li>Corregido error (#2702) en _object_to_array que romp&aacute; algunos tipos de inserts y updates.</li>
+    <li>Corregido error (#2732) en el driver SQLite para PHP 4.</li>
+    <li>Corregido error (#2754) en Paginaci&oacute;n para buscar num_links no positivos.</li>
+    <li>Corregido error (#2762) en la <a href="./libraries/sessions.html">librar&iacute;a de Sesi&oacute;n</a> donde la coincidencia del agente del usuario fallaba cuando el agente del usuario terminaba en un espacio. </li>
+    <li>Corregido error (#2784) $field_names[] vs $Ffield_names[] en los drivers postgre y sqlite.</li>
+    <li>Corregido error (#2810) en el asistente de tipograf&iacute;a causando extra&ntilde;as etiquetas de p&aacute;rrafo cuando la cadena conten&iacute;a etiquetas.</li>
+    <li>Corregido error (#2849) donde los argumentos pasados a subcarpeta controlador m&eacute;todo era incorrectamente cortado, eliminando el valor del tercer segmento.</li>
+    <li>Corregido error (#2858) que referenciaba a una variable erronea en la clase de Imagen.</li>
+    <li>Corregido error (#2875) cuando se carga un archivo de plugin files como _plugin. y not _pi.</li>
+    <li>Corregido error (#2912) en <kbd>get_filenames()</kbd> en el <a href="./helpers/file_helper.html">Asistente de Archivos</a> donde el arreglo no era limpiado despu&eacute;s de cada llamado.</li>
+    <li>Corregido error (#2974) en <kbd>highlight_phrase()</kbd> que causaba un error con barras.</li>
+    <li>Corregido error (#3003) en la Librer&iacute;a de Encriptaci&oacute;n un modo de soporte distinto a MCRYPT_MODE_ECB</li>
+    <li>Corregido error (#3015) en la <a href="./libraries/user_agent.html">Librar&iacute;a de Agente del Usuario</a> donde m&aacute;s de 2 lenguajes no eran reportados con languages().</li>
+    <li>Corregido error (#3017) en la librer&iacute;a <a href="./libraries/email.html">Email</a> cuando alguna zona de tiempo era calculada incorrectamente.</li>
+    <li>Corregido error (#3024) en el cual master_dim no era reiniciado por clear() en la librer&iacute;a de Imagen.</li>
+    <li>Corregido error (#3156) en el Asistente de Texto highlight_code() causando etiquetas PHP que eran manejados incorrectamente.</li>
+    <li>Corregido error (#3166) que evitaba num_rows trabajar en Oracle.</li>
+    <li>Corregido error (#3175) previniendo ciertas librar&iacute;as ed trabajar apropiadamente cuando eran autocargadas en PHP 4.</li>
+    <li>Corregido error (#3267) en el Asistente de Tipograf&iacute;a donde listas no-ordenadas eran listadas &quot;un.</li>
+    <li>Corregido error (#3268) donde el Router pod&iacute;a dejar '/' como ruta.</li>
+    <li>Corregido error (#3279) donde la clase de Email env&iacute;aba erroneamente Content-Transfer-Encoding para algunos juegos de caracteres.</li>
+    <li>Corregido error (#3284) donde el arreglo rsegment no era apropiado si la URI pedida conten&iacute;a m&aacute;s segmentos de la ruteada.</li>
+    <li>Removido extra&ntilde;a carga de $CFG en _display_cache() de la clase Output (#3285).</li>
+    <li>Removida extra&ntilde;a llamada cuando se cargaban modelos (#3286).</li>
+    <li>Corregido error (#3310) con sanidad de globales en la clase Input que pod&iacute;a eliminar variables globales de CI.</li>
+    <li>Corregido error (#3314) que causaba borrar la ruta de m&aacute;ximo nivel en delete_files() del Asistente de Archivo.</li>
+    <li>Corregido error (#3328) donde el asistente de smiley pod&iacute;a devolver una variable indefinida.</li>
+    <li>Corregido error (#3330) en la clase FTP donde una comparasi&oacute;n no era hecha.</li>
+    <li>Removido un par&aacute;metro no usado del Profiler (#3332).</li>
+    <li>Corregido error en driver de base de datos donde la propiedad num_rows no era actualizada.</li>
+    <li>Corregido error en la <a href="./libraries/file_uploading.html">librer&iacute;a de carga (upload)</a> cuando allowed_files no estaba definida.</li>
+    <li>Corregido error en <kbd>word_wrap()</kbd> del Asistente de Texto que incorrectamente referenciaba un objeto. </li>
+    <li>Corregido error en <a href="./libraries/validation.html">Validaci&oacute;n</a> donde <kbd>valid_ip()</kbd> no era llamado apropiadamente.</li>
+    <li>Corregido error en <a href="./libraries/validation.html">Validaci&oacute;n</a> donde mensajes de errores individuales para casillas de selecci&oacute;n (checkbox) no eran soportadas.</li>
+    <li>Corregido error en captcha llamando a una funci&oacute;n inv&aacute;lida de PHP.</li>
+    <li>Corregido error en la funci&oacute;n "set_cookie" del asistente de cookie. No estaba honrando la configuraci&oacute;n establecida.</li>
+    <li>Corregido error que hac&iacute;a que las llamadas de retorno (callback) de validaci&oacute;n sean requeridas incluso cuando no estaba establecido como tal.</li>
+    <li>Corregido error en la librer&iacute;a XML-RPC para que si el tipo es especificado, una decisi&oacute;n m&aacute;s inteligente es hecha para el tipo por defecto.</li>
+    <li>Se corrigi&oacute; un ejemplo de emails separados por coma en la documentaci&oacute;n de la librer&iacute;a de email.</li>
+    <li>Se corrigi&oacute; un ejemplo en la librer&iacute;a de Calendario al mostrar hiperv&iacute;nculo al Pr&oacute;ximo/Previo Mes.</li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en el archivo de lenguaje de la base de datos.</li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en el archivo de lenguaje de imagen &quot;suppor&quot; a &quot;support&quot;.</li>
+    <li>Se corrigi&oacute; un ejemplo para XML RPC.</li>
+    <li>Se corrigi&oacute; un ejemplo de <kbd>accept_charset()</kbd> en la <a href="./libraries/user_agent.html">Librer&iacute;a de Agente del Usuario</a>.</li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en los bloques de comentarios de documentaci&oacute;n que ten&iacute;a CodeIgniter escrito como CodeIgnitor.</li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en el <a href="./helpers/string_helper.html">Asistente de Cadenas</a> (uniquid cambiado a uniqid).</li>
+    <li>Corregidos errores tipogr&aacute;ficos en el lenguaje de la clase de Email (email_attachment_unredable, email_filed_smtp_login), y la clase de FTP (ftp_unable_to_remame).</li>
+    <li>Se agreg&oacute; la funci&oacute;n stripslashes() a la Librer&iacute;a de Carga (upload).</li>
+    <li>Corregida una serie de errores gramaticales y de escritura en archivos de lenguaje.</li>
+    <li>Corregidos errores tipogr&aacute;ficos en la gu&iacute;a del usuario.</li>
+</ul>
+
+<h2>Version 1.5.4</h2>
+<p>Fecha de publicaci&oacute;n: 12 de julio, 2007 </p>
+<ul>
+    <li>Se agreg&oacute; <a href="./libraries/language.html">archivo de Lenguaje especiales</a> a las opciones de <a href="./general/autoloader.html">autocarga</a>. </li>
+    <li>Se agreg&oacute; stripslashes() a la funci&oacute;n _clean_input_data() en la <a href="./libraries/input.html">Clase de Entrada (input)</a> cuando magic quotes est&aacute; activada as&iacute; los datos siempre estar&aacute;n sin barras dentro del entorno de trabajo.</li>
+    <li>Se agreg&oacute; arreglo a cadena dentro del <a href="general/profiling.html">profiler</a>.</li>
+    <li>Se agreg&oacute; algunos mime types adicionales en application/config/mimes.php.</li>
+    <li>Se agreg&oacute; el m&eacute;todo filename_security() a la <a href="./libraries/input.html">Librer&iacute;a de Entrada (input)</a>.</li>
+    <li>Se agregaron algunos argumentos adicionales al <a href="./helpers/inflector_helper.html">Asistente de Inflexi&oacute;n</a> singular() para compensar las palabras terminadas en "s". Tambi&eacute;n se agreg&oacute; el par&aacute;metro de forzar a pluralize().</li>
+    <li>Se agreg&oacute; $config['charset'] al archivo de configuraci&oacute;n.  El valor por defecto es 'UTF-8', usado en algunas funciones de manejo de cadenas.</li>
+    <li>Corregida MSSQL insert_id().</li>
+    <li>Corregido un error de l&oacute;gica en la funci&oacute;n de base de datos trans_status(). Estaba incorrectamente devolviendo TRUE en caso de fallo y FALSE en caso de &eacute;xito.</li>
+    <li>Corregido error que permit&iacute;a m&uacute;ltiples intentos de carga en clases extendidas.</li>
+    <li>Corregido error en el archivo "bootstrap" que incorrectamente intentaba discernir la ruta completa del servidor, incluso cuando era explicitamente establecida por el usuario.</li>
+    <li>Corregido error en la funci&oacute;n escape_str() del driver de MySQL.</li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en la <a href="./libraries/calendar.html">librer&iacute;a de Calendario</a></li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en la librer&iacute;a rpcs.php</li>
+    <li>Corregido error en la <a href="./libraries/zip.html">librer&iacute;a Zip</a>, proveyendo compatibilidad de archivos Zip de PC con Mac OS X</li>
+    <li>Corregido error en ruteo que ignoraba la ruta a scaffolding por optimizaci&oacute;n.</li>
+    <li>Corregido error validando IP.</li>
+    <li>Corregido error al mostrar claves POST en la salida del <a href="./general/profiling.html">Profiler</a></li>
+    <li>Corregido error al mostrar consultas con caracteres que se interpretan como HTML en la salida del <a href="./general/profiling.html">Profiler</a></li>
+    <li>Corregido error al mostrar el print_debugger de la clase de Email con caracteres que pueden ser interpretados como HTML en la salida de la depuraci&oacute;n.</li>
+    <li>Corregido error en el Content-Transfer-Encoding de emails HTML con el quoted-printable MIME type</li>
+    <li>Corregido error donde se pod&iacute;a eliminar ciertas variables PHP superglobales al establecerlas via datos GET o POST</li>
+    <li>Corregida un error de funci&oacute;n indefinida en la funci&oacute;n id() del driver de PostgreSQL</li>
+    <li>Corregidos varios errores tipogr&aacute;ficos de documentaci&oacute;n.</li>
+    <li>Se documentaron dos funci&oacute;nes del <a href="./helpers/string_helper.html">asistente de Cadenas</a> que estaban desaparecidas de la gu&iacute;a del usuario: trim_slashes() y reduce_double_slashes().</li>
+    <li>La documentaci&oacute;n ahora valida como XHTML 1 transitional</li>
+    <li>Se actualiz&oacute; el Filtro XSS para tomar en cuenta la habilidad de IE expression() y se mejoro ciertas eliminaciones para prevenir explotaciones</li>
+    <li>Se modific&oacute; el Router para que los cuando los Query String est&aacute;n Habilitados, los valores de los detonantes de controlador y de funci&oacute;n son saneados por seguridad en la inclusi&oacute;n de archivos.</li>
+    <li>Se mofici&oacute; el m&eacute;todo is_image() en la librer&iacute;a de Carga (upload) para tomar en cuenta cuentas excentricidades de Windows IE 6/7 cuando se trate de MIMEs</li>
+    <li>Se modific&oacute; la rutina de Limpieza de XSS para ser de desempe&ntilde;o m&aacute;s amigable y compatible con los nuevos rastreos y limites de recursi&oacute;n de PHP 5.2.</li>
+    <li>Se modific&oacute; el <a href="./helpers/url_helper.html">asistente de URL</a> para convertir $title a cadena en caso que un valor num&eacute;rico sea suministrado</li>
+    <li>Se modific&oacute; en el Asistente de Formulario form_dropdown() para convertir las claves y valores del arreglo de opciones como cadenas, permitiendo valores num&eacute;ricos sean apropiadamente establecidas como 'selected'</li>
+    <li>Se deprec&oacute; el uso de <kbd>is_numeric()</kbd> en varios lugares ya que permite puntos.  Por problemas de compatibilidad con <kbd>ctype_digit()</kbd>, haci&eacute;ndolo poco confiable en algunas instalaciones, la siguiente expresi&oacute;n regular fue usada en vez: <kbd>preg_match("/[^0-9]/", $n)</kbd></li>
+    <li>Se deprec&oacute; APPVER y se reemplaz&oacute; por CI_VERSION por claridad. </li>
+</ul>
+
+<h2>Version 1.5.3</h2>
+<p>Fecha de publicaci&oacute;n: 15 de abril, 2007 </p>
+<ul>
+    <li>Se agreg&oacute; arreglo a cadena en el profiler</li>
+    <li>Referencias a Code Igniter fueron actualizadas a CodeIgniter</li>
+    <li>Referencias a pMachine fueron actualizadas a EllisLab </li>
+    <li>Corregido error en la funci&oacute;n de repetici&oacute;n del <a href="./helpers/string_helper.html">asistente de cadenas</a>. </li>
+    <li>Corregido error en el driver ODBC</li>
+    <li>Corregido error en result_array() que devolv&iacute;a un arreglo vac&iacute;o cuando ning&uacute;n resultado es producido.</li>
+    <li>Corregido error en la funci&oacute;n de redirecci&oacute;n del <a href="./helpers/url_helper.html">asistente de url</a>.</li>
+    <li>Corregida una variable indefinida en Loader</li>
+    <li>Se corrigi&oacute; un error de versi&oacute;n en el driver Postgre</li>
+    <li>Corregido error en la funci&oacute;n de textarea del asistente de formulario para usar con cadenas</li>
+    <li>Corregidos errores tipogr&aacute;ficos de documentaci&oacute;n.</li>
+</ul>
+
+<h2>Version 1.5.2</h2>
+<p>Fecha de publicaci&oacute;n: 13 de febrero, 2007 </p>
+<ul>
+    <li>Se agreg&oacute; <a href="./installation/downloads.html#svn">informaci&oacute;n de subversion</a> a la p&aacute;gina de <a href="./installation/downloads.html">descargas</a>.</li>
+    <li>Se agreg&oacute; soporte para caption en la <a href="./libraries/table.html">Librer&iacute;a de Tabla</a> </li>
+    <li>Corregido error en el <a href="./helpers/download_helper.html">asistente de descarga</a> que causaba Internet Explorer una carga en vez de descarga</li>
+    <li>Corregido error en la funci&oacute;n de Join de Active Record que no tomaba en consideraci&oacute;n los prefijos de tabla.</li>
+    <li>Se removieron variables no escapadas de los mensajes de error de las clases de entrada (input) y router</li>
+    <li>Corregido error en el Loader que causaba errores en Librer&iacute;as cargadas dos veces. Un mensaje de depuraci&oacute;n es ahora hecho silenciosamente en el historial.</li>
+    <li>Corregido error en el <a href="./helpers/form_helper.html">asistente de formulario</a> que daba un atributo value a textarea</li>
+    <li>Corregido error en la <a href="./libraries/image_lib.php">Librer&iacute;a de Imagen</a> que ignoraba redimensionar im&aacute;genes al mismo tama&ntilde;o de la imagen</li>
+    <li>Corregidos errores tipogr&aacute;ficos de documentaci&oacute;n.</li>
+</ul>
+
+<h2>Version 1.5.1</h2>
+<p>Fecha de publicaci&oacute;n: 23 de noviembre, 2006</p>
+<ul>
+    <li>Se agreg&oacute; soporte al env&iacute;o de arreglos de librer&iacute;as en la funci&oacute;n $this-&gt;load-&gt;library function.</li>
+    <li>Se agreg&oacute; soporte para nombrar archivos de librer&iacute;as especiales en min&uacute;scula o may&uacute;scula.</li>
+    <li>Corregido error relacionado al b&uacute;fer de salida.</li>
+    <li>Corregido error en la clase de active record que no restablec&iacute;a los datos de consultas despu&eacute;s de completada la consulta.</li>
+    <li>Corregido error que suprim&iacute;a los errores en controladores.</li>
+    <li>Corregido un problema que pod&iacute;a causar una repetici&oacute;n infinita cuando no est&aacute; el archivo de configuraci&oacute;n.</li>
+    <li>Corregido error que ocurr&iacute;a cuando m&uacute;ltiples modelos eran cargados con el tercer par&aacute;metro establecido como TRUE.</li>
+    <li>Corregido un descuido que no estaba eliminando variables globales apropiadamente en la funci&oacute;n de saneamiento de entrada (input).</li>
+    <li>Corregido algunos errores en el driver de base de datos de Oracle.</li>
+    <li>Corregido un nombre de variable incorrecto en el driver de resultado de MySQLi.</li>
+    <li>Corregidos errores tipogr&aacute;ficos de documentaci&oacute;n.</li>
+</ul>
+
+<h2>Version 1.5.0.1</h2>
+<p>Fecha de publicaci&oacute;n: 31 de octubre, 2006</p>
+<ul>
+    <li>Se corrigi&oacute; un problema en el cual los intentos duplicados de cargar asistentes y clases no eran detenidos.</li>
+    <li>Corregido error en la funci&oacute;n auxiliar word_wrap().</li>
+    <li>Corregido un color inv&aacute;lido de n&uacute;mero hexadecimal en la clase de Profiler.</li>
+    <li>Corregido una imagen corrompida en la gu&iacute;a del usuario.</li>
+</ul>
+
+<h2>Version 1.5.0</h2>
+<p>Fecha de publicaci&oacute;n: 30 de octubre, 2006</p>
+<ul>
+    <li>Se agreg&oacute; la <a href="./database/utilities.html">clase de utilidades de base de datos</a>, permitiendo respaldos de bases de datos, archivos CVS o XML de resultados de base de datos y varias otras funciones.</li>
+    <li>Se agreg&oacute; <a href="./database/caching.html">Clase de Cacheo de Base de Datos</a>.</li>
+    <li>Se agreg&oacute; <a href="./database/transactions.html">soporte de transacciones</a> a las clases de base de datos.</li>
+    <li>Se agreg&oacute; <a href="./general/profiling.html">Clase Profiler</a> que genera un reporte de tiempos de ejecuci&oacute;n de puntos de referencia, consultas y datos de POST al final de sus p&aacute;ginas.</li>
+    <li>Se agreg&oacute; <a href="./libraries/user_agent.html">Librer&iacute;a de Agente de Usuario</a> que permite a los dispositivos de exploraci&oacute;n, robots y m&oacute;viles ser identificados.</li>
+    <li>Se agreg&oacute; <a href="./libraries/table.html">Clase de Tabla HTML</a>, permitiendo tablas sean generados de un arreglo o resultado de base de datos.</li>
+    <li>Se agreg&oacute; <a href="./libraries/zip.html">Librer&iacute;a de Compresi&oacute;n Zip</a>.</li>
+    <li>Se agreg&oacute; <a href="./libraries/ftp.html">Librer&iacute;a de FTP</a>.</li>
+    <li>Se agreg&oacute; la habilidad de <a href="./general/creating_libraries.html">extender librer&iacute;as</a> y <a href="./general/core_classes.html">extender clases de n&uacute;cleo</a>, en adici&oacute;n a ser posible reemplzarlas.</li>
+    <li>Se agreg&oacute; soporte para guardar <a href="./general/models.html">models en subcarpetas</a>.</li>
+    <li>Se agreg&oacute; <a href="./helpers/download_helper.html">Asistente de Descarga</a>.</li>
+    <li>Se agreg&oacute; la funci&oacute;n <a href="./database/queries.html">simple_query()</a> a las clases de base de datos</li>
+    <li>Se agreg&oacute; la funci&oacute;n <a href="./helpers/date_helper.html">standard_date()</a> al Asistente de Fecha.</li>
+    <li>Se agreg&oacute; <a href="./database/results.html">$query->free_result()</a> a la clase de base de datos.</li>
+    <li>Se agreg&oacute; la funci&oacute;n <a href="./database/fields.html">$query->list_fields()</a> a la clase de base de datos</li>
+    <li>Se agreg&oacute; la funci&oacute;n <a href="./database/helpers.html">$this->db->platform()</a></li>
+    <li>Se agreg&oacute; nuevo <a href="./helpers/file_helper.html">Asistente de Archivos</a>:  get_filenames()</li>
+    <li>Se agreg&oacute; nuevo asistente:  <a href="./helpers/smiley_helper.html">Asistente de Smiley</a></li>
+    <li>Se agreg&oacute; soporte para listas &lt;ul> y &lt;ol> lists en el <a href="./helpers/html_helper.html">Asistente HTML</a></li>
+    <li>Se agreg&oacute; la habilidad de reescribir <a href="./general/alternative_php.html">et&iacute;quetas cortas</a> en la marcha, convirtiendolas en sentencias PHP est&aacute;ndar, para aquellos servidores que no soporten et&iacute;quetas cortas.  Esto permite que una sintaxis m&aacute;s limpia sea usada sin importar si es soportada por el servidor.</li>
+    <li>Se agreg&oacute; la habilida de <a href="./general/managing_apps.html">renombrar o reubicar la carpeta "application"</a>.</li>
+    <li>Se agreg&oacute; m&aacute;s minusiocidad a la inicializaci&oacute;n de la clase de carga (upload) para que todas las variables de clase sean restablecidas.</li>
+    <li>Se agreg&oacute; "is_numeric" a validaci&oacute;n, que usa la funci&oacute;n nativa de PHP is_numeric.</li>
+    <li>Se mejor&oacute; el manejador de URI para hacerlo m&aacute;s confiable cuando el valor de $config['uri_protocol'] es AUTO.</li>
+    <li>Se movi&oacute; la mayor&iacute;a de las funciones de la clase Controller a la clase Loader, permitiendo menos nombres de funciones reservadas para controladores cuando se corre PHP 5.</li>
+    <li>Se actualiz&oacute; la clase de Resultados de Base de Datos para devolver un arreglo vac&iacute;o cuando $query->result() no produce un resultado.</li>
+    <li>Se actualizaron las funciones <dfn>input->cookie()</dfn> e <dfn>input->post()</dfn> en la <a href="./libraries/input.html">Clase de Entrada (input)</a> para permitir arreglos contener cookies que son arreglus para ser corridos a trav&eacute;s del filtro XSS.</li>
+    <li>Se documentaron tres funciones de la <a href="./libraries/validation.html">clase de Validaci&oacute;n</a> que no estaban en la gu&iacute;a del usuario:  set_select(), set_radio(), y set_checkbox().</li>
+    <li>Corregido error en la clase de Email relacionado al SMTP Helo data.</li>
+    <li>Corregido error en el auxiliar de word_wrap y funci&oacute;n en la clase email.</li>
+    <li>Corregido error en la clase de validaci&oacute;n.</li>
+    <li>Corregido error en el asistente de tipograf&iacute;a que era incorrectamente atrapado los elementos de nivel de bloque en etiquetas de p&aacute;rrafo.</li>
+    <li>Corregido un problema en la funci&oacute;n form_prep() que estaba doble codificando las entidades.</li>
+    <li>Corregido error que afecta algunas versiones de PHP cuando el b&uacute;fer de salida es anidado.</li>
+    <li>Corregido error que causaba que CI deje de funcionar cuando las funciones m&aacute;gicas de PHP __get() o __set() eran usadas dentro de modelos o controladores.</li>
+    <li>Corregido un error en la paginaci&oacute;n que s&oacute;lo permitia valores negativos en la URL.</li>
+    <li>Corregido un descuido en el cual la clase Loader no permit&iacute;a ser extendida.</li>
+    <li>Cambiado <dfn>_get_config()</dfn> a <dfn>get_config()</dfn> ya que la funci&oacute;n no es privada.</li>
+    <li><strong>Se deprec&oacute; la carpeta "init"</strong>.  La inicializaci&oacute;n sucede autom&aacute;ticamente ahora. <a href="./general/creating_libraries.html">Por favor vea la documentaci&oacute;n</a>.</li>
+    <li><strong>Se deprec&oacute;</strong> $this->db->field_names()  USE  $this->db->list_fields()</li>
+    <li><strong>Se deprec&oacute;</strong> el item <dfn>$config['log_errors']</dfn> del archivo config.php.  En vez <dfn>$config['log_threshold']</dfn> pueder ser establecido como "0" para apagarlo.</li>
+</ul>
+
+<h2>Version 1.4.1</h2>
+<p>Fecha de publicaci&oacute;n: 21 de septiembre, 2006</p>
+<ul>
+    <li>Se agreg&oacute; una nueva caracter&iacute;stica que pasa los segmentos de URI directamente a la funci&oacute;n llamada comop par&aacute;metros. Vea la p&aacute;gina de <a href="controllers.html">Controladores</a> para m&aacute;s informaci&oacute;n.</li>
+    <li>Se agreg&oacute; soporto para la funci&oacute;n llamada <dfn>_output()</dfn>, la cu&aacute;l cuando era usada en los controladores recib&iacute;a la salida final renderizada de la clase de salida. M&aacute;s informaci&oacute;n en la p&aacute;gina de <a href="controllers.html">Controladores</a>.</li>
+    <li>Se agregaron varias funciones nuevas en la clase de <a href="./libraries/uri.html">URI</a> para permitir recuperar y manipular segmentos de URI qye han sido ruteados usando la caracter&iacute;stica de <a href="routing.html">ruteo de URI</a>. Previamente, la clase URI no brindaba acceso a cualquier segmento URI ruteado, pero ahora lo hace.</li>
+    <li>Se agreg&oacute; la funci&oacute;n <a href="./libraries/output.html">$this->output->set_header()</a>, que permite establecer los encabezados del servidor.</li>
+    <li>Se actualizaron plugins, asistentes y clases de lenguaje para permitir a la carpeta your <dfn>application</dfn> contener sus propias carpetas de plugins, asistentes y lenguaje. Previamente siempre eran tratados como globales para toda la instalaci&oacute;n. Si su carpeta de aplicaci&oacute;n contiene alguno de estos recursos ser&aacute; usado <em>en vez</em> de los globales.</li>
+    <li>Se agreg&oacute; <a href="./helpers/inflector_helper.html">Asistente de Inflexi&oacute;n</a>.</li>
+    <li>Se agreg&oacute; la funci&oacute;n <dfn>element()</dfn> en el <a href="./helpers/array_helper.html">asistente de arreglo</a>.</li>
+    <li>Se agreg&oacute; <dfn>RAND()</dfn> a la funci&oacute;n <dfn>orderby()</dfn> de active record.</li>
+    <li>Se agreg&oacute; <dfn>delete_cookie()</dfn> y <dfn>get_cookie()</dfn> al <a href="./helpers/cookie_helper.html">asistente de Cookie</a>, incluso cuando la clase de entrada (input) tiene una funci&oacute;n para recuperar una cookie.</li>
+    <li>Se agreg&oacute; el driver de base de datos de Oracle (todav&iacute;a con algunas pruebas as&iacute; que puede tener algunos errores).</li>
+    <li>Se agreg&oacute; la habilidad de combinar pseudovariables y variables de php en la clase de parseo de template.</li>
+    <li>Se agreg&oacute; la opci&oacute;n de compresi&oacute;n de salida al archivo de configuraci&oacute;n.</li>
+    <li>Se removi&oacute; la prueba de is_numeric de la funci&oacute;n db->escape().</li>
+    <li>Se corrigi&oacute; un error en MySQLi que causaba a los mensajes de error contener datos no apropiados.</li>
+    <li>Corregido error en la clase de email que causaba que ignore explic&iacute;tamente el establecimiento de encabezados alternativos.</li>
+    <li>Corregido error que causaba un error de PHP cuando la clase de Excepciones era llamada dentro de la funci&oacute;n get_config() ya que causaba problemas.</li>
+    <li>Corregido un descuido en el asistente de cookie en el cual el archivo de configuraci&oacute;n de cookie no eran honrado.</li>
+    <li>Corregido un descuido en la clase de carga (upload). Un item mencionado en el registro de cambio de la 1.4 faltaba.</li>
+    <li>Se agreg&oacute; alg&uacute;n c&oacute;digo para permitir a los archivos adjuntos de los emails ser restablecidos cuando se env&iacute;an listas de email.</li>
+    <li>Se deprec&oacute; la carpeta <dfn>application/scripts</dfn>. Continuar&aacute; trabajando para la herencia de los usuarios, pero es recomendado crear su propia <a href="./general/libraries.html">librer&iacute;a</a> o <a href="./general/models.html">modelos</a> en su lugar. Fue agregado originalmente antes de que CI tenga librer&iacute;as o modelos de usuarios, pero no es m&aacute;s necesario.</li>
+    <li>Se deprec&oacute; el item <dfn>$autoload['core']</dfn> del archivo <kbd>autoload.php</kbd>. En su lugar, por favor ahora use:<kbd>$autoload['libraries']</kbd></li>
+    <li>Se deprecaron las siguientes funciones de base de datos: $this->db->smart_escape_str() y $this->db->fields().</li>
+</ul>
+
+<h2>Versi&oacute;n 1.4.0</h2>
+<p>Fecha de publicaci&oacute;n: 17 de septiembre, 2006</p>
+<ul>
+    <li>Se agreg&oacute; la caracter&iacute;stica de <a href="hooks.html">Ganchos</a>, permitiendo saltar y modificar el funcionamiento interno del entorno de trabajo sin modificar archivos de n&uacute;cleo.</li>
+    <li>Se agreg&oacute; la habilidad de organizar a los archivos de controladores <a href="controllers.html">en sub-carpetas</a>. Saludos y agradecimientos a Marco por <a href="http://codeigniter.com/forums/viewthread/627/">sugerir</a> esta caracter&iacute;stica (y las siguientes dos).</li>
+    <li>Se agreg&oacute; soporte de expresiones regulares para <a href="routing.html">reglas de ruteo</a>.</li>
+    <li>Se agreg&oacute; la habilidad de <a href="controllers.html">llamadas a la funci&oacute;n remap</a> dentro de los controladores.</li>
+    <li>Se agreg&oacute; la hbilidad de <a href="core_classes.html">reemplazar las clases de sistema de n&uacute;cleo</a> por sus propias clases.</li>
+    <li>Se agreg&oacute; soporte para el caracter % en la URL.</li>
+    <li>Se agreg&oacute; la habilidad de suministrar URLs completas usando la funci&oacute;n <a href="./helpers/url_helper.html">anchor()</a> del asistente.</li>
+    <li>Se agreg&oacute; el par&aacute;metro de modo a <a href="./helpers/file_helper.html">file_write()</a> en el asistente de archivos.</li>
+    <li>Se agreg&oacute; soporte para cambiar el n&uacute;mero de puerto en el <a href="./database/configuration.html">driver Postgre</a>.</li>
+    <li>Se movi&oacute; la lista de "caracteres de URI permitidos" fuera de la clase de Ruteo y dentro del archivo de configuraci&oacute;n.</li>
+    <li>Se movi&oacute; el arreglo de MIME type fuera de la clase de Carga (upload) y dentro de su propio archivo en la carpeta applications/config/.</li>
+    <li>Se actualiz&oacute; la clase de Carga (upload) para permitir que el nombre del campo de carga sea establecido cuando se llama a <a href="./libraries/file_uploading.html">do_upload()</a>.</li>
+    <li>Se actualiz&oacute; la <a href="./libraries/config.html">Librer&iacute;a de Configuraci&oacute;n</a> para permitir cargar archivos de configuraci&oacute;n en silencio y ser capaz de asignar archivos de configuraci&oacute;n a su propio &iacute;ndice (para evitar la colisi&oacute;n si se usan m&uacute;ltiples archivos de configuraci&oacute;n).</li>
+    <li>Se actualiz&oacute; el c&oacute;digo del Protocolo URI para permitir m&aacute;s opciones para que las URLs trabajen m&aacute;s confiablemente en diferentes ambientes.</li>
+    <li>Se actualiz&oacute; el asistente de <dfn>form_open()</dfn> para permitir que el m&eacute;todo GET sea usado.</li>
+    <li>Se actualiz&oacute; la funci&oacute;n <dfn>execute()</dfn> de MySQLi con algo de c&oacute;digo para prevenir perder los errores de conexi&oacute;n.</li>
+    <li>Se actualiz&oacute; el driver de SQLite para confirmar el soporte de objetos antes de devolver resultados como objetos. Si no es soportado, devuelve un arreglo.</li>
+    <li>Se actualiz&oacute; el la funci&oacute;n de carga de Modelos para permitir m&uacute;ltiples cargas del mismo modelo.</li>
+    <li>Se actualiz&oacute; el driver de MS SQL para que las comillas simples sean escapadas.</li>
+    <li>Se actualizaron los drivers de Postgre y ODBC para mejorar la compatibilidad.</li>
+    <li>Se removi&oacute; el llamado a strtolower() que cambiaba los segmentos de la URL a min&uacute;sculas.</li>
+    <li>Se removieron algunas referencias que interfer&iacute;an con la compatibilidad con PHP 4.4.1.</li>
+    <li>Se removieron los tildes hacia atr&aacute;s (`) de la clase de Postgre ya que no son necesarios.</li>
+    <li>Se renombr&oacute; <dfn>display()</dfn> a <dfn>_display()</dfn> en la clase de Salida para dejar en claro que es una funci&oacute;n privada.</li>
+    <li>Se deprec&oacute; la funci&oacute;n hash() debido a un conflicto de denominaci&oacute;n con una funci&oacute;n nativa de PHP del mismo nombre. Por favor use <kbd>dohash()</kbd> en su lugar.</li>
+    <li>Se corrigi&oacute; un error que preven&iacute;a a la clase de entrada (input) de eliminar las variables por GET.</li>
+    <li>Se corrigi&oacute; un error de ruteo que la hac&iacute;a muy glotona cuando se emparejaban segmentos finales.</li>
+    <li>Corregido error que preven&iacute;a m&uacute;ltiples llamadas a base de datos discretas.</li>
+    <li>Corregido error en la carga de archivos de lenguaje que produc&iacute;a un mensaje de "archivo no contiene datos".</li>
+    <li>Se corrigi&oacute; un error de sesi&oacute;n causado por la caracter&iacute;stica de Filtrado XSS inadvertidamente cambiando may&uacute;sculas / min&uacute;sculas de ciertas palabras.</li>
+    <li>Corregidos algunos prefijos faltantes cuando se usaba la caracter&iacute;stica de prefijos de base de datos.</li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en la clase de Calendario (cal_november).</li>
+    <li>Corregido error en el asistente <dfn>form_checkbox()</dfn>.</li>
+    <li>Corregido error que no permit&iacute;a al segundo segmento de la URI ser id&eacute;ntico al nombre de la clase.</li>
+    <li>Corregido error de evaluaci&oacute;n en la funci&oacute;n de inicializaci&oacute;n de base de datos.</li>
+    <li>Corregido un error menor en unos de los mensajes de error en la clase de lenguaje.</li>
+    <li>Corregido error en la funci&oacute;n <dfn>timespan</dfn> del asistente de fechas.</li>
+    <li>Corregida una variable indefinida en la clase de Driver de Base de Datos.</li>
+    <li>Corregido error en el cual signos de dolares usados como remplazo de valores en la clase de base de datos eran tratados como referencia de vuelta de la expresi&oacute;n regular.</li>
+    <li>Corregido error en la funci&oacute;n <dfn>set_hash()</dfn> que preven&iacute;a MD5 de ser usado.</li>
+    <li>Corregidos unos pocos errores en la clase de Prueba de Unidad.</li>
+    <li>Corregido un nombre de variable incorrecto en la clase de Validaci&oacute;n.</li>
+    <li>Corregido un nombre de variable incorrecto en la clase de URI.</li>
+    <li>Corregido error en la clase de configuraci&oacute;n que preven&iacute;a a la URL base de ser llamada apropiadamente.</li>
+    <li>Corregido error en la clase de validaci&oacute;n que no permitia llamadas de retorno (callback) si los campos de formulario eran vac&iacute;os.</li>
+    <li>Corregido un problema que preven&iacute;a al scaffolding de trabajar apropiadamente con MySQLi.</li>
+    <li>Corregido errores de MS SQL.</li>
+    <li>Corregidos errores tipogr&aacute;ficos de documentaci&oacute;n.</li>
+</ul>
+
+<h2>Version 1.3.3</h2>
+<p>Fecha de publicaci&oacute;n: 1 de junio, 2006</p>
+<ul>
+    <li>Los Modelos <strong>no</strong> se conectan autom&aacute;ticamente a la base de datos desde esta versi&oacute;n. <a href="./general/models.html">M&aacute;s informaci&oacute;n aqu&iacute;</a>.</li>
+    <li>Se actualiz&oacute; la clase de Sesiones para utilizar la clase de active record cuando se ejecutan consultas relacionadas a la sesi&oacute;n. Previamente se asum&iacute;a la sintaxis de MySQL.</li>
+    <li>Se actualiz&oacute; la funci&oacute;n alternator() para reinicializar cuando se llama sin argumentos, permitiendo m&uacute;ltiples llamadas.</li>
+    <li>Corregido error en la funci&oacute;n "having" de active record.</li>
+    <li>Corregido un problema en la clase de validaci&oacute;n que hac&iacute;a a las casillas de verificaci&oacute;n (checkbox) ser ignoradas cuando eran requeridas.</li>
+    <li>Corregido error en la funci&oacute;n word_limiter() del asistente. No estaba cortando la primer palabra.</li>
+    <li>Corregido error en la funci&oacute;n xss_clean debido a un error de PHP que afecta algunas versiones de html_entity_decode.</li>
+    <li>Corregido un error de validaci&oacute;n que preven&iacute;a a las reglas ser establecidas dos veces en un controlador.</li>
+    <li>Corregido un error de calendario que no le permit&iacute;a usar lenguajes cargados din&aacute;micamente.</li>
+    <li>Corregido error en la clase de active record cuando se usaban cl&aacute;usulas WHERE con LIKE</li>
+    <li>Corregido error en la funci&oacute;n hash() del asistente de seguridad.</li>
+    <li>Corregidos algunos errores tipogr&aacute;ficos.</li>
+</ul>
+
+<h2>Version 1.3.2</h2>
+<p>Fecha de publicaci&oacute;n: 17 de abril, 2006</p>
+<ul>
+    <li>Se cambi&oacute; el comportamiento de la clase de validaci&oacute;n tal que si la regla "requerido" NO es expl&iacute;citamente especificado para un campo, entonces todas las otras pruebas son ignoradas.</li>
+    <li>Corregido error en la clase Controlador que causaba ver la carpeta local "init" en vez de la del sistema principal.</li>
+    <li>Corregido error en el archivo init_pagination.  El item $config no era establecido correctamente.</li>
+    <li>Corregido error en el asistente de tipograf&iacute;a que causaba un comoprtamiento inconsistente.</li>
+    <li>Corregidos algunos errores en la clase Modelo.</li>
+    <li>Corregidos algunos errores tipogr&aacute;ficos y erratas.</li>
+</ul>
+
+<h2>Version 1.3.1</h2>
+<p>Fecha de publicaci&oacute;n: April 11, 2006</p>
+<ul>
+    <li>Se agreg&oacute; la <a href="./libraries/unit_testing.html">Librer&iacute;a de Prueba de Unidad</a>.</li>
+    <li>Se agreg&oacute; la habilidad de pasar un objeto a las funciones de base de datos <strong>insert()</strong> y <strong>update()</strong>.
+    Esta caracter&iacute;stica le permite (entro otras cosas) usar sus variables de <a href="./general/models.html">la clase Modelo</a> para ejecutar consultas. Vea la p&aacute;gina de Modelos para detalles.</li>
+    <li>Se agreg&oacute; la habilidad de pasar objetos a la <a href="./general/views.html">funci&oacute;n de carga de vistas</a>: $this->load->view('mi_vista', <var>$objeto</var>);</li>
+    <li>Se agreg&oacute; la funci&oacute;n <kbd>getwhere</kbd> a <a href="./database/active_record.html">la clase Active Record</a>.</li>
+    <li>Se agreg&oacute; la funci&oacute;n <kbd>count_all</kbd> a <a href="./database/active_record.html">la clase Active Record</a>.</li>
+    <li>Se agreg&oacute; archivo de lenguaje para scaffolding y se arregl&oacute; un error de scaffolding que ocurr&iacute;a cuando no hab&iacute;an filas en la tabla especificada.</li>
+    <li>Se agreg&oacute; <a href="./database/queries.html">$this->db->last_query()</a>, que le permite ver la &uacute;ltima consulta que fue ejecutada.</li>
+    <li>Se agreg&oacute; un nuevo mime type a la clase de carga (upload) para mejor compatibilidad.</li>
+    <li>Se cambi&oacute; como los archivos de cache son le&iacute;dos previniendo errores de PHP si los archivos de cache contienen etiquetas XML, que PHP quiera interpretar como short tag.</li>
+    <li>Corregido error en un par de funci&oacute;nes de active record (where y orderby).</li>
+    <li>Corregido error en la librer&iacute;a de imagen donde realpath() devolv&iacute;a false.</li>
+    <li>Corregido error en los Modelos donde se preven&iacute;a a las librer&iacute;as de ser usadas dentro de ellos.</li>
+    <li>Corregido error en la funci&oacute;n "exact_length" de la clase de validaci&oacute;n.</li>
+    <li>Corregidos algunos errores tipogr&aacute;ficos en la gu&iacute;a del usuario.</li>
+</ul>
+
+<h2>Version 1.3</h2>
+<p>Fecha de publicaci&oacute;n: April 3, 2006</p>
+<ul>
+    <li>Se agreg&oacute; soporte para <a href="models.html">Modelos</a>.</li>
+    <li>Se redise&ntilde;aron las librer&iacute;as de base de datos para soportas RDBMs adicionales (Postgre, MySQLi, etc.).</li>
+    <li>Se redise&ntilde;&oacute; la <a href="./database/active_record.html">clase Active Record</a> para permitir m&aacute;s variados tipos de consultas con sintaxis m&aacute;s simples y caracter&iacute;sticas avanzads como JOINs.</li>
+    <li>Se agreg&oacute; una caracter&iacute;stica a la clase de base de datos que permit&iacute;a correr <a href="./database/call_function.html">llamadas a funciones especiales</a>.</li>
+    <li>Se agreg&oacute; soporte para <a href="controllers.html">funciones privadas</a> en sus controladores. Cualquier nombre de funci&oacute;n de controlador que comience con un gui&oacute;n bajo no ser&aacute; servido por una petici&oacute;n URI.</li>
+    <li>Se agreg&oacute; la habilidad de pasar sus propios par&aacute;metros de inicializaci&oacute;n a sus <a href="creating_libraries.html">librer&iacute;as de n&uacute;cleo especiales</a> cuando se usa $this->load->library()</li>
+    <li>Se agreg&oacute; soporte para correr <a href="urls.html">query string URLs</a> est&aacute;ndar. Estos pueden ser opcionalmente habilitados en su archivo de configuraci&oacute;n.</li>
+    <li>Se agreg&oacute; la habilidad de <a href="urls.html">especificar un "sufijo"</a>, el cual ser&aacute; agregado a sus URLs. Por ejemplo puede agregar .html a sus URLs, haciendolas aparentar est&aacute;ticas. Esta caracter&iacute;stica est&aacute; habilitada en su archivo de configuraci&oacute;n.</li>
+    <li>Se agreg&oacute; una nueva plantilla de errores para usar con errores nativos de PHP.</li>
+    <li>Se agreg&oacute; la funci&oacute;n "alternator" en el <a href="./helpers/string_helper.html">asistente de cadenas</a>.</li>
+    <li>Se removi&oacute; el slashing de la clase de entrada (input). Luego de mucho debate decidimos matar esta caracter&iacute;stica.</li>
+    <li>Se cambi&oacute; el estilo de comentarios en los archivos al est&aacute;ndar de PEAR para que las IDEs y herramientas como phpDocumenter puedan recoger los comentarios.</li>
+    <li>Se agreg&oacute; mejoras en el espaciado de clases y funciones para evitar colisiones con las clases desarrolladas por usuarios. Todas las clases de CodeIgniter son ahora prefijadas con <dfn>CI_</dfn> y todos los m&eacute;todos de controladores con <dfn>_ci</dfn> para evitar colisi&oacute;n de controlador. Una lista de nombres de funciones reservadas puede ser <a href="controllers.html">encontrada aqu&iacute;</a>.</li>
+    <li>Se redise&ntilde;&oacute; como el super objeto "CI" es referenciado, dependiendo en si PHP 4 o 5 est&aacute; corriendo, ya que PHP 5 permite una forma m&aacute;s agraciada de manejar objetos que utiliza menos recursos.</li>
+    <li>Se deprec&oacute;: <var>$this->db->use_table()</var> ha sido deprecada. Por favor lea la p&aacute;gina de <a href="./database/active_record.html">Active Record</a> para informaci&oacute;n.</li>
+    <li>Se deprec&oacute;: <var>$this->db->smart_escape_str()</var> ha sido deprecada. Por favor use en vez: <var>$this->db->escape()</var></li>
+    <li>Corregido error en el manejador de excepciones que preven&iacute;a algunos errores de PHP ser mostrados.</li>
+    <li>Se corrigi&oacute; un error tipogr&aacute;fico en la clase URI.  $this->total_segment() debe ser plural: $this->total_segments()</li>
+    <li>Se corrigieron errores tipogr&aacute;ficos en la plantillas por defecto del calendario</li>
+    <li>Se corrigieron algunos errores tipogr&aacute;ficos en la gu&iacute;a del usuario</li>
+</ul>
+
+<h2>Version 1.2</h2>
+<p>Fecha de publicaci&oacute;n: 21 de marzo, 2006</p>
+<ul>
+    <li>Se redise&ntilde;aron algunos aspectos internos del entorno de trabajo para resolver un problema de &aacute;mbito que surgi&oacute; a primera vista durante las pruebas beta. El problema era m&aacute;s notable cuando se instanciaban clases en sus constructores, particularmente si esas clases trabajaban en sus constructores.</li>
+    <li>Se agreg&oacute; una funci&oacute;n global llamada <a href="ancillary_classes.html">get_instance()</a> permitiendo que el objeto principal CodeIgniter sea accesible desde tus propias clases.</li>
+    <li>Se agreg&oacute; un nuevo <a href="./helpers/file_helper.html">Asistente de Archivos</a>:  delete_files()</li>
+    <li>Se agregaron nuevos <a href="./helpers/url_helper.html">Asistentes de URL</a>:  base_url(), index_page()</li>
+    <li>Se agreg&oacute; la habilidad de crear tus propias <a href="creating_libraries.html">librer&iacute;as de n&uacute;cleo</a> y guardarlo en su directorio de aplicaci&oacute;n local.</li>
+    <li>Se agreg&oacute; una opci&oacute;n de <kbd>sobreescribir</kbd> en la <a href="./libraries/file_uploading.html">clase de Carga (upload)</a>, permitiendo archivos ser sobreescritos en vez de tener que agregarle al nombre de archivo.</li>
+    <li>Se agreg&oacute; un plugn de Calendario en Javascript.</li>
+    <li>Se agreg&oacute; una caracter&iacute;stica de b&uacute;squeda en la gu&iacute;a del usuario. Nota: esto es hecho por google, el cual al momento de escribir esto no hab&iacute;a indexado todas las p&aacute;ginas de la documentaci&oacute;n.</li>
+    <li>Se actualiz&oacute; la clase de parseo para que permita pares de etiquetas dentro de otros pares.</li>
+    <li>Corregido error en la funci&oacute;n "where" de Base de Datos.</li>
+    <li>Corregido error que preven&iacute;a que los archivos de configuraci&oacute;n especiales sean auto-cargados.</li>
+    <li>Corregido error en la caracter&iacute;stica de bind de la clase de MySQL que preven&iacute;a a los marcadores de signo de pregunta en los datos de reemplazo.</li>
+    <li>Se corrigieron algunos errores en la funci&oacute;n xss_clean</li>
+</ul>
+
+<h2>Versi&oacute;n Beta 1.1</h2>
+<p>Fecha de publicaci&oacute;n: 10 de marzo, 2006</p>
+<ul>
+    <li>Se agreg&oacute; una <a href="./libraries/calendar.html">clase de Calendario</a>.</li>
+    <li>Se agreg&oacute; soporte para correr <a href="managing_apps.html">m&uacute;ltiples aplicaciones</a> que compartan archivos comunes de trasfondo de CodeIgniter.</li>
+    <li>Se movi&oacute; la variable "uri protocol" de index.php al archivo the config.php</li>
+    <li>Se corrigi&oacute; un problema que preven&iacute;a a ciertas de ser llamadas desde desde dentro de los constructores en ejecuci&oacute;n.</li>
+    <li>Se corrigi&oacute; un problema que preven&iacute;a a la funci&oacute;n $this->load->library de trabajar en constructores.</li>
+    <li>Corregido error que ocurr&iacute;a cuando la clase de sesi&oacute;n era cargada usando la rutina de auto-carga.</li>
+    <li>Corregido error que ocurr&iacute;a con versiones de PHP que no soportaban la constante E_STRICT</li>
+    <li>Se corrigi&oacute; un error de tipo de datos en la funci&oacute;n form_radio (asistente de formulario)</li>
+    <li>Corregido error que preven&iacute;a a la funci&oacute;n xss_clean de ser llamada desde la clase de validaci&oacute;n.</li>
+    <li>Se corrigi&oacute; los nombres de configuraci&oacute;n relacionados con cookies, los cuales eran incorrectamente especificados como $conf en vez de $config</li>
+    <li>Se corrigi&oacute; un problema de paginaci&oacute;n en el scaffolding.</li>
+    <li>Corregido error en la funci&oacute;n "where" de la clase de mysql.</li>
+    <li>Se corrigi&oacute; un problema de expresiones regulares en alg&uacute;n c&oacute;digo que eliminaba barras repetidas.</li>
+    <li>Se corrigi&oacute; un error en la funci&oacute;n br() del asistente de HTML</li>
+    <li>Se corrigi&oacute; un error de sintaxis en la funci&oacute;n form_dropdown del Asistente de Formulario.</li>
+    <li>Se removi&oacute; el atributo "style" del asistente de formularios.</li>
+    <li>Se actualiz&oacute; la documentaci&oacute;n. Se agregaron hipervinculos "pr&oacute;ximo/previo" a cada p&aacute;gina y se corrigieron varios errores tipogr&aacute;ficos.</li>
+</ul>
+
+<h2>Versi&oacute;n Beta 1.0 </h2>
+<p>Fecha de publicaci&oacute;n: 28 de febrero, 2006</p>
+<p>Primera versi&oacute;n lanzada p&uacute;blicamente.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="license.html">Acuerdo de Licencia</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="./general/credits.html">Cr&eacute;ditos</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

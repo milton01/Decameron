@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase FTP : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase FTP
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+
+<h2>$this->ftp->download()</h2>
+
+<p>Downloads a file from your server.  You must supply the remote path and the local path, and you can optionally set the mode.
+Example:</p>
+
+<code>$this->ftp->download('/public_html/myfile.html', '/local/path/to/myfile.html', 'ascii');</code>
+
+<p><strong>Mode options are:</strong>&nbsp; <kbd>ascii</kbd>, <kbd>binary</kbd>, and <kbd>auto</kbd> (the default). If
+<kbd>auto</kbd> is used it will base the mode on the file extension of the source file.</p>
+
+<p>Returns FALSE if the download does not execute successfully (including if PHP does not have permission to write the local file)</p>
+
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase FTP</h1>
+
+<p>La Clase FTP de CodeIgniter permite que los archivos sean transferidos a un servidor remoto. Los archivos remotos pueden tambi&eacute;n ser movidos, renombrados, y borrados. La Clase FTP tambi&eacute;n incluye una funci&oacute;n de "espejado" que permite que permite a todo un directorio local ser recreado en forma remota a trav&eacute;s de FTP.</p>
+
+<p class="important"><strong>Nota:</strong>&nbsp; Los protocolos FTP SFTP y SSL no est&aacute;n soportados, solo FTP est&aacute;ndar.</p>
+
+<h2>Inicializando la Clase</h2>
+<p>Al igual que la mayor&iacute;a de las otras clases en CodeIgniter, la clase FTP se inicializa en sus controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('ftp');</code>
+
+<p>Una vez cargado, el objeto FTP estar&aacute; disponible utilizando: <dfn>$this->ftp</dfn></p>
+
+<h2>Ejemplos de Uso</h2>
+<p>En este ejemplo, una conexi&oacute;n se abre con el servidor FTP, y un archivo local es le&iacute;do y cargado en modo ASCII.Los permisos de archivo se establecen a 755.  Nota: La configuraci&oacute;n de permisos requiere PHP 5.</p>
+
+<code>
+$this->load->library('ftp');<br />
+<br />
+$config['hostname'] = 'ftp.your-site.com';<br />
+$config['username'] = 'your-username';<br />
+$config['password'] = 'your-password';<br />
+$config['debug'] 	= TRUE;<br />
+<br />
+$this->ftp->connect($config);<br />
+<br />
+$this->ftp->upload('/local/path/to/myfile.html', '/public_html/myfile.html', 'ascii', 0775);<br />
+<br />
+$this->ftp->close();
+</code>
+
+<p>En este ejemplo se recupera una lista de archivos desde el servidor.</p>
+
+<code>
+$this->load->library('ftp');<br />
+<br />
+$config['hostname'] = 'ftp.your-site.com';<br />
+$config['username'] = 'your-username';<br />
+$config['password'] = 'your-password';<br />
+$config['debug'] 	= TRUE;<br />
+<br />
+$this->ftp->connect($config);<br />
+<br />
+$list = $this->ftp->list_files('/public_html/');<br />
+<br />
+print_r($list);<br />
+<br />
+$this->ftp->close();
+</code>
+
+<p>En este ejemplo, se refleja un directorio local en el servidor.</p>
+
+<code>
+$this->load->library('ftp');<br />
+<br />
+$config['hostname'] = 'ftp.your-site.com';<br />
+$config['username'] = 'your-username';<br />
+$config['password'] = 'your-password';<br />
+$config['debug'] 	= TRUE;<br />
+<br />
+$this->ftp->connect($config);<br />
+<br />
+$this->ftp->mirror('/path/to/myfolder/', '/public_html/myfolder/');<br />
+<br />
+$this->ftp->close();
+</code>
+
+<h1>Referencia de Funci&oacute;n</h1>
+
+<h2>$this->ftp->connect()</h2>
+<p>Se conecta y registra en el servidor FTP. Las preferencias de conexi&oacute;n se establecen pasando un arreglo a la funci&oacute;n, o almacen&aacute;ndolas en un archivo de configuraci&oacute;n.</p>
+
+<p>Aqu&iacute; hay un ejemplo que muestra c&oacute;mo establecer las preferencias manualmente:</p>
+
+<code>
+$this->load->library('ftp');<br />
+<br />
+$config['hostname'] = 'ftp.your-site.com';<br />
+$config['username'] = 'your-username';<br />
+$config['password'] = 'your-password';<br />
+$config['port']&nbsp;&nbsp;&nbsp;&nbsp; = 21;<br />
+$config['passive']&nbsp;&nbsp;= FALSE;<br />
+$config['debug']&nbsp;&nbsp;&nbsp;&nbsp;= TRUE;<br />
+<br />
+$this->ftp->connect($config);<br />
+</code>
+
+<h3>Establacer las Preferencias de FTP en un Archivo de Configuracion</h3>
+<p>Si Ud. prefiere, puede almacenar sus preferencias de FTP en un archivo de configuraci&oacute;n. Simplemente crea un nuevo archivo llamado <var>ftp.php</var>, agrega el arreglo <var>$config</var> en ese archivo. A continuaci&oacute;n guarde el archivo en <var>config/ftp.php</var> y se usar&aacute; autom&aacute;ticamente.</p>
+
+<h3>Opciones de Conexi&oacute;n Disponibles:</h3>
+<ul>
+<li><strong>hostname</strong> - el nombre del host FTP. Por lo general, algo como:&nbsp; <dfn>ftp.example.com</dfn></li>
+<li><strong>username</strong> - el nombre de usuario FTP.</li>
+<li><strong>password</strong> - la contrase&ntilde;a FTP.</li>
+<li><strong>port</strong> - el n&uacute;mero de puerto. Establecido a <dfn>21</dfn> por defecto.</li>
+<li><strong>debug</strong> - <kbd>TRUE/FALSE</kbd> (boolean). Ya sea para permitir o no la depuraci&oacute;n para mostrar mensajes de error.</li>
+<li><strong>passive</strong> - <kbd>TRUE/FALSE</kbd> (boolean). Ya sea para usar o no el modo pasivo. Pasivo se establece autom&aacute;ticamente por defecto.</li>
+</ul>
+
+<h2>$this->ftp->upload()</h2>
+<p>Carga un archivo a su servidor. Usted debe proporcionar la ruta local y la ruta remota, opcionalmente se puede establecer el modo y los permisos. Ejemplo:</p>
+
+<code>
+$this->ftp->upload('/local/path/to/myfile.html', '/public_html/myfile.html', 'ascii', 0775);
+</code>
+
+<p><strong>Las opciones de Modo son:</strong>&nbsp; <kbd>ascii</kbd>, <kbd>binary</kbd>, and <kbd>auto</kbd> (el valor por defecto). Si <kbd>auto</kbd> es usado, ser&aacute; el modo base en la extensi&oacute;n de archivos del archivo fuente.</p>
+
+<p>Los permisos est&aacute;n disponibles si est&aacute; corriendo PHP 5 y se pueden pasar como un valor <kbd>octal</kbd> en el cuarto par&aacute;metro.</p>
+
+<h2>$this->ftp->download()</h2>
+
+<p>Descarga un archivo desde su servidor. Tiene que proporcionar las rutas remota y local. Opcionalmente puede establecer el modo. Ejemplo:</p>
+
+<code>
+$this->ftp->download('/public_html/myfile.html', '/local/path/to/myfile.html', 'ascii');
+</code>
+
+<p><strong>Las opciones de modo son:</strong><kbd>ascii</kbd>, <kbd>binary</kbd>, and <kbd>auto</kbd> (valor por defecto). Si se usa <kbd>auto</kbd>, basar&aacute; el modo en la extensi&oacute;n del archivo origen.</p>
+
+<p>Devuelve FALSE si la descarga no se realiza satisfactoriamente incluyendo si PHP no tiene permiso para escribir el archivo local).</p>
+
+<h2>$this->ftp->rename()</h2>
+<p>Permite renombrar un archivo. Suministre el nombre/ruta del archivo fuente y el nombre/ruta del nuevo archivo.</p>
+
+<code>
+// Renombra green.html a blue.html<br />
+$this->ftp->rename('/public_html/foo/green.html', '/public_html/foo/blue.html');
+</code>
+
+<h2>$this->ftp->move()</h2>
+<p>Le permite mover un archivo. Suministre la ruta fuente y la de destino:</p>
+
+<code>
+// Mueve blog.html desde "joe" a "fred"<br />
+$this->ftp->move('/public_html/joe/blog.html', '/public_html/fred/blog.html');
+</code>
+
+<p>Nota: si el nombre del archivo destino es diferente el archivo ser&aacute; renombrado.</p>
+
+<h2>$this->ftp->delete_file()</h2>
+
+<p>Le permite borrar un archivo. Suministre la ruta fuente con el nombre del archivo.</p>
+<code>
+$this->ftp->delete_file('/public_html/joe/blog.html');
+</code>
+
+<h2>$this->ftp->delete_dir()</h2>
+<p>Le permite borrar un directorio y todo lo que contiene. Suministre la ruta fuente al directorio con una barra diagonal.</p>
+
+<p class="important"><strong>Importante</strong>&nbsp; Tenga MUCHO CUIDADO con esta funci&oacute;n. &Eacute;sta borrar&aacute; recursivamente <b>todo</b> en la ruta suministrada, incluidas las sub-carpetas y todos los archivos. Hacer uso de la misma estando absolutamente seguro de que la ruta es correcta. Trate de usar la funci&oacute;n <kbd>list_files()</kbd> en primer lugar para verificar que su ruta es correcta.</p>
+
+<code>
+$this->ftp->delete_dir('/public_html/path/to/folder/');
+</code>
+
+<h2>$this->ftp->list_files()</h2>
+
+<p>Le permite obtener una lista de archivos de su servidor retornados como un <dfn>arreglo</dfn>. Usted debe proporcionar la ruta al directorio deseado.</p>
+
+<code>
+$list = $this->ftp->list_files('/public_html/');<br />
+<br />
+print_r($list);
+</code>
+
+<h2>$this->ftp->mirror()</h2>
+
+<p>Lee recursivamente una carpeta local y todo lo que contiene (incluidos las sub-carpetas) y crea un espejo a trav&eacute;s de FTP basado en &eacute;l. Cualquiera que sea la estructura de directorios de la ruta del archivo original ser&aacute; recreado en el servidor. Ud. debe suministrar una ruta fuente y una ruta destino:</p>
+
+<code>
+$this->ftp->mirror('/path/to/myfolder/', '/public_html/myfolder/');
+</code>
+
+<h2>$this->ftp->mkdir()</h2>
+<p>Le permite crear un directorio en su servidor. Suministre la ruta final en el nombre de la carpetaque desea crear, con una barra diagonal. Los permisos pueden ser establecidos pasando un valor <kbd>octal</kbd> en el segundo par&aacute;metro (si est&aacute; ejecutando PHP 5).</p>
+
+<code>
+// Crea una carpeta llamada "bar"<br />
+$this->ftp->mkdir('/public_html/foo/bar/', 0777);
+</code>
+
+<h2>$this->ftp->chmod()</h2>
+<p>Le permite establecer permisos de archivo. Suministre la ruta del archivo o carpeta que desea modificar los permisos en:</p>
+
+<code>
+// Chmod "bar" a 777<br />
+$this->ftp->chmod('/public_html/foo/bar/', 0777);
+</code>
+
+<h2>$this->ftp->close();</h2>
+<p>Cierra la conexi&oacute;n con el servidor. Es recomendable que utilice esto cuando haya terminado de cargar.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="form_validation.html">Clase Form Validation</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="image_lib.html">Clase Image_lib</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

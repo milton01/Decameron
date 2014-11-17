@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper Date : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper Date
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Helper Date</h1>
+<p>El archivo del Helper Date contiene funciones que lo ayudan a trabajar con fechas.</p>
+
+<h2>Cargar este Helper</h2>
+<p>Este helper se carga usando el siguiente c&oacute;digo:</p>
+
+<code>$this->load->helper('date');</code>
+
+<p>Est&aacute;n disponibles las siguientes funciones:</p>
+
+<h2>now()</h2>
+<p>Devuelve la hora actual como una marca de tiempo de Unix (sea la hora local de su servidor como la GMT) basada en el valor "time reference" del archivo de configuraci&oacute;n. Si no tiene la intenci&oacute;n de establecer su tiempo de referencia maestro a GMT (lo que normalmente har&iacute;a si ejecuta un sitio que le permite a cada usuario establecer la configuraci&oacute;n de su propia zona horaria), no hay beneficio de usar esta funci&oacute;n respecto de la funci&oacute;n time() de PHP.</p>
+
+<h2>mdate()</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a la <a href="http://www.php.net/date">date()</a> de PHP, salvo que le permite usar c&oacute;digos de fecha de estilo MySQL, donde cada letra de c&oacute;digo est&aacute; precedida por un signo de porcentaje: %Y %m %d etc.</p>
+
+<p>El beneficio de hacer las fechas de esta forma es que no hay que preocuparse de escapar los caracteres que no son c&oacute;digos de fecha, como tendr&iacute;a que hacerlo normalmente con la funci&oacute;n date(). Ejemplo:</p>
+
+<code>$datestring = "Year: %Y Month: %m Day: %d - %h:%i %a";<br />
+$time = time();<br />
+<br />
+echo mdate($datestring, $time);</code>
+
+
+<p>Si no se incluye una marca de tiempo en el segundo par&aacute;metro, se usar&aacute; la fecha/hora actual.</p>
+
+<h2>standard_date()</h2>
+
+
+<p>Le permite generar una cadena de fecha en uno de varios formatos estandarizados. Ejemplo:</p>
+
+<code>
+$format = 'DATE_RFC822';<br />
+$time = time();<br />
+<br />
+echo standard_date($format, $time);
+</code>
+
+<p>El primer par&aacute;metro tiene que contener el formato y el segundo la fecha como marca de tiempo de Unix.</p>
+
+<p>Formatos Soportados:</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+	<tr>
+		<th>Constante</th>
+		<th>Descripci&oacute;n</th>
+		<th>Ejemplo</th>
+	</tr>
+	<tr>
+		<td>DATE_ATOM</td>
+		<td>Atom</td>
+		<td>2005-08-15T16:13:03+0000</td>
+	</tr>
+	<tr>
+		<td>DATE_COOKIE</td>
+		<td>HTTP Cookies</td>
+		<td>Dom, 14 Aug 2005 16:13:03 UTC</td>
+	</tr>
+	<tr>
+		<td>DATE_ISO8601</td>
+		<td>ISO-8601</td>
+		<td>2005-08-14T16:13:03+00:00</td>
+	</tr>
+	<tr>
+		<td>DATE_RFC822</td>
+		<td>RFC 822</td>
+		<td>Dom, 14 Aug 05 16:13:03 UTC</td>
+	</tr>
+	<tr>
+		<td>DATE_RFC850</td>
+		<td>RFC 850</td>
+		<td>Domingo, 14-Aug-05 16:13:03 UTC</td>
+	</tr>
+	<tr>
+		<td>DATE_RFC1036</td>
+		<td>RFC 1036</td>
+		<td>Domingo, 14-Aug-05 16:13:03 UTC</td>
+	</tr>
+	<tr>
+		<td>DATE_RFC1123</td>
+		<td>RFC 1123</td>
+		<td>Dom, 14 Aug 2005 16:13:03 UTC</td>	
+	</tr>
+	<tr>
+		<td>DATE_RFC2822</td>
+		<td>RFC 2822</td>
+		<td>Dom, 14 Aug 2005 16:13:03 +0000</td>
+	</tr>
+	<tr>
+		<td>DATE_RSS</td>
+		<td>RSS</td>
+		<td>Dom, 14 Aug 2005 16:13:03 UTC</td>
+	</tr>
+	<tr>
+		<td>DATE_W3C</td>
+		<td>World Wide Web Consortium</td>
+		<td>2005-08-14T16:13:03+0000</td>
+	</tr>
+</table>
+
+<h2>local_to_gmt()</h2>
+<p>Toma como entrada una marca de tiempo de Unix y la devuelve como GMT. Ejemplo:</p>
+
+<code>$now = time();<br />
+<br />
+$gmt = local_to_gmt($now);</code>
+
+<h2>gmt_to_local()</h2>
+<p>Toma como entrada una marca de tiempo de Unix (que hace referencia a la hora GMT), y la convierte a una marca de tiempo localizada basada en zona horaria y el horario de verano enviados. Ejemplo:</p>
+
+<code>
+$timestamp = '1140153693';<br />
+$timezone  = 'UM8';<br />
+$daylight_saving = TRUE;<br />
+<br />
+echo gmt_to_local($timestamp, $timezone, $daylight_saving);</code>
+
+<p><strong>Nota:</strong> Para ver la lista de zonas horarias, vaya al final de este cap&iacute;tulo.</p>
+
+<h2>mysql_to_unix()</h2>
+<p>Toma una marca de tiempo de MySQL como entrada y la devuelve como de Unix. Ejemplo:</p>
+
+<code>$mysql = '20061124092345';<br />
+<br />
+$unix = mysql_to_unix($mysql);</code>
+
+<h2>unix_to_human()</h2>
+<p>Toma una marca de tiempo de Unix como entrada y devuelve un formato humanamente legible con este prototipo:</p>
+
+<code>YYYY-MM-DD HH:MM:SS AM/PM</code>
+
+<p>Es &uacute;til cuando se necesita mostrar una fecha en un campo de formulario para enviarse.</p>
+
+<p>Esta hora se puede formatear con o sin segundos, y puede estar en formato Europeo o de EEUU. Si se env&iacute;a solamente la marca de tiempo, devolver&aacute; la hora sin segundos formateados para EEUU. Ejemplos:</p>
+
+<code>$now = time();<br />
+<br />
+echo unix_to_human($now); // Hora de EEUU sin segundos<br />
+<br />
+echo unix_to_human($now, TRUE, 'us'); // Hora de EEUU con segundos<br />
+<br />
+echo unix_to_human($now, TRUE, 'eu'); // Hora de Europea con segundos</code>
+
+
+<h2>human_to_unix()</h2>
+<p>Lo opuesto a la funci&oacute;n anterior. Toma una hora "humana" como entrada y la devuelve como Unix. Esta funci&oacute;n es &uacute;til si acepta fechas formateadas como "humanas" enviadas desde un formulario. Devuelve <samp>FALSE</samp> (booleano) si la cadena de la fecha pasada no est&aacute; formateada como se indica m&aacute;s arriba. Ejemplo:</p>
+
+<code>$now = time();<br />
+<br />
+$human = unix_to_human($now);<br />
+<br />
+$unix = human_to_unix($human);</code>
+
+<h2>timespan()</h2>
+<p>Formatea una marca de tiempo de Unix para que parezca similar a esto:</p>
+
+<code>1 A&ntilde;o, 10 Meses, 2 Semanas, 5 D&iacute;as, 10 Horas, 16 Minutos</code>
+
+<p>El primer par&aacute;metro tiene que contener una marca de tiempo de Unix. El segundo par&aacute;metro tiene que contener una marca de tiempo mayor que la primera. Si el segundo par&aacute;metro est&aacute; vac&iacute;o, se usar&aacute; la hora actual. El prop&oacute;sito m&aacute;s com&uacute;n para esta funci&oacute;n es mostrar cuanto tiempo pas&oacute; desde alg&uacute;n momento en el pasado hasta ahora. Ejemplo:</p>
+
+<code>$post_date = '1079621429';<br />
+$now = time();<br />
+<br />
+echo timespan($post_date, $now);</code>
+
+<p class="important"><strong>Nota:</strong> El texto contenido en el men&uacute; est&aacute; en el siguiente archivo de idioma:
+<var>language/&lt;su_idioma&gt;/date_lang.php</var>.</p>
+
+<h2>days_in_month()</h2>
+<p>Devuelve la cantidad de d&iacute;as en un dado mes/a&ntilde;o. Tiene en cuenta los a&ntilde;os bisiestos. Ejemplo:</p>
+
+<code>echo days_in_month(06, 2005);</code>
+
+<p>Si el segundo par&aacute;metro est&aacute; vac&iacute;o, se usar&aacute; el a&ntilde;o actual.</p>
+
+<h2>timezones()</h2>
+<p>Toma una referencia de zona horaria como entrada (para la lista de zonas horarias v&aacute;lidas ver m&aacute;s abajo "Referencia de Zonas Horarias") y devuelve el desfasaje de horas respecto de UTC.</p>
+
+<code>echo timezones('UM5');</code>
+
+<p>Esta funci&oacute;n es &uacute;til al usarse con <dfn>timezone_menu()</dfn>.</p>
+
+<h2>timezone_menu()</h2>
+<p>Genera un men&uacute; desplegable de zonas horarias como este:</p>
+
+<form action="#">
+<select name="timezones">
+<option value='UM12'>(UTC - 12:00) Enitwetok, Kwajalien</option>
+<option value='UM11'>(UTC - 11:00) Nome, Midway Island, Samoa</option>
+<option value='UM10'>(UTC - 10:00) Hawaii</option>
+<option value='UM9'>(UTC - 9:00) Alaska</option>
+<option value='UM8'>(UTC - 8:00) Pacific Time</option>
+<option value='UM7'>(UTC - 7:00) Mountain Time</option>
+<option value='UM6'>(UTC - 6:00) Central Time, Mexico City</option>
+<option value='UM5'>(UTC - 5:00) Eastern Time, Bogota, Lima, Quito</option>
+<option value='UM4'>(UTC - 4:00) Atlantic Time, Caracas, La Paz</option>
+<option value='UM25'>(UTC - 3:30) Newfoundland</option>
+<option value='UM3'>(UTC - 3:00) Brasil, Buenos Aires, Georgetown, Islas Malvinas</option>
+<option value='UM2'>(UTC - 2:00) Mid-Atlantic, Ascention Is., St Helena</option>
+<option value='UM1'>(UTC - 1:00) Azores, Cape Verde Islands</option>
+<option value='UTC' selected='selected'>(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</option>
+<option value='UP1'>(UTC + 1:00) Berlin, Brussels, Copenhagen, Madrid, Paris, Rome</option>
+<option value='UP2'>(UTC + 2:00) Kaliningrad, South Africa, Warsaw</option>
+<option value='UP3'>(UTC + 3:00) Baghdad, Riyadh, Moscow, Nairobi</option>
+<option value='UP25'>(UTC + 3:30) Tehran</option>
+<option value='UP4'>(UTC + 4:00) Adu Dhabi, Baku, Muscat, Tbilisi</option>
+<option value='UP35'>(UTC + 4:30) Kabul</option>
+<option value='UP5'>(UTC + 5:00) Islamabad, Karachi, Tashkent</option>
+<option value='UP45'>(UTC + 5:30) Bombay, Calcutta, Madras, New Delhi</option>
+<option value='UP6'>(UTC + 6:00) Almaty, Colomba, Dhaka</option>
+<option value='UP7'>(UTC + 7:00) Bangkok, Hanoi, Jakarta</option>
+<option value='UP8'>(UTC + 8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</option>
+<option value='UP9'>(UTC + 9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</option>
+<option value='UP85'>(UTC + 9:30) Adelaide, Darwin</option>
+<option value='UP10'>(UTC + 10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</option>
+<option value='UP11'>(UTC + 11:00) Magadan, New Caledonia, Solomon Islands</option>
+<option value='UP12'>(UTC + 12:00) Auckland, Wellington, Fiji, Marshall Island</option>
+</select>
+</form>
+
+<p>Este men&uacute; es &uacute;til para stios donde se les permite a los usuarios establecer el valor de su zona horaria local.</p>
+
+<p>El primer par&aacute;metro le permite establecer el estado por defecto del men&uacute;. Por ejemplo, para establecer por defecto la hora del Pac&iacute;fico deber&aacute; hacer esto:</p>
+
+<code>echo timezone_menu('UM8');</code>
+
+<p>Por favor lea m&aacute;s abajo la referencia de zonas horarias para conocer los valores de este men&uacute;.</p>
+
+<p>El segundo par&aacute;metro le permite establecer un nombre de clase CSS para el men&uacute;.</p>
+
+<p class="important"><strong>Nota:</strong> El texto contenido en el men&uacute; est&aacute; en el siguiente archivo de idioma: <var>language/&lt;su_idioma&gt;/date_lang.php.</var></p>
+
+<h2>Timezone Reference</h2>
+<p>La siguiente tabla indica cada zona horaria y su ubicaci&oacute;n.</p>
+
+<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder">
+<tr>
+<th>Time Zone</th>
+<th>Location</th>
+</tr><tr>
+
+<td class="td">UM12</td><td class="td">(UTC - 12:00) Enitwetok, Kwajalien</td>
+</tr><tr>
+<td class="td">UM11</td><td class="td">(UTC - 11:00) Nome, Midway Island, Samoa</td>
+</tr><tr>
+<td class="td">UM10</td><td class="td">(UTC - 10:00) Hawaii</td>
+</tr><tr>
+<td class="td">UM9</td><td class="td">(UTC - 9:00) Alaska</td>
+</tr><tr>
+<td class="td">UM8</td><td class="td">(UTC - 8:00) Pacific Time</td>
+</tr><tr>
+<td class="td">UM7</td><td class="td">(UTC - 7:00) Mountain Time</td>
+</tr><tr>
+<td class="td">UM6</td><td class="td">(UTC - 6:00) Central Time, Mexico City</td>
+</tr><tr>
+<td class="td">UM5</td><td class="td">(UTC - 5:00) Eastern Time, Bogota, Lima, Quito</td>
+</tr><tr>
+<td class="td">UM4</td><td class="td">(UTC - 4:00) Atlantic Time, Caracas, La Paz</td>
+</tr><tr>
+<td class="td">UM25</td><td class="td">(UTC - 3:30) Newfoundland</td>
+</tr><tr>
+<td class="td">UM3</td><td class="td">(UTC - 3:00) Brazil, Buenos Aires, Georgetown, Islas Malvinas</td>
+</tr><tr>
+<td class="td">UM2</td><td class="td">(UTC - 2:00) Mid-Atlantic, Ascention Is., St Helena</td>
+</tr><tr>
+<td class="td">UM1</td><td class="td">(UTC - 1:00) Azores, Cape Verde Islands</td>
+</tr><tr>
+<td class="td">UTC</td><td class="td">(UTC) Casablanca, Dublin, Edinburgh, London, Lisbon, Monrovia</td>
+</tr><tr>
+<td class="td">UP1</td><td class="td">(UTC + 1:00) Berlin, Brussels, Copenhagen, Madrid, Paris, Rome</td>
+</tr><tr>
+<td class="td">UP2</td><td class="td">(UTC + 2:00) Kaliningrad, South Africa, Warsaw</td>
+</tr><tr>
+<td class="td">UP3</td><td class="td">(UTC + 3:00) Baghdad, Riyadh, Moscow, Nairobi</td>
+</tr><tr>
+<td class="td">UP25</td><td class="td">(UTC + 3:30) Tehran</td>
+</tr><tr>
+<td class="td">UP4</td><td class="td">(UTC + 4:00) Adu Dhabi, Baku, Muscat, Tbilisi</td>
+</tr><tr>
+<td class="td">UP35</td><td class="td">(UTC + 4:30) Kabul</td>
+</tr><tr>
+<td class="td">UP5</td><td class="td">(UTC + 5:00) Islamabad, Karachi, Tashkent</td>
+</tr><tr>
+<td class="td">UP45</td><td class="td">(UTC + 5:30) Bombay, Calcutta, Madras, New Delhi</td>
+</tr><tr>
+<td class="td">UP6</td><td class="td">(UTC + 6:00) Almaty, Colomba, Dhaka</td>
+</tr><tr>
+<td class="td">UP7</td><td class="td">(UTC + 7:00) Bangkok, Hanoi, Jakarta</td>
+</tr><tr>
+<td class="td">UP8</td><td class="td">(UTC + 8:00) Beijing, Hong Kong, Perth, Singapore, Taipei</td>
+</tr><tr>
+<td class="td">UP9</td><td class="td">(UTC + 9:00) Osaka, Sapporo, Seoul, Tokyo, Yakutsk</td>
+</tr><tr>
+<td class="td">UP85</td><td class="td">(UTC + 9:30) Adelaide, Darwin</td>
+</tr><tr>
+<td class="td">UP10</td><td class="td">(UTC + 10:00) Melbourne, Papua New Guinea, Sydney, Vladivostok</td>
+</tr><tr>
+<td class="td">UP11</td><td class="td">(UTC + 11:00) Magadan, New Caledonia, Solomon Islands</td>
+</tr><tr>
+<td class="td">UP12</td><td class="td">(UTC + 12:00) Auckland, Wellington, Fiji, Marshall Island</td>
+</tr>
+</table>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="cookie_helper.html">Helper Cookie</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="directory_helper.html">Helper Directory</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

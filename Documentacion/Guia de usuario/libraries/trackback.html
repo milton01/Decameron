@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Trackbacks : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Trackbacks
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Trackback</h1>
+<p>La Clase Trackbacks provee funciones que le permiten enviar y recibir datos de v&iacute;nculos de referencia.</p>
+
+<p>Si no est&aacute; familiarizado con los V&iacute;nculos de referencias encontrar&aacute; m&aacute;s informaci&oacute;n <a href="http://es.wikipedia.org/wiki/Trackback">aqu&iacute;</a>.</p>
+
+<h2>Inicializando la Clase</h2>
+<p>Como la mayor&iacute;a de las otras clases en CodeIgniter, la clase de V&iacute;nculos de referencia es inicializada en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('trackback');</code>
+
+<p>Una vez cargada, el objeto de la librer&iacute;a de V&iacute;nculos de referencia estar&aacute; disponible usando: <dfn>$this->trackback</dfn></p>
+
+<h2>Enviando V&iacute;nculos de Referencias</h2>
+<p>Un v&iacute;nculo de referencia puede ser enviado desde cualquiera de sus funciones de sus controladores usando un c&oacute;digo similar a este ejemplo:</p>
+
+<code>
+$this->load->library('trackback');<br />
+<br />
+$tb_data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'ping_url'&nbsp;&nbsp;=> 'http://ejemplo.com/trackback/456',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'url'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'http://www.mi-ejemplo.com/blog/entrada/123',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 'El T&iacute;tulo de Mi Entrada',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'excerpt'&nbsp;&nbsp;&nbsp;=> 'El contenido de la entrada.',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'blog_name' => 'El Nombre de mi Blog',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'charset'&nbsp;&nbsp;&nbsp;=> 'utf-8'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+if ( ! $this->trackback->send($tb_data))<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $this->trackback->display_errors();<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo 'V&iacute;nculo de referencia enviado!';<br />
+}</code>
+
+<p>Descripci&oacute;n del arreglo de datos:</p>
+
+<ul>
+<li><strong>ping_url</strong> - La URL del sitio a la que est&aacute; enviando el v&iacute;nculo de referencia. Puede enviar v&iacute;nculos de referencias a m&uacute;ltiples URLs separando cada URL con una coma.</li>
+<li><strong>url</strong> - La URL de SU sitio donde la entrada del weblog puede ser vista.</li>
+<li><strong>title</strong> - El t&iacute;tulo de su entrada weblog.</li>
+<li><strong>excerpt</strong> - El contenido de su entrada weblog. Nota: la clase de v&iacute;nculos de referencia autom&aacute;ticamente enviar&aacute; s&oacute;lo los primeros 500 caracteres de su entrada. Tambi&eacute;n le quitar&aacute; todas el HTML.</li>
+<li><strong>blog_name</strong> - El nombre de su weblog.</li>
+<li><strong>charset</strong> - La codificaci&oacute;n de caracteres en que su weblog est&aacute; escrito. Si se omite, ser&aacute; usado UTF-8.</li>
+</ul>
+
+<p>La funci&oacute;n de env&iacute;o de v&iacute;nculos de referencia devolver&aacute; TRUE/FALSE (buleano) en &eacute;xito o fallo. Si falla, puede recuperar el mensaje de error usando:</p>
+
+<code>$this->trackback->display_errors();</code>
+
+<h2>Recibiendo V&iacute;nculos de Referencias</h2>
+<p>Antes de que pueda recibir v&iacute;nculos de referencias debe crear un weblog. Si no tiene una bit&aacute;cora a&uacute;n no tiene sentido continuar.</p>
+
+<p>Recibir v&iacute;nculos de referencias es un poco m&aacute;s complicado que enviarlos, s&oacute;lo porque necesitar&aacute; una tabla de base de datos d&oacute;nde almacenarlos, y necesitar&aacute; validar los datos entrantes del v&iacute;nculo de referencia. Se alienta a implementar un minucioso proceso de validaci&oacute;n para resguardarse en contra del spam y los datos duplicados. Puede tambi&eacute;n querer limitar el n&uacute;mero de v&iacute;nculos de referencias que permite desde una direcci&oacute;n IP particular dentro de un rango de tiempo para resguardarse del spam. El proceso de recepci&oacute;n de v&iacute;nculos de referencia es bastante simple; la validaci&oacute;n es lo que toma la mayor&iacute;a del esfuerzo.</p>
+
+<h2>Su URL de Ping</h2>
+<p>Para aceptar v&iacute;nculos de referencias debe mostrar una URL de v&iacute;nculos de referencia pr&oacute;xima a cada una de sus entradas weblog. Esta ser&aacute; la URL que la gente usar&aacute; para enviar sus v&iacute;nculos de referencias (nos referiremos a ella como su "URL de Ping").</p>
+
+<p>Su URL de Ping debe aputar a un controlador donde su c&oacute;digo de recepci&oacute;n de v&iacute;nculos de referencia es ubicado, y la URL debe contener el n&uacute;mero de ID para cada entrada en particular, as&iacute; cuando el v&iacute;nculos de referencia es recibido ser&aacute; capaz de asociarlo con una entrada en particular.</p>
+
+<p>Por ejemplo, si su clase controlador es llamada <dfn>Trackback</dfn>, y la funci&oacute;n de recepci&oacute;n es llamada <dfn>recibir</dfn>, su URL de Ping ser&aacute; algo as&iacute;:</p>
+
+<code>http://www.su-sitio.com/index.php/trackback/receive/<samp>entrada_id</samp></code>
+
+<p>Donde <samp>entrada_id</samp> representa el n&uacute;mero de ID individual para cada una de sus entradas.</p>
+
+<h2>Creando una Tabla de V&iacute;nculos de Referencia</h2>
+<p>Antes de poder recibir sus v&iacute;nculos de referencias debe crear una tabla donde guardarlos. Aqu&iacute; hay un prototipo de tal tabla:</p>
+
+<pre>
+CREATE TABLE trackbacks (
+ tb_id int(10) unsigned NOT NULL auto_increment,
+ entrada_id int(10) unsigned NOT NULL default 0,
+ url varchar(200) NOT NULL,
+ titulo varchar(100) NOT NULL,
+ texto text NOT NULL,
+ nombre_blog varchar(100) NOT NULL,
+ tb_fecha int(10) NOT NULL,
+ direccion_ip varchar(16) NOT NULL,
+ PRIMARY KEY (tb_id),
+ KEY (entrada_id)
+);</pre>
+
+<p>La especificaci&oacute;n de v&iacute;nculos de referencia s&oacute;lo requiere cuatro piezas de informaci&oacute;n para enviar en un v&iacute;nculo de referencia (url, t&iacute;tulo, contenido, nombre_blog), pero para hacer los datos m&aacute;s utiles hemos agregado unos campos m&aacute;s en la tabla anterior (fecha, direcci&oacute;n IP, etc.).</p>
+
+<h2>Procesando un V&iacute;nculo de Referencia</h2>
+<p>Aqu&iacute; hay un ejemplo mostrando como recibir&aacute; y procesar&aacute; un v&iacute;nculo de referencia.  El siguiente c&oacute;digo est&aacute; hecho para usar dentro de la funci&oacute;n controlador donde espera recibir v&iacute;nculos de referencias.</p>
+
+<code>
+$this->load->library('trackback');<br />
+$this->load->database();<br />
+<br />
+if ($this->uri->segment(3) == FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->trackback->send_error("No se pudo determinar el ID de la entrada");<br />
+}<br />
+<br />
+if ( ! $this->trackback->receive())<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->trackback->send_error("El V&iacute;nculo de Referencia no conten&iacute;a datos v&aacute;lidos");<br />
+}<br />
+<br />
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'tb_id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> '',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'entrada_id'&nbsp;&nbsp;&nbsp;=> $this->uri->segment(3),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'url'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> $this->trackback->data('url'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'titulo'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> $this->trackback->data('title'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'texto'&nbsp;&nbsp;&nbsp;&nbsp;=> $this->trackback->data('excerpt'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre_blog'&nbsp;&nbsp;=> $this->trackback->data('blog_name'),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'tb_fecha'&nbsp;&nbsp;&nbsp;&nbsp;=> time(),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'direccion_ip' => $this->input->ip_address()<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$sql = $this->db->insert_string('trackbacks', $data);<br />
+$this->db->query($sql);<br />
+<br />
+$this->trackback->send_success();
+</code>
+
+<h4>Notas:</h4>
+<p>El n&uacute;mero de ID de la entrada es esperado como el tercer segmento de su URL. Esto se basa en la URI de ejemplo que dimos anteriormente:</p>
+
+<code>http://www.su-sitio.com/index.php/trackback/receive/<samp>entrada_id</samp></code>
+
+<p>Note que entrada_id est&aacute; en el tercer segmento de la URI, el cual puede ser recuperado usando:</p>
+
+<code>$this->uri->segment(3);</code>
+
+<p>En sus el c&oacute;digo de recepci&oacute;n de v&iacute;nculos de referencia previo, si el tercer segmento no se encuentra, responderemos un error. Sin un ID de entrada v&aacute;lido no hay raz&oacute;n para continuar.</p>
+
+<p>La funci&oacute;n <dfn>$this->trackback->receive()</dfn> es simplemente una funci&oacute;n de validaci&oacute;n que verifica los datos entrantes y se asegura que contiene las cuatros piezas de datos que son requeridas (url, titulo, texto, nombre_blog). Devuelve TRUE en &eacute;xito y FALSE si falla. Si falla, devolveremos un mensaje de error.</p>
+
+<p>Los datos de v&iacute;nculos de referencia entrantes pueden ser recuperados usando esta funci&oacute;n:</p>
+
+<code>$this->trackback->data('<var>item</var>')</code>
+
+<p>Donde <var>item</var> representa uno de estas cuatro piezas de informaci&oacute;n: url, title (t&iacute;tulo), excerpt (texto), o blog_name (nombre del blog)</p>
+
+<p>Si los datos de v&iacute;nculos de referencia son recibidos correctamente, devolver&aacute; un mensaje de &eacute;xito usando:</p>
+
+<code>$this->trackback->send_success();</code>
+<p class="important"><strong>Nota:</strong> El c&oacute;digo anterior no contiene validaci&oacute;n de datos, la cual est&aacute; alentado a agregar.</p>
+
+</div>
+
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="table.html">Clase Table</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="typography.html">Clase Typography</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Instrucciones de Instalaci&oacute;n : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Instrucciones de Instalaci&oacute;n
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Ir" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Instrucciones de Instalaci&oacute;n</h1>
+
+<p>CodeIgniter se instala en cuatro pasos:</p>
+
+<ol>
+<li>Descomprimir el paquete.</li>
+<li>Subir todos los archivos y carpetas a su servidor. Habitualmente el archivo index.php estar&aacute; en el root.</li>
+<li>Abrir el archivo <dfn>application/config/config.php</dfn> con un editor de texto y configurar la URL base.  Si pretendes usar encriptaci&oacute;n o sesiones, configura la clave de encriptaci&oacute;n.</li>
+<li>Si pretende usar una base de datos, abra el archivo <dfn>application/config/database.php</dfn> con un editor de texto y configure los par&aacute;metros de la base de datos.</li>
+</ol>
+
+<p>Si le gustar&iacute;a aumentar la seguridad escondiendo los archivos de CodeIgniter puede renombrar las carpetas <dfn>system</dfn> y <dfn>application</dfn> a algo m&aacute;s privado.  Si lo hace, debe abrir tu archivo <kbd>index.php</kbd> y configurar las variables <samp>$system_folder</samp> y <samp>$application_folder</samp> en la parte superior del archivo con los nuevos nombres que ha elegido.</p>
+
+<p>Para obtener la mayor seguridad, ambas carpetas, tanto <dfn>system</dfn> como la carpeta <dfn>application</dfn> deber&iacute;an colocarse por encima del root de manera que no sean directamente accesibles desde un navegador.  Por defecto, se incluyen archivos .htaccess en cada carpeta para evitar el acceso directo, pero es mejor moverlas del acceso p&uacute;blico por completo por si se diera el caso de que el servidor web cambia su configuraci&oacute;n o no le afectan los archivos .htaccess.</p>
+
+<p>Una vez movidos, abra su archivo <kbd>index.php</kbd> y configure las variables <samp>$system_folder</samp> y <samp>$application_folder</samp>, preferiblemente con la ruta completa, por ej. '<dfn>/www/Mi_Usuario/system</dfn>'.</p>
+
+<p>Una medida adicional que se puede usar en entornos de producci&oacute;n es desactivar el reporte de errores PHP y culquier otra funcionalidad de desarrollo. En CodeIgniter, esto se puede hacer configurando la constante <kbd>ENVIRONMENT</kbd>, la cual est&aacute; descrita en su totalidad en la <a href="../general/security.html">p&aacute;gina de seguridad</a>.</p>
+
+<p>&iexcl;Eso es todo!</p>
+
+<p>Si es nuevo en CodeIgniter, por favor, lea la secci&oacute;n <a href="../overview/getting_started.html">Primeros Pasos</a> de la Gu&iacute;a del Usuario para comenzar a aprender como crear aplicaciones PHP din&aacute;micas. Disfruta!</p>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="../general/credits.html">Cr&eacute;ditos</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="upgrading.html">Actualizar desde una Versi&oacute;n Anterior</a>
+</p>
+
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

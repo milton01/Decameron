@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Metadatos de Campos : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Metadatos de Campos
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Campo de Datos</h1>
+
+<h2>$this->db->list_fields()</h2>
+<p>Devuelve un arreglo que contiene los nombres ed los campos. Esta consulta puede ser llamada de dos formar:</p>
+
+<p>1. Se puede suministrar el nombre de la tabla y ser llamado desde el objeto <dfn>$this->db-></dfn>:</p>
+
+<code>
+$campos = $this->db->list_fields('nombre_tabla')<br /><br />
+foreach ($campos as $campo)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $campo;<br />
+}
+</code>
+
+<p>2. Se puede reunir los nombres de los campos asociados a cualquier consulat que ejecute llamando a la funci&oacute;n desde el objeto de resultado de la consulta:</p>
+
+<code>
+$consulta = $this->db->query('SELECT * FROM some_table')
+<br /><br />
+foreach ($consulta->list_fields() as $campo)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $campo;<br />
+}
+</code>
+
+<h2>$this->db->field_exists()</h2>
+<p>A veecs es &uacute;til saber si un campo particular existe antes de realizar una acci&oacute;n. Devuelve un booleano TRUE/FALSE. Ejemplo de uso:</p>
+
+<code>
+if ($this->db->field_exists('nombre_campo', 'nombre_tabla'))<br />
+{<br />
+&nbsp;&nbsp; // some code...<br />
+}
+</code>
+
+<p>Nota:  Reemplace <em>nombre_campo</em> con el nombre de la columna qu est&aacute; buscando, y reemplace <em>nombre_tabla</em> con el nombre de la table que est&aacute; buscando.</p>
+
+<h2>$this->db->field_data()</h2>
+<p>Devuelve un arreglo de objetos conteniendo informaci&oacute;n del campo.</p>
+
+<p>A veces es &uacute;til recolectar los nombres de los campos u otra metainformaci&oacute;n, como el typo de columna, el m&aacute;ximo largo, etc.</p>
+
+<p class="important">Nota: No todas las bases de datos proveen meta-data.</p>
+
+<p>Ejemplo de uso:</p>
+
+<code>
+$campos = $this->db->field_data('nombre_tabla')<br /><br />
+foreach ($campos as $campo)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;echo $campo->name;<br />
+&nbsp;&nbsp;&nbsp;echo $campo->type;<br />
+&nbsp;&nbsp;&nbsp;echo $campo->max_length;<br />
+&nbsp;&nbsp;&nbsp;echo $campo->primary_key;<br />
+}
+</code>
+
+<p>Si ya ha ejecutado una consulta, puede usar el objeto de resultado en vez de proveer el nombre de la tabla:</p>
+
+<code>
+$consulta = $this->db->query("YOUR QUERY")<br />
+$campos = $consulta->field_data()
+</code>
+
+<p>Los siguientes datos est&aacute;n disponible desde esta funci&oacute;n, si es soportado por su base de datos:</p>
+
+<ul>
+<li>name - nombre de la columna</li>
+<li>max_length - m&aacute;ximo largo de la columna</li>
+<li>primary_key - 1 si la columna es una clave primeria</li>
+<li>type - el tipo de columna</li>
+</ul>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="table_data.html">Metadatos de Tabla</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="call_function.html">Llamadas a Funciones Personalizadas</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

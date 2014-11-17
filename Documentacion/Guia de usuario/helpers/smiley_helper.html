@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Helper Smiley : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Helper Smiley
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Helper Smiley</h1>
+
+<p>El Helper Smiley contiene funciones que le permiten manejar smileys (emoticons).</p>
+
+<h2>Cargar este Helper</h2>
+<p>Este helper es cargado usando el siguiente c&oacute;digo:</p>
+
+<code>$this->load->helper('smiley');</code>
+
+<h2>Visi&oacute;n General</h2>
+<p>El asistente de Smiley tiene un "traductor" que toma smileys en texto plani, como <dfn>:-)</dfn> y lo transforma en una imagen de representaci&oacute;n, como <img src="../images/smile.gif" width="19" height="19" border="0" alt="smile!" /></p>
+
+<p>Tambi&eacute;n le deja mostrar un juego de las im&aacute;genes smiley que cuando sean cliqueadas ser&aacute;n insertadas en un campo de formulario. Por ejemplo, si tiene un blog que le permite comentarios de usuarios, puede mostrar la smileys pr&oacute;xima al formulario de comentario. Los usuarios pueden cliquear el smiley deseado y con la ayuda de algo de JavaScript ser&aacute; ubicado dentro del campo de formulario.</p>
+
+<h2>Tutorial de Smileys Cliqueables</h2>
+<p>Aqu&iacute; hay un ejemplo demostrando como puede crear un juego de smileys cliqueablos pr&oacute;ximos a un campo de formulario. Este ejemplo requiere que primero baje e instale las imagenes smileys, y luego cree un controler y una Vista como se describe.</p>
+
+<p class="important"><strong>Importante:</strong> Antes de empezar, por favor <a href="http://codeigniter.com/download_files/smileys.zip">descargue las im&aacute;genes smiley</a> y p&oacute;ngalas en un lugar accesible p&uacute;blicamente en su servidor. Este asistente tambi&eacute;n asume que tiene el arreglo de reemplazo de smiley ubicado en <dfn>application/config/smileys.php</dfn></p>
+
+<h3>El Controlador</h3>
+<p>En su carpeta <dfn>application/controllers/</dfn>, cree un archivo llamado <kbd>smileys.php</kbd> y ubique el c&oacute;digo siguiente en &eacute;l.</p>
+
+<p class="important"><strong>Importante:</strong> Cambie la URL en la funci&oacute;n <dfn>get_clickable_smileys()</dfn> de abajo para que apunte a su carpeta <dfn>smiley</dfn>.</p>
+
+<p>Notar&aacute; que en adici&oacute;n al asistente de smiley usaremos la <a href="../libraries/table.html">Clase de Tabla</a>.</p>
+
+<pre>
+&lt;?php
+class Smileys extends Controller {
+	function Smileys()
+	{
+		parent::Controller();
+	}
+	
+	function index()
+	{
+		$this->load->helper('smiley');
+		$this->load->library('table');
+
+		$arreglo_imagen = get_clickable_smileys('http://www.su-sitio.com/imagenes/smileys/');
+		$arreglo_columnas = $this->table->make_columns($arreglo_imagen, 8);
+
+		$data['tabla_smiley'] = $this->table->generate($arreglo_columnas);
+
+		$this->load->view('smiley_view', $data);
+	}
+	
+}
+?>
+</pre>
+
+<p>En su carpeta <dfn>application/views/</dfn>, cree un archivo llamado <kbd>smiley_view.php</kbd> y ubique este c&oacute;digo en &eacute;l:</p>
+
+<pre>
+&lt;html>
+&lt;head>
+&lt;title>Smileys&lt;/title>
+&lt;?php echo js_insert_smiley('blog', 'comentarios'); ?>
+&lt;/head>
+&lt;body>
+&lt;form name="blog">
+&lt;textarea name="comentarios" cols="40" rows="4">&lt;/textarea>
+&lt;/form>
+&lt;p>Cliquee para ingresar un smiley!&lt;/p>
+&lt;?php echo $tabla_smiley; ?>
+&lt;/body>
+&lt;/html>
+</pre>
+
+<p>Cuando haya creado el controlador y la vista de arriba, carguelo visitando <dfn>http://www.su-sitio.com/index.php/smileys/</dfn></p>
+
+<h3>Alias de Campo</h3>
+
+<p>Al hacer cambios en la vista puede ser inconveniente tener un id de campo en el controlador. Para evitar esto, puede darle a sus enlaces de smiley un nombre gen&eacute;rico que se vincular&aacute; a un id espec&iacute;fico en la vista.</p>
+
+<code>$image_array = get_smiley_links("http://example.com/images/smileys/", "comment_textarea_alias");</code>
+
+<p>Para mapear el alias al id del campo, p&aacute;selos juntos en la funci&oacute;n smiley_js():</p>
+
+<code>$image_array = smiley_js("comment_textarea_alias", "comments");</code>
+
+<br/>
+
+<h1>Referencia de Funciones</h1>
+
+<h2>get_clickable_smileys()</h2>
+
+<p>Devuelve un array que contiene las im&aacute;genes smiley envueltas en un enlace. Tiene que suministrar la URL a la carpeta de smileys y un id de campo o un alias de campo.</p>
+
+<code>$image_array = get_smiley_links("http://example.com/images/smileys/", "comment");</code>
+
+<p class="important"><strong>Nota:</strong> El uso de esta funci&oacute;n sin el segundo par&aacute;metro junto con js_insert_smiley fue marcado como obsoleto.</p>
+
+<h2>smiley_js()</h2>
+
+<p>Genera el JavaScript que permite que las im&aacute;genes se puedan cliquear e insertar en un campo de formulario. Si suministra un alias en lugar de un id al generar los enlaces del smiley, necesita pasar el alias y el correspondiente id de formulario a la funci&oacute;n. Esta funci&oacute;n est&aacute; dise&ntilde;ada para ubicarse dentro del &aacute;rea &lt;head&gt; de la p&aacute;gina web.</p>
+
+<code>&lt;?php echo smiley_js(); ?&gt;</code>
+<p class="important"><strong>Nota:</strong> Esta funci&oacute;n reemplaza a js_insert_smiley, la que fue marcada como obsoleta.</p>
+
+<h2>parse_smileys()</h2>
+
+<p>Toma una cadena de texto como entrada y reemplaza cualquier smiley de texto plano con la imagen equivalente. El primer par&aacute;metro debe contener la cadena, el segundo tiene que contener la URL a la carpeta de smileys:</p>
+
+<pre>
+$str = 'Estos son algunos smileys: :-) ;-)';
+$str = parse_smileys($str, "http://example.com/images/smileys/");
+echo $str;
+</pre>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="security_helper.html">Helper Security</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="string_helper.html">Helper String</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

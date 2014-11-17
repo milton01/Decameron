@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Secci&oacute;n de Noticias : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Tutorial</a> &nbsp;&#8250;&nbsp;
+Secci&oacute;n de Noticias
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Tutorial &minus; Secci&oacute;n de Noticias</h1>
+
+<p>En la &uacute;ltima secci&oacute;n, vimos algunos conceptos b&aacute;sicos del framework para escribir una clase que inclu&iacute;a p&aacute;ginas est&aacute;ticas. Tambi&eacute;n reformamos la URI al agregar reglas de ruteo personalizadas. Ahora es momento de introducir contenido din&aacute;mico y comenzar a usar la base de datos.</p>
+
+<h2>Configurar su modelo</h2>
+
+<p>En lugar de escribir operaciones de base de datos directamente en el controlador, las consultas deber&iacute;an ubicarse en un modelo, para que se puedan reusar m&aacute;s tarde con facilidad. Los modelos son el lugar donde se devuelve, inserta y actualiza la informaci&oacute;n de la base de datos u otros almacenamientos. Ellos representan sus datos.</p>
+
+<p>Abra el directorio <dfn>application/models</dfn>, cree un archivo nuevo llamado <dfn>news_model.php</dfn> y agregue el siguiente c&oacute;digo. Aseg&uacute;rese de haber configurado adecuadamente su base de datos como se describe en la secci&oacute;n <a href="../database/configuration.html">Configuraci&oacute;n de la Base de Datos</a>.</p>
+
+<pre>
+&lt;?php
+class News_model extends CI_Model {
+
+	public function __construct()
+	{
+		$this->load->database();
+	}
+}
+</pre>
+
+<p>Este c&oacute;digo se ve similar al c&oacute;digo del controlador que usamos antes. Crea un nuevo modelo al extender CI_Model y carga la biblioteca database. Esto hace que la clase Database est&eacute; disponible mediante el objeto <var>$this->db</var>.</p>
+
+<p>Antes de consultar la base de datos, se tiene que crear un esquema de base de datos. Conecte a su base de datos y ejecute los comandos SQL siguientes. Agregue tambi&eacute;n algunos registros.</p>
+
+<pre>
+CREATE TABLE news (
+	id int(11) NOT NULL AUTO_INCREMENT,
+	title varchar(128) NOT NULL,
+	slug varchar(128) NOT NULL,
+	text text NOT NULL,
+	PRIMARY KEY (id),
+	KEY slug (slug)
+);
+</pre>
+
+<p>Ahora que se configuraron la base de datos y el modelo, necesitar&aacute; un m&eacute;todo para obtener todos los mensajes desde la base de datos. Para hacer esto se usa la capa de abstracci&oacute;n de base de datos que se incluye con CodeIgniter &mdash; el <a href="../database/active_record.html">Active Record</a>. &Eacute;ste hace posible escribir sus &#8220;consultas&#8221; una vez y usarlas luego en <a href="../general/requirements.html">todos los sistemas soportados de bases de datos</a>. Agregue este c&oacute;digo a su modelo.</p>
+
+<pre>
+public function get_news($slug = FALSE)
+{
+	if ($slug === FALSE)
+	{
+		$query = $this->db->get('news');
+		return $query->result_array();
+	}
+	
+	$query = $this->db->get_where('news', array('slug' => $slug));
+	return $query->row_array();
+}
+</pre>
+
+<p>Con este c&oacute;digo puede realizar dos consultas diferentes. Puede obtener todos los registros de noticias, o bien obtener un &iacute;tem de noticias mediante su <a href="#" title="a URL friendly version of a string">slug</a>. Tiene que advertir que la variable <var>$slug</var> no se descontamin&oacute; antes de ejecutar la consulta; el Active Record hace esto por Ud.</p>
+
+<h2>Mostrar las noticias</h2>
+
+<p>Ahora que se escribieron las consultas, el modelo deber&iacute;a vincularse a las vistas que van a mostrar los &iacute;tems de noticias al usuario. Esto se puede hacer en su controlador de p&aacute;ginas creado anteriormente, pero en aras de la claridad, definimos un nuevo controlador news. Cree el nuevo controlador en <dfn>application/controllers/news.php</dfn>.</p>
+
+<pre>
+&lt;?php
+class News extends CI_Controller {
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('news_model');
+	}
+
+	public function index()
+	{
+		$data['news'] = $this->news_model->get_news();
+	}
+
+	public function view($slug)
+	{
+		$data['news'] = $this->news_model->get_news($slug);
+	}
+}
+</pre>
+
+<p>Mirando el c&oacute;digo, puede verse alguna similitud con los archivos que creamos anteriormente. Primero, el m&eacute;todo "__construct": llama al constructor de su clase padre (<dfn>CI_Controller</dfn>) y carga el modelo, por lo que se lo puede usar en todos los dem&aacute;s m&eacute;todos de este controlador.</p>
+
+<p>Lo siguiente son los dos m&eacute;todos para ver todos los &iacute;tems de noticias y uno para ver un &iacute;tem espec&iacute;fico. Puede ver que la variable <var>$slug</var> se pasa al m&eacute;todo del modelo en el segundo m&eacute;todo. El modelo est&aacute; usando esta variable para identificar el &iacute;tem de noticas a devolver.</p>
+
+<p>Ahora, el controlador devuleve los datos mediante el modelo, pero todav&iacute;a no se muestra nada. La siguiente cosa a hacer es pasar estos datos a las vistas.</p>
+
+<pre>
+public function index()
+{
+	$data['news'] = $this->news_model->get_news();
+	$data['title'] = 'News archive';
+
+	$this->load->view('templates/header', $data);
+	$this->load->view('news/index', $data);
+	$this->load->view('templates/footer');
+}
+</pre>
+
+<p>El c&oacute;digo anterior obtiene todos los registros de noticias desde el modelo y lo asigna a una variable. El valor para el t&iacute;tulo tambi&eacute;n se asigna al elemento <var>$data['title']</var> y todos los datos se pasan a las vistas. Ahora necesita crear una vista para presentar los &iacute;tems de noticias. Cree <dfn>application/views/news/index.php</dfn> y agregue la siguiente porci&oacute;n de c&oacute;digo.</p>
+
+<pre>
+&lt;?php foreach ($news as $news_item): ?&gt;
+
+    &lt;h2&gt;&lt;?php echo $news_item['title'] ?&gt;&lt;/h2&gt;
+    &lt;div id="main"&gt;
+        &lt;?php echo $news_item['text'] ?&gt;
+    &lt;/div&gt;
+    &lt;p&gt;&lt;a href="news/&lt;?php echo $news_item['slug'] ?&gt;"&gt;View article&lt;/a&gt;&lt;/p&gt;
+
+&lt;?php endforeach ?&gt;
+</pre>
+
+<p>Aqu&iacute;, cada &iacute;tem de noticias se cicla y muestra al usuario. Puede ver que escribimos nuestra plantilla en una mezcla de PHP y HTML. Si prefiere usar un lenguaje de plantillas, puede usar la clase del <a href="../libraries/parser.html">Analizador de Plantillas</a> de CodeIgniter o un analizador de terceras partes.</p>
+
+<p>Ya est&aacute; hecha la p&aacute;gina que muestra las noticias en general, pero todav&iacute;a falta una p&aacute;gina para mostrar &iacute;tems de noticias individuales. El modelo creado anteriormente se hizo de tal forma que se puede usar f&aacute;cilmente para esta funcionalidad. Solo tiene que agregar algo de c&oacute;digo al controlador y crear una nueva vista. Regrese al controlador de noticias y agregue estas l&iacute;neas de c&oacute;digo al archivo.</p>
+
+<pre>
+public function view($slug)
+{
+	$data['news_item'] = $this->news_model->get_news($slug);
+
+	if (empty($data['news_item']))
+	{
+		show_404();
+	}
+
+	$data['title'] = $data['news_item']['title'];
+
+	$this->load->view('templates/header', $data);
+	$this->load->view('news/view', $data);
+	$this->load->view('templates/footer');
+}
+</pre>
+
+<p>En lugar de llamar al m&eacute;todo <var>get_news()</var> sin par&aacute;metros, se pasa la variable <var>$slug</var> para que devuelva un &iacute;tem de noticias espec&iacute;fico. La &uacute;nica cosa que queda por hacer es crear la vista correspondiente en <dfn>application/views/news/view.php</dfn>. Ponga el siguiente c&oacute;digo en un archivo.</p>
+
+<pre>
+&lt;?php
+echo '&lt;h2&gt;'.$news_item['title'].'&lt;/h2&gt;';
+echo $news_item['text'];
+</pre>
+
+<h2>Ruteo</h2>
+<p>Debido a la regla de ruteo con comod&iacute;n creada anteriormente, se necesita una ruta adicional para ver el controlador que acabamos de hacer. Modifique el archivo de ruteo (<dfn>application/config/routes.php</dfn>) para que se vea como se muestra a continuaci&oacute;n. Esto asegura que las solicitudes alcancen al controlador de noticias, en lugar de ir directamente al controlador de p&aacute;ginas. Las primera l&iacute;nea rutea las URI's con un slug al m&eacute;todo view() en el controlador news.</p>
+
+<pre>
+$route['news/(:any)'] = 'news/view/$1';
+$route['news'] = 'news';
+$route['(:any)'] = 'pages/view/$1';
+$route['default_controller'] = 'pages/view';
+</pre>
+
+<p>Apunte su navegador a la ra&iacute;z de documentos seguido de <dfn>index.php/news</dfn> y vea sus p&aacute;ginas de noticias.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="static_pages.html">P&aacute;ginas Est&aacute;ticas</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="create_news_items.html">Crear &Iacute;tems de Noticias</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

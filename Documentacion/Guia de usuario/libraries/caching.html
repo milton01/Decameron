@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Caching : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="../general/drivers.html">Drivers</a> &nbsp;&#8250;&nbsp;
+Clase Caching
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Caching</h1>
+
+<p>CodeIgniter cuenta con contenedores alrededor de algunas de las formas m&aacute;s populares de almacenamiento en cach&eacute; r&aacute;pida y din&aacute;mica. Todos, excepto el almacenamiento en cach&eacute; basado en archivos requieren prescripciones espec&iacute;ficas de servidor, y una excepci&oacute;n grave se produce si los requisitos del servidor no se cumplen.</p>
+
+<h2>Tabla de contenidos</h2>
+<ul>
+	<li><a href="#example_usage" title="Example Usage">Ejemplo de uso</a></li>
+	<li><a href="#function_reference" title="Function Reference">Referencia de funciones</a></li>
+</ul>
+
+<h3>Controladores disponibles</h3>
+<ul>
+	<li><a href="#apc" title="APC Cache">Alternative PHP Cache (APC), almacenamiento en cach&eacute;</a></li>
+	<li><a href="#file" title="File Caching">Almacenamiento en cach&eacute; basado en Archivo</a></li>
+	<li><a href="#memcached" title="Memcached">Almacenamiento en cach&eacute; Memcached</a></li>
+	<li><a href="#dummy" title="Dummy Caching">Cach&eacute; ficticio</a></li>
+</ul>
+
+<h2 id="example_usage">Ejemplo de uso</h2>
+<p>En el ejemplo siguiente se carga el controlador de memoria cach&eacute;, <a href="#apc" title="APC">APC</a> como driver a utilizar, y cambia a <a href="#file" title="File Caching">almacenamiento en cach&eacute; basado en archivo</a> si APC no est&aacute; disponible en el entorno de alojamiento.</p>
+
+<code>
+$this->load->driver('cache', array('adapter' => 'apc', 'backup' => 'file'));<br />
+<br />
+if ( ! $foo = $this->cache->get('foo'))<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo 'Saving to the cache!&lt;br />';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$foo = 'foobarbaz!';<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Guardar en cach&eacute; durante 5 minutos<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->cache->save('foo', $foo, 300);<br />
+}<br />
+<br />
+echo $foo;
+</code>
+
+<h1 id="function_reference">Referencia de funciones</h1>
+
+<h2>is_supported(<var>driver</var>['string'])</h2>
+<p>Esta funci&oacute;n se activa autom&aacute;ticamente cuando se accede a los drivers a trav&eacute;s de <samp>$this->cache->get()</samp>. Sin embargo, si el driver individual se utiliza, aseg&uacute;rese de llamar a esta funci&oacute;n para asegurarse de que el driver es soportado por el entorno de alojamiento.</p>
+
+<code>
+if ($this->cache->apc->is_supported())<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ($data = $this->cache->apc->get('mi_cache'))<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// hacer cosas.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+}
+</code>
+
+<h2>get(<var>id</var>['string'])</h2>
+<p>Esta funci&oacute;n tratar&aacute; de tomar un elemento de la memoria cach&eacute;. Si el elemento no existe, la funci&oacute;n devolver&aacute; <samp>FALSE</samp>.</p>
+
+<code>$foo = $this->cache->get('my_cached_item');</code>
+
+<h2>save(<var>id</var>['string'], <var>data</var>['mixed'], <var>ttl</var>['int'])</h2>
+<p>Esta funci&oacute;n guardar&aacute; un elemento en el almac&eacute;n de cach&eacute;. Si guardar falla, la funci&oacute;n devolver&aacute; <samp>FALSE</samp>.</p>
+
+<p>El tercer par&aacute;metro opcional (<var>ttl</var> = Tiempo de vida) por defecto es 60 segundos.</p>
+
+<code>$this->cache->save('cache_item_id', 'data_to_cache');</code>
+
+<h2>delete(<var>id</var>['string'])</h2>
+<p>Esta funci&oacute;n elimina un elemento espec&iacute;fico de la memoria cach&eacute;. Si la eliminaci&oacute;n del elemento falla, la funci&oacute;n devolver&aacute; <samp>FALSE</samp>.</p>
+
+<code>$this->cache->delete('cache_item_id');</code>
+
+<h2>clean()</h2>
+<p>Esta funci&oacute;n "limpia" toda la memoria cach&eacute;. Si la eliminaci&oacute;n de los archivos de cach&eacute; falla, la funci&oacute;n devolver&aacute; <samp>FALSE</samp>.</p>
+
+<code>$this->cache->clean();</code>
+
+<h2>cache_info()</h2>
+<p>Esta funci&oacute;n devuelve informaci&oacute;n sobre toda la memoria cach&eacute;.</p>
+
+<code>var_dump($this->cache->cache_info());</code>
+
+<h2>get_metadata(<var>id</var>['string'])</h2>
+
+<p>TEsta funci&oacute;n devuelve informaci&oacute;n detallada sobre un &iacute;tem espec&iacute;fico de la memoria cach&eacute;.</p>
+
+<code>var_dump($this->cache->get_metadata('my_cached_item'));</code>
+
+<br/>
+
+<h1>Drivers</h1>
+
+<h2 id="apc">Alternative PHP Cache (APC), almacenamiento en cach&eacute;</h2>
+<p>Todas las funciones enumeradas anteriormente se pueden acceder sin pasar de un adaptador espec&iacute;fico al cargador del driver de la siguiente manera:</p>
+
+<code>$this->load->driver('cache');<br />
+	$this->cache->apc->save('foo', 'bar', 10);</code>
+
+	<p>Para mayor informaci&oacute;n sobre APC, por favor vea <a href="http://php.net/apc">http://php.net/apc</a></p>
+
+<h2 id="file">Almacenamiento en cach&eacute; basado en Archivo</h2>
+<p>A diferencia de almacenamiento en cach&eacute; de la clase Output, el driver basado en almacenamiento de cache en archivos, permite que piezas de los archivos de vista se guarden en la memoria cach&eacute;. Use esto con cuidado, y aseg&uacute;rese de que la solicitud de referencia (benchmark) de su aplicaci&oacute;n, como un punto donde las I/O del disco puede anular beneficios positivos en almacenamiento en cach&eacute;.</p>
+
+<p>Todas las funciones enumeradas anteriormente se pueden acceder sin pasar de un adaptador espec&iacute;fico al cargador del driver de la siguiente manera:</p>
+
+<code>$this->load->driver('cache');<br />
+	$this->cache->file->save('foo', 'bar', 10);</code>
+
+<h2 id="memcached">Almacenamiento en cach&eacute; Memcached</h2>
+<p>M&uacute;ltiples servidores Memcached se pueden especificar en el fichero de configuraci&oacute;n memcached.php, ubicado en el <samp>application/config/</samp>.</p>
+
+<p>Todas las funciones enumeradas anteriormente se pueden acceder sin pasar de un adaptador espec&iacute;fico al cargador del driver de la siguiente manera:</p>
+
+<code>$this->load->driver('cache');<br />
+	$this->cache->memcached->save('foo', 'bar', 10);</code>
+
+<p>Para mayor informaci&oacute;n sobre Memcached, por favor vea <a href="http://php.net/memcached">http://php.net/memcached</a></p>
+
+<h2 id="dummy">Cach&eacute; ficticio</h2>
+
+<p>Se trata de un motor de almacenamiento en cach&eacute; que siempre "se pierde". No se almacena ning&uacute;n dato, pero le permite mantener su c&oacute;digo de almacenamiento en cach&eacute; en el lugar de entornos que no son compatibles con la memoria cach&eacute; elegida.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="zip.html">Clase Zip</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="../database/index.html">Clase Database</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

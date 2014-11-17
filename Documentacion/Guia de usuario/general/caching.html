@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Cach&eacute; de P&aacute;ginas : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Cach&eacute; de P&aacute;ginas
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Almacenamiento en Cache de P&aacute;ginas Webs</h1>
+
+<p>CodeIgniter le permite hacer cach&eacute; de sus p&aacute;ginas con el fin de lograr el m&aacute;ximo rendimiento.</p>
+
+<p>Aunque CodeIgniter es bastante r&aacute;pido, la cantidad de informaci&oacute;n din&aacute;mica que se muestren en sus p&aacute;ginas se correlaciona directamente a los recursos del servidor, la memoria y los ciclos de procesamiento utilizados, que afectan a su velocidad de carga de p&aacute;ginas. Por cachear sus p&aacute;ginas, ya que se guardan en su estado plenamente renderizadas, puede alcanzar el rendimiento que se acerca a la de las p&aacute;ginas web est&aacute;ticas.</p>
+
+<h2>C&oacute;mo Funciona el Trabajo de Almacenar en Cach&eacute; ?</h2>
+
+<p>Se puede habilitar el almacenamiento en cach&eacute; para cada p&aacute;gina, y puede establecer el tiempo que debe permanecer una p&aacute;gina en cach&eacute; antes de ser refrescada. Cuando una p&aacute;gina se carga por primera vez, el archivo de cach&eacute; se escribir&aacute; en su carpeta <dfn>system/cache</dfn>. En posteriores cargas de la p&aacute;gina el archivo de cach&eacute; se recibir&aacute; y se enviar&aacute; a la solicitud del navegador del usuario. Si ha caducado, ser&aacute; eliminado y actualizado antes de ser enviado al navegador.</p>
+
+<p>Nota: La etiqueta Benchmark no fue cacheada para que pueda ver la velocidad de carga de p&aacute;ginas cuando est&aacute; permitido el almacenamiento en cach&eacute;.</p>
+
+<h2>Habilitar el Almacenamiento en Cach&eacute;</h2>
+
+<p>Para habilitar el almacenamiento en cach&eacute;, poner la siguiente etiqueta en cualquiera de sus funciones de controlador:</p>
+
+<code>$this->output->cache(<var>n</var>);</code>
+
+<p>Donde <var>n</var> es el n&uacute;mero de <strong>minutos</strong> que desea que la p&aacute;gina permanezca en cach&eacute; entre refrescos.</p>
+
+<p>La etiqueta puede ir a cualquier parte dentro de una funci&oacute;n. No se ve afectada por la orden en la que aparece, de modo que la puede poner en el lugar donde le parezca mas l&oacute;gico para usted. Una vez que la etiqueta est&eacute; en su lugar, sus p&aacute;ginas comenzar&aacute;n a ser cacheadas.</p>
+
+<p class="important"><strong>Arvertencia:</strong> Debido a la forma en CodeIgniter almacena el contenido de la producci&oacute;n, el almacenamiento en cach&eacute; s&oacute;lo funcionar&aacute; si est&aacute; generando vistas para su controlador con una <a href="./views.html">vista</a>.</p>
+
+<p class="important"><strong>Nota:</strong> Antes de que los archivos de cach&eacute; puedan ser escritos, debe configurar los permisos de archivo en su carpeta <dfn>system/cache</dfn> de tal modo que se pueda grabar.</p>
+
+<h2>Borrar Caches</h2>
+
+<p>Si ya no desea un archivo de cach&eacute;, puede quitar la etiqueta de cacheo y ya no ser&aacute; refrescado cuando expire.  Nota: La eliminaci&oacute;n de la etiqueta no implica la supresi&oacute;n de la memoria cach&eacute; inmediatamente. Tendr&aacute; que expirar normalmente. Si quiere eliminar lo anterior tendr&aacute; que eliminarla  manualmente de la carpeta de cach&eacute;.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="errors.html">Manejo de Errores</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="profiling.html">Perfilando tu Aplicaci&oacute;n</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

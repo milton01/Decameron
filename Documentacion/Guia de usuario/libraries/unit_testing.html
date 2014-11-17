@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Clase Unit_test : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Clase Unit_test
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Unit_test</h1>
+<p>Las pruebas de unidad son un enfoque de la ingenier&iacute;a del software en el que se escriben pruebas para cada funci&oacute;n en su aplicaci&oacute;n. Si no est&aacute; familiarizado con este concepto, podr&iacute;a hacer una peque&ntilde;a investigaci&oacute;n googleando el tema.</p>
+
+<p>La clase de Prueba de Unidad de CodeIgniter es bastante simple, constando de una funci&oacute;n de evaluaci&oacute;n y dos funciones de resultado. No se intenta ser una prueba completa sino un simple mecanismo para evaluar su c&oacute;digo para determinar si est&aacute; produciendo el tipo de dato y resultado correcto.</p>
+
+<h2>Inicializar la Clase</h2>
+<p>Como la mayor&iacute;a de las otras clases en n CodeIgniter, la clase de Prueba de Unidad es inicializada en su controlador usando la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this->load->library('unit_test');</code>
+
+<p>Una vez cargada, el objeto de Prueba de Unidad estar&aacute; disponible usando: <dfn>$this->unit</dfn></p>
+
+<h2>Correr Pruebas</h2>
+<p>Correr una prueba involucra suministrar una prueba y un resultado esperado a la siguiente funci&oacute;n:</p>
+
+<h2>$this->unit->run( <var>prueba</var>, <var>resultado esperado</var>, '<var>nombre de prueba</var>' );</h2>
+<p>Donde <var>prueba</var> es el resultado del c&oacute;digo que desea probar, <var>resultado esperado</var> es el tipo de dato que espera, y <var>nombre de prueba</var> es un nombre opcional que puede darle a su prueba. Ejemplo:</p>
+
+<code>
+$prueba = 1 + 1;<br />
+<br />
+$resultado_esperado = 2;<br />
+<br />
+$nombre_prueba = 'Adds one plus one';<br />
+<br />
+$this->unit->run($prueba, $resultado_esperado, $nombre_prueba);
+</code>
+
+<p>El resultado esperado que suministre puede ser o un valor literal, o un tipo de dato a comparar. Aqu&iacute; hay un ejemplo literal:</p>
+
+<code>$this->unit->run('Foo', 'Foo');</code>
+
+<p>Aqu&iacute; hay un ejemplo de tipo de dato a comparar:</p>
+
+<code>$this->unit->run('Foo', 'is_string');</code>
+
+<p>Nota el uso de "is_string" en el segundo par&aacute;metro?  Esto le dice a la funci&oacute;n que eval&uacute;e si su prueba est&aacute; produciendo una cadena como resultado. Aqu&iacute; hay una lista de tipos de comparaci&oacute;n posibles:</p>
+
+<ul>
+<li>is_string</li>
+<li>is_bool</li>
+<li>is_true</li>
+<li>is_false</li>
+<li>is_int</li>
+<li>is_numeric</li>
+<li>is_float</li>
+<li>is_double</li>
+<li>is_array</li>
+<li>is_null</li>
+</ul>
+
+<h2>GeneraR Reportes</h2>
+<p>Puede o mostrar los resultados despu&eacute;s de cada prueba, o puede correr varias pruebas y generar un reporte al final. Para mostrar un reporte directamente simplemente imprima o devuelva la funci&oacute;n <var>run</var>:</p>
+
+<code>echo $this->unit->run($prueba, $resultado_esperado);</code>
+
+<p>Para correr un reporte completo de todas las pruebas, use esto:</p>
+
+<code>echo $this->unit->report();</code>
+
+<p>El reporte tendr&aacute; formato en una tabla HTML para ver. Si prefiere datos crudos puede recuperar un arreglo usando:</p>
+
+<code>echo $this->unit->result();</code>
+
+<h2>Modo estricto</h2>
+<p>Por defecto la clase de prueba de unidad eval&uacute;a coincidencias literales sin tipo. Considere este ejemplo:</p>
+
+<code>$this->unit->run(1, TRUE);</code>
+<p>La prueba est&aacute; evaluando un entero, pero el resultado esperado es un buleano. PHP, sin embargo, debido a su simpleza de tipo de datos evaluar&aacute; el c&oacute;digo como TRUE usando una prueba de igualdad normal:</p>
+
+<code>if (1 == TRUE) echo 'Esto eval&uacute;a como true';</code>
+
+<p>Si prefiere, puede poner la clase de prueba de unidad en modo estricto, que comparar&aacute; los tipos de datos as&iacute; tambi&eacute;n como el valor:</p>
+
+<code>if (1 === TRUE) echo 'Esto eval&uacute;a como FALSE';</code>
+
+<p>Para habilitar el modo estricto use esto:</p>
+
+<code>$this->unit->use_strict(TRUE);</code>
+
+<h2>Habilitando/Deshabilitando Pruebas de Unidad</h2>
+<p>Si quiere dejar algunas pruebas en el lugar en su c&oacute;digo, pero no ejecutarlas excepto que lo necesite puede deshabilitar la prueba de unidad usando :</p>
+
+<code>$this->unit->active(FALSE)</code>
+
+<h2>Visualizaci&oacute;n de la Prueba de Unidad</h2>
+
+<p>Al visualizar los resultados de la prueba de unidad, se muestran los siguientes &iacute;tems por defecto:</p>
+
+<ul>
+	<li>Nombre de la Prueba (test_name)</li>
+	<li>Tipo de Dato de Prueba (test_datatype)</li>
+	<li>Tipo de Dato Esperado (res_datatype)</li>
+	<li>Resultado (result)</li>
+	<li>Nombre de Archivo (file)</li>
+	<li>N&uacute;mero de L&iacute;nea (line)</li>
+	<li>Cualquier nota que haya ingresado para la prueba (notes)</li>
+</ul>
+
+<p>Puede personalizar lo que de esos &iacute;tems se muestre usando <kbd>$this->unit->set_items()</kbd>. Por ejemplo, si solo quiere el nombre de la prueba y el resultado mostrado:</p>
+
+<h3>Personalizar las Pruebas Mostradas</h3>
+<code>
+	$this->unit->set_test_items(array('test_name', 'result'));
+</code>
+
+<h2>Crear una Plantilla</h2>
+<p>Si desea que sus resultados de prueba tengan un formato diferente del por defecto puede establecer su propia plantillas. Aqu&iacute; hay una ejemplo de una plantilla simple. Note las requeridas pseudo-variables:</p>
+
+<code>
+$cadena = '<br />
+&lt;table border="0" cellpadding="4" cellspacing="1"><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<kbd>{rows}</kbd><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td><kbd>{item}</kbd>&lt;/td><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td><kbd>{result}</kbd>&lt;/td><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr><br />
+&nbsp;&nbsp;&nbsp;&nbsp;<kbd>{/rows}</kbd><br />
+&lt;/table>';<br />
+<br />
+$this->unit->set_template($cadena);
+</code>
+
+<p class="important"><strong>Nota:</strong> Su plantilla debe ser declarada <strong>antes</strong> de correr el proceso de prueba de unidad.</p>
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="typography.html">Clase Typography</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="file_uploading.html">Clase Upload</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

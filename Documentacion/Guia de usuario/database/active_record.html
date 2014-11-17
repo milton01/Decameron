@@ -1,0 +1,748 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Active Record : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Active Record
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Clase Active Record</h1>
+
+<p>CodeIgniter usa una versi&oacute;n modificada del Patr&oacute;n de Base de Datos Active Record. Este patr&oacute;n permite obtener, insertar y actualizar informaci&oacute;n in tu base de datos con m&iacute;nima codificaci&oacute;n. En algunos casos, s&oacute;lo una o dos l&iacute;neas de c&oacute;digo son necesarias para realizar una acci&oacute;n de base de datos. CodeIgniter no requiere que cada tabla de la base de datos sea un propio archivo de clase.  Se permite una interface m&aacute;s simplificada</p>
+
+<p>M&aacute;s all&aacute; de la simplicidad, un beneficio mayor de usar la Active Record es que te permite crear una aplicaci&oacute;n independiente de la base de datos que usa, ya que la sintaxis de consulta es generada por cada adaptador de base de datos. Tambi&eacute;n permite queries m&aacute;s seguras, ya que los valores son escapadas autom&aacute;ticamente por el sistema.</p>
+
+<p class="important"><strong>Nota:</strong>  Si tienes intenciones de usar tus propias consultas, puedese deshabilitar esta clase en tu archivo de configuraci&oacute;n de base de datos, permitiendo a la librer&iacute; de la base de datos y adaptadores usar menos recursos</p>
+<br />
+<ul>
+<li><a href="#select">Seleccionar Datos</a></li>
+<li><a href="#insert">Insertar Datos</a></li>
+<li><a href="#update">Actualizar Datos</a></li>
+<li><a href="#delete">Borrar Datos</a></li>
+<li><a href="#chaining">M&eacute;todos en cadena</a></li>
+<li><a href="#caching">Cache de Active Record</a></li>
+</ul>
+<br/>
+<a name="select">&nbsp;</a>
+<h1>Seleccionar Datos</h1>
+<p>Las siguientes funciones permiten construir una sentencia <strong>SELECT</strong> SQL.</p>
+
+<p><strong>Nota: Si est&aacute; usando PHP 5, puede usar m&eacute;todos en cadena para una sintaxis m&aacute;s compacta. Esto es descripto al final de la p&aacute;gina.</strong></p>
+
+<h2>$this->db->get();</h2>
+<p>Ejecuta la consulta de selecci&oacute;n y devuelve el resultado. Puede ser usado solo, para traer todos los registros de una tabla:</p>
+
+<code>$consulta = $this->db->get('mitabla');<br />
+<br />
+// Produce: SELECT * FROM mitabla</code>
+
+<p>El segundo y tercer par&aacute;metro permiten establecer cl&aacute;usulas de l&iacute;mite y principio:</p>
+
+<code>$consulta = $this->db->get('mitabla', 10, 20);<br />
+<br />
+// Produce: SELECT * FROM mitabla LIMIT 20, 10 (en MySQL. Otras bases de datos tienen peque&ntilde;as diferencias en la sintaxis)</code>
+
+<p>Notar&aacute; que la funcion de arriba es asignada a la variable llamada <kbd>$consulta</kbd>, que puede ser usada para mostrar los resultados:</p>
+
+<code>$consulta = $this->db->get('mitabla');<br />
+<br />
+foreach ($consulta->result() as $fila)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;echo $fila->titulo;<br />
+}</code>
+
+<p>Por favor visite la p&aacute;gina de <a href="results.html">funciones de resultados</a> para una completa discusi&oacute;n acerca de la generaci&oacute;n de resultados.</p>
+
+<h2>$this->db->get_where();</h2>
+<p>Identica a la funci&oacute;n de arriba, excepto que permite agregar una cl&acute;usula "where" en el segundo par&aacute;metro, en vez de usar la funci&oacute;n db->where():</p>
+
+<code>$consulta = $this->db->get_where('mitabla', array('id' => $id), $limite, $principio);</code>
+
+<p>Por favor lea sobre la funci&oacute;n where m&aacute;s abajo para m&aacute;s informaci&oacute;n</p>
+
+<p class="important">Nota: get_where() era anteriormente conocida como getwhere(), que ha sido eliminada</p>
+
+<h2>$this->db->select();</h2>
+<p>Permite escribir la porci&oacute;n de SELECT de tu consulta:</p>
+
+<code>
+$this->db->select('titulo, contenido, fecha');<br />
+<br />
+$consulta = $this->db->get('mitabla');<br />
+<br />
+// Produce: SELECT titulo, contenido, fecha FROM mitabla</code>
+
+<p class="important"><strong>Nota:</strong> Si est&aacute; seleccionando todo (*) de una tabla, no es necesario usar esta funci&oacute;n. Cuando se omite, CodeIgniter asume que desa SELECT *</p>
+
+<p>$this-&gt;db-&gt;select() acepta un opcional segundo par&aacute;metro. Si se establece como FALSE, CodeIgniter no intentar&aacute; proteger los nombres de campos u tablas. Esto es &uacute;til si necesita una consulta de selecci&oacute;n compuesta.</p>
+
+<code> 		$this-&gt;db-&gt;select('(SELECT SUM(pagos.monto) FROM pagos WHERE pagos.factura_id=4') AS monto_pagado', FALSE); <br />
+    $consulta = $this-&gt;db-&gt;get('mitabla');<br />
+</code>
+
+<h2>$this->db->select_max();</h2>
+<p>Escribe una porci&oacute;n "SELECT MAX(campo)" de tu consulta. Opcionalmente, puedes incluir un segunda par&aacute;metro para renombrar el campo resultante.</p>
+<code>
+$this->db->select_max('edad');<br />
+$consulta = $this->db->get('miembros');<br />
+// Produce: SELECT MAX(edad) as edad FROM miembros<br />
+<br />
+$this-&gt;db-&gt;select_max('edad', 'edad_miembro');<br />
+$query = $this-&gt;db-&gt;get('miembros');<br />
+// Produce: SELECT MAX(edad) as edad_miembro FROM miembros</code>
+
+<h2>$this->db->select_min();</h2>
+<p>Escriba una porci&oacute;n "SELECT MIN(campo)" de tu consulta. Como en <dfn>select_max()</dfn>, puedes opcionalmente incluir un segundo par&aacute;metro para renombrar el campo resultante.</p>
+<p><code>
+$this->db->select_min('edad');<br />
+$consulta = $this->db->get('miembros');<br />
+// Produce: SELECT MIN(edad) as edad FROM miembros</code></p>
+
+<h2>$this->db->select_avg();</h2>
+<p>Escriba una porci&oacute;n "SELECT AVG(campo)" de tu consulta. Como en <dfn>select_max()</dfn>, puedes opcionalmente incluir un segundo par&aacute;metro para renombrar el campo resultante.</p>
+
+<code>
+$this->db->select_avg('edad');<br />
+$consulta = $this->db->get('miembros');<br />
+// Produce: SELECT AVG(edad) as edad FROM miembros</code>
+
+<h2>$this->db->select_sum();</h2>
+<p>Escriba una porci&oacute;n "SELECT SUM(campo)" de tu consulta. Como en <dfn>select_max()</dfn>, puedes opcionalmente incluir un segundo par&aacute;metro para renombrar el campo resultante.</p>
+
+<code>
+$this->db->select_sum('edad');<br />
+$consulta = $this->db->get('miembros');<br />
+// Produce: SELECT SUM(edad) as edad FROM miembros</code>
+
+<h2>$this->db->from();</h2>
+<p>Permite escribir la porci&oacute;n FROM de la consulta:</p>
+
+<code>
+$this->db->select('titulo, contenido, fecha');<br />
+$this->db->from('mitabla');<br />
+<br />
+$consulta = $this->db->get();<br />
+<br />
+// Produce: SELECT titulo, contenido, fecha FROM mitabla</code>
+
+<p class="important">Nota: Como se mostr&oacute; antes, la porci&oacute;n FROM de tu consulta puede ser especificada en la funci&oacute;n <dfn>$this->db->get()</dfn>, as&iacute; que use el m&eacute;todo que prefiera</p>
+
+<h2>$this->db->join();</h2>
+<p>Permite escribir una porci&oacute;n JOIN de la consulta:</p>
+
+<code>
+$this->db->select('*');<br />
+$this->db->from('blogs');<br />
+$this->db->join('comentarios', 'comentarios.id = blogs.id');<br />
+<br />
+$query = $this->db->get();<br />
+<br />
+// Produce: <br />
+// SELECT * FROM blogs<br />
+// JOIN comentarios ON comentarios.id = blogs.id<br />
+</code>
+
+<p>Multiples llamados a la funci&oacute;n pueden ser hechos si necesita multiples joins en una consulta.</p>
+
+<p>Si necesita algo distinto al natural JOIN puede especificarlo a trav&eacute;s del tercer par&aacute;metro de la funci&oacute;n. Las opciones son: left, right, outer, inner, left outer, and right outer.</p>
+
+<code>
+$this->db->join('comentarios', 'comentarios.id = blogs.id', <strong>'left'</strong>);<br />
+<br />
+// Produce: LEFT JOIN comentarios ON comentarios.id = blogs.id</code>
+
+<h2>$this->db->where();</h2>
+<p>Est&aacute; funci&oacute;n habilita establecer cl&aacute;usulas <strong>WHERE</strong> usando uno de cu&aacute;tro m&eacute;todos:</p>
+
+<p class="important"><strong>Nota:</strong> Todos los valores pasados a esta funci&oacute;n son escapados autom&aacute;ticamente, produciendo consultas m&aacute;s seguras.</p>
+
+<ol>
+	<li><strong>M&eacute;todo simpre de clave/valor:</strong>
+	<code>$this->db->where('nombre', $nombre);
+	<br /><br />// Produce: WHERE nombre = 'Jose'
+	</code>
+	
+	<p>Note que el signo igual es agregado para uested.</p>
+	
+	<p>Si utiliza multiples llamadas a la funci&oacute;n, ellos ser&aacute;n encadenados juntos con un <var>AND</var> entre ellos:</p>
+	
+	<code>$this->db->where('nombre', $nombre);<br />
+	$this->db->where('titulo', $titulo);<br />
+	$this->db->where('estado', $estado);
+	<br /><br />// WHERE nombre = 'Jose' AND titulo = 'jefe' AND estado = 'activo'
+	</code>
+	
+	</li>
+	
+	<li><strong>M&eacute;todo especial de clave/valor:</strong>
+	
+	<p>Se puede incluir un operador en el primer par&aacute;metro con el objeto de controlar la comparaci&oacute;n:</p>
+	
+	<code>$this->db->where('nombre !=', $nombre);<br />
+	$this->db->where('id <', $id);
+	<br /><br />// Produce: WHERE nombre != 'Jose' AND id < 45
+	</code>
+	
+	</li>
+	<li><strong>M&eacute;todo de arreglo asociativo:</strong>
+	<code>
+	$arreglo = array('nombre' => $nombre, 'titulo' => $titulo, 'status' => $status);<br /><br />
+	
+	$this->db->where($arreglo);
+	<br /><br />// Produce: WHERE nombre = 'Joe' AND titulo = 'boss' AND status = 'active'
+	</code>
+	<p>Puede incluir operadores propios cuando se usa este m&eacute;todo tambi&eacute;n:</p>
+	<code>
+	$array = array('nombre !=' => $nombre, 'id <' => $id, 'date >' => $date);<br /><br />
+	
+	$this->db->where($array);</code>
+	</li>
+	<li><strong>Cadena especial:</strong>
+	
+	<p>Se puede escribir cl&aacute;usulas propias manualmente:</p>
+	<code>
+	$where = "nombre='Jose' AND estado='jefe' OR estado='activo'";<br /><br />
+	$this->db->where($where);</code>
+	</li>
+</ol>
+
+<h2>$this->db->or_where();</h2>
+<p>Est&aacute; funci&oacute;n es id&eacute;ntica a la de arriba, excepto que multiples instancias son unidas por OR:</p>
+
+<code>
+$this->db->where('nombre !=', $nombre);<br />
+$this->db->or_where('id >', $id);
+<br />
+<br />// Produce: WHERE nombre != 'Joe' OR id > 50</code>
+
+<p class="important">Nota: or_where() era anteriormente conocida como orwhere(), la cual ha sido deprecada.</p>
+
+<h2>$this->db->where_in();</h2>
+<p>Genera WHERE campo IN ('item', 'item') unido con AND si corresponde</p>
+
+<code>
+$nombres = array('Frank', 'Todd', 'James');<br />
+$this->db->where_in('username', $nombres);<br />
+// Produce: AND WHERE username IN ('Frank', 'Todd', 'James')</code>
+
+<h2>$this->db->or_where_in();</h2>
+<p>Genera WHERE campo IN ('item', 'item') unido con OR si corresponde</p>
+
+<code>
+$nombres = array('Frank', 'Todd', 'James');<br />
+$this->db->or_where_in('username', $nombres);<br />
+// Produce: OR WHERE username IN ('Frank', 'Todd', 'James')</code>
+
+<h2>$this->db->where_not_in();</h2>
+<p>Genera WHERE campo NOT IN ('item', 'item') unido con AND si corresponde</p>
+<code>
+$nombres = array('Frank', 'Todd', 'James');<br />
+$this->db->where_not_in('username', $nombres);<br />
+// Produce: AND WHERE username NOT IN ('Frank', 'Todd', 'James')</code>
+
+<h2>$this->db->or_where_not_in();</h2>
+<p>Genera WHERE campo NOT IN ('item', 'item') unido con OR si corresponde</p>
+<code>
+$nombres = array('Frank', 'Todd', 'James');<br />
+$this->db->or_where_not_in('username', $nombres);<br />
+// Produces: OR WHERE username NOT IN ('Frank', 'Todd', 'James')</code>
+
+<h2>$this->db->like();</h2>
+<p>Est&aacute; funci&oacute;n permite generar cl&aacute;usulas <strong>LIKE</strong>, &uacute;tiles para realizar b&uacute;squedas.</p>
+
+<p class="important"><strong>Nota:</strong> Todos los valores pasados a esta funci&oacute;n son escapados autom&aacute;ticamente.</p>
+
+<ol>
+	<li><strong>M&eacute;todo simple de clave/valor:</strong>
+	<code>$this->db->like('titulo', 'match');
+	<br /><br />// Produce: WHERE titulo LIKE '%match%'	</code>
+		
+	<p>Si utiliza m&uacute;ltiples llamados a la funci&oacute;n, ellos ser&aacute;n encadenados con <var>AND</var> entre ellos:</p>
+	
+	<code>$this->db->like('titulo', 'match');<br />
+	$this->db->like('body', 'match');
+	<br /><br />
+	// WHERE titulo LIKE '%match%' AND  body LIKE '%match%</code>
+	Si desea controlar donde la wildcard (%) es ubicada, puede utilizar un tercer par&aacute;metro opcional. Las opciones son 'before', 'after' y 'both' (por defecto).
+	<code>$this->db->like('titulo', 'match', 'before');
+	<br />
+		// Produces: WHERE titulo LIKE '%match'	<br />
+	    <br />
+	$this-&gt;db-&gt;like('titulo', 'match', 'after'); <br />
+// Produces: WHERE titulo LIKE 'match%' <br />
+<br />
+	$this-&gt;db-&gt;like('titulo', 'match', 'both'); <br />
+// Produces: WHERE titulo LIKE '%match%' </code>
+	</li>
+	
+	<li><strong>M&eacute;todo de arreglo asociativo:</strong>
+	<code>
+	$array = array('titulo' => $match, 'pagina1' => $match, 'pagina2' => $match);<br /><br />
+	
+	$this->db->like($array);
+	<br /><br />// WHERE titulo LIKE '%match%' AND  pagina1 LIKE '%match%' AND  pagina2 LIKE '%match%'</code>
+	</li>
+</ol>
+
+<h2>$this->db->or_like();</h2>
+<p>Est&aacute; funci&oacute;n es id&eacute;ntica a la anterior, excepto que multiples instances son unidas por OR:</p>
+
+<code>
+$this->db->like('titulo', 'match');<br />
+$this->db->or_like('body', $match);
+<br />
+<br />// WHERE titulo LIKE '%match%' OR  body LIKE '%match%'</code>
+
+<p class="important">Nota: or_like() era anteriormente conocida como orlike(), la cual ha sido deprecada.</p>
+
+<h2>$this-&gt;db-&gt;not_like();</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a <strong>like()</strong>, excepto que genera sentencias NOT LIKE:</p>
+
+<code> $this-&gt;db-&gt;not_like('titulo', 'match');<br />
+<br />
+// WHERE titulo NOT LIKE '%match%</code>
+
+<h2>$this-&gt;db-&gt;or_not_like();</h2>
+<p>Esta funci&oacute;n es id&eacute;ntica a <strong>not_like()</strong>, excepto que muchas instancias son unidas por OR:</p>
+<code> $this-&gt;db-&gt;like('titulo', 'match');<br />
+$this-&gt;db-&gt;or_not_like('body', 'match'); <br />
+<br />
+// WHERE titulo  LIKE '%match% OR body NOT LIKE '%match%'</code>
+
+<h2>$this->db->group_by();</h2>
+<p>Permite escribir porciones GROUP BY de la consulta:</p>
+
+<code>$this->db->group_by("titulo");
+<br /><br />// Produces: GROUP BY titulo
+</code>
+
+<p>Tambi&eacute;n se puede pasar un arreglo de multiples valores:</p>
+
+<code>$this->db->group_by(array("titulo", "fecha"));
+<br />
+<br />// Produce: GROUP BY titulo, fecha</code>
+
+<p class="important">Nota: group_by() era anteriormente conocida como groupby(), la cual ha sido deprecada.</p>
+
+<h2> $this-&gt;db-&gt;distinct();</h2>
+
+<p>Agrega la palabra clave &quot;DISTINCT&quot; a la consulta</p>
+<code>$this-&gt;db-&gt;distinct();<br />
+    $this-&gt;db-&gt;get('tabla');<br />
+        <br />
+    // Produce: SELECT DISTINCT * FROM tabla</code>
+
+<h2>$this->db->having();</h2>
+<p>Permite escribir la porci&oacute;n HAVING de la consulta:</p>
+
+<code>
+$this->db->having('user_id = 45');<br />
+// Produce: HAVING user_id = 45<br />
+<br />
+$this->db->having('user_id', 45);<br />
+// Produce: HAVING user_id = 45<br />
+</code>
+
+<p>Tambi&eacute;n puede pasar un arreglo de multiples valores:</p>
+
+<code>$this->db->having(array('titulo =' => 'Mi titulo', 'id <' => $id));
+<br /><br />
+// Produce: HAVING titulo = 'Mi titulo', id < 45</code>
+
+<h2>$this-&gt;db-&gt;or_having();</h2>
+<p>Id&eacute;ntica a having(), s&oacute;lo que separa m&uacute;ltiples cl&aacute;usulas con &quot;OR&quot;.</p>
+
+<h2>$this->db->order_by();</h2>
+<p>Permite establecer una cl&aacute;usula de ORDER BY. El primer par&aacute;metro contiene el nombre de la columna por la que desea ordenar. El segundo par&aacute;metro establece la direcci&oacute;n del resultado. Las opciones son <kbd>asc</kbd> or <kbd>desc</kbd>, or <kbd>random</kbd>. </p>
+
+<code>$this->db->order_by("titulo", "desc");
+<br />
+<br />// Produce: ORDER BY titulo DESC
+</code>
+<p>Tambi&eacute;n puede pasar su propia cadena en el primer par&aacute;metro:</p>
+<code>$this->db->order_by('titulo desc, nombre asc');
+<br />
+<br />// Produce: ORDER BY titulo DESC, nombre ASC
+</code>
+
+<p>O m&uacute;ltiples llamados a la funci&oacute;n pueden ser hechos si necesita m&uacute;ltiples campos.</p>
+
+<code>
+	$this->db->order_by("titulo", "desc");<br />
+$this->db->order_by("nombre", "asc"); <br />
+<br />
+// Produces: ORDER BY titulo DESC, nombre ASC
+</code>
+
+<p class="important">Nota: order_by() era anteriormente conocida como orderby(), la cual a sido deprecada.</p>
+
+<p class="important">Note: ordernamiento aleatorio no es soportado actualmetne en los "drivers" Oracle o MSSQL. Estos ser&aacute;n predeterminados como 'ASC'.</p>
+
+<h2>$this->db->limit();</h2>
+<p>Permite limitar el n&uacute;mero de filas que desea que devuelva la consulta:</p>
+
+<code>
+$this->db->limit(10);<br />
+<br />
+// Produce: LIMIT 10</code>
+
+<p>El segundo par&aacute;metro permite establecer el inicio del resultado.</p>
+
+<code>
+$this->db->limit(10, 20);<br />
+<br />
+// Produce: LIMIT 20, 10 (in MySQL.  Otras bases de datos tienen peque&ntilde;as diferencias de sintaxis.)</code>
+
+<h2>$this->db->count_all_results();</h2>
+<p>Permite determinar el n&uacute;mero de filas de una consulta Active Record en particular. Las consultas aceptan las restricciones de Active Record tales como where(),  or_where(), like(), or_like(), etc. Ejemplo:</p>
+
+<code>echo $this->db->count_all_results('<var>mi_tabla</var>');<br />
+// Produce un entero, como 25<br />
+<br />
+$this-&gt;db-&gt;like('titulo', 'match');<br />
+$this-&gt;db-&gt;from('<var>mi_tabla</var>');<br />
+echo $this-&gt;db-&gt;count_all_results();<br />
+// Produce un entero, como 17 </code>
+<h2>$this->db->count_all();</h2>
+<p>Permite determinar el n&uacute;mero de filas de una tabla en particular. 
+Permits you to determine the number of rows in a particular table.  Env&iacute;e el nombre de la tabla como primer par&aacute;metro. Por ejemplo:</p>
+<code>echo $this->db->count_all('<var>mi_tabla</var>');<br />
+<br />
+// Produce un entero, como 25</code>
+<br/>
+<a name="insert">&nbsp;</a>
+<h1>Insertar Datos</h1>
+
+<h2>$this->db->insert();</h2>
+<p>Genera una cadena de inserci&oacute;n basado en los datos que se suministren, y ejectua la consulta. Se puede pasar un <strong>arreglo</strong> o un <strong>objeto</strong> a la funci&oacute;n. Aqu&iacute; hay un ejemplo, usando un arreglo:</p>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'titulo' => 'Mi titulo' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre' => 'Mi nombre' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'fecha' => 'Mi fecha'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->db->insert('mitabla', $data);
+<br /><br />
+// Produces: INSERT INTO mitabla (titulo, nombre, fecha) VALUES ('Mi titulo', 'Mi nombre', 'Mi fecha')</code>
+
+<p>El primer par&aacute;metro contiene el nombre de la table, la segunda es un arreglo de valores.</p>
+
+<p>Aqu&iacute; hay un ejemplo usando un objeto:</p>
+
+<code>
+/*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;class Myclass {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $titulo = 'Mi titulo';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $contenido = 'Mi Contenido';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $fecha = 'Mi Fecha';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+*/<br />
+<br />
+$objeto = new Myclass;<br />
+<br />
+$this->db->insert('mitabla', $objeto);
+<br /><br />
+// Produce: INSERT INTO mitabla (titulo, contenido, fecha) VALUES ('Mi titulo', 'Mi Contenido', 'Mi Fecha')</code>
+
+<p>El primer par&aacute;metro contendr&aacute; el nombre de la tabla, el segundo es un arreglo asociativa de valores.</p>
+
+<p class="important"><strong>Nota:</strong> Todos los valores son escapados autom&aacute;ticamente produciendo consultas m&aacute;s seguras.</p>
+
+<h2>$this->db->insert_batch();</h2>
+<p>Genera una cadena insert de SQL basada en los datos provistos, y ejecuta la consulta. A la funci&oacute;n se le puede
+pasar tanto un <strong>array</strong> como un <strong>objeto</strong>. Aqu&iacute; hay un ejemplo usando un array:</p>
+
+<code>
+$data = array(<br/>
+&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' => 'Mi titulo' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' => 'Mi Nombre' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' => 'Mi fecha'<br />
+&nbsp;&nbsp;&nbsp;),<br />
+&nbsp;&nbsp;&nbsp;array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' => 'Otro titulo' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'name' => 'Otro Nombre' ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'date' => 'Otra fecha'<br />
+&nbsp;&nbsp;&nbsp;)<br/>
+);<br />
+<br />
+$this->db->update_batch('mi_tabla', $data);
+<br /><br />
+// Produces: INSERT INTO mi_tabla (titulo, nombre, fecha) VALUES ('Mi titulo', 'Mi nombre', 'Mi fecha'), ('Otro titulo', 'Otro nombre', 'Otra fecha')</code>
+
+<p>El primer par&aacute;metro contendr&aacute; el nombre de la tabla y el segundo es un array asociativo de valores.</p>
+
+<p class="important"><strong>Nota:</strong> Todos los valores pasados a esta funci&oacute;n se escapan, produciendo consultas m&aacute;s seguras.</p>
+
+<h2>$this->db->set();</h2>
+<p>Esta funci&oacute;n habilita permite establecer valores para <dfn>insertar</dfn> o <dfn>actualizar</dfn>.</p>
+
+<p><strong>Puede ser usado en vez de pasar un arreglo de datos directamente a las funciones de insert o update:</strong> </p>
+
+<code>$this->db->set('nombre', $nombre);
+<br />
+$this->db->insert('mitabla');
+<br /><br />
+// Produce: INSERT INTO mitabla (nombre) VALUES ('{$nombre}')</code>
+
+<p>Si utiliza m&uacute;ltiples llamados a la funci&oacute;n, ellos ser&aacute;n ensamblados apropiadamente basados en si est&aacute; insertando o actualizando:</p>
+
+<code>$this-&gt;db-&gt;set('nombre', $nombre);<br />
+$this-&gt;db-&gt;set('titulo', $titulo);<br />
+$this-&gt;db-&gt;set('estado', $estado);<br />
+$this-&gt;db-&gt;insert('mytable'); </code>
+
+<p><strong>set()</strong> tambi&eacute;n aceptar&aacute; un opcional tercer par&aacute;metro ($escape), que prevendr&aacute; datos de ser escapado si es establecido como FALSE. Para ilustrar la diferencia, aqu&iacute; est&aacute; set() usado con y sin el par&aacute;metro de escape.</p>
+
+<code>$this-&gt;db-&gt;set('campo', 'campo+1', FALSE);<br />
+$this-&gt;db-&gt;insert('mitabla'); <br />
+// resulta INSERT INTO mitabla (campo) VALUES (campo+1)<br />
+<br />
+$this-&gt;db-&gt;set('campo', 'campo+1');<br />
+$this-&gt;db-&gt;insert('mitabla'); <br />
+// resulta INSERT INTO mitabla (campo) VALUES ('campo+1')</code>
+
+<p>Tambi&eacute;n puede pasar un arreglo asociativo a esta funci&oacute;n:</p>
+
+<code>
+$arreglo = array('nombre' => $nombre, 'titulo' => $titulo, 'estado' => $estado);<br /><br />
+$this->db->set($arreglo);<br />
+$this->db->insert('mitabla');
+</code>
+
+<p>O un objeto:</p>
+
+<code>
+/*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;class Miclase {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $titulo = 'Mi titulo';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $content = 'Mi Content';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $date = 'Mi Date';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+*/<br />
+<br />
+$objeto = new Miclase;<br />
+<br />
+$this->db->set($objeto);<br />
+$this->db->insert('mitabla');
+</code>
+<br/>
+<a name="update">&nbsp;</a>
+<h1>Actualizar Datos</h1>
+
+<h2>$this->db->update();</h2>
+<p>Genera una cadena de actualizaci&oacute;n y corre la consulta basado en los datos suministrados. Puede pasar una <strong>arreglo</strong> o un <strong>objeto</strong> a la funci&oacute;n. Aqu&iacute; hay un ejemplo, usando un arreglo:</p>
+
+<code>
+$data = array(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'titulo' => $titulo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'nombre' => $nombre,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'fecha' => $fecha<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br />
+<br />
+$this->db->where('id', $id);<br />
+$this->db->update('mitabla', $data);
+<br /><br />
+// Produces:<br />
+// UPDATE mitabla <br />
+// SET titulo = '{$titulo}', nombre = '{$nombre}', fecha = '{$fecha}'<br />
+// WHERE id = $id</code>
+
+<p>O puede suministrar un objeto:</p>
+
+<code>
+/*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;class Miclase {<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $titulo = 'My titulo';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $contenido = 'My Contenido';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var  $fecha = 'My Fecha';<br />
+&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+*/<br />
+<br />
+$objeto = new Miclase;<br />
+<br />
+$this->db->where('id', $id);<br />
+$this->db->update('mitabla', $objeto);
+<br />
+<br />
+// Produce:<br />
+// UPDATE mitabla <br />
+// SET titulo = '{$titulo}', nombre = '{$nombre}', fecha = '{$fecha}'<br />
+// WHERE id = $id</code>
+
+<p class="important"><strong>Nota:</strong> Todos los valores son escapados autom&aacute;ticamente produciendo consulta m&aacute;s seguras.</p>
+
+<p>Notar&aacute; el uso de la funci&oacute;n <dfn>$this->db->where()</dfn>, permitiendo establecer una cl&aacute;usula WHERE. Opcionalmente, puede pasar informaci&oacute;n directamente como una cadena:</p>
+
+<code>$this->db->update('mitabla', $data, "id = 4");</code>
+
+<p>O como un arreglo:</p>
+
+<code>$this->db->update('mitabla', $data, array('id' => $id));</code>
+
+<p>Tambi&eacute;n se puede usar la funci&oacute;n <dfn>$this->db->set()</dfn> descripta anteriormente, cuando se efect&uacute;an actializaciones.</p>
+<br/>
+<a name="delete">&nbsp;</a>
+<h1>Borrar Datos</h1>
+
+<h2>$this->db->delete();</h2>
+<p>Genera una cadena de eliminaci&oacute;n SQL y ejecuta la consulta.</p>
+
+<code>
+$this->db->delete('mitabla', array('id' => $id));
+<br /><br />
+// Produce:<br />
+// DELETE FROM mitabla <br />
+// WHERE id = $id</code>
+
+<p>El primer par&aacute;metro es el nombre de la tabla, el segundo la cl&aacute;usula WHERE. Tambi&eacute;n puede usar las funciones <dfn>where()</dfn> o <dfn>or_where()</dfn> en vez de pasar los datos como segundo par&aacute;metro de la funci&oacute;n:</p>
+<code> $this->db->where('id', $id);<br />
+$this->db->delete('mitabla'); <br />
+<br />
+// Produce:<br />
+// DELETE FROM mitabla <br />
+// WHERE id = $id</code>
+
+<p>Un arreglo de nombres de tablas puede ser pasada a delete() si desea eliminar datos de m&aacute;s de una tabla.</p>
+
+<code>$tablas = array('tabla1', 'tabla2', 'tabla3');<br />
+$this-&gt;db-&gt;where('id', '5');<br />
+$this-&gt;db-&gt;delete($tablas);</code>
+
+<p>Si desea eliminar todos los datos de una tabla, puede usar la funci&oacute;n <dfn>truncate()</dfn>, o <dfn>empty_table()</dfn>.</p>
+
+<h2>$this-&gt;db-&gt;empty_table();</h2>
+<p>Genera una cadena SQL de eliminaci&oacute;n y ejecuta la consulta.</p>
+
+<code>
+$this-&gt;db-&gt;empty_table('mitabla'); <br />
+    <br />
+// Produce:<br />
+// DELETE FROM mitabla</code>
+
+<h2>$this-&gt;db-&gt;truncate();</h2>
+<p>Genera una cadena SQL de truncado y ejecuta una consulta.</p>
+
+<code> $this-&gt;db-&gt;from('mitabla'); <br />
+$this-&gt;db-&gt;truncate(); <br />
+// or <br />
+$this-&gt;db-&gt;truncate('mitabla'); <br />
+<br />
+// Produce:<br />
+// TRUNCATE mitabla <br />
+</code>
+
+<p class="important"><strong>Nota:</strong> Si el comando TRUNCATE no est&aacute; disponible, truncate() ejecutar&aacute; &quot;DELETE FROM tabla&quot;.</p>
+<br/>
+<h1><a name="chaining">&nbsp;</a>M&eacute;todos en cadena</h1>
+<p>M&eacute;todos en cadena permite simplificar tu sintaxis conectando m&uacute;ltiples funciones. Considere este ejemplo:</p>
+
+<code>
+<dfn>$this->db</dfn><kbd>-></kbd><var>select</var>('titulo')<kbd>-></kbd><var>from</var>('mitabla')<kbd>-></kbd><var>where</var>('id', $id)<kbd>-></kbd><var>limit</var>(10, 20);<br />
+<br />
+$query = $this->db->get();</code>
+
+<p class="important"><strong>Note:</strong> M&eacute;todos en cadena s&oacute;lo funciona con PHP 5.</p>
+<br/>
+<h1><a name="caching">&nbsp;</a>Active Record Caching</h1>
+<p>Mientras no es un verdadero cacheo, Active Record permite salvar (o &quot;cache&quot;) ciertas partes de tus consultas para reusar despu&eacute;s. Normalmente, cuando una llamada a Active Record es completada, toda la informaci&oacute;n es reinizializada para el pr&oacute;ximo llamado. Con cacheo, puede prevenir esta reinizializaci&oacute;n, y reusar la informaci&oacute;n f&aacute;cilmente.</p>
+
+<p>Las llamadas a cache son acumulables. Si ejecuta 2 llamadas a cached select(), y luego 2 llamadas a no cached select(), esto ersultar&aacute; en 4 llamadas a select(). Hay tres funciones de cacheo disponibles:</p>
+
+<h2>$this-&gt;db-&gt;start_cache()</h2>
+<p>Esta funci&oacute;n debe ser llamada para comenzar a cachear. Todas las consultas Active Record del tipo correcto (ver debajo para las consultas soportadas) son guardadas para uso posterior.</p>
+
+<h2>$this-&gt;db-&gt;stop_cache()</h2>
+<p>Esta funci&oacute;n puede ser llamada para parar el cacheo.</p>
+
+<h2>$this-&gt;db-&gt;flush_cache()</h2>
+<p>Esta funci&oacute;n elimina todos los items cacheados por la Active Record.</p>
+
+<p>Aqu&iacute; hay un ejemplo de uso:</p>
+<code>$this-&gt;db-&gt;start_cache();<br />
+$this-&gt;db-&gt;select('campo1');<br />
+$this-&gt;db-&gt;stop_cache();<br />
+$this-&gt;db-&gt;get('tabla');<br />
+// Results in:<br />
+// SELECT `campo1` FROM (`tabla`)<br />
+<br />
+$this-&gt;db-&gt;select('campo2');<br />
+$this-&gt;db-&gt;get('tabla');<br />
+// Results in:<br />
+// SELECT `campo1`, `campo2` FROM (`tabla`)<br />
+<br />
+$this-&gt;db-&gt;flush_cache();<br />
+<br />
+$this-&gt;db-&gt;select('campo2');<br />
+$this-&gt;db-&gt;get('tabla');<br />
+// Results in:<br />
+// SELECT `campo2` FROM (`tabla`)</code>
+
+<p class="important"> <strong>Nota:</strong> Los siguientes campos pueden ser cacheados: 'select', 'from', 'join', 'where', 'like', 'groupby', 'having', 'orderby', 'set'</p>
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="helpers.html">Funciones Helper de Consulta</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="transactions.html">Transacciones</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

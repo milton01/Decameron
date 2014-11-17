@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<title>Clase Javascript : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="153" height="44" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="../general/drivers.html">Drivers</a> &nbsp;&#8250;&nbsp;
+Clase Javascript
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<p class="important"><strong>Nota:</strong> Este driver es experimental. Su conjunto de caracter&iacute;sticas e implementaci&oacute;n puede cambiar en futuras
+versiones.</p><br>
+
+<h1>Clase Javascript</h1>
+<p>CodeIgniter provee una biblioteca para ayudarlo con ciertas funciones comunes que puede querer usar con Javascript. Por favor advierta que CodeIgniter no necesita la biblioteca jQuery para ejecutarse, y que cualquier otra biblioteca de scripting tambi&eacute;n funcionar&aacute; igualmente bien. La biblioteca jQuery se presenta simplemente por conveniencia si elije usarla.</p>
+
+<h2>Inicializar la Clase</h2>
+<p>Para inicializar manualmente la Clase Javascript en el constructor de su controlador, use la funci&oacute;n <dfn>$this->load->library</dfn>. Actualmente, solamente est&aacute; disponible la biblioteca jQuery, la que se cargar&aacute; autom&aacute;ticamente haciendo esto:</p>
+
+<code>$this-&gt;load-&gt;library('javascript');</code>
+
+<p>La Clase Javascript tambi&eacute;n acepta par&aacute;metros, <dfn>js_library_driver (string) por defecto 'jquery'</dfn> y <dfn>autoload (bool) por defecto TRUE</dfn>. Puede anular los valores por defecto si desea enviar a un array asociativo:</p>
+
+<code>$this-&gt;load-&gt;library('javascript', array('js_library_driver' =&gt; 'scripto', 'autoload' =&gt; FALSE));</code>
+
+<p>Otra vez, actualmente solo 'jquery' est&aacute; disponible. Sin embargo, puede querer establecer <dfn>autoload</dfn> a FALSE, si no quiere que la biblioteca jQuery incluya autom&aacute;ticamente una etiqueta script para el archivo jQuery principal. Esto es &uacute;til si se est&aacute; cargando desde un lugar fuera de CodeIgniter, o que ya tienen la etiqueta de script en el marcado.</p>
+
+<p>Una vez cargada, el objeto de la biblioteca jQuery estar&aacute; disponible usando: <dfn>$this-&gt;javascript</dfn>.</p>
+
+<h2>Instalaci&oacute;n y Configuraci&oacute;n</h2>
+
+<h3>Establecer estas Variables en su Vista</h3>
+<p>Como con una biblioteca de Javascript, sus archivos tienen que estar disponibles para su aplicaci&oacute;n.</p>
+
+<p>Como Javascript es un lenguaje del lado del cliente, la biblioteca tiene que ser capaz de escribir contenido en su salida final. Generalmente, esto significa una vista. Necesitar&aacute; incluir las siguientes variables en la secci&oacute;n
+&lt;head&gt; de su salida.</p>
+
+<code>&lt;?php echo $library_src;?&gt;<br />
+&lt;?php echo $script_head;?&gt;
+</code>
+
+<p><var>$library_src</var>, es donde se cargar&aacute; el archivo real de la biblioteca, as&iacute; como cualquier llamada de otro script de plugin; <var>$script_head</var> es donde se presentar&aacute;n eventos espec&iacute;ficos, funciones y otros comandos.</p>
+
+<h3>Establecer la ruta a las bibliotecas con &iacute;tems de configuraci&oacute;n</h3>
+
+<p>Hay algunos &iacute;tems de configuraci&oacute;n en la biblioteca Javascript. Estos se pueden establecer en <kbd>application/config/config.php</kbd>, dentro de su propio archivo <kbd>config/javascript.php</kbd> o dentro de cualquier controlador usando la funci&oacute;n <dfn>set_item()</dfn>.</p>
+
+<p>Una imagen se puede usar como "cargador de ajax" o indicador de progreso. Sin ella, aparecer&aacute; un simple mensaje de texto de "carga" cuando se necesite hacer la llamada Ajax.</p>
+
+<code>
+	$config['javascript_location'] = 'http://localhost/codeigniter/themes/js/jquery/';<br />
+	$config['javascript_ajax_img'] = 'images/ajax-loader.gif';
+</code>
+
+<p>Si mantiene sus archivos en los mismos directorios desde donde se descargaron, entonces no necesita establecer estos &iacute;tems de configuraci&oacute;n.</p>
+
+<h2>La Clase jQuery</h2>
+<p>Para inicializar manualmente la clase jQuery en el constructor de su controlador, use la funci&oacute;n <dfn>$this->load->library</dfn>:</p>
+
+<code>$this-&gt;load-&gt;library('jquery');</code>
+
+<p>Puede enviar un par&aacute;metro opcional para determinar si se incluir&aacute; autom&aacute;ticamente o no una etiqueta script al archivo jQuery principal cuando se cargue la biblioteca. Por defecto se crear&aacute;. Para evitar esto, cargue la biblioteca como se indica:</p>
+
+<code>$this-&gt;load-&gt;library('jquery', FALSE);</code>
+
+<p>Una vez cargada, el objeto de la biblioteca jQuery estar&aacute; disponible usando: <dfn>$this->jquery</dfn>.</p>
+
+<h2>Eventos jQuery</h2>
+<p>Los eventos se establecen usando la siguiente sintaxis.</p>
+
+<p><code>$this-&gt;jquery-&gt;event('element_path', code_to_run());</code></p>
+
+<p>En el ejemplo anterior:</p>
+
+<ul>
+	<li>"event" es cualquier de estos: blur, change, click, dblclick, error, focus, hover, keydown, keyup, load, mousedown, mouseup, mouseover, mouseup, resize, scroll, o unload.</li>
+	<li>"element_path" es cualquier <a href="http://docs.jquery.com/Selectors">selector jQuery</a> v&aacute;lido. Debido a la sintaxis &uacute;nica de selector de jQuery, este es normalmente un elemento id, o selector CSS. Por ejemplo "#notice_area" afectar&iacute;a a &lt;div id=&quot;notice_area&quot;&gt; y a "#content a.notice" afectar&iacute;a a todas las anclas con una clase de "notice" en el div con id "content".</li>
+	<li>"code_to_run()" es el script que Ud escribe, o una acci&oacute;n tal como un efecto de la biblioteca jQuery.</li>
+</ul>
+
+<h2>Efectos</h2>
+<p>La biblioteca jQuery soporta un poderoso repertorio de <a href="http://docs.jquery.com/Effects">Efectos</a>. Antes que se puede usar un efecto, hay que cargarlo:</p>
+
+<code>
+	$this->jquery->effect([ruta opcional] nombre de plugin);<br/>
+	<br/>
+// por ejemplo<br/>
+$this->jquery->effect('bounce');<br/>
+</code>
+
+<h3>hide() / show()</h3>
+<p>Cada una de estas funciones afectar&aacute; la visibilidad de un &iacute;tem en la p&aacute;gina. hide() har&aacute; que el &iacute;tem sea invisible, mientras que show() lo mostrar&aacute;.</p>
+
+<code>
+	$this-&gt;jquery-&gt;hide(target,  optional speed, optional extra information);<br />
+	$this-&gt;jquery-&gt;show(target,  optional speed, optional extra information);
+</code>
+
+<ul>
+	<li>"target" ser&aacute; cualquier selector jQuery v&aacute;lido o selectores.</li>
+	<li>"speed" es opcional y se establece como slow, normal, fast, o alternativamente a una cantidad de milisegundos.</li>
+	<li>"extra information" es opcional y podr&iacute;a incluir un callback u otra informaci&oacute;n adicional.</li>
+</ul>
+
+<h3>toggle()</h3>
+
+<p>Cambiar&aacute; la visibilidad de un &iacute;tem al opuesto del estado actual, ocultando elementos visibles y volviendo visibles los ocultos.</p>
+
+<code>$this-&gt;jquery-&gt;toggle(target);</code>
+
+<ul>
+	<li>"target" ser&aacute; cualquier selector jQuery v&aacute;lido o selectores.</li>
+</ul>
+
+<h3>animate()</h3>
+
+<code> $this-&gt;jquery-&gt;animate(target, parameters, optional speed, optional extra information);</code>
+
+
+<ul>
+	<li>"target" ser&aacute; cualquier selector jQuery v&aacute;lido o selectores.</li>
+	<li>"parameters" en jQuery generalmente incluyen una serie de propiedades CSS que desea cambiar.</li>
+	<li>"speed" es opcional y se establece como slow, normal, fast, o alternativamente a una cantidad de milisegundos.</li>
+	<li>"extra information" es opcional y podr&iacute;a incluir un callback u otra informaci&oacute;n adicional.</li>
+</ul>
+
+<p>Podr&aacute; ver un resumen completo en <a href="http://docs.jquery.com/Effects/animate">http://docs.jquery.com/Effects/animate.</a></p>
+
+<p>Aqu&iacute; hay un ejemplo de animate() llamado en un div con id = "note" y disparado por un clic usando el evento click() de la biblioteca jQuery.</p>
+
+<code> $params = array(<br />
+	'height' =&gt; 80,<br />
+	'width' =&gt; '50%',<br />
+	'marginLeft' =&gt; 125<br />
+);<br />
+$this-&gt;jquery-&gt;click('#trigger', $this-&gt;jquery-&gt;animate('#note', $params, normal));
+</code>
+
+<h3>toggleClass()</h3>
+<p>Esta funci&oacute;n agregar&aacute; o eliminar&aacute; un clase CSS al target.</p>
+
+<code>$this-&gt;jquery-&gt;toggleClass(target, class)</code>
+
+<ul>
+	<li>"target" ser&aacute; cualquier selector jQuery v&aacute;lido o selectores.</li>
+	<li>"class" es cualquier nombre de clase CSS. Advierta que esta clase tiene que estar definida y disponible en un CSS que ya est&eacute; cargado.</li>
+	</ul>
+
+<h3>fadeIn() / fadeOut()</h3>
+<p>Estos efectos causan que los elementos desaparezcan y vuelvan a aparecer con el tiempo.</p>
+
+<code>
+$this->jquery->fadeIn(target, optional speed, optional extra information);<br />
+$this->jquery->fadeOut(target, optional speed, optional extra information);
+</code>
+
+<ul>
+	<li>"target" ser&aacute; cualquier selector jQuery v&aacute;lido o selectores.</li>
+	<li>"speed es opcional y se establece como slow, normal, fast, o alternativamente a una cantidad de milisegundos.</li>
+	<li>"extra information es opcional y podr&iacute;a incluir un callback u otra informaci&oacute;n adicional.</li>
+</ul>
+
+<h3>slideUp() / slideDown() / slideToggle()</h3>
+
+<p>Estos efectos causan que los elementos se deslicen.</p>
+
+<code>$this-&gt;jquery-&gt;slideUp(target,  optional speed, optional extra information);<br />
+	$this-&gt;jquery-&gt;slideDown(target,  optional speed, optional extra information);<br />
+$this-&gt;jquery-&gt;slideToggle(target,  optional speed, optional extra information);</code>
+
+<ul>
+	<li>"target" ser&aacute; cualquier selector jQuery v&aacute;lido o selectores.</li>
+	<li>"speed" es opcional y se establece como slow, normal, fast, o alternativamente a una cantidad de milisegundos.</li>
+	<li>"extra information" es opcional y podr&iacute;a incluir un callback u otra informaci&oacute;n adicional.</li>
+</ul>
+
+<h2>Plugins</h2>
+<p>Algunos plugins de jQuery est&aacute;n disponibles usando esta biblioteca.</p>
+
+<h3>corner()</h3>
+<p>Se lo usa para agregar distintas esquinas a los elementos de p&aacute;gina. Para m&aacute;s detalles ver <a href="http://www.malsup.com/jquery/corner/">http://www.malsup.com/jquery/corner/</a>.</p>
+
+<code>$this-&gt;jquery-&gt;corner(target, corner_style);</code>
+
+<ul>
+	<li>"target" ser&aacute; cualquier selector jQuery v&aacute;lido o selectores.</li>
+	<li>"corner_style" es opcional y se puede establecer a cualquier estilo v&aacute;lido tal como round, sharp, bevel, bite, dog, etc. Las curvas individuales se pueden establecer siguiendo el estilo con un espacio y usando "tl" (top left), "tr" (top right), "bl" (bottom left), or "br" (bottom right).</li>
+</ul>
+
+<code>
+	$this-&gt;jquery-&gt;corner(&quot;#note&quot;, &quot;cool tl br&quot;);
+</code>
+
+<h3>tablesorter()</h3>
+<p>Descripci&oacute;n pendiente</p>
+
+<h3>modal()</h3>
+<p>Descripci&oacute;n pendiente</p>
+
+<h3>calendar()</h3>
+<p>Descripci&oacute;n pendiente</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="input.html">Clase Input</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="language.html">Clase Lang</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

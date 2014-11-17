@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Actualizar de 1.7.2 to 2.0.0 : Gu&iacute;a de Usuario del CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a de Usuario del CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Actualizar de 1.7.2 to 2.0.0
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Actualizar de 1.7.2 a 2.0.0</h1>
+<p>Antes de realizar una actualizaci&oacute;n deber&iacute;a sacar de l&iacute;nea su sitio reemplazando el archivo index.php con uno est&aacute;tico.</p>
+
+<h2>Paso 1: Actualizar sus archivos CodeIgniter</h2>
+<p>Reemplace todos los archivos y directorios en su carpeta system <strong>excepto</strong> su carpeta <kbd>application</kbd>.</p>
+
+<p class="important"><strong>Nota:</strong> Si tiene alg&uacute;n archivo desarrollado a medida, por favor haga una copia primero.</p>
+
+<h2>Paso 2: Ajustar get_dir_file_info() donde sea necesario</h2>
+<p>La versi&oacute;n 2.0.0 trae un cambio no compatible para <kbd>get_dir_file_info()</kbd> en el <a href="../helpers/file_helper.html">Helper File</a>. Los cambios no compatibles son extremadamente raros en CodeIgniter, pero &eacute;ste sentimos estaba justificado debido a lo f&aacute;cil que era crear graves problemas de rendimiento del servidor. Si <em>necesita</em> recursividad donde est&aacute; usando esta funci&oacute;n helper, cambie tales instancias estableciendo el segundo par&aacute;metro, <kbd>$top_level_only</kbd> a FALSE:</p>
+
+<code>get_dir_file_info('/path/to/directory', <kbd>FALSE</kbd>);</code>
+
+<h2>Paso 3: Convertir sus Plugins en Helpers</h2>
+<p>CodeIgniter 2.0.0 se deshace del sistema de "Plugin" ya que su funcionalidad es id&eacute;ntica a la de los Helpers, pero no extensible. Necesitar&aacute; renombrar su archivo de plugin de <var>filename_pi.php</var> a <var>filename_helper.php</var>, moverlos a su carpeta <kbd>helpers</kbd> y cambiar todas las instancias de:</p>
+
+	<code>$this->load->plugin('foo');</code>
+
+<p>a</p>
+
+	<code>$this->load->helper('foo');</code>
+
+<h2>Paso 4: Actualizar datos encriptados almacenados</h2>
+<p class="important"><strong>Nota:</strong> Si la aplicaci&oacute;n no utiliza la biblioteca de cifrado, no almacena los datos encriptados de forma permanente, o est&aacute; en un entorno que no admite Mcrypt, puede omitir este paso.</p>
+
+<p>La biblioteca Encrypt tuvo una cantidad de mejoras, algunas para la fortaleza de la encriptaci&oacute;n y otras para el rendimiento, lo que tiene la inevitable consecuencia de no permitir m&aacute;s decodificar datos encriptados con la versi&oacute;n original de esta biblioteca. Para ayudar con la transici&oacute;n, se agreg&oacute; un nuevo m&eacute;todo, <kbd>encode_from_legacy()</kbd> que decodificar&aacute; los datos con el algoritmo original y devolver&aacute; una cadena recodificada usando los m&eacute;todos mejorados. Esto le permitir&aacute; reemplazar f&aacute;cilmente datos encriptados viejos con datos encriptados nuevos en su aplicaci&oacute;n, sea tanto al vuelo como en masa.</p>
+
+<p>Por favor leer c&oacute;mo <a href="../libraries/encryption.html#legacy">usar este m&eacute;todo</a> en la documentaci&oacute;n de la biblioteca Encrypt.</p>
+
+<h2>Paso 5: Eliminar las llamadas de carga para el helper de compatibilidad</h2>
+<p>
+El helper de compatibilidad se elimin&oacute; del n&uacute;cleo de CodeIgniter. Todos los m&eacute;todos en &eacute;l deber&iacute;an estar nativamente disponibles en las versiones soportadas de PHP.</p>
+
+<h2>Paso 6: Actualizar la extensi&oacute;n de clases</h2>
+<p>Ahora todas las clases del n&uacute;cleo est&aacute;n prefijas con <kbd>CI_</kbd>. Actualice los Modelos y Controladores para extender CI_Model y CI_Controller, respectivamente..</p> 
+
+<h2>Paso 7: Actualizar las llamadas al Constructor Padre</h2>
+<p>Todas las clases nativas de CodeIgniter usan ahora la convenci&oacute;n <kbd>__construct()</kbd> de PHP 5. Por favor actualice las bibliotecas extendidas para llamar a <kbd>parent::__construct()</kbd>.</p>
+
+<h2>Paso 8: Actualizar su gu&iacute;a del usuario</h2>
+<p>Por favor reemplace su copia de la gu&iacute;a del usuario con la nueva versi&oacute;n, incluyendo los archivos de im&aacute;genes.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="index.html">Instrucciones de Instalaci&oacute;ns</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="troubleshooting.html">Soluci&oacute;n de Problemas</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Transacciones : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Transactions
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Transacciones</h1>
+<p>La clase de abstracci&oacute;n de base de datos de CodeIgniter permite usar <dfn>transactions</dfn> con bases de datos que soporten tipos de tablas de transacciones seguras. En MySQL necesitar&aacute; correr tipos de tablas InnoDB o BDB en vez de la m&aacute;s com&uacute;n MyISAM. La mayor&iacute;a de las otras bases de datos soportan transacciones nativamente.</p>
+
+<p>Si no est&aacute; familiarizado con transacciones recomendamos buscar ub buen recurso en l&iacute;nea para aprender acerca de su base de datos en particulare. La informaci&oacute;n debajo asume que usted tiene un b&aacute;sico entendimiento de transacciones</p>
+
+<h2>El Acercamiento de CodeIgniter a las Transacciones</h2>
+<p>CodeIgniter utiliza un aproximamiento para transacciones que es muy similar al proceso usado por la popular clase de base de datos ADODB. Hemos elegido ese acercamiento porque simplifica excelentemente el proceso de ejecuci&oacute;n de transacciones. En la mayor&iacute;a de los casos todo lo que es requerido son dos l&iacute;neas de c&oacute;digo.</p>
+
+<p>Tradicionalmente, las transacciones han requerido una justa cantidad de trabajo para implementar, debido a que demandan que mantenga un rastro de sus consultas y determinar si desea <dfn>commit</dfn> o <dfn>rollback</dfn> basado en el &eacute;xito o fallo de sus consultas. Esto es particularmente engorroso con consultas en cadena. En contraste, hemos implementado un sistema de transacciones inteligeuten que hace todo esto autom&aacute;ticamente por ti (tambi&eacute;n puede hacerlo manualmente, si lo desea, pero no existe beneficio real).</p>
+
+<h2>Ejecutar Transacciones</h2>
+<p>Para ejecutar tus consultas usando transacciones, usar&aacute; las funciones <dfn>$this->db->trans_start()</dfn> y <dfn>$this->db->trans_complete()</dfn> de esta manera:</p>
+<code>
+<kbd>$this->db->trans_start();</kbd><br />
+$this->db->query('UNA CONSULTA SQL...');<br />
+$this->db->query('OTRA CONSULTA...');<br />
+$this->db->query('Y TODAV&Iacute;A OTRA CONSULTA...');<br />
+<kbd>$this->db->trans_complete();</kbd>
+</code>
+<p>Puede ejecutar tantas consultas como desee entre las funciones start/complete y ellas ser&aacute;n todas cometidas o canceladas basado en el &eacute;xito o fallo de una consulta dada.</p>
+
+<h2>Modo Estricto</h2>
+
+<p>Por defecto, CodeIgniter ejecuta todas las transacciones en <dfn>Modo Estricto</dfn>. Cuando el modo estricto est&aacute; habilitado y se ejecutan varios grupos de transacciones, si un grupo falla todos los grupos se deshar&aacute;n. Si el modo estricto est&aacute; deshabilitado, cada grupo es tratado independientemente, lo que significa que la falla de un grupo no afectar&aacute; a los otros.</p>
+
+<p>El Modo Estricto se puede deshabilitar de la siguiente manera:</p>
+
+<code>$this->db->trans_strict(FALSE);</code>
+
+<h2>Manejar Errores</h2>
+<p>Si tiene reporte de errores habilitado en el archivo <dfn>config/database.php</dfn> ver&aacute; un mensaje de error est&aacute;ndar si nos fue &eacute;xitosa la transacci&oacute;n. Si debug est&aacute; deshabilitado, se pueden manejar los propios errores de esta forma:</p>
+
+<code>
+$this->db->trans_start();<br />
+$this->db->query('UNA CONSULTA SQL...');<br />
+$this->db->query('OTRA CONSULTA...');<br />
+$this->db->trans_complete();<br />
+<br />
+if (<kbd>$this->db->trans_status()</kbd> === FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;// genera un error... o usa la funci&oacute;n log_message() para guardar un registro del error<br />
+}
+</code>
+
+<h2>Habilitando Transacciones</h2>
+<p>Las transacciones son habilitadas autom&aacute;ticamente al momento en que se usa <dfn>$this->db->trans_start()</dfn>.  Si desea deshabilitar transaccione se puede hacer usando <dfn>$this->db->trans_off()</dfn>:</p>
+
+<code>
+<kbd>$this->db->trans_off()</kbd><br /><br /
+$this->db->trans_start();<br />
+$this->db->query('UNA CONSULTA SQL...');<br />
+$this->db->trans_complete();
+</code>
+
+<p class="important">Cuando las transacciones son deshabilitadas, las consultas ser&aacute;n auto-cometidas, de la misma forma que ejecutando consultas sin transacciones.</p>
+
+<h2>Modo de Prueba</h2>
+<p>Opcionalmente, se puede poner al sistema de transacciones en "modo de prueba", el cual causar&aacute; que tus consultas sean canceladas -- incluso si las consultas producen un resultado valido Para usar el modo de prueba simplemente establezca el primer par&aacute;metro en la funci&oacute;n <dfn>$this->db->trans_start()</dfn> como <samp>TRUE</samp>:</p>
+
+<code>
+$this->db->trans_start(<samp>TRUE</samp>); // La consulta ser&aacute; cancelada<br />
+$this->db->query('UNA CONSULTA SQL...');<br />
+$this->db->trans_complete();
+</code>
+
+<h2>Corriendo Transacciones Manualmente</h2>
+<p>Si desea correr transacciones manualmente, puede hacerlo como sigue</p>
+
+<code>
+$this->db->trans_begin();<br /><br /
+$this->db->query('UNA CONSULTA SQL...');<br />
+$this->db->query('OTRA CONSULTA...');<br />
+$this->db->query('Y TODAV&Iacute;A OTRA CONSULTA...');<br />
+<br />
+if ($this->db->trans_status() === FALSE)<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->db->trans_rollback();<br />
+}<br />
+else<br />
+{<br />
+&nbsp;&nbsp;&nbsp;&nbsp;$this->db->trans_commit();<br />
+}<br />
+</code>
+
+<p class="important"><strong>Nota:</strong> Asegurese de usar <kbd>$this->db->trans_begin()</kbd> cuando corre transacciones manuales, <strong>NO</strong> <dfn>$this->db->trans_start()</dfn>.</p>
+
+
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp; <a href="active_record.html">Clase Active Record</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="table_data.html">Metadatos de Tabla</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

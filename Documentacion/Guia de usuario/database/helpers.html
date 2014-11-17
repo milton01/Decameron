@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Funciones Helper de Consultas : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Clase Database</a> &nbsp;&#8250;&nbsp;
+Helper de Resultados
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+<h1>Funciones Helper de Consultas</h1>
+
+<h2>$this->db->insert_id()</h2>
+<p>El n&uacute;mero de ID de cuando se realizo una inserci&oacute;n a la base de datos.</p>
+
+<h2>$this->db->affected_rows()</h2>
+<p>Muesta el n&uacute;mero de filas afectadas, cuando se realiza una consulta de tipo de "escritura" (insert, update, etc.).</p>
+<p>Nota:  En MySQL "DELETE FROM TABLE" devuelve 0 filas afectadas. La clase de base de datos tiene un peque&ntilde;o hack que le permite devolver el n&uacute;mero correcto de filas afectadas.  Por defecto este hack est&aacute; habilitado pero se puede apagar en el archivo de driver de la base de datos.</p>
+
+<h2>$this->db->count_all();</h2>
+<p>Permite determinar el n&uacute;mero de filas en una tabla en particular. El primer par&aacute;metro es el nombre de la tabla. Ejemplo:</p>
+
+<code>echo $this->db->count_all('<var>my_table</var>');<br />
+<br />
+// Produce un entero, como 25
+</code>
+
+<h2>$this->db->platform()</h2>
+<p>Imprime la plataforma de base de datos que est&aacute; corriendo (MySQL, MS SQL, Postgre, etc...):</p>
+
+<code>echo $this->db->platform();</code>
+
+<h2>$this->db->version()</h2>
+<p>Imprime la versi&oacute;n de base de datos que est&aacute; corriendo:</p>
+
+<code>echo $this->db->version();</code>
+
+<h2>$this->db->last_query();</h2>
+<p>Devuelve la &uacute;ltima consulta que fue ejecutada (la cadena de la consulta, no el resultado).  Example:</p>
+
+<code>$str = $this->db->last_query();<br />
+<br />
+// Produce:  SELECT * FROM sometable....
+</code>
+
+<p>Las dos funciones siguientes ayudan a simplificar el proceso de escritura de INSERTs Y UPDATEs de base de datos.</p>
+
+<h2>$this->db->insert_string(); </h2>
+<p>Esta funci&oacute;n simplifica el proceso de escritura de inserciones de base de datos. Devuelve una cadena SQL de inserci&oacute;n correctamente formada. Ejemplo:</p>
+
+<code>$data = array('nombre' => $nombre, 'email' => $email, 'url' => $url);<br />
+<br />
+$str = $this->db->insert_string('nombre_tabla', $data);
+</code>
+
+<p>El primer par&aacute;metro es el nombre de la tabla. El segundo un arreglo asociativo con los datos que ser&aacute;n insertados. El ejemplo anterior produce:</p>
+
+<code>INSERT INTO nombre_tabla (nombre, email, url) VALUES ('Rick', 'rick@your-site.com', 'www.your-site.com')</code>
+
+<p class="important">Nota: Los valores son autom&aacute;ticamente escapados, produciendo consultas m&aacute;s seguras.</p>
+
+<h2>$this->db->update_string(); </h2>
+<p>Esta funci&oacute;n simplifica el proceso de escritura de actualizaciones de base de datos. Devuelve una cadena SQL de actualizaci&oacute;n correctamente formada. Ejemplo:</p>
+
+<code>$data = array('nombre' => $nombre, 'email' => $email, 'url' => $url);<br />
+<br />
+$condicion = "autor_id = 1 AND estado = 'activo'";
+<br /><br />
+$str = $this->db->update_string('nombre_tabla', $data, $condicion);
+</code>
+
+<p>El primer par&aacute;metro es el nombre de la tabla, el segundo un arreglo asociativo con los datos que ser&aacute;n insertados, y el tercer par&aacute;metro es la cl&aacute;usula "where". El ejemplo anterior produce:</p>
+
+<code> UPDATE nombre_tabla SET name = 'Rick', email = 'rick@your-site.com', url = 'www.your-site.com' WHERE autor_id = 1 AND estado = 'activo'</code>
+
+<p class="important">Nota: Los valores son autom&aacute;ticamente escapados, produciendo consultas m&aacute;s seguras.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="results.html">Resultados de Consultas</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="active_record.html">Clase Active Record</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

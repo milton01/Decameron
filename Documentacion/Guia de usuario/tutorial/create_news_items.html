@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Crear &Iacute;tems de Noticias : Gu&iacute;a del Usuario de CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a del Usuario de CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+<a href="index.html">Tutorial</a> &nbsp;&#8250;&nbsp;
+Crear &Iacute;tems de Noticias
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+
+<h1>Tutorial - Crear &Iacute;tems de Noticias</h1>
+
+<p>Ahora Ud sabe como leer datos desde una base de datos usando CodeIgniter, pero todav&iacute;a no escribi&oacute; ninguna informaci&oacute;n en ella. En esta secci&oacute;n expandiremos nuestros controlador de noticias y modelo creados anteriormente para incluir esta funcionalidad.</p>
+
+<h2>Crear un formulario</h2>
+
+<p>Para ingresar datos en la base de datos, necesita crear un formulario donde pueda ingresar la informaci&oacute;n a almacenarse. Esto significa que necesitaremos un formulario con dos campos, uno para el t&iacute;tulo y otro para el texto. Derivaremos el slug de nuestro t&iacute;tulo en el modelo. Cree la nueva vista en <dfn>application/views/news/create.php</dfn>.</p>
+
+<pre>
+&lt;h2>Create a news item&lt;/h2>
+
+&lt;?php echo validation_errors(); ?>
+
+&lt;?php echo form_open('news/create') ?>
+
+	&lt;label for="title">Title&lt;/label> 
+	&lt;input type="input" name="title" />&lt;br />
+
+	&lt;label for="text">Text&lt;/label>
+	&lt;textarea name="text">&lt;/textarea>&lt;br />
+	
+	&lt;input type="submit" name="submit" value="Create news item" /> 
+
+&lt;/form>
+</pre>
+
+<p>Las &uacute;nicas dos cosas aqu&iacute; que probablemente no se vean familiares son: las funciones <dfn>form_open()</dfn> y <dfn>validation_errors()</dfn>.</p>
+
+<p>La primera funci&oacute;n la provee el <a href="../helpers/form_helper.html">helper form</a> y presenta el elemento form y agrega funcionalidad adicional, como un campo oculto para <a href="../libraries/security.html">evitar la CSRF</a> (del ingl&eacute;s Cross-Site Request Forgery o falsificaci&oacute;n de solicitud de sitios cruzados). La &uacute;ltima se usa para informar errores relacionados a la validaci&oacute;n del formulario.</p>
+
+<p>Vuelva atr&aacute;s a su controlador de noticias. Vamos a hacer dos cosas aqu&iacute;, verificar si el formulario fue enviado y si los datos enviados pasaron las reglas de validaci&oacute;n. Usaremos la biblioteca de <a href="../libraries/form_validation.html">validaci&oacute;n de formularios</a> para hacer esto.</p>
+
+<pre>
+public function create()
+{
+	$this->load->helper('form');
+	$this->load->library('form_validation');
+	
+	$data['title'] = 'Create a news item';
+	
+	$this->form_validation->set_rules('title', 'Title', 'required');
+	$this->form_validation->set_rules('text', 'text', 'required');
+	
+	if ($this->form_validation->run() === FALSE)
+	{
+		$this->load->view('templates/header', $data);	
+		$this->load->view('news/create');
+		$this->load->view('templates/footer');
+		
+	}
+	else
+	{
+		$this->news_model->set_news();
+		$this->load->view('news/success');
+	}
+}
+</pre>
+
+<p>El c&oacute;digo anterior agrega un mont&oacute;n de funcionalidad. Las primeras l&iacute;neas cargan el helper form y la biblioteca de validaci&oacute;n de formularios. Despu&eacute;s de eso, se establecen las reglas para la validaci&oacute;n del formulario. El m&eacute;todo <var>set_rules()</var> toma tres argumentos: el nombre del campo de entrada, el nombre a usarse en los mensajes de error y la regla. En este caso, los campos t&iacute;tulo y texto son obligatorios.</p>
+
+<p>CodeIgniter tiene una poderosa bilioteca de validaci&oacute;n de formularios como se demostr&oacute; antes. Puede leer m&aacute;s acerca de esta biblioteca en la secci&oacute;n correspondiente a la <a href="../libraries/form_validation.html">clase Form_validation</a>.</p>
+
+<p>M&aacute;s abajo, se puede ver una condici&oacute;n que verifica si la validaci&oacute;n del formulario se ejecut&oacute; correctamente. Si no, se muestra el formulario, si se envi&oacute; <strong>y</strong> se pasaron todas las reglas, se llama al modelo. Despu&eacute;s de esto, se carga una vista para mostrar el mensaje de &eacute;xito. Cree una vista en <dfn>application/view/news/success.php</dfn> y escriba un mensaje de &eacute;xito.</p>
+
+<h2>Modelo</h2>
+
+<p>La &uacute;nica cosa que queda es escribir un m&eacute;todo que escriba los datos en la base de datos. Usaremos la clase Active Record para insertar la informaci&oacute;n y usaremos la biblioteca Input para obtener los datos publicados. Abra el modelo creado anteriormente y agregue lo siguiente:</p>
+
+<pre>
+public function set_news()
+{
+	$this->load->helper('url');
+	
+	$slug = url_title($this->input->post('title'), 'dash', TRUE);
+	
+	$data = array(
+		'title' => $this->input->post('title'),
+		'slug' => $slug,
+		'text' => $this->input->post('text')
+	);
+	
+	return $this->db->insert('news', $data);
+}
+</pre>
+
+<p>Este nuevo m&eacute;todo se encarga de insertar el &iacute;tem de noticias en la base de datos. La tercera l&iacute;nea contiene una nueva funci&oacute;n, <dfn>url_title()</dfn>. Esta funci&oacute;n &ndash; provista por el <a href="../helpers/url_helper.html">helper URL</a> - desarma la cadena que se le pasa, reemplazando todos los espacios por guiones (-) y asegurando que todos los caracteres est&eacute;n min&uacute;sculas. Esto le deja un bonito slug, perfecto para crear URIs.</p>
+
+<p>Continuemos con la preparaci&oacute;n del registro que se insertar&aacute; luego, dentro del array <var>$data</var>. Cada elemento corresponde con una columna en la tabla de la base de datos creada anteriormente. Aqu&iacute; puede advertir un nuevo m&eacute;todo llamado <dfn>post()</dfn> de la <a href="../libraries/input.html">biblioteca Input</a>. Este m&eacute;todo se asegura que los datos se descontaminen, protegi&eacute;ndolo a Ud de desagradables ataques de terceros. La biblioteca Input se carga por defecto. Por &uacute;ltimo, insertamos nuestro array <var>$data</var> en la base de datos.</p>
+
+<h2>Ruteo</h2>
+
+<p>Antes que pueda comenzar a agregar &iacute;tems de noticias en su aplicaci&oacute;n CodeIgniter, Ud tiene que agregar una regla adicional en el archivo <dfn>config/routes.php</dfn>. Aseg&uacute;rese que el archivo contenga lo siguiente. Esto asegura que CodeIgniter vea a 'create' como un m&eacute;todo, en lugar de un slug de &iacute;tem de noticias.</p>
+
+<pre>
+$route['news/create'] = 'news/create';
+$route['news/(:any)'] = 'news/view/$1';
+$route['news'] = 'news';
+$route['(:any)'] = 'pages/view/$1';
+$route['default_controller'] = 'pages/view';
+</pre>
+
+<p>Ahora apunte su navegador a su entorno de desarrollo local donde instal&oacute; CodeIgniter y agregue <dfn>index.php/news/create</dfn> a la URL. &iexcl;Felicitaciones, acaba de crear su primera aplicaci&oacute;n CodeIgniter! Agregue alguna noticia y consulte las distintas p&aacute;ginas que cre&oacute;.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="news_section.html">Secci&oacute;n de Noticias</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Next Topic:&nbsp;&nbsp;<a href="conclusion.html">Conclusi&oacute;n</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>

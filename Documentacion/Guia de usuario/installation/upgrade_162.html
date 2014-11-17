@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Actualizar de 1.6.1 to 1.6.2 : Gu&iacute;a de Usuario del CodeIgniter</title>
+
+<style type='text/css' media='all'>@import url('../userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+
+<script type="text/javascript" src="../nav/nav.js"></script>
+<script type="text/javascript" src="../nav/prototype.lite.js"></script>
+<script type="text/javascript" src="../nav/moo.fx.js"></script>
+<script type="text/javascript" src="../nav/user_guide_menu.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+<meta name='author' content='ExpressionEngine Dev Team' />
+<meta name='description' content='Gu&iacute;a de Usuario del CodeIgniter' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
+<div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Mostrar Tabla de Contenido" alt="Mostrar Tabla de Contenido" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Gu&iacute;a del Usuario de CodeIgniter Versi&oacute;n 2.1.4</h1></td>
+<td id="breadcrumb_right"><a href="../toc.html">Tabla de Contenido</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://codeigniter.com/">CodeIgniter</a> &nbsp;&#8250;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a> &nbsp;&#8250;&nbsp;
+Actualizar de 1.6.1 to 1.6.2
+</td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="escodeigniter.com/guia_usuario/" />Buscar en la Gu&iacute;a del Usuario&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+
+<h1>Actualizar de 1.6.1 a 1.6.2</h1>
+
+<p>Antes de realizar una actualizaci&oacute;n deber&iacute;a sacar de l&iacute;nea su sitio reemplazando el archivo index.php con uno est&aacute;tico.</p>
+
+<h2>Paso 1: Actualizar sus archivos CodeIgniter</h2>
+<p>Reemplace estos archivos y directorios de su carpeta system con las nuevas versiones:</p>
+
+<ul>
+<li><dfn>system/codeigniter</dfn></li>
+<li><dfn>system/database</dfn></li>
+<li><dfn>system/helpers</dfn></li>
+<li><dfn>system/language</dfn></li>
+<li><dfn>system/libraries</dfn></li>
+</ul>
+
+<p class="important"><strong>Nota:</strong> Si tiene alg&uacute;n archivo desarrollado a medida, por favor haga una copia primero.</p>
+
+<h2>Paso 2: Clave de Encriptaci&oacute;n</h2>
+<p>Si est&aacute; usando sesiones, abra application/config/config.php y verifique que estableci&oacute; una clave de encriptaci&oacute;n.</p>
+
+<h2>Paso 3: Archivo Constants</h2>
+<p>Copiar /application/config/constants.php a su instalaci&oacute;n y modificarlo si es necesario.</p>
+
+<h2>Paso 4: Archivo Mimes</h2>
+<p>Reemplazar /application/config/mimes.php con la versi&oacute;n descargada. Si agreg&oacute; tipos mime personalizados, deber&aacute; volver a agregarlos.</p>
+
+<h2>Paso 5: Actualizar su gu&iacute;a del usuario</h2>
+<p>Por favor reemplace su copia de la gu&iacute;a del usuario con la nueva versi&oacute;n, incluyendo los archivos de im&aacute;genes.</p>
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+<p>
+Tema anterior:&nbsp;&nbsp;<a href="index.html">Instrucciones de Instalaci&oacute;ns</a>
+&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="#top">Subir</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+<a href="../index.html">Gu&iacute;a del Usuario</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
+Pr&oacute;ximo tema:&nbsp;&nbsp;<a href="troubleshooting.html">Soluci&oacute;n de Problemas</a>
+</p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2012 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
+</div>
+
+</body>
+</html>
