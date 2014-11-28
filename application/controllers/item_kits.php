@@ -30,7 +30,7 @@ class Item_kits extends Secure_area implements iData_controller
 	}
 
 	/*
-	Gives search suggestions based on what is being searched for
+	Da sugerencias de búsqueda basados en lo que se está buscado
 	*/
 	function suggest()
 	{
@@ -60,15 +60,14 @@ class Item_kits extends Secure_area implements iData_controller
 		
 		if($this->Item_kit->save($item_kit_data,$item_kit_id))
 		{
-			//New item kit
+			//nuevo
 			if($item_kit_id==-1)
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('item_kits_successful_adding').' '.
 				$item_kit_data['name'],'item_kit_id'=>$item_kit_data['item_kit_id']));
 				$item_kit_id = $item_kit_data['item_kit_id'];
 			}
-			else //previous item
-			{
+			else //anterior
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('item_kits_successful_updating').' '.
 				$item_kit_data['name'],'item_kit_id'=>$item_kit_id));
 			}
@@ -87,7 +86,7 @@ class Item_kits extends Secure_area implements iData_controller
 				$this->Item_kit_items->save($item_kit_items, $item_kit_id);
 			}
 		}
-		else//failure
+		else//fallo
 		{
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('item_kits_error_adding_updating').' '.
 			$item_kit_data['name'],'item_kit_id'=>-1));
@@ -128,7 +127,6 @@ class Item_kits extends Secure_area implements iData_controller
 	
 	
 	/*
-	get the width for the add/edit form
 	*/
 	function get_form_width()
 	{

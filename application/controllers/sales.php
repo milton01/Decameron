@@ -109,7 +109,7 @@ class Sales extends Secure_area
 		$this->_reload($data);
 	}
 
-	//Alain Multiple Payments
+	// Múltiples Pagos
 	function delete_payment( $payment_id )
 	{
 		$this->sale_lib->delete_payment( $payment_id );
@@ -213,7 +213,7 @@ class Sales extends Secure_area
 			$data['customer']=$cust_info->first_name.' '.$cust_info->last_name;
 		}
 
-		//SAVE sale to database
+		//guarda venta en la base
 		$data['sale_id']='POS '.$this->Sale->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments']);
 		if ($data['sale_id'] == 'POS -1')
 		{
@@ -344,7 +344,7 @@ class Sales extends Secure_area
 			$total_payments += $payment['payment_amount'];
 		}
 
-		/* Changed the conditional to account for floating point rounding */
+		/* Se ha cambiado el condicional para dar cuenta de redondeo de punto flotante */
 		if ( ($this->sale_lib->get_mode() == 'sale') && 
 		      ( ( to_currency_no_money( $this->sale_lib->get_total() ) - $total_payments ) > 1e-6 ) )
 		{
@@ -441,7 +441,7 @@ class Sales extends Secure_area
 			$total_payments += $payment['payment_amount'];
 		}
 
-		//SAVE sale to database
+		//guardar
 		$data['sale_id']='POS '.$this->Sale_suspended->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments']);
 		if ($data['sale_id'] == 'POS -1')
 		{

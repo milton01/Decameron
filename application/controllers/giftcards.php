@@ -30,23 +30,23 @@ class Giftcards extends Secure_area implements iData_controller
 	}
 
 	/*
-	Gives search suggestions based on what is being searched for
+ 
 	*/
 	function suggest()
 	{
 		$suggestions = $this->Giftcard->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));
 		echo implode("\n",$suggestions);
 	}
-/** GARRISON ADDED 5/3/2013 **/
+
 	/*
-	 Gives search suggestions for person_id based on what is being searched for
+
 	*/
 	function suggest_person()
 	{
 		$suggestions = $this->Giftcard->get_person_search_suggestions($this->input->post('q'),$this->input->post('limit'));
 		echo implode("\n",$suggestions);
 	}
-/** END GARRISON ADDED **/
+/
 	function get_row()
 	{
 		$giftcard_id = $this->input->post('row_id');
@@ -66,25 +66,25 @@ class Giftcards extends Secure_area implements iData_controller
 		$giftcard_data = array(
 		'giftcard_number'=>$this->input->post('giftcard_number'),
 		'value'=>$this->input->post('value'),
-		'person_id'=>$this->input->post('person_id')/**GARRISON ADDED 4/22/2013**/		
-		);
+		'person_id'=>$this->input->post('person_id')
+
 
 		if( $this->Giftcard->save( $giftcard_data, $giftcard_id ) )
 		{
-			//New giftcard
+			//nueva tarjeta 
 			if($giftcard_id==-1)
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('giftcards_successful_adding').' '.
 				$giftcard_data['giftcard_number'],'giftcard_id'=>$giftcard_data['giftcard_id']));
 				$giftcard_id = $giftcard_data['giftcard_id'];
 			}
-			else //previous giftcard
+			else //tarjeta anterior
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('giftcards_successful_updating').' '.
 				$giftcard_data['giftcard_number'],'giftcard_id'=>$giftcard_id));
 			}
 		}
-		else//failure
+		else//falla
 		{
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('giftcards_error_adding_updating').' '.
 			$giftcard_data['giftcard_number'],'giftcard_id'=>-1));
@@ -107,7 +107,7 @@ class Giftcards extends Secure_area implements iData_controller
 	}
 		
 	/*
-	get the width for the add/edit form
+	
 	*/
 	function get_form_width()
 	{

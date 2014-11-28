@@ -9,7 +9,7 @@ abstract class Person_controller extends Secure_area implements iPerson_controll
 	}
 	
 	/*
-	This returns a mailto link for persons with a certain id. This is called with AJAX.
+Esto devuelve un enlace mailto para personas con cierto id. Esto se llama con AJAX.
 	*/
 	function mailto()
 	{
@@ -22,7 +22,7 @@ abstract class Person_controller extends Secure_area implements iPerson_controll
 			{
 				$mailto_url.=$person->email.',';	
 			}
-			//remove last comma
+			//quita la ultima coma
 			$mailto_url=substr($mailto_url,0,strlen($mailto_url)-1);
 			
 			echo $mailto_url;
@@ -30,19 +30,15 @@ abstract class Person_controller extends Secure_area implements iPerson_controll
 		}
 		echo '#';
 	}
-/** GARRISON ADDED 4/25/2013 IN PROGRESS **/	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
+	
+/
 	function suggest()
 	{
 		$suggestions = $this->Person->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));
 		echo implode("\n",$suggestions);
 	}
 		
-	/*
-	Gets one row for a person manage table. This is called using AJAX to update one row.
-	*/
+	
 	function get_row()
 	{
 		$person_id = $this->input->post('row_id');

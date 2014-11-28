@@ -2,8 +2,8 @@
 class Secure_area extends CI_Controller 
 {
 	/*
-	Controllers that are considered secure extend Secure_area, optionally a $module_id can
-	be set to also check if a user can access a particular module in the system.
+	Los controladores que son considerados seguros extender Secure_area, opcionalmente, un $ module_id puede
+ser configurado para comprobar también si un usuario puede acceder a un módulo particular en el sistema.
 	*/
 	function __construct($module_id=null)
 	{
@@ -19,7 +19,7 @@ class Secure_area extends CI_Controller
 			redirect('no_access/'.$module_id);
 		}
 		
-		//load up global data
+		//cargar datos globales
 		$logged_in_employee_info=$this->Employee->get_logged_in_employee_info();
 		$data['allowed_modules']=$this->Module->get_allowed_modules($logged_in_employee_info->person_id);
 		$data['user_info']=$logged_in_employee_info;
@@ -28,12 +28,12 @@ class Secure_area extends CI_Controller
 	
 	function _remove_duplicate_cookies ()
 	{
-		//php < 5.3 doesn't have header remove so this function will fatal error otherwise
+		//
 		if (function_exists('header_remove'))
 		{
 			$CI = &get_instance();
 	
-			// clean up all the cookies that are set...
+			// limpia
 			$headers             = headers_list();
 			$cookies_to_output   = array ();
 			$header_session_cookie = '';
@@ -55,13 +55,13 @@ class Secure_area extends CI_Controller
 	
 					if ($key == $session_cookie_name)
 					{
-						// OVERWRITE IT (yes! do it!)
+						// 
 						$header_session_cookie = $data;
 						continue;
 					}
 					else
 					{
-						// Not a session related cookie, add it as normal. Might be a CSRF or some other cookie we are setting
+						// 
 						$cookies_to_output[] = array ('header_type' => $header_type, 'data' => $data);
 					}
 				}

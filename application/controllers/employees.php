@@ -22,7 +22,7 @@ class Employees extends Person_controller
 	}
 	
 	/*
-	Returns employee table data rows. This will be called with AJAX.
+	Devuelve filas de datos tabla empleados. 
 	*/
 	function search()
 	{
@@ -32,7 +32,7 @@ class Employees extends Person_controller
 	}
 	
 	/*
-	Gives search suggestions based on what is being searched for
+	Da sugerencias de búsqueda basados en lo que se está buscado
 	*/
 	function suggest()
 	{
@@ -41,7 +41,7 @@ class Employees extends Person_controller
 	}
 	
 	/*
-	Loads the employee edit form
+	Carga el formulario de edición empleado
 	*/
 	function view($employee_id=-1)
 	{
@@ -51,7 +51,7 @@ class Employees extends Person_controller
 	}
 	
 	/*
-	Inserts/updates an employee
+Inserciones / actualiza un empleado
 	*/
 	function save($employee_id=-1)
 	{
@@ -70,7 +70,7 @@ class Employees extends Person_controller
 		);
 		$permission_data = $this->input->post("permissions")!=false ? $this->input->post("permissions"):array();
 		
-		//Password has been changed OR first time password set
+		//La contraseña ha sido cambiada o contraseña establecida primera vez
 		if($this->input->post('password')!='')
 		{
 			$employee_data=array(
@@ -78,26 +78,26 @@ class Employees extends Person_controller
 			'password'=>md5($this->input->post('password'))
 			);
 		}
-		else //Password not changed
+		else //La contraseña no cambió
 		{
 			$employee_data=array('username'=>$this->input->post('username'));
 		}
 		
 		if($this->Employee->save($person_data,$employee_data,$permission_data,$employee_id))
 		{
-			//New employee
+			//Nuevo empleado
 			if($employee_id==-1)
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('employees_successful_adding').' '.
 				$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$employee_data['person_id']));
 			}
-			else //previous employee
+			else // empleado anterior
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('employees_successful_updating').' '.
 				$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$employee_id));
 			}
 		}
-		else//failure
+		else//falla
 		{	
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('employees_error_adding_updating').' '.
 			$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>-1));
@@ -105,7 +105,7 @@ class Employees extends Person_controller
 	}
 	
 	/*
-	This deletes employees from the employees table
+	borradosdela tablaempleados
 	*/
 	function delete()
 	{
@@ -122,7 +122,7 @@ class Employees extends Person_controller
 		}
 	}
 	/*
-	get the width for the add/edit form
+	obtener el ancho de la forma de añadir / editar
 	*/
 	function get_form_width()
 	{

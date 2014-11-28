@@ -26,14 +26,14 @@ class Items extends Secure_area implements iData_controller
 	{
 		$is_serialized=$this->input->post('is_serialized');
 		$no_description=$this->input->post('no_description');
-		$search_custom=$this->input->post('search_custom');//GARRISON ADDED 4/13/2013    
-        $is_deleted=$this->input->post('is_deleted'); // Parq 131215	
+		$search_custom=$this->input->post('search_custom');  
+        $is_deleted=$this->input->post('is_deleted'); 
         
 		$data['search_section_state']=$this->input->post('search_section_state');
 		$data['is_serialized']=$this->input->post('is_serialized');
 		$data['no_description']=$this->input->post('no_description');
-		$data['search_custom']=$this->input->post('search_custom');//GARRISON ADDED 4/13/2013
-		$data['is_deleted']=$this->input->post('is_deleted'); // Parq 131215
+		$data['search_custom']=$this->input->post('search_custom');
+		$data['is_deleted']=$this->input->post('is_deleted'); 
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width(); 
 		$data['manage_table']=get_items_manage_table($this->Item->get_all_filtered($is_serialized,$no_description,$search_custom,$is_deleted),$this);//GARRISON MODIFIED 4/13/2013, Parq 131215
@@ -54,7 +54,7 @@ class Items extends Secure_area implements iData_controller
 	}
 
 	/*
-	Gives search suggestions based on what is being searched for
+
 	*/
 	function suggest()
 	{
@@ -69,7 +69,7 @@ class Items extends Secure_area implements iData_controller
 	}
 	
 	/*
-	Gives search suggestions based on what is being searched for
+
 	*/
 	function suggest_category()
 	{
@@ -77,10 +77,7 @@ class Items extends Secure_area implements iData_controller
 		echo implode("\n",$suggestions);
 	}
 
-/**GARRISON ADDED 5/18/2013**/	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
+
 	function suggest_location()
 	{
 		$suggestions = $this->Item->get_location_suggestions($this->input->post('q'));
@@ -88,7 +85,7 @@ class Items extends Secure_area implements iData_controller
 	}
 	
 	/*
-	 Gives search suggestions based on what is being searched for
+
 	*/
 	function suggest_custom1()
 	{
@@ -97,7 +94,7 @@ class Items extends Secure_area implements iData_controller
 	}
 	
 	/*
-	 Gives search suggestions based on what is being searched for
+
 	*/
 	function suggest_custom2()
 	{
@@ -106,7 +103,7 @@ class Items extends Secure_area implements iData_controller
 	}
 	
 	/*
-	 Gives search suggestions based on what is being searched for
+
 	*/
 	function suggest_custom3()
 	{
@@ -115,7 +112,7 @@ class Items extends Secure_area implements iData_controller
 	}
 	
 	/*
-	 Gives search suggestions based on what is being searched for
+
 	*/
 	function suggest_custom4()
 	{
@@ -124,7 +121,7 @@ class Items extends Secure_area implements iData_controller
 	}
 	
 	/*
-	 Gives search suggestions based on what is being searched for
+
 	*/
 	function suggest_custom5()
 	{
@@ -132,52 +129,43 @@ class Items extends Secure_area implements iData_controller
 		echo implode("\n",$suggestions);
 	}
 	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
+
+
 	function suggest_custom6()
 	{
 		$suggestions = $this->Item->get_custom6_suggestions($this->input->post('q'));
 		echo implode("\n",$suggestions);
 	}
 	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
+
 	function suggest_custom7()
 	{
 		$suggestions = $this->Item->get_custom7_suggestions($this->input->post('q'));
 		echo implode("\n",$suggestions);
 	}
 	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
+
 	function suggest_custom8()
 	{
 		$suggestions = $this->Item->get_custom8_suggestions($this->input->post('q'));
 		echo implode("\n",$suggestions);
 	}
 	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
+	
 	function suggest_custom9()
 	{
 		$suggestions = $this->Item->get_custom9_suggestions($this->input->post('q'));
 		echo implode("\n",$suggestions);
 	}
 	
-	/*
-	 Gives search suggestions based on what is being searched for
-	*/
+
 	function suggest_custom10()
 	{
 		$suggestions = $this->Item->get_custom10_suggestions($this->input->post('q'));
 		echo implode("\n",$suggestions);
 	}
 
-/**END GARRISON ADDED**/
+
 		
 	function get_row()
 	{
@@ -214,8 +202,7 @@ class Items extends Secure_area implements iData_controller
 		$this->load->view("items/form",$data);
 	}
 
-    
-	//Ramel Inventory Tracking
+  
 	function inventory($item_id=-1)
 	{
 		$data['item_info']=$this->Item->get_info($item_id);
@@ -244,7 +231,7 @@ class Items extends Secure_area implements iData_controller
         }     
                 
 		$this->load->view("items/count_details",$data);
-	} //------------------------------------------- Ramel
+	} 
 
 	function generate_barcodes($item_ids)
 	{
@@ -297,17 +284,17 @@ class Items extends Secure_area implements iData_controller
 		'reorder_level'=>$this->input->post('reorder_level'),
 		'allow_alt_description'=>$this->input->post('allow_alt_description'),
 		'is_serialized'=>$this->input->post('is_serialized'),
-		'deleted'=>$this->input->post('is_deleted'),  /** Parq 131215 **/
-		'custom1'=>$this->input->post('custom1'),	/**GARRISON ADDED 4/21/2013**/			
-		'custom2'=>$this->input->post('custom2'),/**GARRISON ADDED 4/21/2013**/
-		'custom3'=>$this->input->post('custom3'),/**GARRISON ADDED 4/21/2013**/
-		'custom4'=>$this->input->post('custom4'),/**GARRISON ADDED 4/21/2013**/
-		'custom5'=>$this->input->post('custom5'),/**GARRISON ADDED 4/21/2013**/
-		'custom6'=>$this->input->post('custom6'),/**GARRISON ADDED 4/21/2013**/
-		'custom7'=>$this->input->post('custom7'),/**GARRISON ADDED 4/21/2013**/
-		'custom8'=>$this->input->post('custom8'),/**GARRISON ADDED 4/21/2013**/
-		'custom9'=>$this->input->post('custom9'),/**GARRISON ADDED 4/21/2013**/
-		'custom10'=>$this->input->post('custom10')/**GARRISON ADDED 4/21/2013**/
+		'deleted'=>$this->input->post('is_deleted'), 
+		'custom1'=>$this->input->post('custom1'),			
+		'custom2'=>$this->input->post('custom2'),
+		'custom3'=>$this->input->post('custom3'),
+		'custom4'=>$this->input->post('custom4'),
+		'custom5'=>$this->input->post('custom5'),
+		'custom6'=>$this->input->post('custom6'),
+		'custom7'=>$this->input->post('custom7'),
+		'custom8'=>$this->input->post('custom8'),
+		'custom9'=>$this->input->post('custom9'),
+		'custom10'=>$this->input->post('custom10')
 		);
 		
 		$employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
@@ -316,15 +303,13 @@ class Items extends Secure_area implements iData_controller
 
 		if($this->Item->save($item_data,$item_id))
 		{
-			//New item
-			if($item_id==-1)
+			//Nuvo
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_adding').' '.
 				$item_data['name'],'item_id'=>$item_data['item_id']));
 				$item_id = $item_data['item_id'];
 			}
-			else //previous item
-			{
+			else //anterior
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_updating').' '.
 				$item_data['name'],'item_id'=>$item_id));
 			}
@@ -342,7 +327,7 @@ class Items extends Secure_area implements iData_controller
 			$this->Item_taxes->save($items_taxes_data, $item_id);
 
             
-            //Save item quantity
+            //guardar
             $stock_locations = $this->Stock_locations->get_undeleted_all()->result_array();          
             foreach($stock_locations as $location_data)
             {
@@ -368,7 +353,7 @@ class Items extends Secure_area implements iData_controller
                 }                                            
             }        
 		}
-		else//failure
+		else//falo
 		{
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('items_error_adding_updating').' '.
 			$item_data['name'],'item_id'=>-1));
@@ -376,7 +361,7 @@ class Items extends Secure_area implements iData_controller
 
 	}
 	
-	//Ramel Inventory Tracking
+
 	function save_inventory($item_id=-1)
 	{	
 		$employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
@@ -393,7 +378,7 @@ class Items extends Secure_area implements iData_controller
 		);
 		$this->Inventory->insert($inv_data);
 		
-		//Update stock quantity
+		//actualizar stock
 		
 		$item_quantity= $this->Item_quantities->get_item_quantity($item_id,$location_id);
 		$item_quantity_data = array(
@@ -406,7 +391,7 @@ class Items extends Secure_area implements iData_controller
 			echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_updating').' '.
 			$cur_item_info->name,'item_id'=>$item_id));
 		}
-		else//failure
+		else//fllo
 		{	
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('items_error_adding_updating').' '.
 			$cur_item_info->name,'item_id'=>-1));
@@ -421,7 +406,7 @@ class Items extends Secure_area implements iData_controller
 
 		foreach($_POST as $key=>$value)
 		{
-			//This field is nullable, so treat it differently
+			//Este campo puede ser nulo, por lo que tratar de manera diferente
 			if ($key == 'supplier_id')
 			{
 				$item_data["$key"]=$value == '' ? null : $value;
@@ -432,7 +417,7 @@ class Items extends Secure_area implements iData_controller
 			}
 		}
 
-		//Item data could be empty if tax information is being updated
+		//
 		if(empty($item_data) || $this->Item->update_multiple($item_data,$items_to_update))
 		{
 			$items_taxes_data = array();
@@ -513,16 +498,16 @@ class Items extends Secure_area implements iData_controller
 					'supplier_id'	=>  $this->Supplier->exists($data[3]) ? $data[3] : null,
 					'allow_alt_description'	=>	$data[14] != '' ? '1' : '0',
 					'is_serialized'	=>	$data[15] != '' ? '1' : '0',
-					'custom1'		=>	$data[16],	/** GARRISON ADDED 5/6/2013 **/
-					'custom2'		=>	$data[17],	/** GARRISON ADDED 5/6/2013 **/
-					'custom3'		=>	$data[18],	/** GARRISON ADDED 5/6/2013 **/
-					'custom4'		=>	$data[19],	/** GARRISON ADDED 5/6/2013 **/
-					'custom5'		=>	$data[20],	/** GARRISON ADDED 5/6/2013 **/
-					'custom6'		=>	$data[21],	/** GARRISON ADDED 5/6/2013 **/
-					'custom7'		=>	$data[22],	/** GARRISON ADDED 5/6/2013 **/
-					'custom8'		=>	$data[23],	/** GARRISON ADDED 5/6/2013 **/
-					'custom9'		=>	$data[24],	/** GARRISON ADDED 5/6/2013 **/
-					'custom10'		=>	$data[25]	/** GARRISON ADDED 5/6/2013 **/
+					'custom1'		=>	$data[16],	
+					'custom2'		=>	$data[17],	
+					'custom3'		=>	$data[18],	
+					'custom4'		=>	$data[19],	
+					'custom5'		=>	$data[20],	
+					'custom6'		=>	$data[21],	
+					'custom7'		=>	$data[22],	
+					'custom8'		=>	$data[23],	
+					'custom9'		=>	$data[24],	
+					'custom10'		=>	$data[25]	
 					);
 					$item_number = $data[0];
 					
@@ -534,19 +519,19 @@ class Items extends Secure_area implements iData_controller
 					if($this->Item->save($item_data)) 
 					{
 						$items_taxes_data = null;
-						//tax 1
+						//impuesto 1
 						if( is_numeric($data[7]) && $data[6]!='' )
 						{
 							$items_taxes_data[] = array('name'=>$data[6], 'percent'=>$data[7] );
 						}
 
-						//tax 2
+						//impuesto 2
 						if( is_numeric($data[9]) && $data[8]!='' )
 						{
 							$items_taxes_data[] = array('name'=>$data[8], 'percent'=>$data[9] );
 						}
 
-						// save tax values
+						// guardarimpuesto
 						if(count($items_taxes_data) > 0)
 						{
 							$this->Item_taxes->save($items_taxes_data, $item_data['item_id']);
@@ -565,7 +550,7 @@ class Items extends Secure_area implements iData_controller
 								$this->db->insert('inventory',$excel_data);
 						//------------------------------------------------Ramel
 					}
-					else//insert or update item failure
+					else//insertar
 					{
 						$failCodes[] = $i;
 					}
@@ -595,7 +580,7 @@ class Items extends Secure_area implements iData_controller
 	}
 
 	/*
-	get the width for the add/edit form
+	
 	*/
 	function get_form_width()
 	{

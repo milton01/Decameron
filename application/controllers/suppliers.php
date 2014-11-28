@@ -22,7 +22,7 @@ class Suppliers extends Person_controller
 	}
 	
 	/*
-	Returns supplier table data rows. This will be called with AJAX.
+	Devuelve las filas de datos de la tabla de proveedores. .
 	*/
 	function search()
 	{
@@ -32,7 +32,7 @@ class Suppliers extends Person_controller
 	}
 	
 	/*
-	Gives search suggestions based on what is being searched for
+	Da sugerencias de búsqueda basados en lo que se está buscado
 	*/
 	function suggest()
 	{
@@ -41,7 +41,7 @@ class Suppliers extends Person_controller
 	}
 	
 	/*
-	Loads the supplier edit form
+	
 	*/
 	function view($supplier_id=-1)
 	{
@@ -50,7 +50,7 @@ class Suppliers extends Person_controller
 	}
 	
 	/*
-	Inserts/updates a supplier
+	Inserts/updates 
 	*/
 	function save($supplier_id=-1)
 	{
@@ -73,19 +73,19 @@ class Suppliers extends Person_controller
 		);
 		if($this->Supplier->save($person_data,$supplier_data,$supplier_id))
 		{
-			//New supplier
+			//Nuevo
 			if($supplier_id==-1)
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('suppliers_successful_adding').' '.
 				$supplier_data['company_name'],'person_id'=>$supplier_data['person_id']));
 			}
-			else //previous supplier
+			else //anterior
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('suppliers_successful_updating').' '.
 				$supplier_data['company_name'],'person_id'=>$supplier_id));
 			}
 		}
-		else//failure
+		else//fallo
 		{	
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('suppliers_error_adding_updating').' '.
 			$supplier_data['company_name'],'person_id'=>-1));
@@ -93,7 +93,7 @@ class Suppliers extends Person_controller
 	}
 	
 	/*
-	This deletes suppliers from the suppliers table
+
 	*/
 	function delete()
 	{
@@ -111,7 +111,6 @@ class Suppliers extends Person_controller
 	}
 	
 	/*
-	Gets one row for a supplier manage table. This is called using AJAX to update one row.
 	*/
 	function get_row()
 	{
@@ -121,7 +120,6 @@ class Suppliers extends Person_controller
 	}
 	
 	/*
-	get the width for the add/edit form
 	*/
 	function get_form_width()
 	{			

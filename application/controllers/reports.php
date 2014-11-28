@@ -32,8 +32,7 @@ class Reports extends Secure_area
 		return $data;
 	}
 	
-	//Input for reports that require only a date range and an export to excel. (see routes.php to see that all summary reports route here)
-	function date_input_excel_export()
+// De entrada para los informes que requieren sólo un intervalo de fechas y una exportación para sobresalir. (ver routes.php a ver que todo ruta informes resumidos aquí)	function date_input_excel_export()
 	{
 		$data = $this->_get_common_report_data();
 		$this->load->view("reports/date_input_excel_export",$data);	
@@ -74,7 +73,7 @@ class Reports extends Secure_area
 		echo get_sales_summary_totals($summary, $this);
 	}
 	
-	//Summary sales report
+	//Resumen del informe de ventas
 	function summary_sales($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_sales');
@@ -99,7 +98,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Summary categories report
+	//
 	function summary_categories($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_categories');
@@ -124,7 +123,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Summary customers report
+	//
 	function summary_customers($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_customers');
@@ -149,7 +148,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Summary suppliers report
+	//
 	function summary_suppliers($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_suppliers');
@@ -174,7 +173,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Summary items report
+	//
 	function summary_items($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_items');
@@ -199,7 +198,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Summary employees report
+	//empleados
 	function summary_employees($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_employees');
@@ -224,7 +223,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Summary taxes report
+	//impuestos
 	function summary_taxes($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_taxes');
@@ -249,7 +248,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Summary discounts report
+	//descuentos
 	function summary_discounts($start_date, $end_date, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Summary_discounts');
@@ -298,7 +297,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular",$data);
 	}
 	
-	//Input for reports that require only a date range. (see routes.php to see that all graphical summary reports route here)
+//
 	function date_input()
 	{
 		$data = $this->_get_common_report_data();
@@ -320,7 +319,7 @@ class Reports extends Secure_area
         $this->load->view("reports/date_input",$data);  
     }
     
-	//Graphical summary sales report
+	//grafica de ventas
 	function graphical_summary_sales($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_sales');
@@ -336,7 +335,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//
 	function graphical_summary_sales_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_sales');
@@ -360,7 +359,7 @@ class Reports extends Secure_area
 
 	}
 	
-	//Graphical summary items report
+	//Reporte Gráfico artículos resumidos
 	function graphical_summary_items($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_items');
@@ -376,7 +375,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//
 	function graphical_summary_items_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_items');
@@ -399,7 +398,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphs/hbar",$data);
 	}
 	
-	//Graphical summary customers report
+	//
 	function graphical_summary_categories($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_categories');
@@ -451,7 +450,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//Tlos datos reales gráfico
 	function graphical_summary_suppliers_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_suppliers');
@@ -487,7 +486,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//los datos reales gráfico
 	function graphical_summary_employees_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_employees');
@@ -523,7 +522,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//los datos reales gráfico
 	function graphical_summary_taxes_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_taxes');
@@ -544,7 +543,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphs/pie",$data);
 	}
 	
-	//Graphical summary customers report
+	//G
 	function graphical_summary_customers($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_customers');
@@ -560,7 +559,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//los datos reales gráfico
 	function graphical_summary_customers_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_customers');
@@ -583,7 +582,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphs/hbar",$data);
 	}
 	
-	//Graphical summary discounts report
+	//
 	function graphical_summary_discounts($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_discounts');
@@ -599,7 +598,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//los datos reales gráfico
 	function graphical_summary_discounts_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_discounts');
@@ -637,7 +636,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/graphical",$data);
 	}
 	
-	//The actual graph data
+	//los datos reales gráfico
 	function graphical_summary_payments_graph($start_date, $end_date, $sale_type)
 	{
 		$this->load->model('reports/Summary_payments');

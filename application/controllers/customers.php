@@ -22,7 +22,7 @@ class Customers extends Person_controller
 	}
 	
 	/*
-	Returns customer table data rows. This will be called with AJAX.
+	Devuelve las filas de datos de la tabla de clientes.
 	*/
 	function search()
 	{
@@ -32,7 +32,7 @@ class Customers extends Person_controller
 	}
 	
 	/*
-	Gives search suggestions based on what is being searched for
+	Da sugerencias de búsqueda basados en lo que se está buscado
 	*/
 	function suggest()
 	{
@@ -41,7 +41,7 @@ class Customers extends Person_controller
 	}
 	
 	/*
-	Loads the customer edit form
+	Carga el formulario de edición del cliente
 	*/
 	function view($customer_id=-1)
 	{
@@ -50,7 +50,7 @@ class Customers extends Person_controller
 	}
 	
 	/*
-	Inserts/updates a customer
+	Inserciones / actualiza un cliente
 	*/
 	function save($customer_id=-1)
 	{
@@ -73,19 +73,19 @@ class Customers extends Person_controller
 		);
 		if($this->Customer->save($person_data,$customer_data,$customer_id))
 		{
-			//New customer
+			//nuevo cliente
 			if($customer_id==-1)
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('customers_successful_adding').' '.
 				$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$customer_data['person_id']));
 			}
-			else //previous customer
+			else //cliente anterior
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('customers_successful_updating').' '.
 				$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$customer_id));
 			}
 		}
-		else//failure
+		else//falla
 		{	
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('customers_error_adding_updating').' '.
 			$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>-1));
@@ -93,7 +93,7 @@ class Customers extends Person_controller
 	}
 	
 	/*
-	This deletes customers from the customers table
+	Esto elimina los clientes de la tabla clientes
 	*/
 	function delete()
 	{
@@ -136,7 +136,7 @@ class Customers extends Person_controller
 		{
 			if (($handle = fopen($_FILES['file_path']['tmp_name'], "r")) !== FALSE)
 			{
-				//Skip first row
+				//Saltar primera fila
 				fgetcsv($handle);
 				
 				$i=1;
@@ -191,7 +191,7 @@ class Customers extends Person_controller
 	}
 	
 	/*
-	get the width for the add/edit form
+	obtener el ancho de la forma de añadir / editar
 	*/
 	function get_form_width()
 	{			
